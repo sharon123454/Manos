@@ -21,7 +21,7 @@ public class UnitSelectedVisual : MonoBehaviour
         UpdateVisual();
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empy) 
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty) 
     {
         UpdateVisual();
     }

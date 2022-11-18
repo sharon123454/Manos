@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GridSystem
 {
@@ -36,7 +37,7 @@ public class GridSystem
             Mathf.RoundToInt(worldPosition.x / _cellSize), Mathf.RoundToInt(worldPosition.z / _cellSize));
     }
 
-    public void CreateDubugObjects(Transform debugPrefab)
+    public void CreateDebugObjects(Transform debugPrefab)
     {
         for (int x = 0; x < _width; x++)
         {
@@ -58,7 +59,7 @@ public class GridSystem
 
 }
 
-public struct GridPosition
+public struct GridPosition : IEquatable<GridPosition>
 {
     public int _x;
     public int _z;
@@ -69,8 +70,39 @@ public struct GridPosition
         this._z = z;
     }
 
+    public override bool Equals(object obj)
+    {
+        return obj is GridPosition position &&
+               _x == position._x &&
+               _z == position._z;
+    }
+
+    public bool Equals(GridPosition other)
+    {
+        return this == other;
+    }
+
+    public override int GetHashCode()
+    {
+        int hashCode = 929260398;
+        hashCode = hashCode * -1521134295 + _x.GetHashCode();
+        hashCode = hashCode * -1521134295 + _z.GetHashCode();
+        return hashCode;
+    }
+
     public override string ToString()
     {
         return $"X: {_x}, Z: {_z}";
     }
+
+    public static bool operator ==(GridPosition a, GridPosition b)
+    {
+        return a._x == b._x && a._z == b._z;
+    }
+
+    public static bool operator !=(GridPosition a, GridPosition b)
+    {
+        return !(a == b);
+    }
+
 }
