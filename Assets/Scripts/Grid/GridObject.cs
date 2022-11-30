@@ -21,6 +21,8 @@ public class GridObject
 
     public List<Unit> GetUnitList() { return _unitList; }
 
+    public bool HasAnyUnit() { return _unitList.Count > 0; }
+
     public override string ToString()
     {
         string unitString = "";

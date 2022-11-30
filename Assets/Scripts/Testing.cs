@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
+    [SerializeField] Unit unit;
+
     private void Awake()
     {
         
@@ -16,6 +18,9 @@ public class Testing : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            //unit.GetMoveAction().GetValidActionGridPositionList();
+        }
     }
 }

@@ -57,6 +57,14 @@ public class GridSystem
         return gridObjectArray[gridPosition._x, gridPosition._z];
     }
 
+    public bool IsValidGridPosition(GridPosition gridPosition)
+    {
+        return gridPosition._x >= 0 &&
+               gridPosition._z >= 0 &&
+               gridPosition._x < _width &&
+               gridPosition._z < _length;
+    }
+
 }
 
 public struct GridPosition : IEquatable<GridPosition>
@@ -64,23 +72,11 @@ public struct GridPosition : IEquatable<GridPosition>
     public int _x;
     public int _z;
 
-    public GridPosition(int x, int z)
-    {
-        this._x = x;
-        this._z = z;
-    }
+    public GridPosition(int x, int z) { this._x = x; this._z = z; }
 
-    public override bool Equals(object obj)
-    {
-        return obj is GridPosition position &&
-               _x == position._x &&
-               _z == position._z;
-    }
+    public override bool Equals(object obj) { return obj is GridPosition position && _x == position._x && _z == position._z; }
 
-    public bool Equals(GridPosition other)
-    {
-        return this == other;
-    }
+    public bool Equals(GridPosition other) { return this == other; }
 
     public override int GetHashCode()
     {
@@ -90,19 +86,14 @@ public struct GridPosition : IEquatable<GridPosition>
         return hashCode;
     }
 
-    public override string ToString()
-    {
-        return $"X: {_x}, Z: {_z}";
-    }
+    public override string ToString() { return $"X: {_x}, Z: {_z}"; }
 
-    public static bool operator ==(GridPosition a, GridPosition b)
-    {
-        return a._x == b._x && a._z == b._z;
-    }
+    public static bool operator ==(GridPosition a, GridPosition b) { return a._x == b._x && a._z == b._z; }
 
-    public static bool operator !=(GridPosition a, GridPosition b)
-    {
-        return !(a == b);
-    }
+    public static bool operator !=(GridPosition a, GridPosition b) { return !(a == b); }
+
+    public static GridPosition operator +(GridPosition a, GridPosition b) { return new GridPosition(a._x + b._x, a._z + b._z); }
+
+    public static GridPosition operator -(GridPosition a, GridPosition b) { return new GridPosition(a._x - b._x, a._z - b._z); }
 
 }
