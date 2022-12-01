@@ -65,6 +65,10 @@ public class GridSystem
                gridPosition._z < _length;
     }
 
+    public int GetWidth() { return _width; }
+
+    public int GetLength() { return _length; }
+
 }
 
 public struct GridPosition : IEquatable<GridPosition>
