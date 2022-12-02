@@ -12,10 +12,10 @@ public class MoveAction : BaseAction
     private float stoppingDistance = .1f;
     private Vector3 targetPosition;
 
-    protected override void Awake() 
+    protected override void Awake()
     {
-        base.Awake(); 
-        targetPosition = transform.position; 
+        base.Awake();
+        targetPosition = transform.position;
     }
 
     private void Update()
@@ -40,7 +40,7 @@ public class MoveAction : BaseAction
         transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
     }
 
-    public void Move(GridPosition gridPosition, Action onActionComplete) 
+    public void Move(GridPosition gridPosition, Action onActionComplete)
     {
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
         this.onActionComplete = onActionComplete;
@@ -80,5 +80,7 @@ public class MoveAction : BaseAction
 
         return _validGridPositionList;
     }
+
+    public override string GetActionName() { return "Move"; }
 
 }

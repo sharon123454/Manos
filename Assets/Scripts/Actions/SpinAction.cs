@@ -29,4 +29,6 @@ public class SpinAction : BaseAction
         isActive = true;
     }
 
+    public override string GetActionName() { return "Spin"; }
+
 }
