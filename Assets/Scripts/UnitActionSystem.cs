@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine;
 using System;
@@ -30,7 +31,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
         if (isBusy) { return; }
-
+        if (EventSystem.current.IsPointerOverGameObject()) { return; }
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
@@ -38,11 +39,16 @@ public class UnitActionSystem : MonoBehaviour
 
     public Unit GetSelectedUnit() { return selectedUnit; }
 
+    public BaseAction GetSelectedAction() { return selectedAction; }
+
     public void SetSelectedAction(BaseAction baseAction) { selectedAction = baseAction; }
 
-    private void SetBusy() { isBusy = true; }
-
-    private void ClearBusy() { isBusy = false; }
+    private void SetSelectedUnit(Unit unit)
+    {
+        selectedUnit = unit;
+        SetSelectedAction(unit.GetMoveAction()); //default unit action
+        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     private bool TryHandleUnitSelection()
     {
@@ -53,6 +59,12 @@ public class UnitActionSystem : MonoBehaviour
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))
                 if (_rayCastHit.transform.TryGetComponent<Unit>(out Unit _unit))
                 {
+                    if(_unit == selectedUnit) 
+                    {
+                        //Unit is already selected
+                        return false; 
+                    }
+
                     SetSelectedUnit(_unit);
                     return true;
                 }
@@ -61,34 +73,21 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    private void SetSelectedUnit(Unit unit)
-    {
-        selectedUnit = unit;
-        SetSelectedAction(unit.GetMoveAction()); //default unit action
-        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
-    }
-
     private void HandleSelectedAction()
     {
-        GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-
         if (Input.GetMouseButtonDown(0))
         {
-            switch (selectedAction)
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+            if (selectedAction.IsValidActionGridPosition(mouseGridPosition))
             {
-                case MoveAction moveAction:
-                    if (moveAction.IsValidActionGridPosition(mouseGridPosition))
-                    {
-                        SetBusy();
-                        moveAction.Move(mouseGridPosition, ClearBusy);
-                    }
-                    break;
-                case SpinAction spinAction:
-                    SetBusy();
-                    spinAction.Spin(ClearBusy);
-                    break;
+                SetBusy();
+                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
             }
         }
     }
 
+    private void SetBusy() { isBusy = true; }
+
+    private void ClearBusy() { isBusy = false; }
 }
