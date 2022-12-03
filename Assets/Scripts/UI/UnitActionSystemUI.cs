@@ -22,6 +22,9 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
+        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange; //this event might trigger before point reset so next line coveres small bug chance
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+
         CreateUnitActionButton();
         UpdateSelectedVisual();
         UpdateActionPoints();
@@ -30,6 +33,10 @@ public class UnitActionSystemUI : MonoBehaviour
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) { UpdateSelectedVisual(); }
 
     private void UnitActionSystem_OnActionStarted(object sender, EventArgs e) { UpdateActionPoints(); }
+
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPoints(); }
+
+    private void TurnSystem_OnTurnChange(object sender, EventArgs e) { UpdateActionPoints(); }
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e) 
     {
