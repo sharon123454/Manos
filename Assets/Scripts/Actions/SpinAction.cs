@@ -11,7 +11,7 @@ public class SpinAction : BaseAction
     {
         if (!isActive) { return; }
 
-        float spinAddAmount = 10 + Time.deltaTime;
+        float spinAddAmount = 1 + Time.deltaTime;
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
 
         totalSpinAmount += spinAddAmount;
@@ -29,11 +29,14 @@ public class SpinAction : BaseAction
         isActive = true;
     }
 
-    public override string GetActionName() { return "Spin"; }
-
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         GridPosition _unitGridPosition = unit.GetGridPosition();
         return new List<GridPosition> { _unitGridPosition };
     }
+
+    public override int GetActionPointCost() { return 0; }
+
+    public override string GetActionName() { return "Spin"; }
+
 }

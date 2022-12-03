@@ -7,8 +7,10 @@ using System;
 public class UnitActionSystem : MonoBehaviour
 {
     public static UnitActionSystem Instance { get; private set; }
-    public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
+    public event EventHandler OnSelectedUnitChanged;
+    public event EventHandler<bool> OnBusyChanged;
+    public event EventHandler OnActionStarted;
 
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitsLayerMask;
@@ -21,7 +23,7 @@ public class UnitActionSystem : MonoBehaviour
         if (Instance != null && Instance != this)
             Destroy(gameObject);
 
-        Instance= this;
+        Instance = this;
     }
 
     private void Start()
@@ -64,10 +66,10 @@ public class UnitActionSystem : MonoBehaviour
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))
                 if (_rayCastHit.transform.TryGetComponent<Unit>(out Unit _unit))
                 {
-                    if(_unit == selectedUnit) 
+                    if (_unit == selectedUnit)
                     {
                         //Unit is already selected
-                        return false; 
+                        return false;
                     }
 
                     SetSelectedUnit(_unit);
@@ -84,15 +86,18 @@ public class UnitActionSystem : MonoBehaviour
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
-            if (selectedAction.IsValidActionGridPosition(mouseGridPosition))
-            {
-                SetBusy();
-                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-            }
+            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
+            if (!selectedUnit.TrySpenActionPointsToTakeAction(selectedAction)) { return; }
+
+            SetBusy();
+            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
+            OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    private void SetBusy() { isBusy = true; }
+    private void SetBusy() { isBusy = true; OnBusyChanged?.Invoke(this, isBusy); }
 
-    private void ClearBusy() { isBusy = false; }
+    private void ClearBusy() { isBusy = false; OnBusyChanged?.Invoke(this, isBusy); }
+
 }
