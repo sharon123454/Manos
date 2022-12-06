@@ -6,6 +6,7 @@ using System;
 public class Unit : MonoBehaviour
 {
     [SerializeField] private int actionPointsMax = 2;
+    [SerializeField] private bool isEnemy;
 
     public static event EventHandler OnAnyActionPointsChanged;
 
@@ -51,10 +52,16 @@ public class Unit : MonoBehaviour
 
     public int GetActionPoints() { return actionPoints; }
 
+    public bool IsEnemy(){ return isEnemy; }
+
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
-        actionPoints = actionPointsMax;
-        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+        if (IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
+            !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
+        {
+            actionPoints = actionPointsMax;
+            OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public bool TrySpenActionPointsToTakeAction(BaseAction baseAction)

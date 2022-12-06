@@ -9,6 +9,7 @@ public class TurnSystem : MonoBehaviour
     public event EventHandler OnTurnChange;
 
     private int turnNumber = 1;
+    private bool isPlayerTurn = true;
 
     private void Awake()
     {
@@ -20,9 +21,13 @@ public class TurnSystem : MonoBehaviour
 
     public int GetTurnNumber() { return turnNumber; }
 
+    public bool IsPlayerTurn() { return isPlayerTurn; }
+
     public void NextTurn()
     {
         turnNumber++;
+        isPlayerTurn = !isPlayerTurn;
+
         OnTurnChange?.Invoke(this, EventArgs.Empty);
     }
 
