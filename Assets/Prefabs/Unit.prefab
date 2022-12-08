@@ -105,6 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6033764124026794417}
   - component: {fileID: 1357164184}
+  - component: {fileID: 7786307098148229981}
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 6856433945450308575}
   - component: {fileID: 2896592683690593462}
@@ -146,6 +147,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPointsMax: 2
   isEnemy: 0
+--- !u!114 &7786307098148229981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525556adc3a2a674f8a0befed3041598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5974149552420445432}
+  bulletProjectilePrefab: {fileID: 8757482575785846755, guid: d5349311b3e23f240861046495954503, type: 3}
+  shootPointTransform: {fileID: 449368128930931164}
 --- !u!114 &7237301886958795925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAnimator: {fileID: 5974149552420445432}
   maxMoveDistance: 5
   moveSpeed: 4
   rotateSpeed: 7.5
@@ -174,6 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxShootDistance: 7
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
 --- !u!114 &2896592683690593462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +219,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!1 &6906576871907460221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449368128930931164}
+  m_Layer: 6
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &449368128930931164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6906576871907460221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0885, z: 0.725}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6029288857397122079}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6033764123557283699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,6 +342,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 25af05085d2957e42ac6b80b69ddd26a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c25ac4fdc903e7d49a7520930673ecd6, type: 3}
+--- !u!4 &6029288857397122079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4620998167008108, guid: c25ac4fdc903e7d49a7520930673ecd6, type: 3}
+  m_PrefabInstance: {fileID: 6033764123557283699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6033764125481185952
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,14 @@ using System;
 
 public class ShootAction : BaseAction
 {
+    public event EventHandler<OnSHootEventArgs> OnShoot;
+
+    public class OnSHootEventArgs : EventArgs
+    {
+        public Unit targetUnit;
+        public Unit shootingUnit;
+    }
+
     [SerializeField] private int maxShootDistance = 7;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
 
@@ -116,6 +124,7 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
+        OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         targetUnit.Damage();
     }
 
