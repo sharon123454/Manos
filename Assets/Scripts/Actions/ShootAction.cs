@@ -37,7 +37,8 @@ public class ShootAction : BaseAction
             case State.Shooting:
                 if (canShootBullt)
                 {
-                    Shoot();
+                    //feed damage through weapon or smtn later on
+                    Shoot(40);
                     canShootBullt = false;
                 }
                 break;
@@ -122,10 +123,10 @@ public class ShootAction : BaseAction
         }
     }
 
-    private void Shoot()
+    private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        targetUnit.Damage();
+        targetUnit.Damage(damage);
     }
 
 }
