@@ -11,6 +11,10 @@ public abstract class BaseAction : MonoBehaviour
 
     protected virtual void Awake() { unit = GetComponent<Unit>(); }
 
+    protected void ActionComplete() { isActive = false; onActionComplete(); }
+
+    protected void ActionStart(Action onActionComple) { isActive = true; this.onActionComplete = onActionComple; }
+
     public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
 
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition)

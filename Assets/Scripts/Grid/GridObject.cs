@@ -23,11 +23,13 @@ public class GridObject
 
     public bool HasAnyUnit() { return _unitList.Count > 0; }
 
+    public Unit GetUnit() { if (HasAnyUnit()) return _unitList[0]; else return null; }
+
     public override string ToString()
     {
         string unitString = "";
         foreach (Unit unit in _unitList)
-            unitString+= unit + "\n";
+            unitString += unit + "\n";
 
         return _gridPosition.ToString() + "\n" + unitString;
     }
