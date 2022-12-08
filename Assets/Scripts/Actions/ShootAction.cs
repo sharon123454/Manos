@@ -52,15 +52,17 @@ public class ShootAction : BaseAction
             NextState();
     }
 
+    public Unit GetTargetUnit() { return targetUnit; }
+
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
-
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
         stateTimer = aimingStateTime;
         canShootBullt = true;
+
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

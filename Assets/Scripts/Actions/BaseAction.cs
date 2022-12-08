@@ -5,15 +5,18 @@ using System;
 
 public abstract class BaseAction : MonoBehaviour
 {
+    public static event EventHandler OnAnyActionStarted;
+    public static event EventHandler OnAnyActionCompleted;
+
     protected Action onActionComplete;
     protected bool isActive;
     protected Unit unit;
 
     protected virtual void Awake() { unit = GetComponent<Unit>(); }
 
-    protected void ActionComplete() { isActive = false; onActionComplete(); }
+    protected void ActionComplete() { isActive = false; onActionComplete(); OnAnyActionCompleted?.Invoke(this, EventArgs.Empty); }
 
-    protected void ActionStart(Action onActionComple) { isActive = true; this.onActionComplete = onActionComple; }
+    protected void ActionStart(Action onActionComple) { isActive = true; this.onActionComplete = onActionComple; OnAnyActionStarted?.Invoke(this, EventArgs.Empty); }
 
     public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
 
@@ -26,6 +29,8 @@ public abstract class BaseAction : MonoBehaviour
     public abstract List<GridPosition> GetValidActionGridPositionList();
 
     public virtual int GetActionPointCost() { return 1; }
+
+    public Unit GetUnit() { return unit; }
 
     public abstract string GetActionName();
 
