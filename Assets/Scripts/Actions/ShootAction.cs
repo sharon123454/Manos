@@ -13,7 +13,7 @@ public class ShootAction : BaseAction
         public Unit shootingUnit;
     }
 
-    [SerializeField] private int maxShootDistance = 7;
+    [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
 
     private enum State { Aiming, Shooting, Cooloff }
@@ -54,6 +54,8 @@ public class ShootAction : BaseAction
 
     public Unit GetTargetUnit() { return targetUnit; }
 
+    public int GetMaxShootDistance() { return maxShootDistance; }
+
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
@@ -79,7 +81,6 @@ public class ShootAction : BaseAction
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                     continue;
-
 
                 int testDistance = Mathf.Abs(x) + Mathf.Abs(z); // range check
 
