@@ -1,27 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System;
 
-public class GridSystem
+public class GridSystem<TGridObject>
 {
-    private GridObject[,] gridObjectArray;
+    private TGridObject[,] gridObjectArray;
     private int _width, _length;
     private float _cellSize;
 
-    public GridSystem(int width, int length, float cellSize)
+    public GridSystem(int width, int length, float cellSize, Func<GridSystem<TGridObject>, GridPosition, TGridObject> createGridObject)
     {
         this._width = width;
         this._length = length;
         this._cellSize = cellSize;
 
-        gridObjectArray = new GridObject[width, length];
+        gridObjectArray = new TGridObject[width, length];
         for (int x = 0; x < _width; x++)
         {
             for (int z = 0; z < _length; z++)
             {
                 GridPosition _gridPosition = new GridPosition(x, z);
-                gridObjectArray[x,z] = new GridObject(this, _gridPosition);
+                gridObjectArray[x,z] = createGridObject(this, _gridPosition);
             }
         }
     }
@@ -47,12 +47,12 @@ public class GridSystem
 
                 Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition) as GridObject);
             }
         }
     }
 
-    public GridObject GetGridObject(GridPosition gridPosition)
+    public TGridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjectArray[gridPosition._x, gridPosition._z];
     }
@@ -68,36 +68,5 @@ public class GridSystem
     public int GetWidth() { return _width; }
 
     public int GetLength() { return _length; }
-
-}
-
-public struct GridPosition : IEquatable<GridPosition>
-{
-    public int _x;
-    public int _z;
-
-    public GridPosition(int x, int z) { this._x = x; this._z = z; }
-
-    public override bool Equals(object obj) { return obj is GridPosition position && _x == position._x && _z == position._z; }
-
-    public bool Equals(GridPosition other) { return this == other; }
-
-    public override int GetHashCode()
-    {
-        int hashCode = 929260398;
-        hashCode = hashCode * -1521134295 + _x.GetHashCode();
-        hashCode = hashCode * -1521134295 + _z.GetHashCode();
-        return hashCode;
-    }
-
-    public override string ToString() { return $"X: {_x}, Z: {_z}"; }
-
-    public static bool operator ==(GridPosition a, GridPosition b) { return a._x == b._x && a._z == b._z; }
-
-    public static bool operator !=(GridPosition a, GridPosition b) { return !(a == b); }
-
-    public static GridPosition operator +(GridPosition a, GridPosition b) { return new GridPosition(a._x + b._x, a._z + b._z); }
-
-    public static GridPosition operator -(GridPosition a, GridPosition b) { return new GridPosition(a._x - b._x, a._z - b._z); }
 
 }
