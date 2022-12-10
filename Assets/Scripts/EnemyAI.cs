@@ -33,7 +33,6 @@ public class EnemyAI : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
-                    state = State.Busy;
                     if (TryTakeEnemyAIAction(SetStateTakingTurn))
                     {
                         state = State.Busy;
@@ -77,17 +76,42 @@ public class EnemyAI : MonoBehaviour
         return false;
     }
 
-    private bool TryTakeEnemyAIAction( Unit enemyUnit, Action onEnemyAIActionComplete)
+    private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
     {
-        SpinAction spinAction = enemyUnit.GetSpinAction();
+        EnemyAIAction _bestEnemyAIAction = null;
+        BaseAction _bestBaseAction = null;
 
-        GridPosition actionGridPosition = enemyUnit.GetGridPosition();
+        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
+        {
+            if (!enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+                continue; // Enemy can't afford this action
 
-        if (!spinAction.IsValidActionGridPosition(actionGridPosition)) { return false; }
-        if (!enemyUnit.TrySpenActionPointsToTakeAction(spinAction)) { return false; }
+            if (_bestEnemyAIAction == null)// Set first value
+            {
+                _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                _bestBaseAction = baseAction;
+            }
+            else // Compare other actions value to the first if better value found, replace.
+            {
+                EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
 
-        spinAction.TakeAction(actionGridPosition, onEnemyAIActionComplete);
-        return true;
+                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > _bestEnemyAIAction.actionValue)
+                {
+                    _bestEnemyAIAction = testEnemyAIAction;
+                    _bestBaseAction = baseAction;
+                }
+            }
+        }
+
+        if (_bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(_bestBaseAction))
+        {
+            _bestBaseAction.TakeAction(_bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

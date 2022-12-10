@@ -26,6 +26,11 @@ public class SpinAction : BaseAction
         ActionStart(onActionComplete);
     }
 
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0, };
+    }
+
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         GridPosition _unitGridPosition = unit.GetGridPosition();

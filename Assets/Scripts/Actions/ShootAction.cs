@@ -56,6 +56,24 @@ public class ShootAction : BaseAction
 
     public int GetMaxShootDistance() { return maxShootDistance; }
 
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        return GetValidActionGridPositionList(gridPosition).Count;
+    }
+
+    public override List<GridPosition> GetValidActionGridPositionList()
+    {
+        GridPosition _unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPositionList(_unitGridPosition);
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f), };
+    }//action value resides here (preference on who to do action on)
+
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
@@ -67,17 +85,16 @@ public class ShootAction : BaseAction
         ActionStart(onActionComplete);
     }
 
-    public override List<GridPosition> GetValidActionGridPositionList()
+    public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
-        GridPosition _unitGridPosition = unit.GetGridPosition();
 
         for (int x = -maxShootDistance; x <= maxShootDistance; x++)
         {
             for (int z = -maxShootDistance; z <= maxShootDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = _unitGridPosition + offsetGridPosition;
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                     continue;
@@ -108,6 +125,12 @@ public class ShootAction : BaseAction
 
     public override string GetActionName() { return "Shoot"; }
 
+    private void Shoot(float damage)
+    {
+        OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
+        targetUnit.Damage(damage);
+    }
+
     private void NextState()
     {
         switch (state)
@@ -124,12 +147,6 @@ public class ShootAction : BaseAction
                 ActionComplete();
                 break;
         }
-    }
-
-    private void Shoot(float damage)
-    {
-        OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        targetUnit.Damage(damage);
     }
 
 }

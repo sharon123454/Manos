@@ -12,13 +12,28 @@ public abstract class BaseAction : MonoBehaviour
     protected bool isActive;
     protected Unit unit;
 
-    protected virtual void Awake() { unit = GetComponent<Unit>(); }
+    protected virtual void Awake() 
+    {
+        unit = GetComponent<Unit>();
+    }
 
-    protected void ActionComplete() { isActive = false; onActionComplete(); OnAnyActionCompleted?.Invoke(this, EventArgs.Empty); }
+    protected void ActionComplete()
+    {
+        isActive = false;
+        onActionComplete();
+        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+    }
 
-    protected void ActionStart(Action onActionComple) { isActive = true; this.onActionComplete = onActionComple; OnAnyActionStarted?.Invoke(this, EventArgs.Empty); }
+    protected void ActionStart(Action onActionComple)
+    {
+        isActive = true;
+        this.onActionComplete = onActionComple;
+        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+    }
 
-    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
+    public abstract List<GridPosition> GetValidActionGridPositionList();
+
+    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
 
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition)
     {
@@ -26,12 +41,33 @@ public abstract class BaseAction : MonoBehaviour
         return validGridPositionList.Contains(gridPosition);
     }
 
-    public abstract List<GridPosition> GetValidActionGridPositionList();
+    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
 
     public virtual int GetActionPointCost() { return 1; }
 
+    public abstract string GetActionName();
+
     public Unit GetUnit() { return unit; }
 
-    public abstract string GetActionName();
+    public EnemyAIAction GetBestEnemyAIAction()
+    {
+        List<EnemyAIAction> _enemyAIActionList = new List<EnemyAIAction>();
+
+        List<GridPosition> _validGridPositionList = GetValidActionGridPositionList();
+
+        foreach (GridPosition gridPosition in _validGridPositionList)
+        {
+            EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
+            _enemyAIActionList.Add(enemyAIAction);
+        }
+
+        if (_enemyAIActionList.Count > 0)
+        {
+            _enemyAIActionList.Sort((EnemyAIAction a, EnemyAIAction b) => b.actionValue - a.actionValue);
+            return _enemyAIActionList[0];
+        }
+        else
+            return null; // No Possible AI Actions
+    }
 
 }

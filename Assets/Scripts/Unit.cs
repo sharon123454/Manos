@@ -5,7 +5,7 @@ using System;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private int actionPointsMax = 2;
+    [SerializeField] private int actionPoints = 2;
     [SerializeField] private bool isEnemy;
 
     public static event EventHandler OnAnyActionPointsChanged;
@@ -15,15 +15,17 @@ public class Unit : MonoBehaviour
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
+    private ShootAction shootAction;
     private MoveAction moveAction;
     private SpinAction spinAction;
-    private int actionPoints;
+    private int actionPointsMax;
 
     private void Awake()
     {
-        actionPoints = actionPointsMax;
+        actionPointsMax = actionPoints;
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        shootAction = GetComponent<ShootAction>();
         healthSystem = GetComponent<HealthSystem>();
         baseActionArray = GetComponents<BaseAction>();
     }
@@ -52,9 +54,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public bool TrySpenActionPointsToTakeAction(BaseAction baseAction)
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) 
     {
-        if (CanSpenActionPointsToTakeAction(baseAction))
+        if (CanSpendActionPointsToTakeAction(baseAction))
         {
             SpendActionPoints(baseAction.GetActionPointCost());
             return true;
@@ -65,11 +67,18 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        return actionPoints >= baseAction.GetActionPointCost();
+    }
+
     public BaseAction[] GetBaseActionArray() { return baseActionArray; }
 
     public Vector3 GetWorldPosition() { return transform.position; }
 
     public GridPosition GetGridPosition() { return gridPosition; }
+
+    public ShootAction GetShootAction() { return shootAction; }
 
     public MoveAction GetMoveAction() { return moveAction; }
 
@@ -78,6 +87,11 @@ public class Unit : MonoBehaviour
     public int GetActionPoints() { return actionPoints; }
 
     public bool IsEnemy(){ return isEnemy; }
+
+    public float GetHealthNormalized()
+    {
+        return healthSystem.GetHealthNormalized();
+    }
 
     public void Damage(float damage)
     {
@@ -94,14 +108,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private bool CanSpenActionPointsToTakeAction(BaseAction baseAction)
-    {
-        return actionPoints >= baseAction.GetActionPointCost();
-    }
-
     private void SpendActionPoints(int amount) 
     {
-        actionPoints -= amount; 
+        actionPoints -= amount;
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 

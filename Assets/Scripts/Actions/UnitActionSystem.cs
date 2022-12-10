@@ -43,13 +43,13 @@ public class UnitActionSystem : MonoBehaviour
 
     public Unit GetSelectedUnit() { return selectedUnit; }
 
-    public BaseAction GetSelectedAction() { return selectedAction; }
-
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    public BaseAction GetSelectedAction() { return selectedAction; }
 
     private void SetSelectedUnit(Unit unit)
     {
@@ -91,7 +91,7 @@ public class UnitActionSystem : MonoBehaviour
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
-            if (!selectedUnit.TrySpenActionPointsToTakeAction(selectedAction)) { return; }
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
@@ -100,8 +100,16 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    private void SetBusy() { isBusy = true; OnBusyChanged?.Invoke(this, isBusy); }
+    private void ClearBusy() 
+    {
+        isBusy = false;
+        OnBusyChanged?.Invoke(this, isBusy); 
+    }
 
-    private void ClearBusy() { isBusy = false; OnBusyChanged?.Invoke(this, isBusy); }
+    private void SetBusy() 
+    {
+        isBusy = true; 
+        OnBusyChanged?.Invoke(this, isBusy);
+    }
 
 }
