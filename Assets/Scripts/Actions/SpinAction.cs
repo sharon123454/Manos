@@ -7,6 +7,11 @@ public class SpinAction : BaseAction
 {
     private float totalSpinAmount;
 
+    private void Start()
+    {
+        IsBonusAction();
+    }
+
     void Update()
     {
         if (!isActive) { return; }
@@ -37,7 +42,7 @@ public class SpinAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override int GetActionPointCost() { return 1; }
+    public override int GetActionPointCost() { return actionCost; }
 
     public override string GetActionName() { return "Spin"; }
 

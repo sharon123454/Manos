@@ -11,8 +11,10 @@ public abstract class BaseAction : MonoBehaviour
     protected Action onActionComplete;
     protected bool isActive;
     protected Unit unit;
+    public bool _isBonusAction;
+    public int actionCost;
 
-    protected virtual void Awake() 
+    protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
     }
@@ -43,7 +45,16 @@ public abstract class BaseAction : MonoBehaviour
 
     public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
 
-    public virtual int GetActionPointCost() { return 1; }
+    public virtual int GetActionPointCost() { return actionCost; }
+    protected void IsBonusAction()
+    {
+        if (_isBonusAction)
+            actionCost = 2;
+        else
+        {
+            actionCost = 1;
+        }
+    }
 
     public abstract string GetActionName();
 

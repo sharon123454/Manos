@@ -6,7 +6,10 @@ using System;
 public class ShootAction : BaseAction
 {
     public event EventHandler<OnSHootEventArgs> OnShoot;
-
+    private void Start()
+    {
+        IsBonusAction();
+    }
     public class OnSHootEventArgs : EventArgs
     {
         public Unit targetUnit;

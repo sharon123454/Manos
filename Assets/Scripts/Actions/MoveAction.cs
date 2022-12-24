@@ -5,6 +5,11 @@ using System;
 
 public class MoveAction : BaseAction
 {
+
+    private void Start()
+    {
+        IsBonusAction();
+    }
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
