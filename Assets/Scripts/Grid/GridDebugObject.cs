@@ -6,14 +6,15 @@ using TMPro;
 public class GridDebugObject : MonoBehaviour
 {
     [SerializeField] private TextMeshPro debugText;
-    private GridObject _gridObject;
 
-    public void SetGridObject(GridObject gridObject)
+    private object _gridObject;
+
+    public virtual void SetGridObject(object gridObject)
     {
         this._gridObject = gridObject;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         debugText.text = _gridObject.ToString();
     }
