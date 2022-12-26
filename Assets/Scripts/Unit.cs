@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] private int actionPoints = 2;
     [SerializeField] private bool isEnemy;
+    [SerializeField] private bool usedBonusAction;
+    [SerializeField] private bool usedNormalAction;
 
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
@@ -57,12 +59,33 @@ public class Unit : MonoBehaviour
         return null;
     }
 
-    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction) 
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        if (CanSpendActionPointsToTakeAction(baseAction))
+        if (baseAction._isBonusAction && !usedBonusAction)
         {
-            SpendActionPoints(baseAction.GetActionPointCost());
-            return true;
+            if (!CanSpendActionPointsToTakeAction(baseAction))
+            {
+                SpendActionPoints(true);
+                // baseAction.usedAction = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (!baseAction._isBonusAction && !usedNormalAction)
+        {
+            if (!CanSpendActionPointsToTakeAction(baseAction))
+            {
+                SpendActionPoints(false);
+                //baseAction.usedAction = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -72,7 +95,7 @@ public class Unit : MonoBehaviour
 
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        return actionPoints >= baseAction.GetActionPointCost();
+        return baseAction.GetIfUsedAction();
     }
 
     public BaseAction[] GetBaseActionArray() { return baseActionArray; }
@@ -83,7 +106,7 @@ public class Unit : MonoBehaviour
 
     public int GetActionPoints() { return actionPoints; }
 
-    public bool IsEnemy(){ return isEnemy; }
+    public bool IsEnemy() { return isEnemy; }
 
     public float GetHealthNormalized()
     {
@@ -101,13 +124,22 @@ public class Unit : MonoBehaviour
             !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
         {
             actionPoints = actionPointsMax;
+            usedBonusAction = false;
+            usedNormalAction = false;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    private void SpendActionPoints(int amount) 
+    private void SpendActionPoints(bool isBonusAction)
     {
-        actionPoints -= amount;
+        if (isBonusAction)
+        {
+            usedBonusAction = true;
+        }
+        else
+        {
+            usedNormalAction = true;
+        }
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 

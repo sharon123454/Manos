@@ -83,7 +83,7 @@ public class EnemyAI : MonoBehaviour
 
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
-            if (!enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+            if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
                 continue; // Enemy can't afford this action
 
             if (_bestEnemyAIAction == null)// Set first value

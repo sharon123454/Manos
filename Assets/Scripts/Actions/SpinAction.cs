@@ -7,11 +7,6 @@ public class SpinAction : BaseAction
 {
     private float totalSpinAmount;
 
-    private void Start()
-    {
-        IsBonusAction();
-    }
-
     void Update()
     {
         if (!isActive) { return; }
