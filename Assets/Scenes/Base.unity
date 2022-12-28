@@ -823,6 +823,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PathFindingDebugObject: {fileID: 6370607194873716113, guid: 54fb6eea8cdc95a46bea77eeb9d8a844, type: 3}
+  rayCastOffsetDistance: 5
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &194261661
 Transform:
   m_ObjectHideFlags: 0
@@ -896,7 +900,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239987382}
-  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 6.98, y: 7, z: -4.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -982,7 +986,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259866273}
-  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 6.98, y: 7, z: -4.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1172,6 +1176,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -2098,6 +2106,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -2958,6 +2970,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridDebugObjectPrefab: {fileID: 6370607194873716113, guid: 20de09bafd5197944a20d3c23fb39ec6, type: 3}
+  _cellSize: 2
+  _length: 20
+  _width: 20
 --- !u!4 &1888256666
 Transform:
   m_ObjectHideFlags: 0
@@ -3304,6 +3319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: 18

@@ -17,6 +17,12 @@ public class UnitAnimator : MonoBehaviour
             moveAction.OnStopMoving += MoveAction_OnStopMoving;
         }
 
+        if (TryGetComponent<DashAction>(out DashAction dashAction))
+        {
+            dashAction.OnStartMoving += MoveAction_OnStartMoving;
+            dashAction.OnStopMoving += MoveAction_OnStopMoving;
+        }
+
         if (TryGetComponent<ShootAction>(out ShootAction shootAction))
         {
             shootAction.OnShoot += ShootAction_OnShoot;
