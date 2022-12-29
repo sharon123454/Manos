@@ -42,11 +42,16 @@ public class MoveAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        //reset current position index
-        currentPositionIndex = 0;
+        //find path to action grid position
+        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(unit.GetGridPosition(), gridPosition);
 
-        //create new list with the action position
-        positionList = new List<Vector3>() { LevelGrid.Instance.GetWorldPosition(gridPosition) };
+        //reset current position index, and new position list
+        currentPositionIndex = 0;
+        positionList = new List<Vector3>();
+
+        //translate path into world positions and add to unit positions to move
+        foreach (GridPosition pathGridPosition in pathGridPositionList)
+            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
 
@@ -78,6 +83,12 @@ public class MoveAction : BaseAction
                     continue;
 
                 if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If Grid Position Occupied w another unit
+                    continue;
+
+                if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If Grid Position has GO with "Obstacle" Tag
+                    continue;
+
+                if (PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If Grid Position is Unreachable
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);

@@ -25,6 +25,16 @@ public class PathFinding : MonoBehaviour
         Instance = this;
     }
 
+    public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        return FindPath(startGridPosition, endGridPosition) != null;
+    }
+
+    public bool IsWalkableGridPosition(GridPosition gridPosition) 
+    {
+        return gridSystem.GetGridObject(gridPosition).IsWalkable();
+    }
+
     public void SetUp(int width, int length, float cellSize)
     {
         gridSystem = new GridSystem<PathNode>(width, length, cellSize, (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition));
