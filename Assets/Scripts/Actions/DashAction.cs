@@ -8,7 +8,7 @@ public class DashAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 7.5f;
+    [SerializeField] private float moveSpeed = 4f, rotateSpeed = 7.5f;
     [SerializeField] private int maxMoveDistance = 3;
 
     private float stoppingDistance = .1f;
