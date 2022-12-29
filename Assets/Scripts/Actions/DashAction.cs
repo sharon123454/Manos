@@ -11,20 +11,18 @@ public class DashAction : BaseAction
     [SerializeField] private float moveSpeed = 4f, rotateSpeed = 7.5f;
     [SerializeField] private int maxMoveDistance = 3;
 
-    private float stoppingDistance = .1f;
-    private Vector3 targetPosition;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        targetPosition = transform.position;
-    }
+    private float stoppingDistance = .15f;
+    private List<Vector3> positionList;
+    private int currentPositionIndex;
 
     private void Update()
     {
         if (!isActive) { return; }
 
+        Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
 
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
@@ -32,16 +30,23 @@ public class DashAction : BaseAction
         }
         else
         {
-            OnStopMoving.Invoke(this, EventArgs.Empty);
-            ActionComplete();
-        }
+            currentPositionIndex++;
 
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+            if (currentPositionIndex >= positionList.Count)
+            {
+                OnStopMoving.Invoke(this, EventArgs.Empty);
+                ActionComplete();
+            }
+        }
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        //reset current position index
+        currentPositionIndex = 0;
+
+        //create new list with the action position
+        positionList = new List<Vector3>() { LevelGrid.Instance.GetWorldPosition(gridPosition) };
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
 
