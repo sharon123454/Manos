@@ -8,6 +8,7 @@ public class PathFinding : MonoBehaviour
     private const int MOVE_DIAGONAL_COST = 14;
 
     public static PathFinding Instance { get; private set; }
+    public bool createDebug;
 
     [SerializeField] private Transform PathFindingDebugObject;
     [Tooltip("Height from ground to check for obstacles above the path")]
@@ -27,7 +28,9 @@ public class PathFinding : MonoBehaviour
     public void SetUp(int width, int length, float cellSize)
     {
         gridSystem = new GridSystem<PathNode>(width, length, cellSize, (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition));
-        gridSystem.CreateDebugObjects(PathFindingDebugObject);
+
+        if (createDebug)
+            gridSystem.CreateDebugObjects(PathFindingDebugObject);
 
         // x to check for obstacles, going through grid
         for (int x = 0; x < width; x++)
