@@ -25,16 +25,6 @@ public class PathFinding : MonoBehaviour
         Instance = this;
     }
 
-    public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
-    {
-        return FindPath(startGridPosition, endGridPosition) != null;
-    }
-
-    public bool IsWalkableGridPosition(GridPosition gridPosition) 
-    {
-        return gridSystem.GetGridObject(gridPosition).IsWalkable();
-    }
-
     public void SetUp(int width, int length, float cellSize)
     {
         gridSystem = new GridSystem<PathNode>(width, length, cellSize, (GridSystem<PathNode> g, GridPosition gridPosition) => new PathNode(gridPosition));
@@ -58,7 +48,23 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    public bool IsWalkableGridPosition(GridPosition gridPosition) 
+    {
+        return gridSystem.GetGridObject(gridPosition).IsWalkable();
+    }
+
+    public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        return FindPath(startGridPosition, endGridPosition, out int pathLength) != null;
+    }
+
+    public int GetPathLength(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        FindPath(startGridPosition, endGridPosition, out int pathLength);
+        return pathLength;
+    }
+
+    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition, out int pathLength)
     {
         //list to go through and list of blocked nodes
         List<PathNode> openList = new List<PathNode>();
@@ -102,6 +108,7 @@ public class PathFinding : MonoBehaviour
             if (currentNode == endNode)
             {
                 // Reached final Node
+                pathLength = endNode.GetFCost();
                 return CalculatePath(endNode);
             }
 
@@ -141,6 +148,7 @@ public class PathFinding : MonoBehaviour
             }
         }
         // No path found
+        pathLength = 0;
         return null;
     }
 
@@ -257,4 +265,5 @@ public class PathFinding : MonoBehaviour
 
         return gridPositionList;
     }
+
 }

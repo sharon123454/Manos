@@ -11,6 +11,7 @@ public class DashAction : BaseAction
     [SerializeField] private float moveSpeed = 4f, rotateSpeed = 7.5f;
     [SerializeField] private int maxMoveDistance = 3;
 
+    private int pathfindingDistanceMultiplier = 10;
     private float stoppingDistance = .15f;
     private List<Vector3> positionList;
     private int currentPositionIndex;
@@ -43,7 +44,7 @@ public class DashAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         //find path to action grid position
-        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(unit.GetGridPosition(), gridPosition);
+        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
 
         //reset current position index, and new position list
         currentPositionIndex = 0;
@@ -76,19 +77,22 @@ public class DashAction : BaseAction
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = _unitGridPosition + offsetGridPosition;
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If Off Grid positions
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If off grid positions
                     continue;
 
-                if (_unitGridPosition == testGridPosition) // If My Position
+                if (_unitGridPosition == testGridPosition) // If my position
                     continue;
 
-                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If Grid Position Occupied w another unit
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position Occupied w another unit
                     continue;
 
-                if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If Grid Position has GO with "Obstacle" Tag
+                if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If grid position has GO with "Obstacle" tag
                     continue;
 
-                if (PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If Grid Position is Unreachable
+                if (!PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If grid position is Unreachable
+                    continue;
+
+                if (PathFinding.Instance.GetPathLength(_unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier) // If path length is too Long (blocking other side of wall grid positions)
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);

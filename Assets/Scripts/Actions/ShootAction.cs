@@ -14,6 +14,9 @@ public class ShootAction : BaseAction
 
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
+    [Tooltip("Relevant for raycasting when this Unit shoots")]
+    [SerializeField] private float unitShoulderHeight = 1.7f;
+    [SerializeField] private LayerMask obstacleLayerMask;
 
     private enum State { Aiming, Shooting, Cooloff }
     private bool canShootBullt;
@@ -95,24 +98,31 @@ public class ShootAction : BaseAction
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid
                     continue;
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z); // range check
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
 
-                if (testDistance > maxShootDistance)
+                if (testDistance > maxShootDistance) // shooting range check
                     continue;
 
                 //if need to visualize shooting range uncomment v
                 //_validGridPositionList.Add(testGridPosition);
                 //continue;
 
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If Grid Position Empty, no unit
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position has no unit
                     continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
                 if (targetUnit.IsEnemy() == unit.IsEnemy())// Both units on the same team
+                    continue;
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());
+
+                if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);
