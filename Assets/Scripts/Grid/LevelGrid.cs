@@ -23,13 +23,13 @@ public class LevelGrid : MonoBehaviour
 
         Instance = this;
 
-        gridSystem = new GridSystem<GridObject>(_width, _length, _height,_cellSize,
+        gridSystem = new GridSystem<GridObject>(_width, _length, _height, _cellSize,
             (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
     }
 
     private void Start()
     {
-        PathFinding.Instance.SetUp(_width, _length, _cellSize);
+        PathFinding.Instance.SetUp(_width, _length, _height, _cellSize);
     }
 
     public int GetWidth() { return gridSystem.GetWidth(); }

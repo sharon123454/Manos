@@ -74,28 +74,32 @@ public class MoveAction : BaseAction
         {
             for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
             {
-                GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = _unitGridPosition + offsetGridPosition;
+                for (int y = -maxMoveDistance; y <= maxMoveDistance; y++)
+                {
+                    GridPosition offsetGridPosition = new GridPosition(x, z, y);
+                    GridPosition testGridPosition = _unitGridPosition + offsetGridPosition;
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If off grid positions
-                    continue;
+                    if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If off grid positions
+                        continue;
 
-                if (_unitGridPosition == testGridPosition) // If my position
-                    continue;
+                    if (_unitGridPosition == testGridPosition) // If my position
+                        continue;
 
-                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position Occupied w another unit
-                    continue;
+                    if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position Occupied w another unit
+                        continue;
 
-                if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If grid position has GO with "Obstacle" tag
-                    continue;
+                    if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If grid position has GO with "Obstacle" tag
+                        continue;
 
-                if (!PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If grid position is Unreachable
-                    continue;
+                    if (!PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If grid position is Unreachable
+                        continue;
 
-                if (PathFinding.Instance.GetPathLength(_unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier) // If path length is too Long (blocking other side of wall grid positions)
-                    continue;
+                    if (PathFinding.Instance.GetPathLength(_unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier) // If path length is too Long (blocking other side of wall grid positions)
+                        continue;
 
-                _validGridPositionList.Add(testGridPosition);
+                    _validGridPositionList.Add(testGridPosition);
+                }
+
             }
         }
 

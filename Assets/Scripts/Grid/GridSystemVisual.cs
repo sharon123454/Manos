@@ -8,18 +8,18 @@ public class GridSystemVisual : MonoBehaviour
     public static GridSystemVisual Instance { get; private set; }
 
     [Serializable]
-    public struct GridVisualTypeMaterail
+    public struct GridVisualTypeMaterial
     {
-        public GridVisualType gridVidualType;
+        public GridVisualType gridVisualType;
         public Material material;
     }
 
     public enum GridVisualType { White, Red, RedSoft, Blue, Green, Yellow }
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
-    [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
+    [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
 
-    private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
+    private GridSystemVisualSingle[,,] gridSystemVisualSingleArray;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private void Start()
     {
-        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(),LevelGrid.Instance.GetLength()];
+        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetLength(), LevelGrid.Instance.GetHeight()];
 
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
         {
@@ -43,9 +43,9 @@ public class GridSystemVisual : MonoBehaviour
                     Transform gridSystemVisualSingleTransform =
                         Instantiate(GridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
 
-                    gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
+                    gridSystemVisualSingleArray[x, z, y] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
                 }
-                
+
 
             }
         }
@@ -86,13 +86,14 @@ public class GridSystemVisual : MonoBehaviour
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
-                gridSystemVisualSingleArray[x, z].Hide(); ;
+                for (int y = 0; y < LevelGrid.Instance.GetHeight(); y++)
+                    gridSystemVisualSingleArray[x, z, y].Hide();
     }
 
     public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType)
     {
         foreach (GridPosition position in gridPositions)
-            gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
+            gridSystemVisualSingleArray[position._x, position._z, position._y].Show(GetGridVisualMaterial(gridVisualType));
     }
 
     private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
@@ -103,17 +104,20 @@ public class GridSystemVisual : MonoBehaviour
         {
             for (int z = -range; z <= range; z++)
             {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
+                for (int y = -range; y <= range; y++)
+                {
+                    GridPosition testGridPosition = gridPosition + new GridPosition(x, z, y);
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
-                    continue;
+                    if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                        continue;
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z); // range check
+                    int testDistance = Mathf.Abs(x) + Mathf.Abs(z) + Mathf.Abs(y); // range check
 
-                if (testDistance > range)
-                    continue;
+                    if (testDistance > range)
+                        continue;
 
-                gridPosList.Add(testGridPosition);
+                    gridPosList.Add(testGridPosition);
+                }
             }
         }
 
@@ -122,9 +126,9 @@ public class GridSystemVisual : MonoBehaviour
 
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
-        foreach (GridVisualTypeMaterail gridVisualTypeMaterial in gridVisualTypeMaterialList)
+        foreach (GridVisualTypeMaterial gridVisualTypeMaterial in gridVisualTypeMaterialList)
         {
-            if (gridVisualTypeMaterial.gridVidualType == gridVisualType)
+            if (gridVisualTypeMaterial.gridVisualType == gridVisualType)
                 return gridVisualTypeMaterial.material;
         }
 

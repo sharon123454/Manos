@@ -3475,6 +3475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2142175521477785304, guid: 77e108b3458ce2a41b31a46d1d948bd2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2156397227897919412, guid: 77e108b3458ce2a41b31a46d1d948bd2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3512,17 +3516,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridSystemVisualSinglePrefab: {fileID: 4330554001003832270, guid: 6b041149303116b44afe1529aa43e339, type: 3}
   gridVisualTypeMaterialList:
-  - gridVidualType: 0
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: 7fa3aaa80a3b67a418244bea9adf9753, type: 2}
-  - gridVidualType: 1
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: 225ee470c0eba704db38982489ce6a88, type: 2}
-  - gridVidualType: 2
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: 9dd20b01e1492d740b2fe4a68acb0d1e, type: 2}
-  - gridVidualType: 3
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: c71968759dc1aa84a911b26e2faa6d57, type: 2}
-  - gridVidualType: 4
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: 73c4133d126207a4fac3ab4d6c420d52, type: 2}
-  - gridVidualType: 5
+  - gridVisualType: 0
     material: {fileID: 2100000, guid: 2436d2181a493ba40a230ff31f150efb, type: 2}
 --- !u!4 &1565976503
 Transform:
@@ -3980,8 +3984,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDebugObjectPrefab: {fileID: 6370607194873716113, guid: 20de09bafd5197944a20d3c23fb39ec6, type: 3}
   _cellSize: 2
-  _length: 24
-  _width: 24
+  _length: 20
+  _width: 20
+  _height: 3
 --- !u!4 &1888256666
 Transform:
   m_ObjectHideFlags: 0
@@ -4161,7 +4166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1924551590
 MeshCollider:
   m_ObjectHideFlags: 0

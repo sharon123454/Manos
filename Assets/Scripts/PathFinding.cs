@@ -44,7 +44,7 @@ public class PathFinding : MonoBehaviour
 
                     //if true the position has an obstacle
                     if (Physics.Raycast(worldPosition + Vector3.down * rayCastOffsetDistance, Vector3.up, rayCastOffsetDistance * 2, obstacleLayerMask))
-                        GetNode(x, z).SetIsWalkable(false);
+                        GetNode(x, z, y).SetIsWalkable(false);
                 }
 
             }
@@ -184,7 +184,7 @@ public class PathFinding : MonoBehaviour
 
     private PathNode GetNode(int x, int z, int y)
     {
-        return gridSystem.GetGridObject(new GridPosition(x, z,y));
+        return gridSystem.GetGridObject(new GridPosition(x, z, y));
     }
 
     private List<PathNode> GetNeighbourList(PathNode currentNode)
@@ -193,55 +193,103 @@ public class PathFinding : MonoBehaviour
 
         GridPosition gridPosition = currentNode.GetGridPosition();
 
-        if (gridPosition._x - 1 >= 0)
-        {
-            //Left
-            //y = Left Middle
-            neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z, gridPosition._y));
 
+
+        if (gridPosition._y - 1 >= 0)
+        {
+            if (gridPosition._x - 1 >= 0)
+            {
+                //Left
+                neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z, gridPosition._y));
+
+                if (gridPosition._z + 1 < gridSystem.GetLength())
+                {
+                    //Left Up
+                    neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z + 1, gridPosition._y));
+                }
+
+                if (gridPosition._z - 1 >= 0)
+                {
+                    //Left Down
+                    neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z - 1, gridPosition._y));
+                }
+            }
+            if (gridPosition._x + 1 < gridSystem.GetWidth())
+            {
+                //Right
+                neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z, gridPosition._y));
+
+                if (gridPosition._z + 1 < gridSystem.GetLength())
+                {
+                    //Right Up
+                    neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z + 1, gridPosition._y));
+                }
+
+                if (gridPosition._z - 1 >= 0)
+                {
+                    //Right Down
+                    neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z - 1, gridPosition._y));
+                }
+            }
             if (gridPosition._z + 1 < gridSystem.GetLength())
             {
-                //Left Up
-                neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z + 1, gridPosition._y));
+                //Up
+                neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z + 1,gridPosition._y));
             }
-
             if (gridPosition._z - 1 >= 0)
             {
-                //Left Down
-                neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z - 1, gridPosition._y));
+                //Down
+                neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z - 1,gridPosition._y));
             }
         }
 
-        if (gridPosition._x + 1 < gridSystem.GetWidth())
+        if (gridPosition._y + 1 < gridSystem.GetHeight())
         {
-            //Right
-            neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z, gridPosition._y));
+            if (gridPosition._x - 1 >= 0)
+            {
+                //Left
+                neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z, gridPosition._y));
 
+                if (gridPosition._z + 1 < gridSystem.GetLength())
+                {
+                    //Left Up
+                    neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z + 1, gridPosition._y));
+                }
+
+                if (gridPosition._z - 1 >= 0)
+                {
+                    //Left Down
+                    neighbourList.Add(GetNode(gridPosition._x - 1, gridPosition._z - 1, gridPosition._y));
+                }
+            }
+            if (gridPosition._x + 1 < gridSystem.GetWidth())
+            {
+                //Right
+                neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z, gridPosition._y));
+
+                if (gridPosition._z + 1 < gridSystem.GetLength())
+                {
+                    //Right Up
+                    neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z + 1, gridPosition._y));
+                }
+
+                if (gridPosition._z - 1 >= 0)
+                {
+                    //Right Down
+                    neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z - 1, gridPosition._y));
+                }
+            }
             if (gridPosition._z + 1 < gridSystem.GetLength())
             {
-                //Right Up
-                neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z + 1, gridPosition._y));
+                //Up
+                neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z + 1, gridPosition._y));
             }
-
             if (gridPosition._z - 1 >= 0)
             {
-                //Right Down
-                neighbourList.Add(GetNode(gridPosition._x + 1, gridPosition._z - 1, gridPosition._y));
+                //Down
+                neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z - 1, gridPosition._y));
             }
         }
-
-        if (gridPosition._z + 1 < gridSystem.GetLength())
-        {
-            //Up
-            neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z + 1));
-        }
-
-        if (gridPosition._z - 1 >= 0)
-        {
-            //Down
-            neighbourList.Add(GetNode(gridPosition._x + 0, gridPosition._z - 1));
-        }
-
         return neighbourList;
     }
 
