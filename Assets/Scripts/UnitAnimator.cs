@@ -19,8 +19,8 @@ public class UnitAnimator : MonoBehaviour
 
         if (TryGetComponent<DashAction>(out DashAction dashAction))
         {
-            dashAction.OnStartMoving += MoveAction_OnStartMoving;
-            dashAction.OnStopMoving += MoveAction_OnStopMoving;
+            dashAction.OnStartMoving += DashAction_OnStartMoving;
+            dashAction.OnStopMoving += DashAction_OnStopMoving;
         }
 
         if (TryGetComponent<ShootAction>(out ShootAction shootAction))
@@ -48,6 +48,16 @@ public class UnitAnimator : MonoBehaviour
     }
 
     private void MoveAction_OnStopMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
+    private void DashAction_OnStartMoving(object sender, EventArgs e)
+    {
+        animator.SetBool("IsWalking", true);
+    }
+
+    private void DashAction_OnStopMoving(object sender, EventArgs e)
     {
         animator.SetBool("IsWalking", false);
     }
