@@ -5,7 +5,10 @@ using System;
 
 public class ShootAction : BaseAction
 {
+    public static event EventHandler<OnSHootEventArgs> OnAnyShoot;
+
     public event EventHandler<OnSHootEventArgs> OnShoot;
+
     public class OnSHootEventArgs : EventArgs
     {
         public Unit targetUnit;
@@ -137,6 +140,7 @@ public class ShootAction : BaseAction
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
+        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         targetUnit.Damage(damage);
     }
 
