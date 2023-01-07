@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 5814306370280244239}
   - component: {fileID: 6856433945450308575}
+  - component: {fileID: 4142000546130311579}
   - component: {fileID: 2896592683690593462}
   - component: {fileID: 6803592254727095901}
   - component: {fileID: 3438019536766426537}
@@ -460,8 +461,8 @@ MonoBehaviour:
   usedAction: 0
   _isBonusAction: 0
   actionCost: 0
-  moveSpeed: 6.5
-  rotateSpeed: 7.5
+  moveSpeed: 5
+  rotateSpeed: 8
   maxMoveDistance: 3
 --- !u!114 &6856433945450308575
 MonoBehaviour:
@@ -478,6 +479,7 @@ MonoBehaviour:
   usedAction: 0
   _isBonusAction: 0
   actionCost: 0
+  damage: 10
   maxShootDistance: 7
   aimingStateTime: 1
   shootingStateTime: 0.1
@@ -487,6 +489,23 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &4142000546130311579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424df22154d391e4a913de1445a2fed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usedAction: 0
+  _isBonusAction: 0
+  actionCost: 0
+  aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
+  maxThrowDistance: 7
 --- !u!114 &2896592683690593462
 MonoBehaviour:
   m_ObjectHideFlags: 0

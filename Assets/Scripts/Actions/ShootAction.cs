@@ -15,6 +15,7 @@ public class ShootAction : BaseAction
         public Unit shootingUnit;
     }
 
+    [SerializeField] private float damage = 10;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
@@ -43,7 +44,7 @@ public class ShootAction : BaseAction
                 if (canShootBullt)
                 {
                     //feed damage through weapon or smtn later on
-                    Shoot(1);
+                    Shoot(damage);
                     canShootBullt = false;
                 }
                 break;
