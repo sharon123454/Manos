@@ -60,7 +60,7 @@ public class AOEAction : BaseAction
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Explosion!"; }
+    public override string GetActionName() { return "AoE"; }
 
     private void OnAOEBehaviourComplete() { ActionComplete(); }
 

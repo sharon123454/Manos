@@ -27,6 +27,22 @@ public class UnitAnimator : MonoBehaviour
         {
             shootAction.OnShoot += ShootAction_OnShoot;
         }
+
+        if (TryGetComponent<MeleeAction>(out MeleeAction meleeAction))
+        {
+            meleeAction.OnMeleeActionStarted += MeleeAction_OnMeleeActionStarted;
+            meleeAction.OnMeleeActionCompleted += MeleeAction_OnMeleeActionCompleted;
+        }
+    }
+
+    private void MeleeAction_OnMeleeActionCompleted(object sender, EventArgs e)
+    {
+
+    }
+
+    private void MeleeAction_OnMeleeActionStarted(object sender, EventArgs e) 
+    {
+        animator.SetTrigger("MeleeAttack");
     }
 
     private void ShootAction_OnShoot(object sender, ShootAction.OnSHootEventArgs e)

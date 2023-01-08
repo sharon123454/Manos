@@ -5,13 +5,15 @@ using System;
 
 public class ScreenShakeActions : MonoBehaviour
 {
+    [SerializeField] float MeleeShakeIntensity = 0.1f;
     [SerializeField] float shootShakeIntensity = 5f;
     [SerializeField] float aOEShakeIntensity = 8f;
 
     private void Start()
     {
-        ShootAction.OnAnyShoot += ShootAction_OnAnyShoot;
         AOEProjectile.OnAnyAOEHit += AOEProjectile_OnAnyAOEHit;
+        MeleeAction.OnAnyMeleeHit += MeleeAction_OnAnyMeleeHit;
+        ShootAction.OnAnyShoot += ShootAction_OnAnyShoot;
     }
 
     private void ShootAction_OnAnyShoot(object sender, ShootAction.OnSHootEventArgs e)
@@ -22,6 +24,11 @@ public class ScreenShakeActions : MonoBehaviour
     private void AOEProjectile_OnAnyAOEHit(object sender, EventArgs e)
     {
         ScreenShake.Instance.Shake(aOEShakeIntensity);
+    }
+
+    private void MeleeAction_OnAnyMeleeHit(object sender, EventArgs e)
+    {
+        ScreenShake.Instance.Shake(MeleeShakeIntensity);
     }
 
 }

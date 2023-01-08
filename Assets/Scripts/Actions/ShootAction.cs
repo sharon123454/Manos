@@ -22,15 +22,17 @@ public class ShootAction : BaseAction
     [SerializeField] private float unitShoulderHeight = 1.7f;
     [SerializeField] private LayerMask obstacleLayerMask;
 
-    private enum State { Aiming, Shooting, Cooloff }
-    private bool canShootBullt;
-    private float stateTimer;
     private Unit targetUnit;
+    private bool canShootBullt;
+
+    private enum State { Aiming, Shooting, Cooloff }
+    private float stateTimer;
     private State state;
 
     void Update()
     {
-        if (!isActive) { return; }
+        if (!isActive) 
+            return;
 
         stateTimer -= Time.deltaTime;
 
@@ -50,12 +52,28 @@ public class ShootAction : BaseAction
                 break;
             case State.Cooloff:
                 break;
-            default:
-                break;
         }
 
         if (stateTimer <= 0f)
             NextState();
+    }
+
+    private void NextState()
+    {
+        switch (state)
+        {
+            case State.Aiming:
+                state = State.Shooting;
+                stateTimer = shootingStateTime;
+                break;
+            case State.Shooting:
+                state = State.Cooloff;
+                stateTimer = coolOffStateTime;
+                break;
+            case State.Cooloff:
+                ActionComplete();
+                break;
+        }
     }
 
     public Unit GetTargetUnit() { return targetUnit; }
@@ -143,24 +161,6 @@ public class ShootAction : BaseAction
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         targetUnit.Damage(damage);
-    }
-
-    private void NextState()
-    {
-        switch (state)
-        {
-            case State.Aiming:
-                state = State.Shooting;
-                stateTimer = shootingStateTime;
-                break;
-            case State.Shooting:
-                state = State.Cooloff;
-                stateTimer = coolOffStateTime;
-                break;
-            case State.Cooloff:
-                ActionComplete();
-                break;
-        }
     }
 
 }
