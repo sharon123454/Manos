@@ -67,7 +67,11 @@
             "m_Id": "31eea19d18ca4de7ac52b5cfc31be271"
         }
     ],
-    "m_GroupDatas": [],
+    "m_GroupDatas": [
+        {
+            "m_Id": "c133f542e8c542eabef3a5bddd18058c"
+        }
+    ],
     "m_StickyNoteDatas": [],
     "m_Edges": [
         {
@@ -442,7 +446,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PowerNode",
     "m_ObjectId": "2312cf4a3f0442018ed2bc6b37dedc18",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Power",
     "m_DrawState": {
@@ -550,7 +554,7 @@
     "m_Type": "UnityEditor.ShaderGraph.VoronoiNode",
     "m_ObjectId": "294d38e393ed436ebb6828c7c12fca39",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Voronoi",
     "m_DrawState": {
@@ -605,9 +609,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 42.72250747680664,
-        "g": 9.944644927978516,
-        "b": 0.0,
+        "r": 32.0,
+        "g": 32.0,
+        "b": 32.0,
         "a": 0.0
     },
     "m_ColorMode": 1
@@ -618,7 +622,7 @@
     "m_Type": "UnityEditor.ShaderGraph.TimeNode",
     "m_ObjectId": "31eea19d18ca4de7ac52b5cfc31be271",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Time",
     "m_DrawState": {
@@ -948,7 +952,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "62a3913440044038a4ed0a3a1458ef7e",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Property",
     "m_DrawState": {
@@ -983,15 +987,15 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "697b7d6e307649ed957d7baec3395435",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Property",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1931.9998779296875,
-            "y": 941.0,
+            "x": -1932.0001220703125,
+            "y": 942.0000610351563,
             "width": 157.0,
             "height": 34.0
         }
@@ -1115,7 +1119,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 6.0,
+    "m_Value": 2.3399999141693117,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -1183,7 +1187,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 3.059999942779541,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -1670,6 +1674,17 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GroupData",
+    "m_ObjectId": "c133f542e8c542eabef3a5bddd18058c",
+    "m_Title": "Dissolve",
+    "m_Position": {
+        "x": 10.0,
+        "y": 10.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.UVMaterialSlot",
     "m_ObjectId": "c76637bc841d4bd1bae90db1436bb70a",
     "m_Id": 2,
@@ -1783,7 +1798,7 @@
     "m_Type": "UnityEditor.ShaderGraph.MultiplyNode",
     "m_ObjectId": "e21d51c68b7e42b8845b06139b470836",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Multiply",
     "m_DrawState": {
@@ -1821,7 +1836,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ea8e73bf9392413081f238cda8092fac",
     "m_Id": 0,
-    "m_DisplayName": "Voronoi Size",
+    "m_DisplayName": "Dissolve Power",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1886,16 +1901,16 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "fbff8ec5cb6c4da484e6d086a897e06e",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "c133f542e8c542eabef3a5bddd18058c"
     },
     "m_Name": "Property",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1203.0,
+            "x": -1236.0,
             "y": 808.0,
-            "width": 142.0,
+            "width": 157.0,
             "height": 34.0
         }
     },
