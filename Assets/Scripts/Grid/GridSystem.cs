@@ -24,7 +24,12 @@ public class GridSystem<TGridObject>
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    GridPosition _gridPosition = new GridPosition(x, z, y );
+                    GridPosition _gridPosition = new GridPosition(x, z, y);
+                    if (Physics.Raycast(GetWorldPosition(_gridPosition) + Vector3.down, Vector3.up, 15, 7))
+                    {
+                        Debug.Log(_gridPosition);
+                        continue;
+                    }
                     gridObjectArray[x, z, y] = createGridObject(this, _gridPosition);
                 }
             }

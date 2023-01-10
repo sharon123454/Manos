@@ -90,7 +90,7 @@ public class MeleeAction : BaseAction
         {
             for (int z = -maxMeleeDistance; z <= maxMeleeDistance; z++)
             {
-                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition offsetGridPosition = new GridPosition(x, z, unitGridPosition._y);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid

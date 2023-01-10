@@ -38,22 +38,25 @@ public class AOEAction : BaseAction
         {
             for (int z = -maxThrowDistance; z <= maxThrowDistance; z++)
             {
-                GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                for (int y = -maxThrowDistance; z <= maxThrowDistance; y++)
+                {
+                    GridPosition offsetGridPosition = new GridPosition(x, z,y);
+                    GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid
-                    continue;
+                    if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid
+                        continue;
 
-                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                    int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
 
-                if (testDistance > maxThrowDistance) // shooting range check
-                    continue;
+                    if (testDistance > maxThrowDistance) // shooting range check
+                        continue;
 
-                //if need to visualize shooting range uncomment v
-                //_validGridPositionList.Add(testGridPosition);
-                //continue;
+                    //if need to visualize shooting range uncomment v
+                    //_validGridPositionList.Add(testGridPosition);
+                    //continue;
 
-                _validGridPositionList.Add(testGridPosition);
+                    _validGridPositionList.Add(testGridPosition);
+                }
             }
         }
 

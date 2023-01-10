@@ -140,12 +140,16 @@ public class GridSystemVisual : MonoBehaviour
         {
             for (int z = -range; z <= range; z++)
             {
-                GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
+                for (int y = -range; y <= range; y++)
+                {
+                    GridPosition testGridPosition = gridPosition + new GridPosition(x, z, y);
 
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
-                    continue;
+                    if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                        continue;
 
-                gridPosList.Add(testGridPosition);
+                    gridPosList.Add(testGridPosition);
+                }
+
             }
         }
 
