@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool isEnemy;
     [SerializeField] private bool usedBonusAction;
     [SerializeField] private bool usedNormalAction;
+    //[SerializeField] private bool canUseAttackOfOpportunity; //prolly here
 
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
@@ -113,6 +114,16 @@ public class Unit : MonoBehaviour
         return healthSystem.GetHealthNormalized();
     }
 
+    //public void TakeAttackOfOppertunity(Unit unit)
+    //{
+    //    if (!canUseAttackOfOpportunity)
+    //        return;
+
+    //    ShootAction meleeAction = GetAction<ShootAction>();
+    //    //meleeAction.TakeAction(unit.GetGridPosition(), TakeAttackOfOppertunity);
+    //    canUseAttackOfOpportunity = false;
+    //}
+
     public void Damage(float damage)
     {
         healthSystem.TakeDamage(damage);
@@ -126,6 +137,7 @@ public class Unit : MonoBehaviour
             actionPoints = actionPointsMax;
             usedBonusAction = false;
             usedNormalAction = false;
+            //canUseAttackOfOpportunity = true;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }

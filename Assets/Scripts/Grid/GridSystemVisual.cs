@@ -74,6 +74,14 @@ public class GridSystemVisual : MonoBehaviour
 
                 ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAction.GetMaxShootDistance(), GridVisualType.RedSoft);
                 break;
+            case MeleeAction meleeAction:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), meleeAction.GetMaxMeleeDistance(), GridVisualType.RedSoft);
+                break;
+            case AOEAction aOEAction:
+                gridVisualType = GridVisualType.Yellow;
+                break;
             case SpinAction spinAction:
                 gridVisualType = GridVisualType.Blue;
                 break;
@@ -118,6 +126,26 @@ public class GridSystemVisual : MonoBehaviour
 
                     gridPosList.Add(testGridPosition);
                 }
+            }
+        }
+
+        ShowGridPositionList(gridPosList, gridVisualType);
+    }
+
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    {
+        List<GridPosition> gridPosList = new List<GridPosition>();
+
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                    continue;
+
+                gridPosList.Add(testGridPosition);
             }
         }
 
