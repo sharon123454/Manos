@@ -25,11 +25,10 @@ public class GridSystem<TGridObject>
                 for (int y = 0; y < _height; y++)
                 {
                     GridPosition _gridPosition = new GridPosition(x, z, y);
-                    if (Physics.Raycast(GetWorldPosition(_gridPosition) + Vector3.down, Vector3.up, 15, 7))
-                    {
-                        Debug.Log(_gridPosition);
-                        continue;
-                    }
+                    //if (Physics.Raycast(GetWorldPosition(_gridPosition) + Vector3.down * 5, Vector3.up, 7, PathFinding.Instance.walkableGround))
+                    //{
+                    //    Debug.Log(GetWorldPosition(_gridPosition));
+                    //}
                     gridObjectArray[x, z, y] = createGridObject(this, _gridPosition);
                 }
             }

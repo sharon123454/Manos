@@ -32,6 +32,12 @@ public class LevelGrid : MonoBehaviour
         PathFinding.Instance.SetUp(_width, _length, _height, _cellSize);
     }
 
+    [ContextMenu("Spawn Grid")]
+    public void SpawnGrid()
+    {
+        gridSystem = new GridSystem<GridObject>(_width, _length, _height, _cellSize,
+            (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
+    }
     public int GetWidth() { return gridSystem.GetWidth(); }
     public int GetLength() { return gridSystem.GetLength(); }
     public int GetHeight() { return gridSystem.GetHeight(); }
