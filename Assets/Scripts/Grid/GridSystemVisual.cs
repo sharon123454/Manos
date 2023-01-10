@@ -37,15 +37,11 @@ public class GridSystemVisual : MonoBehaviour
         {
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
             {
-                for (int y = 0; y < LevelGrid.Instance.GetHeight(); y++)
-                {
-                    GridPosition gridPosition = new GridPosition(x, z, y);
-                    Transform gridSystemVisualSingleTransform =
-                        Instantiate(GridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
+                GridPosition gridPosition = new GridPosition(x, z);
+                Transform gridSystemVisualSingleTransform =
+                    Instantiate(GridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
 
-                    gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
-                }
-                
+                gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
 
             }
         }

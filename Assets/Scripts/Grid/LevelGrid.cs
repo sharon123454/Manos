@@ -12,7 +12,6 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private float _cellSize = 2;
     [SerializeField] private int _length = 20;
     [SerializeField] private int _width = 20;
-    [SerializeField] private int _height = 5;
 
     private GridSystem<GridObject> gridSystem;
 
@@ -23,7 +22,7 @@ public class LevelGrid : MonoBehaviour
 
         Instance = this;
 
-        gridSystem = new GridSystem<GridObject>(_width, _length, _height,_cellSize,
+        gridSystem = new GridSystem<GridObject>(_width, _length, _cellSize,
             (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
     }
 
@@ -33,8 +32,8 @@ public class LevelGrid : MonoBehaviour
     }
 
     public int GetWidth() { return gridSystem.GetWidth(); }
+
     public int GetLength() { return gridSystem.GetLength(); }
-    public int GetHeight() { return gridSystem.GetHeight(); }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
