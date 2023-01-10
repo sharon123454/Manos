@@ -5,28 +5,34 @@ using System;
 
 public class ShootAction : BaseAction
 {
+    public static event EventHandler<OnSHootEventArgs> OnAnyShoot;
+
     public event EventHandler<OnSHootEventArgs> OnShoot;
+
     public class OnSHootEventArgs : EventArgs
     {
         public Unit targetUnit;
         public Unit shootingUnit;
     }
 
+    [SerializeField] private float damage = 10;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
     [SerializeField] private float unitShoulderHeight = 1.7f;
     [SerializeField] private LayerMask obstacleLayerMask;
 
-    private enum State { Aiming, Shooting, Cooloff }
-    private bool canShootBullt;
-    private float stateTimer;
     private Unit targetUnit;
+    private bool canShootBullt;
+
+    private enum State { Aiming, Shooting, Cooloff }
+    private float stateTimer;
     private State state;
 
     void Update()
     {
-        if (!isActive) { return; }
+        if (!isActive) 
+            return;
 
         stateTimer -= Time.deltaTime;
 
@@ -40,18 +46,34 @@ public class ShootAction : BaseAction
                 if (canShootBullt)
                 {
                     //feed damage through weapon or smtn later on
-                    Shoot(1);
+                    Shoot(damage);
                     canShootBullt = false;
                 }
                 break;
             case State.Cooloff:
                 break;
-            default:
-                break;
         }
 
         if (stateTimer <= 0f)
             NextState();
+    }
+
+    private void NextState()
+    {
+        switch (state)
+        {
+            case State.Aiming:
+                state = State.Shooting;
+                stateTimer = shootingStateTime;
+                break;
+            case State.Shooting:
+                state = State.Cooloff;
+                stateTimer = coolOffStateTime;
+                break;
+            case State.Cooloff:
+                ActionComplete();
+                break;
+        }
     }
 
     public Unit GetTargetUnit() { return targetUnit; }
@@ -137,25 +159,8 @@ public class ShootAction : BaseAction
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
+        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         targetUnit.Damage(damage);
-    }
-
-    private void NextState()
-    {
-        switch (state)
-        {
-            case State.Aiming:
-                state = State.Shooting;
-                stateTimer = shootingStateTime;
-                break;
-            case State.Shooting:
-                state = State.Cooloff;
-                stateTimer = coolOffStateTime;
-                break;
-            case State.Cooloff:
-                ActionComplete();
-                break;
-        }
     }
 
 }
