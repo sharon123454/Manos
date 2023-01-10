@@ -10,7 +10,9 @@ public class UnitRagdoll : MonoBehaviour
     public void Setup(Transform originalRootBone)
     {
         MathcAllChildTransforms(originalRootBone, ragdollRootBone);
-        ApplyForceToRagdoll(ragdollRootBone, ragdollForce, transform.position, ragdollRange);
+
+        Vector3 randomDir = new Vector3(Random.Range(-1f, +1f), 0, Random.Range(-1f, +1f));
+        ApplyForceToRagdoll(ragdollRootBone, ragdollForce, transform.position + randomDir, ragdollRange);
     }
 
     private void MathcAllChildTransforms(Transform root, Transform clone)
