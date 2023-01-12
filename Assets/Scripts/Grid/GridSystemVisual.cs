@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GridSystemVisual : MonoBehaviour
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
     [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
+    [SerializeField] private float _highestLevelPoint = 5;
 
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
@@ -31,17 +33,27 @@ public class GridSystemVisual : MonoBehaviour
 
     private void Start()
     {
-        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(),LevelGrid.Instance.GetLength()];
+        gridSystemVisualSingleArray = new GridSystemVisualSingle[LevelGrid.Instance.GetWidth(), LevelGrid.Instance.GetLength()];
 
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
         {
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
             {
                 GridPosition gridPosition = new GridPosition(x, z);
-                Transform gridSystemVisualSingleTransform =
-                    Instantiate(GridSystemVisualSinglePrefab, LevelGrid.Instance.GetWorldPosition(gridPosition), Quaternion.identity);
 
-                gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
+                RaycastHit ray;
+                Vector3 myWorldPos = LevelGrid.Instance.GetWorldPosition(gridPosition);
+
+                if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000, PathFinding.Instance.obstacleLayerMask)) { }
+
+                else if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000, PathFinding.Instance.floorGridLayer))
+                {
+                    Transform gridSystemVisualSingleTransform =
+                        Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z), Quaternion.identity);
+
+                    gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
+
+                }
 
             }
         }
@@ -90,7 +102,8 @@ public class GridSystemVisual : MonoBehaviour
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
-                gridSystemVisualSingleArray[x, z].Hide(); ;
+                if (gridSystemVisualSingleArray[x, z] != null)
+                    gridSystemVisualSingleArray[x, z].Hide();
     }
 
     public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType)

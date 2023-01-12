@@ -13,7 +13,8 @@ public class PathFinding : MonoBehaviour
     [SerializeField] private Transform PathFindingDebugObject;
     [Tooltip("Height from ground to check for obstacles above the path")]
     [SerializeField] private float rayCastOffsetDistance = 5f;
-    [SerializeField] private LayerMask obstacleLayerMask;
+    [SerializeField] internal LayerMask obstacleLayerMask;
+    [SerializeField] internal LayerMask floorGridLayer;
 
     private GridSystem<PathNode> gridSystem;
 
