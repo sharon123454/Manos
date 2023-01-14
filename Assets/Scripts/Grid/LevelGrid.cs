@@ -24,7 +24,6 @@ public class LevelGrid : MonoBehaviour
 
         gridSystem = new GridSystem<GridObject>(_width, _length, _cellSize,
             (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
-        //gridSystem.CreateDebugObjects(PathFindingDebugObject);
     }
 
     private void Start()
