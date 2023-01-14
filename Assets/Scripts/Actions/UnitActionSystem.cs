@@ -35,6 +35,17 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (isBusy) { return; }
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
+
+        //canceles current action
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (selectedAction is MoveAction)
+            {
+            }
+            else
+                SetSelectedAction(selectedUnit.GetAction<MoveAction>());
+        }
+
         if (EventSystem.current.IsPointerOverGameObject()) { return; }
         if (TryHandleUnitSelection()) { return; }
 

@@ -5,6 +5,7 @@ using TMPro;
 
 public class PathFindingGridDebugObject : GridDebugObject
 {
+    [SerializeField] private SpriteRenderer isWalkableSpriteRenderer;
     [SerializeField] private TextMeshPro gCostText;
     [SerializeField] private TextMeshPro hCostText;
     [SerializeField] private TextMeshPro fCostText;
@@ -23,6 +24,7 @@ public class PathFindingGridDebugObject : GridDebugObject
         gCostText.text = pathNode.GetGCost().ToString();
         fCostText.text = pathNode.GetFCost().ToString();
         hCostText.text = pathNode.GetHCost().ToString();
+        isWalkableSpriteRenderer.color = pathNode.IsWalkable() ? Color.gray : Color.black;
     }
 
 }
