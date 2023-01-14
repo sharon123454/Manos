@@ -9,6 +9,7 @@ public class LevelGrid : MonoBehaviour
     public event EventHandler OnAnyUnitMovedGridPosition;
 
     [SerializeField] private Transform gridDebugObjectPrefab;
+    [SerializeField] private float _highestLevelPoint = 5;
     [SerializeField] private float _cellSize = 2;
     [SerializeField] private int _length = 20;
     [SerializeField] private int _width = 20;
