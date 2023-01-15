@@ -31,7 +31,10 @@ public class HealthSystem : MonoBehaviour
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         if (postureAmount <= 0)
         {
-            damage = health + Armor;
+            health = (health + Armor) - damage;
+            OnDamaged?.Invoke(this, EventArgs.Empty);
+
+            if (health == 0) Die();
         }
         else
         {
@@ -48,11 +51,7 @@ public class HealthSystem : MonoBehaviour
                 return;
             }
         }
-        {
-            health -= damage;
 
-
-        }
 
     }
     private void Die()
