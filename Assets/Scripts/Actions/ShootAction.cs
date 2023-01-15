@@ -16,6 +16,7 @@ public class ShootAction : BaseAction
     }
 
     [SerializeField] private float damage = 10;
+    [SerializeField] private float hitChance = 100;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
@@ -160,7 +161,7 @@ public class ShootAction : BaseAction
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        targetUnit.Damage(damage);
+        targetUnit.Damage(damage,hitChance);
     }
 
 }

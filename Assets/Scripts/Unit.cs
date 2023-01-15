@@ -124,9 +124,9 @@ public class Unit : MonoBehaviour
     //    canUseAttackOfOpportunity = false;
     //}
 
-    public void Damage(float damage)
+    public void Damage(float damage,float hitChance)
     {
-        healthSystem.TakeDamage(damage);
+        healthSystem.TakeDamage(damage, hitChance);
     }
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
