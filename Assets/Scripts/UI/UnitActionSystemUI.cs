@@ -8,7 +8,7 @@ using TMPro;
 public class UnitActionSystemUI : MonoBehaviour
 {
     [SerializeField] Transform actionButtonPrefab, actionButtonContainerTransform;
-    [SerializeField] TextMeshProUGUI actionPointsText; 
+    [SerializeField] TextMeshProUGUI actionPointsText;
 
     private List<ActionButtonUI> actionButtonUIList;
 
@@ -30,7 +30,11 @@ public class UnitActionSystemUI : MonoBehaviour
         UpdateActionPoints();
     }
 
-    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) { UpdateSelectedVisual(); }
+    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        UpdateSelectedVisual();
+        UpdateActionPoints();
+    }
 
     private void UnitActionSystem_OnActionStarted(object sender, EventArgs e) { UpdateActionPoints(); }
 
@@ -38,7 +42,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e) { UpdateActionPoints(); }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e) 
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
         CreateUnitActionButton();
         UpdateSelectedVisual();
@@ -72,8 +76,14 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UpdateActionPoints()
     {
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        actionPointsText.text = $"Action Points: {selectedUnit.GetActionPoints()}";
+        var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (UnitActionSystem.Instance.selectedAction._isBonusAction)
+            actionPointsText.text = $"Bonus Action";
+        //{selectedUnit.GetBonusActionPoints()}
+        else
+            actionPointsText.text = $"Action";
+        // {selectedUnit.GetActionPoints()}
+
     }
 
 }

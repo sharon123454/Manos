@@ -15,7 +15,7 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitsLayerMask;
 
-    private BaseAction selectedAction;
+    internal BaseAction selectedAction;
     private bool isBusy;
 
     private void Awake()

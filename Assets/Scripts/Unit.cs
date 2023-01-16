@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class Unit : MonoBehaviour
 {
@@ -100,7 +101,15 @@ public class Unit : MonoBehaviour
     }
 
     public BaseAction[] GetBaseActionArray() { return baseActionArray; }
+    public bool ReturnSkillActionType(BaseAction baseAction)
+    {
+        return baseAction.GetIfUsedAction();
+    }
 
+    public bool ReturnCurrentAction()
+    {
+        return GetComponent<BaseAction>()._isBonusAction;
+    }
     public Vector3 GetWorldPosition() { return transform.position; }
 
     public GridPosition GetGridPosition() { return gridPosition; }
