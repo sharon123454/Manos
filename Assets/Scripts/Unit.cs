@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int actionPoints = 2;
     [SerializeField] private bool isEnemy;
     [SerializeField] private bool usedBonusAction;
-    [SerializeField] private bool usedNormalAction;
+    [SerializeField] private bool usedAction;
     //[SerializeField] private bool canUseAttackOfOpportunity; //prolly here
 
     public static event EventHandler OnAnyActionPointsChanged;
@@ -75,7 +75,7 @@ public class Unit : MonoBehaviour
                 return false;
             }
         }
-        else if (!baseAction._isBonusAction && !usedNormalAction)
+        else if (!baseAction._isBonusAction && !usedAction)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -105,7 +105,28 @@ public class Unit : MonoBehaviour
 
     public GridPosition GetGridPosition() { return gridPosition; }
 
-    public int GetActionPoints() { return actionPoints; }
+    public int GetActionPoints()
+    {
+        if (usedAction)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    
+    public int GetBonusActionPoints() {
+        if (usedBonusAction)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
 
     public bool IsEnemy() { return isEnemy; }
 
@@ -136,7 +157,7 @@ public class Unit : MonoBehaviour
         {
             actionPoints = actionPointsMax;
             usedBonusAction = false;
-            usedNormalAction = false;
+            usedAction = false;
             //canUseAttackOfOpportunity = true;
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -150,7 +171,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            usedNormalAction = true;
+            usedAction = true;
         }
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }

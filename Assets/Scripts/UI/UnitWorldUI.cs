@@ -11,6 +11,7 @@ public class UnitWorldUI : MonoBehaviour
     [SerializeField] private Image healthBarImage;
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] private TextMeshProUGUI actionPointsText;
+    [SerializeField] private TextMeshProUGUI BonusActionPointsText;
 
     private void Start()
     {
@@ -23,7 +24,8 @@ public class UnitWorldUI : MonoBehaviour
 
     private void UpdateActionPointsText()
     {
-        actionPointsText.text = $"AP[{unit.GetActionPoints()}]";
+        BonusActionPointsText.text = $"BA[{unit.GetBonusActionPoints()}]";
+             actionPointsText.text = $"AP[{unit.GetActionPoints()}]";
     }
 
     private void UpdateHealthBar()
