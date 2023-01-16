@@ -21,7 +21,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         textMeshPro.text = baseAction.GetActionName().ToUpper();
 
         button.onClick.AddListener(
-            (/*anonymouseFunction*/) => 
+            (/*anonymouseFunction*/) =>
             {
                 UnitActionSystem.Instance.SetSelectedAction(baseAction);
             });
@@ -37,8 +37,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         damageProUgui.gameObject.SetActive(true);
         postureProUgui.gameObject.SetActive(true);
-        damageProUgui.text = "Damage + DMG HERE";
-        postureProUgui.text = "Posture Damage + DMG HERE";
+
+        if (baseAction is BaseAbility)
+        {
+                     damageProUgui.text = "Damage: DMG HERE";
+            postureProUgui.text = "Posture Damage: DMG HERE";
+        }
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
