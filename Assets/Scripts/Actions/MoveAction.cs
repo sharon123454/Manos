@@ -52,7 +52,16 @@ public class MoveAction : BaseAction
 
         //translate path into world positions and add to unit positions to move
         foreach (GridPosition pathGridPosition in pathGridPositionList)
-            positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
+        {
+            RaycastHit ray;
+            Vector3 myWorldPos = LevelGrid.Instance.GetWorldPosition(pathGridPosition);
+
+            if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000,
+                    PathFinding.Instance.floorGridLayer))
+            {
+                positionList.Add(new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z));
+            }
+        }
 
         OnStartMoving?.Invoke(this, EventArgs.Empty);
 
