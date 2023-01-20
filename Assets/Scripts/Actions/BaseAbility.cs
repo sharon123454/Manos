@@ -26,9 +26,10 @@ public class BaseAbility : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        throw new NotImplementedException();
 
         //gridPosition + unit.GetGridPosition() 
-        HandleAbilityRange();
+        //HandleAbilityRange();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -43,31 +44,31 @@ public class BaseAbility : BaseAction
 
     public override string GetActionName() { return "Ability"; }
 
-    private void HandleAbilityRange()
-    {
-        switch (range)
-        {
-            case AbilityRange.Melee:
+    //private void HandleAbilityRange()
+    //{
+    //    switch (range)
+    //    {
+    //        case AbilityRange.Melee:
 
-                break;
-            case AbilityRange.Close:
+    //            break;
+    //        case AbilityRange.Close:
 
-                break;
-            case AbilityRange.Medium:
+    //            break;
+    //        case AbilityRange.Medium:
 
-                break;
-            case AbilityRange.Long:
+    //            break;
+    //        case AbilityRange.Long:
 
-                break;
-            case AbilityRange.EffectiveAtAll:
+    //            break;
+    //        case AbilityRange.EffectiveAtAll:
 
-                break;
-            case AbilityRange.InaccurateAtAll:
+    //            break;
+    //        case AbilityRange.InaccurateAtAll:
 
-                break;
-            default:
-                break;
-        }
-    }
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
 }

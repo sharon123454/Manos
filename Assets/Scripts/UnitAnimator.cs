@@ -33,6 +33,36 @@ public class UnitAnimator : MonoBehaviour
             meleeAction.OnMeleeActionStarted += MeleeAction_OnMeleeActionStarted;
             meleeAction.OnMeleeActionCompleted += MeleeAction_OnMeleeActionCompleted;
         }
+
+        if (TryGetComponent<DodgeAction>(out DodgeAction dodgeAction))
+        {
+            dodgeAction.OnDodge += DodgeAction_OnDodge;
+        }
+
+        if (TryGetComponent<BlockAction>(out BlockAction blockAction))
+        {
+            blockAction.OnBlock += BlockAction_OnBlock;
+        }
+
+        if (TryGetComponent<DisengageAction>(out DisengageAction disengageAction))
+        {
+            disengageAction.OnDisengage += DisengageAction_OnDisengage;
+        }
+    }
+
+    private void DodgeAction_OnDodge(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BlockAction_OnBlock(object sender, EventArgs e)
+    {
+
+    }
+
+    private void DisengageAction_OnDisengage(object sender, EventArgs e)
+    {
+
     }
 
     private void MeleeAction_OnMeleeActionCompleted(object sender, EventArgs e)

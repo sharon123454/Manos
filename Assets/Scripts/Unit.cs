@@ -17,7 +17,8 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private UnitStats unitStats;
     //serializeField to see changes live (unnecessary)
-    [SerializeField] private bool canMakeAttackOfOpportunity;
+    [SerializeField] private bool canMakeAttackOfOpportunity = true;
+    private bool engagedInCombat;
 
     private void Awake()
     {
@@ -135,9 +136,27 @@ public class Unit : MonoBehaviour
         unitStats.TakeDamage(damage, hitChance);
     }
 
+    public void Dodge()
+    {
+        //unitStats.addLogic
+    }
+
+    public void Block()
+    {
+        //unitStats.addLogic
+    }
+
+    public void Disengage()
+    {
+        //unitStats.addLogic
+    }
+
     public void TryTakeAttackOfOppertunity(Unit rangeLeavingUnit)
     {
         if (!canMakeAttackOfOpportunity)
+            return;
+
+        if (!rangeLeavingUnit.engagedInCombat)
             return;
 
         if (!IsUnitUsingMelee())
@@ -159,36 +178,14 @@ public class Unit : MonoBehaviour
         print("AOO is complete");
     }
 
-    private void TurnSystem_OnTurnChange(object sender, EventArgs e)
-    {
-        if (IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
-            !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
-        {
-            usedBonusAction = false;
-            usedAction = false;
-            canMakeAttackOfOpportunity = true;
-            OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
     private void SpendActionPoints(bool isBonusAction)
     {
         if (isBonusAction)
-        {
             usedBonusAction = true;
-        }
         else
-        {
             usedAction = true;
-        }
-        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
-    }
 
-    private void HealthSystem_OnDeath(object sender, EventArgs e)
-    {
-        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
-        Destroy(gameObject);
-        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private bool IsUnitUsingMelee()
@@ -198,6 +195,26 @@ public class Unit : MonoBehaviour
                 return baseAction.enabled;
 
         return false;
+    }
+
+    private void TurnSystem_OnTurnChange(object sender, EventArgs e)
+    {
+        if (IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
+            !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
+        {
+            usedBonusAction = false;
+            usedAction = false;
+            canMakeAttackOfOpportunity = true;
+            //Reset stat modifiers unitStats.addLogic
+            OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void HealthSystem_OnDeath(object sender, EventArgs e)
+    {
+        LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        Destroy(gameObject);
+        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 
 }

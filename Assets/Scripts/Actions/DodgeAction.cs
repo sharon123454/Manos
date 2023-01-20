@@ -5,19 +5,24 @@ using System;
 
 public class DodgeAction : BaseAction
 {
+    public event EventHandler OnDodge;
+
+    public override void TakeAction(GridPosition gridPosition, Action actionComplete)
+    {
+        unit.Dodge();
+        OnDodge?.Invoke(this, EventArgs.Empty);
+        ActionStart(onActionComplete);
+    }
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        throw new NotImplementedException();
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0, };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        throw new NotImplementedException();
-    }
-
-    public override void TakeAction(GridPosition gridPosition, Action actionComplete)
-    {
-        throw new NotImplementedException();
+        GridPosition _unitGridPosition = unit.GetGridPosition();
+        return new List<GridPosition> { _unitGridPosition };
     }
 
     public override string GetActionName(){ return "Dodge"; }
