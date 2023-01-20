@@ -7,11 +7,18 @@ public class DisengageAction : BaseAction
 {
     public event EventHandler OnDisengage;
 
+    private void Update()
+    {
+        if (!_isActive) { return; }
+
+        ActionComplete();
+    }
+
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         unit.Disengage();
         OnDisengage?.Invoke(this, EventArgs.Empty);
-        ActionStart(onActionComplete);
+        ActionStart(actionComplete);
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

@@ -7,11 +7,18 @@ public class BlockAction : BaseAction
 {
     public event EventHandler OnBlock;
 
+    private void Update()
+    {
+        if (!_isActive) { return; }
+
+        ActionComplete();
+    }
+
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         unit.Block();
         OnBlock?.Invoke(this, EventArgs.Empty);
-        ActionStart(onActionComplete);
+        ActionStart(actionComplete);
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

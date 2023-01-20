@@ -7,11 +7,18 @@ public class DodgeAction : BaseAction
 {
     public event EventHandler OnDodge;
 
+    private void Update()
+    {
+        if (!_isActive) { return; }
+
+        ActionComplete();
+    }
+
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         unit.Dodge();
         OnDodge?.Invoke(this, EventArgs.Empty);
-        ActionStart(onActionComplete);
+        ActionStart(actionComplete);
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

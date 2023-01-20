@@ -59,6 +59,11 @@ public class Unit : MonoBehaviour
         return null;
     }
 
+    public void SetEngagementInCombat(bool engagementInCombat)
+    {
+        engagedInCombat = engagementInCombat;
+    }
+
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
@@ -133,23 +138,14 @@ public class Unit : MonoBehaviour
 
     public void Damage(float damage, float hitChance)
     {
-        unitStats.TakeDamage(damage, hitChance);
+        unitStats.TryTakeDamage(damage, hitChance);
     }
 
-    public void Dodge()
-    {
-        //unitStats.addLogic
-    }
+    public void Dodge() { unitStats.Dodge(); }
 
-    public void Block()
-    {
-        //unitStats.addLogic
-    }
+    public void Block() { unitStats.Block(); }
 
-    public void Disengage()
-    {
-        //unitStats.addLogic
-    }
+    public void Disengage() { SetEngagementInCombat(false); }
 
     public void TryTakeAttackOfOppertunity(Unit rangeLeavingUnit)
     {
@@ -205,7 +201,7 @@ public class Unit : MonoBehaviour
             usedBonusAction = false;
             usedAction = false;
             canMakeAttackOfOpportunity = true;
-            //Reset stat modifiers unitStats.addLogic
+            unitStats.ResetUnitStats();
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }

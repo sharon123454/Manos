@@ -9,47 +9,74 @@ public class UnitStats : MonoBehaviour
     public event EventHandler OnDamaged;
 
     [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float maxPosture = 100;
-    [SerializeField] private float Armor = 100;
-    [SerializeField] private float evasion = 100;
+    [SerializeField] private float maxPosture = 50;
+    [SerializeField] private float Armor = 0;
+    [SerializeField] private float evasion = 20;
 
     private float health;
     private float postureAmount;
+    private int armorMultiplayer = 1;
+    private int evasionMultiplayer = 1;
+    private float postureDMGMultiplayer = 1;
 
     private void Awake()
     {
+        postureAmount = maxPosture;
         health = maxHealth;
     }
 
     public float GetHealthNormalized() { return health / maxHealth; }
 
-    public void TakeDamage(float damage, float hitChance)
+    public void Block()
+    {
+        armorMultiplayer = 2;
+        postureDMGMultiplayer = 0.5f;
+    }
+
+    public void Dodge()
+    {
+        evasionMultiplayer = 2;
+    }
+
+    public void ResetUnitStats()
+    {
+        postureAmount = maxPosture;
+        armorMultiplayer = 1;
+        evasionMultiplayer = 1;
+        postureDMGMultiplayer = 1f;
+    }
+
+    //missing posture damage
+    public void TryTakeDamage(float rawDamage, float hitChance)
     {
         int DiceRoll = UnityEngine.Random.Range(0, 101);
-        if (postureAmount <= 0)
-        {
-            health = (health + Armor) - damage;
-            OnDamaged?.Invoke(this, EventArgs.Empty);
+        float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
 
-            if (health == 0) Die();
-        }
-        else
+        if (damageToRecieve <= 0)
+            return;
+
+        if (postureAmount > 0)
         {
-            if ((hitChance - evasion) >= DiceRoll)
+            if ((hitChance - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
-                if (health < 0) health = 0;
-
-                OnDamaged?.Invoke(this, EventArgs.Empty);
-
-                if (health == 0) Die();
+                TakeDamage(damageToRecieve);
             }
             else
-            {
-                return;
-            }
+                return; //attack missed
         }
+        else
+            TakeDamage(damageToRecieve);
 
+    }
 
+    private void TakeDamage(float damageToRecieve)
+    {
+        health -= damageToRecieve;
+        if (health < 0) health = 0;
+
+        OnDamaged?.Invoke(this, EventArgs.Empty);
+
+        if (health == 0) Die();
     }
 
     private void Die()
