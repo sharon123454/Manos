@@ -5,19 +5,31 @@ using System;
 
 public class DisengageAction : BaseAction
 {
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
-    {
-        throw new NotImplementedException();
-    }
+    public event EventHandler OnDisengage;
 
-    public override List<GridPosition> GetValidActionGridPositionList()
+    private void Update()
     {
-        throw new NotImplementedException();
+        if (!_isActive) { return; }
+
+        ActionComplete();
     }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        throw new NotImplementedException();
+        unit.Disengage();
+        OnDisengage?.Invoke(this, EventArgs.Empty);
+        ActionStart(actionComplete);
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0, };
+    }
+
+    public override List<GridPosition> GetValidActionGridPositionList()
+    {
+        GridPosition _unitGridPosition = unit.GetGridPosition();
+        return new List<GridPosition> { _unitGridPosition };
     }
 
     public override string GetActionName() { return "Disengage"; }

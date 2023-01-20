@@ -77,7 +77,7 @@ public class UnitActionSystemUI : MonoBehaviour
     private void UpdateActionPoints()
     {
         var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        if (UnitActionSystem.Instance.selectedAction._isBonusAction)
+        if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
             actionPointsText.text = $"Bonus Action";
         //{selectedUnit.GetBonusActionPoints()}
         else

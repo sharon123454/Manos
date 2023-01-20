@@ -8,13 +8,13 @@ public class UnitRagdollSpawner : MonoBehaviour
     [SerializeField] private Transform originalRootBone;
     [SerializeField] private Transform ragdollPrefab;
 
-    private HealthSystem healthSystem;
+    private UnitStats unitStats;
 
     private void Awake()
     {
-        healthSystem = GetComponent<HealthSystem>();
+        unitStats = GetComponent<UnitStats>();
 
-        healthSystem.OnDeath += HealthSystem_OnDeath;
+        unitStats.OnDeath += HealthSystem_OnDeath;
     }
 
     private void HealthSystem_OnDeath(object sender, EventArgs e)

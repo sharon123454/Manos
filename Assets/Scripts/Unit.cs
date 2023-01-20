@@ -2,15 +2,12 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using TMPro;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private int actionPoints = 2;
     [SerializeField] private bool isEnemy;
     [SerializeField] private bool usedBonusAction;
     [SerializeField] private bool usedAction;
-    //[SerializeField] private bool canUseAttackOfOpportunity; //prolly here
 
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
@@ -18,13 +15,14 @@ public class Unit : MonoBehaviour
 
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
-    private HealthSystem healthSystem;
-    private int actionPointsMax;
+    private UnitStats unitStats;
+    //serializeField to see changes live (unnecessary)
+    [SerializeField] private bool canMakeAttackOfOpportunity = true;
+    private bool engagedInCombat;
 
     private void Awake()
     {
-        actionPointsMax = actionPoints;
-        healthSystem = GetComponent<HealthSystem>();
+        unitStats = GetComponent<UnitStats>();
         baseActionArray = GetComponents<BaseAction>();
     }
 
@@ -35,7 +33,7 @@ public class Unit : MonoBehaviour
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
 
-        healthSystem.OnDeath += HealthSystem_OnDeath;
+        unitStats.OnDeath += HealthSystem_OnDeath;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -61,38 +59,37 @@ public class Unit : MonoBehaviour
         return null;
     }
 
+    public void SetEngagementInCombat(bool engagementInCombat)
+    {
+        engagedInCombat = engagementInCombat;
+    }
+
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        if (baseAction._isBonusAction && !usedBonusAction)
+        if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
                 SpendActionPoints(true);
-                // baseAction.usedAction = true;
+                // baseAction._usedAction = true;
                 return true;
             }
             else
-            {
                 return false;
-            }
         }
-        else if (!baseAction._isBonusAction && !usedAction)
+        else if (!baseAction.GetIsBonusAction() && !usedAction)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
                 SpendActionPoints(false);
-                //baseAction.usedAction = true;
+                //baseAction._usedAction = true;
                 return true;
             }
             else
-            {
                 return false;
-            }
         }
         else
-        {
             return false;
-        }
     }
 
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
@@ -101,6 +98,7 @@ public class Unit : MonoBehaviour
     }
 
     public BaseAction[] GetBaseActionArray() { return baseActionArray; }
+
     public bool ReturnSkillActionType(BaseAction baseAction)
     {
         return baseAction.GetIfUsedAction();
@@ -108,8 +106,9 @@ public class Unit : MonoBehaviour
 
     public bool ReturnCurrentAction()
     {
-        return GetComponent<BaseAction>()._isBonusAction;
+        return GetComponent<BaseAction>().GetIsBonusAction();
     }
+
     public Vector3 GetWorldPosition() { return transform.position; }
 
     public GridPosition GetGridPosition() { return gridPosition; }
@@ -117,46 +116,81 @@ public class Unit : MonoBehaviour
     public int GetActionPoints()
     {
         if (usedAction)
-        {
             return 0;
-        }
         else
-        {
             return 1;
-        }
     }
-    
-    public int GetBonusActionPoints() {
+
+    public int GetBonusActionPoints()
+    {
         if (usedBonusAction)
-        {
             return 0;
-        }
         else
-        {
             return 1;
-        }
     }
 
     public bool IsEnemy() { return isEnemy; }
 
     public float GetHealthNormalized()
     {
-        return healthSystem.GetHealthNormalized();
+        return unitStats.GetHealthNormalized();
     }
 
-    //public void TakeAttackOfOppertunity(Unit unit)
-    //{
-    //    if (!canUseAttackOfOpportunity)
-    //        return;
-
-    //    ShootAction meleeAction = GetAction<ShootAction>();
-    //    //meleeAction.TakeAction(unit.GetGridPosition(), TakeAttackOfOppertunity);
-    //    canUseAttackOfOpportunity = false;
-    //}
-
-    public void Damage(float damage,float hitChance)
+    public void Damage(float damage, float hitChance)
     {
-        healthSystem.TakeDamage(damage, hitChance);
+        unitStats.TryTakeDamage(damage, hitChance);
+    }
+
+    public void Dodge() { unitStats.Dodge(); }
+
+    public void Block() { unitStats.Block(); }
+
+    public void Disengage() { SetEngagementInCombat(false); }
+
+    public void TryTakeAttackOfOppertunity(Unit rangeLeavingUnit)
+    {
+        if (!canMakeAttackOfOpportunity)
+            return;
+
+        if (!rangeLeavingUnit.engagedInCombat)
+            return;
+
+        if (!IsUnitUsingMelee())
+            return;
+
+        MeleeAction unitMeleeAction = null;
+
+        foreach (BaseAction baseAction in baseActionArray)
+            if (baseAction is MeleeAction)
+                unitMeleeAction = baseAction as MeleeAction;
+
+        if (unitMeleeAction)
+            unitMeleeAction.TakeAction(rangeLeavingUnit.GetGridPosition(), AttackOfOppertunityComplete);
+    }
+
+    private void AttackOfOppertunityComplete()
+    {
+        canMakeAttackOfOpportunity = false;
+        print("AOO is complete");
+    }
+
+    private void SpendActionPoints(bool isBonusAction)
+    {
+        if (isBonusAction)
+            usedBonusAction = true;
+        else
+            usedAction = true;
+
+        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private bool IsUnitUsingMelee()
+    {
+        foreach (BaseAction baseAction in baseActionArray)
+            if (baseAction is MeleeAction)
+                return baseAction.enabled;
+
+        return false;
     }
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
@@ -164,25 +198,12 @@ public class Unit : MonoBehaviour
         if (IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
             !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
         {
-            actionPoints = actionPointsMax;
             usedBonusAction = false;
             usedAction = false;
-            //canUseAttackOfOpportunity = true;
+            canMakeAttackOfOpportunity = true;
+            unitStats.ResetUnitStats();
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
-    }
-
-    private void SpendActionPoints(bool isBonusAction)
-    {
-        if (isBonusAction)
-        {
-            usedBonusAction = true;
-        }
-        else
-        {
-            usedAction = true;
-        }
-        OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void HealthSystem_OnDeath(object sender, EventArgs e)

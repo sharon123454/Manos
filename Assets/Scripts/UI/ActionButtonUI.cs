@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,6 +13,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI postureProUgui;
     [SerializeField] GameObject selectedGameObject;
 
+    private BaseAbility isBaseAbility;
     private BaseAction baseAction;
 
     public void SetBaseAction(BaseAction baseAction)
@@ -35,15 +36,17 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        damageProUgui.gameObject.SetActive(true);
-        postureProUgui.gameObject.SetActive(true);
-
         if (baseAction is BaseAbility)
         {
-                     damageProUgui.text = "Damage: DMG HERE";
-            postureProUgui.text = "Posture Damage: DMG HERE";
-        }
+            damageProUgui.gameObject.SetActive(true);
+            postureProUgui.gameObject.SetActive(true);
 
+            if (!isBaseAbility)
+                isBaseAbility = (BaseAbility)baseAction;
+
+            damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
+            postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

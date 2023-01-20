@@ -3,15 +3,13 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class MeleeAction : BaseAction
+public class MeleeAction : BaseAbility
 {
     public static event EventHandler OnAnyMeleeHit;
 
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
 
-    [SerializeField] private float damage = 25;
-    [SerializeField] private float hitChance = 100;
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
@@ -23,7 +21,7 @@ public class MeleeAction : BaseAction
 
     private void Update()
     {
-        if (!isActive)
+        if (!_isActive)
             return;
 
         stateTimer -= Time.deltaTime;
@@ -51,7 +49,6 @@ public class MeleeAction : BaseAction
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                //feed damage through weapon or smtn later on
                 targetUnit.Damage(damage, hitChance);
                 break;
 

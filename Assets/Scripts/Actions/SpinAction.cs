@@ -9,7 +9,7 @@ public class SpinAction : BaseAction
 
     void Update()
     {
-        if (!isActive) { return; }
+        if (!_isActive) { return; }
 
         float spinAddAmount = 5 + Time.deltaTime;
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
@@ -36,8 +36,6 @@ public class SpinAction : BaseAction
         GridPosition _unitGridPosition = unit.GetGridPosition();
         return new List<GridPosition> { _unitGridPosition };
     }
-
-    public override int GetActionPointCost() { return actionCost; }
 
     public override string GetActionName() { return "Spin"; }
 

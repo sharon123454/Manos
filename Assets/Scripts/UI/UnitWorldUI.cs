@@ -9,14 +9,14 @@ public class UnitWorldUI : MonoBehaviour
 {
     [SerializeField] private Unit unit;
     [SerializeField] private Image healthBarImage;
-    [SerializeField] private HealthSystem healthSystem;
+    [SerializeField] private UnitStats unitStats;
     [SerializeField] private TextMeshProUGUI actionPointsText;
     [SerializeField] private TextMeshProUGUI BonusActionPointsText;
 
     private void Start()
     {
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
-        healthSystem.OnDamaged += HealthSystem_OnDamaged;
+        unitStats.OnDamaged += HealthSystem_OnDamaged;
 
         UpdateActionPointsText();
         UpdateHealthBar();
@@ -24,13 +24,13 @@ public class UnitWorldUI : MonoBehaviour
 
     private void UpdateActionPointsText()
     {
-        BonusActionPointsText.text = $"BA[{unit.GetBonusActionPoints()}]";
-             actionPointsText.text = $"AP[{unit.GetActionPoints()}]";
+        actionPointsText.text = $"AP[{unit.GetActionPoints()}]";
+        BonusActionPointsText.text = $"BAP[{unit.GetBonusActionPoints()}]";
     }
 
     private void UpdateHealthBar()
     {
-        healthBarImage.fillAmount = healthSystem.GetHealthNormalized();
+        healthBarImage.fillAmount = unitStats.GetHealthNormalized();
     }
 
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }

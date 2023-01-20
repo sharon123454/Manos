@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class AOEAction : BaseAction
+public class AOEAction : BaseAbility
 {
     [SerializeField] private Transform aOEProjectilePrefab;
     [SerializeField] private int maxThrowDistance = 7;
 
     private void Update()
     {
-        if (!isActive)
+        if (!_isActive)
             return;
     }
 
@@ -48,10 +48,6 @@ public class AOEAction : BaseAction
 
                 if (testDistance > maxThrowDistance) // shooting range check
                     continue;
-
-                //if need to visualize shooting range uncomment v
-                //_validGridPositionList.Add(testGridPosition);
-                //continue;
 
                 _validGridPositionList.Add(testGridPosition);
             }
