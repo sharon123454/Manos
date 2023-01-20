@@ -16,13 +16,19 @@ public class BaseAbility : BaseAction
 {
     [SerializeField] protected AbilityRange range;
     [SerializeField] protected bool isSpell = true;
-    [SerializeField] protected float damage, postureDamage;
+    [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0,100)]
-    [SerializeField] protected int hitChance, critChance, statusEffectChance;
+    [SerializeField] protected int hitChance = 100, critChance, statusEffectChance;
     //status effect? what is it?
+
+    public float GetDamage() { return damage; }
+    public float GetPostureDamage() { return postureDamage; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+
+        //gridPosition + unit.GetGridPosition() 
+        HandleAbilityRange();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -36,5 +42,32 @@ public class BaseAbility : BaseAction
     }
 
     public override string GetActionName() { return "Ability"; }
+
+    private void HandleAbilityRange()
+    {
+        switch (range)
+        {
+            case AbilityRange.Melee:
+
+                break;
+            case AbilityRange.Close:
+
+                break;
+            case AbilityRange.Medium:
+
+                break;
+            case AbilityRange.Long:
+
+                break;
+            case AbilityRange.EffectiveAtAll:
+
+                break;
+            case AbilityRange.InaccurateAtAll:
+
+                break;
+            default:
+                break;
+        }
+    }
 
 }

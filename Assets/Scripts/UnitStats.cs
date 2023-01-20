@@ -2,20 +2,17 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using Adobe.Substance;
-using UnityEditor.PackageManager;
-using Random = System.Random;
 
-public class HealthSystem : MonoBehaviour
+public class UnitStats : MonoBehaviour
 {
     public event EventHandler OnDeath;
     public event EventHandler OnDamaged;
-
 
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float Armor = 100;
     [SerializeField] private float evasion = 100;
+
     private float health;
     private float postureAmount;
 
@@ -54,8 +51,10 @@ public class HealthSystem : MonoBehaviour
 
 
     }
+
     private void Die()
     {
         OnDeath?.Invoke(this, EventArgs.Empty);
     }
+
 }

@@ -8,12 +8,12 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
 
+    [SerializeField] protected bool _isBonusAction;
+
     protected Action onActionComplete;
-    protected bool isActive;
-    public bool usedAction;
     protected Unit unit;
-    public bool _isBonusAction;
-    public int actionCost;
+    protected bool _isActive;
+    protected bool _usedAction;
 
     protected virtual void Awake()
     {
@@ -22,17 +22,23 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionComplete()
     {
-        isActive = false;
+        _isActive = false;
         onActionComplete();
         OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     protected void ActionStart(Action onActionComple)
     {
-        isActive = true;
+        _isActive = true;
         this.onActionComplete = onActionComple;
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
     }
+
+    public Unit GetUnit() { return unit; }
+    public virtual bool GetIfUsedAction() { return _usedAction; }
+    public virtual bool GetIsBonusAction() { return _isBonusAction; }
+
+    public abstract string GetActionName();
 
     public abstract List<GridPosition> GetValidActionGridPositionList();
 
@@ -45,15 +51,6 @@ public abstract class BaseAction : MonoBehaviour
     }
 
     public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
-
-    public virtual int GetActionPointCost() { return actionCost; }
-    public virtual bool GetIfUsedAction() { return usedAction; }
-    public virtual bool GetIsBonusAction() { return _isBonusAction; }
-
-
-    public abstract string GetActionName();
-
-    public Unit GetUnit() { return unit; }
 
     public EnemyAIAction GetBestEnemyAIAction()
     {

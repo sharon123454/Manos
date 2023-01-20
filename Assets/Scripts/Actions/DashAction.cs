@@ -18,7 +18,7 @@ public class DashAction : BaseAction
 
     private void Update()
     {
-        if (!isActive) { return; }
+        if (!_isActive) { return; }
 
         Vector3 targetPosition = positionList[currentPositionIndex];
         Vector3 moveDirection = (targetPosition - transform.position).normalized;

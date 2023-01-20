@@ -146,7 +146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 0}
+  m_AnchoredPosition: {x: -0.5, y: 0.15}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2053734710343784006
@@ -398,10 +398,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f89ff8fce156b14eaf1d0f9eba8bf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionPoints: 2
   isEnemy: 0
   usedBonusAction: 0
   usedAction: 0
+  canMakeAttackOfOpportunity: 0
 --- !u!114 &7786307098148229981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,9 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
-  _isBonusAction: 1
-  actionCost: 0
+  _isBonusAction: 0
   moveSpeed: 4
   rotateSpeed: 7.5
   maxMoveDistance: 3
@@ -463,9 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5620d7c15cb324b962df54c2bbb697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
-  _isBonusAction: 0
-  actionCost: 0
+  _isBonusAction: 1
   moveSpeed: 5
   rotateSpeed: 8
   maxMoveDistance: 3
@@ -481,11 +477,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
   _isBonusAction: 0
-  actionCost: 0
+  range: 0
+  isSpell: 1
   damage: 25
+  postureDamage: 0
   hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -502,11 +501,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
   _isBonusAction: 0
-  actionCost: 0
+  range: 3
+  isSpell: 1
   damage: 10
+  postureDamage: 0
   hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
   maxShootDistance: 7
   aimingStateTime: 1
   shootingStateTime: 0.1
@@ -528,9 +530,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424df22154d391e4a913de1445a2fed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
   _isBonusAction: 0
-  actionCost: 0
+  range: 2
+  isSpell: 1
+  damage: 30
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
   aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
   maxThrowDistance: 7
 --- !u!114 &2896592683690593462
@@ -545,9 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0bab9a2e8008d4e9f2c7201e742351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedAction: 0
-  _isBonusAction: 0
-  actionCost: 0
+  _isBonusAction: 1
 --- !u!114 &6803592254727095901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit: {fileID: 1357164184}
   healthBarImage: {fileID: 6355645871403069133}
-  healthSystem: {fileID: 7794121002179147597}
+  unitStats: {fileID: 7794121002179147597}
   actionPointsText: {fileID: 857587080865200162}
   BonusActionPointsText: {fileID: 922374055228879422}
 --- !u!114 &7193942445439609395
@@ -876,7 +881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 0.247}
+  m_AnchoredPosition: {x: -0.5, y: -0.15}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3804863523606672838
@@ -907,7 +912,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BA[1]
+  m_text: BAP[1]
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
