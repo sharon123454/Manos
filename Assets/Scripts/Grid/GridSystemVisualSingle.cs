@@ -8,6 +8,9 @@ public class GridSystemVisualSingle : MonoBehaviour
 
     public void Show(Material material) { meshRenderer.enabled = true;  meshRenderer.material = material; }
 
-    public void Hide() { meshRenderer.enabled = false; }
+    public void Hide()
+    {
+        meshRenderer.material.color = new Color(1, 1, 1, 0.07f);
+    }
 
 }

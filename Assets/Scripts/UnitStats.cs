@@ -14,18 +14,19 @@ public class UnitStats : MonoBehaviour
     [SerializeField] private float evasion = 20;
 
     private float health;
-    private float postureAmount;
+    private float currentPosture;
     private int armorMultiplayer = 1;
     private int evasionMultiplayer = 1;
     private float postureDMGMultiplayer = 1;
 
     private void Awake()
     {
-        postureAmount = maxPosture;
+        currentPosture = maxPosture;
         health = maxHealth;
     }
 
     public float GetHealthNormalized() { return health / maxHealth; }
+    public float GetPostureNormalized() { return currentPosture / maxPosture; }
 
     public void Block()
     {
@@ -39,10 +40,10 @@ public class UnitStats : MonoBehaviour
     }
 
     public float GetEvasion(){return evasion;}
-    public float GetPosture(){return postureAmount; }
+    public float GetPosture(){return currentPosture; }
     public void ResetUnitStats()
     {
-        postureAmount = maxPosture;
+        currentPosture = maxPosture;
         armorMultiplayer = 1;
         evasionMultiplayer = 1;
         postureDMGMultiplayer = 1f;
@@ -57,7 +58,7 @@ public class UnitStats : MonoBehaviour
         if (damageToRecieve <= 0)
             return;
 
-        if (postureAmount > 0)
+        if (currentPosture > 0)
         {
             if ((hitChance - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
