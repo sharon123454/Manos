@@ -7,17 +7,37 @@ public class CameraController : MonoBehaviour
 {
     private const float MIN_FOLLOW_Y_OFFSET = 2f;
     private const float MAX_FOLLOW_Y_OFFSET = 12f;
-
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private float camMoveSpeed = 10f, camRotationSpeed = 100f, zoomAmount = 1f, zoomSpeed = 5f;
-
+    private IEnumerator cameraLerp;
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
 
     private void Start()
     {
+        //   cameraLerp = LerpToUnit();
         cinemachineTransposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         targetFollowOffset = cinemachineTransposer.m_FollowOffset;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+    }
+
+    private void Instance_OnSelectedUnitChanged(object sender, System.EventArgs e)
+    {
+        StopAllCoroutines();
+        StartCoroutine(LerpToUnit(UnitActionSystem.Instance.GetSelectedUnit().transform.position));
+    }
+
+    private IEnumerator LerpToUnit(Vector3 unitPos)
+    {
+        float t = 0;
+        float duration = 2.5f;
+        while (t < duration)
+        {
+            t += Time.deltaTime / duration;
+            transform.position = Vector3.Lerp(transform.position, new Vector3(unitPos.x, transform.position.y, unitPos.z), t / duration);
+
+            yield return null;
+        }
     }
 
     void Update()

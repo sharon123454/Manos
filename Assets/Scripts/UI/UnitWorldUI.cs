@@ -39,7 +39,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         healthBarImage.fillAmount = unitStats.GetHealthNormalized();
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();
-        armorPointsText.text = $"BAP[{unitStats.GetArmor()}]";
+        armorPointsText.text = $"Armor[{unitStats.GetArmor()}]";
     }
 
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
