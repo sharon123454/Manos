@@ -7,6 +7,7 @@ using System;
 public class UnitActionSystem : MonoBehaviour
 {
     public static UnitActionSystem Instance { get; private set; }
+
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler<bool> OnBusyChanged;
@@ -17,7 +18,7 @@ public class UnitActionSystem : MonoBehaviour
 
     internal BaseAction selectedAction;
     private bool isBusy;
-
+    public BaseAction savedAction;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -66,6 +67,10 @@ public class UnitActionSystem : MonoBehaviour
     {
         selectedUnit = unit;
         SetSelectedAction(unit.GetAction<MoveAction>()); //default unit action
+        if (savedAction == null)
+        {
+            savedAction = selectedUnit.GetAction<MoveAction>();
+        }
         OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -111,15 +116,15 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    private void ClearBusy() 
+    private void ClearBusy()
     {
         isBusy = false;
-        OnBusyChanged?.Invoke(this, isBusy); 
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
-    private void SetBusy() 
+    private void SetBusy()
     {
-        isBusy = true; 
+        isBusy = true;
         OnBusyChanged?.Invoke(this, isBusy);
     }
 

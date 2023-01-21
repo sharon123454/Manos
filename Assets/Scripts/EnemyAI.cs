@@ -40,6 +40,7 @@ public class EnemyAI : MonoBehaviour
                     else
                     {
                         // No more enemies have actions they can take, end enemy turn
+                        StopAllCoroutines();
                         TurnSystem.Instance.NextTurn();
                     }
                 }
@@ -55,7 +56,7 @@ public class EnemyAI : MonoBehaviour
         state = State.TakingTurn;
     }
 
-    private void TurnSystem_OnTurnChange(object sender, EventArgs e) 
+    private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
@@ -80,7 +81,7 @@ public class EnemyAI : MonoBehaviour
     {
         EnemyAIAction _bestEnemyAIAction = null;
         BaseAction _bestBaseAction = null;
-
+        StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
             if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
@@ -102,7 +103,6 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
-
         if (_bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(_bestBaseAction))
         {
             _bestBaseAction.TakeAction(_bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
