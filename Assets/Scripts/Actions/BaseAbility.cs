@@ -17,7 +17,7 @@ public class BaseAbility : BaseAction
     [SerializeField] protected AbilityRange range;
     [SerializeField] protected bool isSpell = true;
     [SerializeField] protected float damage = 10, postureDamage = 0;
-    [Range(0,100)]
+    [Range(0,200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance;
     //status effect? what is it?
 

@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+
+        Instance = this;
+    }
     private const float MIN_FOLLOW_Y_OFFSET = 2f;
     private const float MAX_FOLLOW_Y_OFFSET = 12f;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -27,7 +35,7 @@ public class CameraController : MonoBehaviour
         StartCoroutine(LerpToUnit(UnitActionSystem.Instance.GetSelectedUnit().transform.position));
     }
 
-    private IEnumerator LerpToUnit(Vector3 unitPos)
+    public IEnumerator LerpToUnit(Vector3 unitPos)
     {
         float t = 0;
         float duration = 2.5f;
@@ -51,13 +59,25 @@ public class CameraController : MonoBehaviour
     {
         Vector3 inputMoveDir = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
+        {
             inputMoveDir.z += 1;
+            StopAllCoroutines();
+        }
         if (Input.GetKey(KeyCode.S))
+        {
             inputMoveDir.z -= 1;
+            StopAllCoroutines();
+        }
         if (Input.GetKey(KeyCode.A))
+        {
             inputMoveDir.x -= 1;
+            StopAllCoroutines();
+        }
         if (Input.GetKey(KeyCode.D))
+        {
             inputMoveDir.x += 1;
+            StopAllCoroutines();
+        }
 
         Vector3 moveVector = transform.forward * inputMoveDir.z + transform.right * inputMoveDir.x;
         transform.position += moveVector * camMoveSpeed * Time.deltaTime;

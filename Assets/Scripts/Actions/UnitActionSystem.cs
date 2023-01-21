@@ -7,6 +7,7 @@ using System;
 public class UnitActionSystem : MonoBehaviour
 {
     public static UnitActionSystem Instance { get; private set; }
+
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler<bool> OnBusyChanged;

@@ -14,10 +14,6 @@ public class CameraManager : MonoBehaviour
         HideActionCamera();
     }
 
-    private void Instance_OnSelectedUnitChanged(object sender, EventArgs e)
-    {
-        actionCameraGameObject.transform.position = Vector3.zero;
-    }
 
     private void ShowActionCamera()
     {
