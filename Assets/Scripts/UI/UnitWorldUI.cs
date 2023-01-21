@@ -14,8 +14,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Image actionBarImage;
     [SerializeField] private Image bonusActionBarImage;
     [SerializeField] private UnitStats unitStats;
-    [SerializeField] private TextMeshProUGUI actionPointsText;
-    [SerializeField] private TextMeshProUGUI BonusActionPointsText;
+    [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
 
     private void Start()
@@ -29,24 +28,18 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void UpdateActionPointsText()
     {
-        //actionPointsText.text = $"AP[{unit.GetActionPoints()}]";
-        if (unit.GetActionPoints() >= 1)
-            actionBarImage.fillAmount = 100;
-        else
-            actionBarImage.fillAmount = 0;    
-        /////////////////////////////////////
-        if (unit.GetBonusActionPoints() >= 1)
-            bonusActionBarImage.fillAmount = 100;
-        else
-            bonusActionBarImage.fillAmount = 0;
+        if (unit.GetActionPoints() >= 1) actionBarImage.fillAmount = 100;
+        else actionBarImage.fillAmount = 0;
 
-      //  BonusActionPointsText.text = $"BAP[{unit.GetBonusActionPoints()}]";
+        if (unit.GetBonusActionPoints() >= 1) bonusActionBarImage.fillAmount = 100;
+        else bonusActionBarImage.fillAmount = 0;
     }
 
     private void UpdateHealthBar()
     {
         healthBarImage.fillAmount = unitStats.GetHealthNormalized();
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();
+        armorPointsText.text = $"BAP[{unitStats.GetArmor()}]";
     }
 
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEditor.PackageManager;
 
 public class UnitStats : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class UnitStats : MonoBehaviour
 
     public float GetEvasion(){return evasion;}
     public float GetPosture(){return currentPosture; }
+    public float GetArmor() { return Armor;}
     public void ResetUnitStats()
     {
         currentPosture = maxPosture;
