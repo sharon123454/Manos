@@ -25,6 +25,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             (/*anonymouseFunction*/) =>
             {
                 UnitActionSystem.Instance.SetSelectedAction(baseAction);
+                UnitActionSystem.Instance.savedAction = baseAction;
             });
     }
 
@@ -36,6 +37,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        UnitActionSystem.Instance.SetSelectedAction(baseAction);
         if (baseAction is BaseAbility)
         {
             damageProUgui.gameObject.SetActive(true);
@@ -51,6 +53,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         damageProUgui.gameObject.SetActive(false);
         postureProUgui.gameObject.SetActive(false);
     }

@@ -17,7 +17,7 @@ public class UnitActionSystem : MonoBehaviour
 
     internal BaseAction selectedAction;
     private bool isBusy;
-
+    public BaseAction savedAction;
     private void Awake()
     {
         if (Instance != null && Instance != this)
