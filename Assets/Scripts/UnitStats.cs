@@ -38,6 +38,8 @@ public class UnitStats : MonoBehaviour
         evasionMultiplayer = 2;
     }
 
+    public float GetEvasion(){return evasion;}
+    public float GetPosture(){return postureAmount; }
     public void ResetUnitStats()
     {
         postureAmount = maxPosture;

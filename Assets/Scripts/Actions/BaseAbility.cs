@@ -42,6 +42,7 @@ public class BaseAbility : BaseAction
         throw new NotImplementedException();
     }
 
+    public float GetAbilityHitChance() { return hitChance; }
     public override string GetActionName() { return "Ability"; }
 
     //private void HandleAbilityRange()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class Unit : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
+
 
     public T GetAction<T>() where T : BaseAction
     {
@@ -104,10 +106,6 @@ public class Unit : MonoBehaviour
         return baseAction.GetIfUsedAction();
     }
 
-    public bool ReturnCurrentAction()
-    {
-        return GetComponent<BaseAction>().GetIsBonusAction();
-    }
 
     public Vector3 GetWorldPosition() { return transform.position; }
 
