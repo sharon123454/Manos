@@ -12,12 +12,18 @@ public abstract class BaseAction : MonoBehaviour
 
     protected Action onActionComplete;
     protected Unit unit;
+    protected EnemyAIBehaivors aiBehaivor;
     protected bool _isActive;
     protected bool _usedAction;
+    protected bool _usedBonusAction;
 
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
+        if (unit.IsEnemy())
+        {
+            aiBehaivor = GetComponent<EnemyAIBehaivors>();
+        }
     }
 
     protected void ActionComplete()
@@ -36,6 +42,7 @@ public abstract class BaseAction : MonoBehaviour
 
     public Unit GetUnit() { return unit; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
+    public virtual bool GetIfUsedBonusAction() { return _usedBonusAction; }
     public virtual bool GetIsBonusAction() { return _isBonusAction; }
 
     public abstract string GetActionName();

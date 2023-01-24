@@ -98,14 +98,12 @@ public class Unit : MonoBehaviour
     {
         return baseAction.GetIfUsedAction();
     }
-
-    public BaseAction[] GetBaseActionArray() { return baseActionArray; }
-
-    public bool ReturnSkillActionType(BaseAction baseAction)
+    public bool CanSpendActionPointsToTakeBonusAction(BaseAction baseAction)
     {
-        return baseAction.GetIfUsedAction();
+        return baseAction.GetIfUsedBonusAction();
     }
 
+    public BaseAction[] GetBaseActionArray() { return baseActionArray; }
 
     public Vector3 GetWorldPosition() { return transform.position; }
 

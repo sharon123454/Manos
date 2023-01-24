@@ -28,11 +28,15 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void UpdateActionPointsText()
     {
-        if (unit.GetActionPoints() >= 1) actionBarImage.fillAmount = 100;
-        else actionBarImage.fillAmount = 0;
+        if (actionBarImage != null)
+        {
+            if (unit.GetActionPoints() >= 1) actionBarImage.fillAmount = 100;
+            else actionBarImage.fillAmount = 0;
 
-        if (unit.GetBonusActionPoints() >= 1) bonusActionBarImage.fillAmount = 100;
-        else bonusActionBarImage.fillAmount = 0;
+            if (unit.GetBonusActionPoints() >= 1) bonusActionBarImage.fillAmount = 100;
+            else bonusActionBarImage.fillAmount = 0;
+        }
+
     }
 
     private void UpdateHealthBar()

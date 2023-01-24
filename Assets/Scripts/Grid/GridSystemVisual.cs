@@ -19,7 +19,6 @@ public class GridSystemVisual : MonoBehaviour
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
     [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
-    [SerializeField] private float _highestLevelPoint = 5;
     [SerializeField] private int adjacent = 1;
     [SerializeField] private int close = 4;
     [SerializeField] private int far = 9;

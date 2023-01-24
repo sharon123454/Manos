@@ -94,8 +94,11 @@ public class ShootAction : BaseAbility
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-
-        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f), };
+        if (aiBehaivor.GetShootValue() <= 0)
+        {
+            return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0, };
+        }
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = aiBehaivor.GetShootValue() , };
     }//action value resides here (preference on who to do action on)
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)

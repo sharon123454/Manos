@@ -81,10 +81,11 @@ public class EnemyAI : MonoBehaviour
     {
         EnemyAIAction _bestEnemyAIAction = null;
         BaseAction _bestBaseAction = null;
-        StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+        //  StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
-            if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+
+            if (enemyUnit.CanSpendActionPointsToTakeBonusAction(baseAction))
                 continue; // Enemy can't afford this action
 
             if (_bestEnemyAIAction == null)// Set first value
@@ -92,6 +93,7 @@ public class EnemyAI : MonoBehaviour
                 _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 _bestBaseAction = baseAction;
             }
+
             else // Compare other actions value to the first if better value found, replace.
             {
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
@@ -113,5 +115,42 @@ public class EnemyAI : MonoBehaviour
             return false;
         }
     }
+    private bool TryTakeEnemyAIBonusAction(Unit enemyUnit, Action onEnemyAIActionComplete)
+    {
+        EnemyAIAction _bestEnemyAIAction = null;
+        BaseAction _bestBaseAction = null;
+        //  StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
+        {
 
+            if (enemyUnit.CanSpendActionPointsToTakeBonusAction(baseAction))
+                continue; // Enemy can't afford this action
+
+            if (_bestEnemyAIAction == null)// Set first value
+            {
+                _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                _bestBaseAction = baseAction;
+            }
+
+            else // Compare other actions value to the first if better value found, replace.
+            {
+                EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
+
+                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > _bestEnemyAIAction.actionValue)
+                {
+                    _bestEnemyAIAction = testEnemyAIAction;
+                    _bestBaseAction = baseAction;
+                }
+            }
+        }
+        if (_bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(_bestBaseAction))
+        {
+            _bestBaseAction.TakeAction(_bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

@@ -1102,17 +1102,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5952074154592531224, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
-      propertyPath: Armor
+    - target: {fileID: 2123810121, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: meleeValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123810121, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: shootValue
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 561564177686855118, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5952074154592531224, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
-      propertyPath: evasion
-      value: 20
+    - target: {fileID: 6539309747004815552, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: _isBonusAction
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7454857623756483374, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.545
+    - target: {fileID: 7032008466419361674, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032008466419361674, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032008466419361674, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: maxShootDistance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7857788119198021092, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
       propertyPath: m_RootOrder
@@ -1162,7 +1178,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Priest of Bal Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 561564177686855118, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 5046733425376910314, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 7000553055243665288, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 1622007916273223907, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 759033155784859512, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 7926569537159397466, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
 --- !u!1 &259866273
 GameObject:
