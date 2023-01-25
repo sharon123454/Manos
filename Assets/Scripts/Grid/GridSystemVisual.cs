@@ -19,10 +19,10 @@ public class GridSystemVisual : MonoBehaviour
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
     [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
-    [SerializeField] private int adjacent = 1;
-    [SerializeField] private int close = 4;
-    [SerializeField] private int far = 9;
-    [SerializeField] private int veryFar = 15;
+    [SerializeField] private int _adjacent = 1;
+    [SerializeField] private int _close = 4;
+    [SerializeField] private int _far = 9;
+    [SerializeField] private int _veryFar = 15;
 
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
@@ -100,33 +100,66 @@ public class GridSystemVisual : MonoBehaviour
         ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
     }
 
-    public void MediumRange(Unit selectedUnit, int forthRange, int thirdRange, int secondRange, int firstRange)
-    {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), forthRange, GridVisualType.Yellow);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), thirdRange, GridVisualType.Green);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), secondRange, GridVisualType.Yellow);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), firstRange, GridVisualType.Red);
-    }
-
     public void FilterByRange(AbilityRange AbilityRange, Unit selectedUnit)
     {
         switch (AbilityRange)
         {
             case AbilityRange.Melee:
+                MeleeRange(selectedUnit, _adjacent);
                 break;
             case AbilityRange.Close:
+                CloseRange(selectedUnit, _close, _far);
                 break;
             case AbilityRange.Medium:
-                MediumRange(selectedUnit, veryFar, far, close, adjacent);
+                MediumRange(selectedUnit, _veryFar, _far, _close, _adjacent);
                 break;
             case AbilityRange.Long:
+                LongRange(selectedUnit, _close, _veryFar);
                 break;
             case AbilityRange.EffectiveAtAll:
+                EffectiveAtAllRanges(selectedUnit, _veryFar);
                 break;
             case AbilityRange.InaccurateAtAll:
+                InaccurateAtAllRanges(selectedUnit, _veryFar);
                 break;
         }
     }
+
+    private void MeleeRange(Unit selectedUnit, int adjacent)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green);
+    }
+
+    private void CloseRange(Unit selectedUnit, int close, int far)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green);
+    }
+
+    private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Red);
+    }
+
+    private void LongRange(Unit selectedUnit, int close, int veryFar)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Red);
+    }
+
+    private void EffectiveAtAllRanges(Unit selectedUnit, int veryFar)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green);
+    }
+
+    private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
+    {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow);
+    }
+
     public void HideAllGridPosition()
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
