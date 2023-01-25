@@ -37,6 +37,11 @@ public class Unit : MonoBehaviour
         unitStats.OnDeath += HealthSystem_OnDeath;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
+
+        if (!isEnemy)
+        {
+            LevelGrid.Instance.AddUnit(this);
+        }
     }
 
     private void Update()
@@ -72,8 +77,10 @@ public class Unit : MonoBehaviour
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
-                SpendActionPoints(true);
-                // baseAction._usedAction = true;
+                //SpendActionPoints(true);
+                usedBonusAction = true;
+                OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+
                 return true;
             }
             else
@@ -83,8 +90,22 @@ public class Unit : MonoBehaviour
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
-                SpendActionPoints(false);
-                //baseAction._usedAction = true;
+               // SpendActionPoints(false);
+                usedAction = true;
+                OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+            else
+                return false;
+        }
+        else if (baseAction.GetIsBonusAction() && !usedBonusAction)
+        {
+            if (!CanSpendActionPointsToTakeAction(baseAction))
+            {
+                //SpendActionPoints(true);
+                usedBonusAction = true;
+                OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
+
                 return true;
             }
             else
@@ -132,6 +153,10 @@ public class Unit : MonoBehaviour
         return unitStats.GetHealthNormalized();
     }
 
+    public float GetPureHealth()
+    {
+        return unitStats.GetPureHealth();
+    }
     public void Damage(float damage, float hitChance)
     {
         unitStats.TryTakeDamage(damage, hitChance);

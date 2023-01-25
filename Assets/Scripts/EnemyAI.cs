@@ -87,10 +87,10 @@ public class EnemyAI : MonoBehaviour
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
 
-            if (enemyUnit.CanSpendActionPointsToTakeBonusAction(baseAction))
+            if (enemyUnit.CanSpendActionPointsToTakeBonusAction(baseAction) || enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
                 continue; // Enemy can't afford this action
 
-            if (_bestEnemyAIAction == null)// Set first value
+            if (_bestEnemyAIAction == null)// Set first value   
             {
                 _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 _bestBaseAction = baseAction;
@@ -100,14 +100,13 @@ public class EnemyAI : MonoBehaviour
             {
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
 
-                int firstDice = UnityEngine.Random.Range(0, 100);
-                int secondDice = UnityEngine.Random.Range(0, 100);
-
+                int firstDice = UnityEngine.Random.Range(0, 101);
+                int secondDice = UnityEngine.Random.Range(0, 101);
+                // Adds random number and takes the highest number as ability to use
                 if (testEnemyAIAction != null && testEnemyAIAction.actionValue + firstDice > _bestEnemyAIAction.actionValue + secondDice)
                 {
                     _bestEnemyAIAction = testEnemyAIAction;
                     _bestBaseAction = baseAction;
-                    print(baseAction.name);
                 }
             }
         }
