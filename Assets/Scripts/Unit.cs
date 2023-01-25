@@ -176,7 +176,7 @@ public class Unit : MonoBehaviour
         if (!rangeLeavingUnit.engagedInCombat)
             return;
 
-        if (!IsUnitUsingMelee())
+        if (!IsUnitUsingMelee())//will need refactor if weapon is changable
             return;
 
         MeleeAction unitMeleeAction = null;

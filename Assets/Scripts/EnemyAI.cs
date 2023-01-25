@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.SocialPlatforms;
-using Random = System.Random;
 
 public class EnemyAI : MonoBehaviour
 {

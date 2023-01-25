@@ -63,6 +63,8 @@ public class MeleeAction : BaseAbility
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        base.TakeAction(gridPosition, actionComplete);
+
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.SwingBeforeHit;

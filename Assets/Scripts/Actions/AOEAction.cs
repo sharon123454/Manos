@@ -16,6 +16,7 @@ public class AOEAction : BaseAbility
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        base.TakeAction(gridPosition, actionComplete);
         Transform aOEProjectileTransform = Instantiate(aOEProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
         AOEProjectile aOEProjectile = aOEProjectileTransform.GetComponent<AOEProjectile>();
         aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete);

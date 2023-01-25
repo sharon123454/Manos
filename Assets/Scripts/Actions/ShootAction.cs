@@ -96,15 +96,17 @@ public class ShootAction : BaseAbility
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = aiBehaivor.GetShootValue(), };
     }//action value resides here (preference on who to do action on)
 
-    public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
+    public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        base.TakeAction(gridPosition, actionComplete);
+
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         state = State.Aiming;
         stateTimer = aimingStateTime;
         canShootBullt = true;
 
-        ActionStart(onActionComplete);
+        ActionStart(actionComplete);
     }
 
     public List<GridPosition> GetValidActionGridPositionList(GridPosition unitGridPosition)
