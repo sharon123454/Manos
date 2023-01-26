@@ -78,7 +78,6 @@ public class ShootAction : BaseAbility
     public Unit GetTargetUnit() { return targetUnit; }
 
     public int GetMaxShootDistance() { return maxShootDistance; }
-    public AbilityRange GetRange() { return range; }
 
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {

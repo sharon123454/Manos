@@ -26,6 +26,7 @@ public class BaseAbility : BaseAction
     //status effect? what is it?
 
     public float GetDamage() { return damage; }
+    public AbilityRange GetRange() { return range; }
     public float GetPostureDamage() { return postureDamage; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
