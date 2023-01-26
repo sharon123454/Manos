@@ -14,8 +14,12 @@ public enum AbilityRange
 }
 public class BaseAbility : BaseAction
 {
+    public static event EventHandler<int> OnAnySpellCast;
+
     [SerializeField] protected AbilityRange range;
     [SerializeField] protected bool isSpell = true;
+    [Range(1f, 600f)]
+    [SerializeField] protected int favorCost = 100;
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0,200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance;
@@ -26,8 +30,8 @@ public class BaseAbility : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        throw new NotImplementedException();
-
+        print("test");
+        OnAnySpellCast?.Invoke(this, favorCost);
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
     }
