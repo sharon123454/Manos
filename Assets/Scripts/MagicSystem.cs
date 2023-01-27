@@ -1,31 +1,66 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class MagicSystem : MonoBehaviour
 {
-    [SerializeField] private int maxFavor = 300, minFavor = -300;
+    public static event EventHandler<float> OnFavorChanged;
 
+    [SerializeField] private int startFavor = 300, maxFavor = 600;
+
+    private bool visualMatching = false;
     private int currentFavor = 0;
+
+    private void Awake()
+    {
+        BaseAbility.OnAnySpellCast += BaseAbility_OnAnySpellCast;
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+    }
 
     private void Start()
     {
-        BaseAbility.OnAnySpellCast += BaseAbility_OnAnySpellCast;
+        currentFavor = startFavor;
+        UpdateFavorVisual();
     }
 
-    public void BaseAbility_OnAnySpellCast(object sender, int usedFavor)
+    private void BaseAbility_OnAnySpellCast(object sender, int usedFavor)
     {
+        int newFavor;
+
         if (TurnSystem.Instance.IsPlayerTurn())
         {
-            currentFavor += usedFavor;
-            if (currentFavor > maxFavor) { currentFavor = maxFavor; }
+            newFavor = currentFavor + usedFavor;
+
+            if (newFavor > maxFavor) 
+                currentFavor = maxFavor;
         }
         else
         {
-            currentFavor -= usedFavor;
-            if (currentFavor < minFavor) { currentFavor = minFavor; }
+            newFavor = currentFavor - usedFavor;
+
+            if (newFavor < 0) 
+                currentFavor = 0;
         }
-        print(currentFavor);
+
+        if (newFavor != currentFavor)
+        {
+            currentFavor = newFavor;
+            visualMatching = false;
+        }
+    }
+
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    {
+        if (!visualMatching)
+            UpdateFavorVisual();
+    }
+
+    private void UpdateFavorVisual()
+    {
+        float normalizedFavor = (float)currentFavor / (float)maxFavor;
+        OnFavorChanged?.Invoke(this, normalizedFavor);
+        visualMatching = true;
     }
 
 }

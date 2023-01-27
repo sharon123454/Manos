@@ -27,11 +27,11 @@ public class BaseAbility : BaseAction
 
     public float GetDamage() { return damage; }
     public AbilityRange GetRange() { return range; }
+    public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        print("test");
         OnAnySpellCast?.Invoke(this, favorCost);
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
@@ -47,34 +47,11 @@ public class BaseAbility : BaseAction
         throw new NotImplementedException();
     }
 
-    public float GetAbilityHitChance() { return hitChance; }
     public override string GetActionName() { return "Ability"; }
 
-    //private void HandleAbilityRange()
-    //{
-    //    switch (range)
-    //    {
-    //        case AbilityRange.Melee:
-
-    //            break;
-    //        case AbilityRange.Close:
-
-    //            break;
-    //        case AbilityRange.Medium:
-
-    //            break;
-    //        case AbilityRange.Long:
-
-    //            break;
-    //        case AbilityRange.EffectiveAtAll:
-
-    //            break;
-    //        case AbilityRange.InaccurateAtAll:
-
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
+    protected virtual void CastSpell()
+    {
+        OnAnySpellCast?.Invoke(this, favorCost);
+    }
 
 }
