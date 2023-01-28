@@ -81,11 +81,26 @@ public class EnemyAI : MonoBehaviour
     {
         EnemyAIAction _bestEnemyAIAction = null;
         BaseAction _bestBaseAction = null;
+
         StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
             if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
                 continue; // Enemy can't afford this action
+
+            #region try to block action when out of favor
+            //if (_bestBaseAction is BaseAbility) // Enemy can't afford this Spell
+            //{
+            //    BaseAbility _bestBaseAbility = _bestBaseAction as BaseAbility;
+
+            //    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(_bestBaseAbility.GetFavorCost()))
+            //    {
+            //        print("your gay and not supposed to shoot");
+            //        continue;
+            //    }
+            //}
+            #endregion
 
             if (_bestEnemyAIAction == null)// Set first value
             {
