@@ -884,10 +884,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6033764124026794417}
+  - component: {fileID: 1357164184}
   - component: {fileID: 7786307098148229981}
   - component: {fileID: 7794121002179147597}
-  - component: {fileID: 6803592254727095901}
-  - component: {fileID: 1357164184}
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 5814306370280244239}
   - component: {fileID: 4385532987445365409}
@@ -897,6 +896,7 @@ GameObject:
   - component: {fileID: 6887888118622141405}
   - component: {fileID: 2896592683690593462}
   - component: {fileID: 3763008778300365613}
+  - component: {fileID: 6803592254727095901}
   - component: {fileID: 3438019536766426537}
   m_Layer: 6
   m_Name: Unit
@@ -922,6 +922,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357164184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f89ff8fce156b14eaf1d0f9eba8bf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  usedBonusAction: 0
+  usedAction: 0
+  canMakeAttackOfOpportunity: 0
 --- !u!114 &7786307098148229981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,36 +969,6 @@ MonoBehaviour:
   maxPosture: 50
   Armor: 0
   evasion: 51
---- !u!114 &6803592254727095901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10639e68a3d941745951cfdb0e88442d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalRootBone: {fileID: 6029642999695731194}
-  ragdollPrefab: {fileID: 6033764124026794417, guid: 35788bf7086f5ce46a9e5b73e0308965, type: 3}
---- !u!114 &1357164184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f89ff8fce156b14eaf1d0f9eba8bf2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEnemy: 0
-  usedBonusAction: 0
-  usedAction: 0
-  canMakeAttackOfOpportunity: 0
 --- !u!114 &7237301886958795925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,7 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
-  range: 2
+  range: 3
   isSpell: 1
   favorCost: 100
   damage: 10
@@ -1145,6 +1131,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+--- !u!114 &6803592254727095901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10639e68a3d941745951cfdb0e88442d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalRootBone: {fileID: 6029642999695731194}
+  ragdollPrefab: {fileID: 6033764124026794417, guid: 35788bf7086f5ce46a9e5b73e0308965, type: 3}
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0

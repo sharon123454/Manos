@@ -77,8 +77,7 @@ public class MeleeAction : BaseAbility
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        return new EnemyAIAction { gridPosition = gridPosition, actionValue = aiBehaivor.GetMeleeValue(), };
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 200, };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

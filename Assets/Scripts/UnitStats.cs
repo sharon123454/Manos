@@ -29,7 +29,6 @@ public class UnitStats : MonoBehaviour
     public float GetHealthNormalized() { return health / maxHealth; }
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
 
-    public float GetPureHealth() { return health; }
     public void Block()
     {
         armorMultiplayer = 2;
@@ -41,9 +40,9 @@ public class UnitStats : MonoBehaviour
         evasionMultiplayer = 2;
     }
 
-    public float GetEvasion() { return evasion; }
-    public float GetPosture() { return currentPosture; }
-    public float GetArmor() { return Armor; }
+    public float GetEvasion(){return evasion;}
+    public float GetPosture(){return currentPosture; }
+    public float GetArmor() { return Armor;}
     public void ResetUnitStats()
     {
         currentPosture = maxPosture;

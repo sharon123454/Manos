@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using System.Linq;
-using static UnityEngine.UI.CanvasScaler;
 
 public class LevelGrid : MonoBehaviour
 {
@@ -11,12 +9,11 @@ public class LevelGrid : MonoBehaviour
     public event EventHandler OnAnyUnitMovedGridPosition;
 
     [SerializeField] private Transform gridDebugObjectPrefab;
+    [SerializeField] private float _highestLevelPoint = 5;
     [SerializeField] private float _cellSize = 2;
     [SerializeField] private int _length = 20;
     [SerializeField] private int _width = 20;
-    private GridObject grid;
-    [HideInInspector]public List<Unit> test;
-    public List<Unit> sortUnitsByHP;
+
     private GridSystem<GridObject> gridSystem;
 
     private void Awake()
@@ -35,20 +32,8 @@ public class LevelGrid : MonoBehaviour
         PathFinding.Instance.SetUp(_width, _length, _cellSize);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            FindUnitLowestHP();
-            print("inside");
-        }
-    }
     public int GetWidth() { return gridSystem.GetWidth(); }
 
-    public void AddUnit(Unit unit)
-    {
-        test.Add(unit);
-    }
     public int GetLength() { return gridSystem.GetLength(); }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
@@ -61,12 +46,6 @@ public class LevelGrid : MonoBehaviour
         return gridSystem.GetGridObject(gridPosition).GetUnitList();
     }
 
-    public List<Unit> FindUnitLowestHP()
-    {
-        return sortUnitsByHP = test.OrderBy(g => g.GetPureHealth()).ToList();
-
-    }
-    //  public List<Unit> FindUnitHighestHP(){}
     public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         gridSystem.GetGridObject(gridPosition).RemoveUnit(unit);

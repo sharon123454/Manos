@@ -70,7 +70,8 @@ public class DashAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        return new EnemyAIAction { gridPosition = gridPosition, actionValue = aiBehaivor.GetDashValue() };
+        int targetCountAtGridPosition = unit.GetAction<ShootAction>().GetTargetCountAtPosition(gridPosition);
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = targetCountAtGridPosition * 10 };
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

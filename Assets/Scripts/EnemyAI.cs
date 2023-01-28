@@ -81,27 +81,22 @@ public class EnemyAI : MonoBehaviour
     {
         EnemyAIAction _bestEnemyAIAction = null;
         BaseAction _bestBaseAction = null;
-        //  StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+        StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
-
-            if (enemyUnit.CanSpendActionPointsToTakeBonusAction(baseAction) || enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+            if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
                 continue; // Enemy can't afford this action
 
-            if (_bestEnemyAIAction == null)// Set first value   
+            if (_bestEnemyAIAction == null)// Set first value
             {
                 _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
                 _bestBaseAction = baseAction;
             }
-
             else // Compare other actions value to the first if better value found, replace.
             {
                 EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
 
-                int firstDice = UnityEngine.Random.Range(0, 101);
-                int secondDice = UnityEngine.Random.Range(0, 101);
-                // Adds random number and takes the highest number as ability to use
-                if (testEnemyAIAction != null && testEnemyAIAction.actionValue + firstDice > _bestEnemyAIAction.actionValue + secondDice)
+                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > _bestEnemyAIAction.actionValue)
                 {
                     _bestEnemyAIAction = testEnemyAIAction;
                     _bestBaseAction = baseAction;
