@@ -208,7 +208,7 @@ public class GridSystemVisual : MonoBehaviour
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
                 if (targetUnit != null && targetUnit.IsEnemy())
                 {
-                    targetUnit.changeGridType(type);
+                    targetUnit.SetGridEffectivness(type);
                 }
                 gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
 
@@ -217,7 +217,7 @@ public class GridSystemVisual : MonoBehaviour
         //    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
         //    if (targetUnit != null)
         //    {
-        //        targetUnit.changeGridType(Effectiveness.Miss);
+        //        targetUnit.SetGridEffectivness(Effectiveness.Miss);
         //    }
         //}
     }

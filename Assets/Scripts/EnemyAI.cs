@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour
         EnemyAIAction _bestEnemyAIAction = null;
         BaseAction _bestBaseAction = null;
 
-        StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+       // StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
 
         foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
