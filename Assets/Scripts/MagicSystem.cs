@@ -33,6 +33,17 @@ public class MagicSystem : MonoBehaviour
         UpdateFavorVisual();
     }
 
+    public float GetMaxFavor() { return maxFavor; }
+    public float GetCurrentFavor() { return currentFavor; }
+    public bool CanEnemySpendFavorToTakeAction(int spellFavorCost)
+    {
+        return currentFavor + spellFavorCost <= maxFavor;
+    }
+    public bool CanFriendlySpendFavorToTakeAction(int spellFavorCost)
+    {
+        return currentFavor - spellFavorCost >= 0;
+    }
+
     /// <summary>
     /// hard coded trash, help
     /// </summary>
@@ -65,10 +76,8 @@ public class MagicSystem : MonoBehaviour
 
     private void UpdateFavorVisual()
     {
-        float normalizedFavor = (float)currentFavor / (float)maxFavor;
-        OnFavorChanged?.Invoke(this, normalizedFavor);
+        OnFavorChanged?.Invoke(this, currentFavor);
         visualMatching = true;
-        GetCritModifier();
     }
 
     private void BaseAbility_OnAnySpellCast(object sender, int usedFavor)

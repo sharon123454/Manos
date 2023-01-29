@@ -26,9 +26,10 @@ public class MagicSystemUI : MonoBehaviour
         frontBar.fillAmount = Mathf.Lerp(frontBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
     }
 
-    private void MagicSystem_OnFavorChanged(object sender, float favorNormalized )
+    private void MagicSystem_OnFavorChanged(object sender, float currentFavor)
     {
-        favorValue = favorNormalized;
+        float normalizedFavor = currentFavor / MagicSystem.Instance.GetMaxFavor();
+        favorValue = normalizedFavor;
     }
 
 }

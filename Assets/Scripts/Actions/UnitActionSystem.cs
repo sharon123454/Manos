@@ -17,8 +17,9 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private LayerMask unitsLayerMask;
 
     internal BaseAction selectedAction;
+    internal BaseAction savedAction;
     private bool isBusy;
-    public BaseAction savedAction;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,9 +41,7 @@ public class UnitActionSystem : MonoBehaviour
         //canceles current action
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (selectedAction is MoveAction)
-            {
-            }
+            if (selectedAction is MoveAction) { }
             else
                 SetSelectedAction(selectedUnit.GetAction<MoveAction>());
         }

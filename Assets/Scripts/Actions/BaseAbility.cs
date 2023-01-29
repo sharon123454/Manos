@@ -26,13 +26,14 @@ public class BaseAbility : BaseAction
     //status effect? what is it?
 
     public float GetDamage() { return damage; }
+    public int GetFavorCost() { return favorCost; }
     public AbilityRange GetRange() { return range; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        OnAnySpellCast?.Invoke(this, favorCost);
+        OnAnySpellCast?.Invoke(this, GetFavorCost());
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
     }
@@ -51,7 +52,7 @@ public class BaseAbility : BaseAction
 
     protected virtual void CastSpell()
     {
-        OnAnySpellCast?.Invoke(this, favorCost);
+        OnAnySpellCast?.Invoke(this, GetFavorCost());
     }
 
 }

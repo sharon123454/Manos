@@ -6,6 +6,7 @@ using System;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
+    public static event EventHandler GameLost;
 
     private List<Unit> unitList;
     private List<Unit> enemyUnitList;
@@ -27,6 +28,7 @@ public class UnitManager : MonoBehaviour
     {
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
     }
 
     public List<Unit> GetUnitList() { return unitList; }
@@ -34,6 +36,18 @@ public class UnitManager : MonoBehaviour
     public List<Unit> GetEnemyUnitList() { return enemyUnitList; }
 
     public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
+
+    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    {
+        Unit unit = sender as Unit;
+
+        unitList.Remove(unit);
+
+        if (unit.IsEnemy())
+            enemyUnitList.Remove(unit);
+        else
+            friendlyUnitList.Remove(unit);
+    }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
     {
@@ -47,16 +61,10 @@ public class UnitManager : MonoBehaviour
             friendlyUnitList.Add(unit);
     }
 
-    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
     {
-        Unit unit = sender as Unit;
-
-        unitList.Remove(unit);
-
-        if (unit.IsEnemy())
-            enemyUnitList.Remove(unit);
-        else
-            friendlyUnitList.Remove(unit);
+        if (friendlyUnitList.Count <= 0)
+            GameLost?.Invoke(this, EventArgs.Empty);
     }
 
 }
