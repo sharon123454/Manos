@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using static UnityEngine.UI.CanvasScaler;
+using static GridSystemVisual;
+using UnityEngine.UIElements;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -82,6 +85,7 @@ public class GridSystemVisual : MonoBehaviour
                 break;
             case DashAction dashAction:
                 gridVisualType = GridVisualType.White;
+
                 ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                 break;
             case ShootAction shootAction:
@@ -119,7 +123,7 @@ public class GridSystemVisual : MonoBehaviour
                 if (gridSystemVisualSingleArray[x, z] != null)
                     gridSystemVisualSingleArray[x, z].Hide();
     }
-    
+
     private void HideGridPositionRange(GridPosition gridPosition, int range)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
@@ -144,7 +148,7 @@ public class GridSystemVisual : MonoBehaviour
         HideGridPositionList(gridPosList);
     }
 
-    private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
@@ -162,13 +166,13 @@ public class GridSystemVisual : MonoBehaviour
                     continue;
 
                 gridPosList.Add(testGridPosition);
+
             }
         }
 
-        ShowGridPositionList(gridPosList, gridVisualType);
+        ShowGridPositionList(gridPosList, gridVisualType,type);
     }
-
-    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType)
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
@@ -195,13 +199,43 @@ public class GridSystemVisual : MonoBehaviour
                 gridSystemVisualSingleArray[position._x, position._z].Hide();
     }
 
-    public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType)
+    public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType, Effectiveness type)
     {
         foreach (GridPosition position in gridPositions)
-            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
-    }
 
+            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+            {
+                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+                if (targetUnit != null && targetUnit.IsEnemy())
+                {
+                    targetUnit.changeGridType(type);
+                }
+                gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
+
+            }
+        //{
+        //    Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+        //    if (targetUnit != null)
+        //    {
+        //        targetUnit.changeGridType(Effectiveness.Miss);
+        //    }
+        //}
+    }
+    public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType)
+    {
+        int localCount = 0;
+        foreach (GridPosition position in gridPositions)
+        {
+            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+            {
+                //Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+                //if (targetUnit != null)
+                //    targetUnit.changef(type);
+                gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
+            }
+        }
+
+    }
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
         foreach (GridVisualTypeMaterail gridVisualTypeMaterial in gridVisualTypeMaterialList)
@@ -241,37 +275,38 @@ public class GridSystemVisual : MonoBehaviour
 
     private void MeleeRange(Unit selectedUnit, int adjacent)
     {
-        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.RedSoft);
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.RedSoft, Effectiveness.Effective);
     }
 
     private void CloseRange(Unit selectedUnit, int close, int far)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green, Effectiveness.Miss);
     }
 
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Green);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Yellow);
+
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Inaccurate);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Red, Effectiveness.Miss);
         HideGridPositionRange(selectedUnit.GetGridPosition(), adjacent);
     }
 
     private void LongRange(Unit selectedUnit, int close, int veryFar)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
         HideGridPositionRange(selectedUnit.GetGridPosition(), close);
     }
 
     private void EffectiveAtAllRanges(Unit selectedUnit, int veryFar)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
     }
 
     private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss);
     }
 
     private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e) { UpdateGridVisual(); }

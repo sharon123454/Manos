@@ -12,6 +12,12 @@ public enum AbilityRange
     EffectiveAtAll/* 0 - 15 */,
     InaccurateAtAll/* 0-15 */ 
 }
+public enum Effectiveness
+{
+    Effective/* 0 - 1 */,
+    Inaccurate/* 0 - 4, 5-9 */,
+    Miss/* 2-4, 5 - 9, 10-15 */,
+}
 public class BaseAbility : BaseAction
 {
     public static event EventHandler<int> OnAnySpellCast;

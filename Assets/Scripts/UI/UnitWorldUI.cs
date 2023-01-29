@@ -73,7 +73,25 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (unitStats.GetPosture() <= 0)
                 hitChanceText.text = $"hitChance = [{100}]%";
             else
-                hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
+            {
+                switch (unit.GetGridPosition().ReturnRangeType())
+                {
+                    case Effectiveness.Effective:
+                        hitChanceText.text = "hitChance = [100]";
+                        break;
+                    case Effectiveness.Inaccurate:
+                        hitChanceText.text = "hitChance = [50]";
+                        break;
+                    case Effectiveness.Miss:
+                        hitChanceText.text = "hitChance = [0]";
+                        break;
+                    default:
+                        hitChanceText.text = "Cant find Effectiveness";
+                        break;
+
+                }
+               // hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
+            }
 
         }
     }
