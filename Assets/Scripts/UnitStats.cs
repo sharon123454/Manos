@@ -18,7 +18,10 @@ public class UnitStats : MonoBehaviour
     private float currentPosture;
     private int armorMultiplayer = 1;
     private int evasionMultiplayer = 1;
+    private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
+
+    private Effectiveness GetEffectiveness => GetComponent<Unit>().GetGridEffectivness();
 
     private void Awake()
     {
@@ -26,6 +29,10 @@ public class UnitStats : MonoBehaviour
         health = maxHealth;
     }
 
+    private void Update()
+    {
+        print(GetEffectiveness);
+    }
     public float GetHealthNormalized() { return health / maxHealth; }
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
 
@@ -40,9 +47,9 @@ public class UnitStats : MonoBehaviour
         evasionMultiplayer = 2;
     }
 
-    public float GetEvasion(){return evasion;}
-    public float GetPosture(){return currentPosture; }
-    public float GetArmor() { return Armor;}
+    public float GetEvasion() { return evasion; }
+    public float GetPosture() { return currentPosture; }
+    public float GetArmor() { return Armor; }
     public void ResetUnitStats()
     {
         currentPosture = maxPosture;
@@ -62,7 +69,19 @@ public class UnitStats : MonoBehaviour
 
         if (currentPosture > 0)
         {
-            if ((hitChance - (evasion * evasionMultiplayer)) >= DiceRoll)
+            switch (GetEffectiveness)
+            {
+                case Effectiveness.Effective:
+                    _Effectivness = 0;
+                    break;
+                case Effectiveness.Inaccurate:
+                    _Effectivness = 30;
+                    break;
+                case Effectiveness.Miss:
+                    _Effectivness = 100;
+                    break;
+            }
+            if (((hitChance - _Effectivness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
                 TakeDamage(damageToRecieve);
             }
