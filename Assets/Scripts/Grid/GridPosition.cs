@@ -7,8 +7,13 @@ public struct GridPosition : IEquatable<GridPosition>
 {
     public int _x;
     public int _z;
+    public Effectiveness range;
 
-    public GridPosition(int x, int z) { this._x = x; this._z = z; }
+    public GridPosition(int x, int z)
+    {
+        this._x = x; this._z = z;
+        range = Effectiveness.Effective;
+    }
 
     public override bool Equals(object obj) { return obj is GridPosition position && _x == position._x && _z == position._z; }
 
@@ -31,5 +36,7 @@ public struct GridPosition : IEquatable<GridPosition>
     public static GridPosition operator +(GridPosition a, GridPosition b) { return new GridPosition(a._x + b._x, a._z + b._z); }
 
     public static GridPosition operator -(GridPosition a, GridPosition b) { return new GridPosition(a._x - b._x, a._z - b._z); }
+
+    public Effectiveness ReturnRangeType() { return range; }
 
 }

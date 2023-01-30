@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
     private List<Unit> unitList;
     private List<Unit> enemyUnitList;
     private List<Unit> friendlyUnitList;
+    private bool partyWipped = false;
 
     private void Awake()
     {
@@ -47,6 +48,9 @@ public class UnitManager : MonoBehaviour
             enemyUnitList.Remove(unit);
         else
             friendlyUnitList.Remove(unit);
+
+        if (friendlyUnitList.Count <= 0)
+            partyWipped = true;
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -63,7 +67,7 @@ public class UnitManager : MonoBehaviour
 
     private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
     {
-        if (friendlyUnitList.Count <= 0)
+        if (partyWipped)
             GameLost?.Invoke(this, EventArgs.Empty);
     }
 
