@@ -4829,7 +4829,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8728609108584554044}
-  m_LocalRotation: {x: -0.5609861, y: -0.43045866, z: -0.4304587, w: 0.56098604}
+  m_LocalRotation: {x: -0.56098557, y: -0.4304593, z: -0.4304593, w: 0.56098557}
   m_LocalPosition: {x: 12.458, y: 2.302, z: 17.981712}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
@@ -5727,18 +5727,18 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0.03627014
-          value: 0
-          inSlope: 0.4334833
-          outSlope: 0.4334833
+          value: 0.13513947
+          inSlope: 0.014187252
+          outSlope: 0.014187252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9714966
-          value: 0.40540504
-          inSlope: 0.4334833
-          outSlope: 0.4334833
+          time: 0.98845285
+          value: 0.14864832
+          inSlope: 0.014187252
+          outSlope: 0.014187252
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -5976,10 +5976,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.27058825, g: 0.26666668, b: 0.26666668, a: 0}
-        key1: {r: 0, g: 0, b: 0, a: 0.9098039}
-        key2: {r: 0, g: 0, b: 0, a: 1}
-        key3: {r: 1, g: 1, b: 1, a: 0.85882354}
+        key0: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 0}
+        key1: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
+        key2: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -5993,16 +5993,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 17733
-        atime2: 31611
-        atime3: 53320
+        atime1: 31611
+        atime2: 65535
+        atime3: 65535
         atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 3
-        m_NumAlphaKeys: 5
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -7355,7 +7355,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.16
+      scalar: 0.09
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -7512,7 +7512,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.0001
+    frequency: 0.54
     damping: 0
     octaves: 1
     octaveMultiplier: 0.5
@@ -9576,7 +9576,7 @@ GameObject:
   - component: {fileID: 9005210434727509782}
   - component: {fileID: 9005210434727509785}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
