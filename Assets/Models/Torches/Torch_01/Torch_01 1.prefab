@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 742699688}
   - component: {fileID: 742699690}
   - component: {fileID: 742699689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4815,7 +4815,7 @@ GameObject:
   - component: {fileID: 81385735752842630}
   - component: {fileID: 256839242132226210}
   - component: {fileID: 283141203689285938}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SmokeEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9396,7 +9396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 81385737884127820}
   - component: {fileID: 22702131559432404}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9490,7 +9490,7 @@ GameObject:
   - component: {fileID: 90726779347843677}
   - component: {fileID: 90726779347843676}
   - component: {fileID: 90726779347843667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14294,7 +14294,8 @@ GameObject:
   - component: {fileID: 1140347196532441548}
   - component: {fileID: 4070277896665747049}
   - component: {fileID: 2276709693838736035}
-  m_Layer: 0
+  - component: {fileID: 3837190263003804750}
+  m_Layer: 7
   m_Name: Torch_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14371,6 +14372,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &3837190263003804750
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331158708952079222}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 0.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1827348587228505568
 GameObject:
   m_ObjectHideFlags: 0
@@ -14382,7 +14397,7 @@ GameObject:
   - component: {fileID: 7424548535338599042}
   - component: {fileID: 3169084818611980128}
   - component: {fileID: 3533964904740727786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireEmbers_Smol (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19117,7 +19132,7 @@ GameObject:
   - component: {fileID: 1976057995029834096}
   - component: {fileID: 1976057995029834102}
   - component: {fileID: 1976057995029834097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireEmbers_Smol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23852,7 +23867,7 @@ GameObject:
   - component: {fileID: 1473957830923083579}
   - component: {fileID: 4274009470482594255}
   - component: {fileID: 6380721674813075263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Heat_Wave (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

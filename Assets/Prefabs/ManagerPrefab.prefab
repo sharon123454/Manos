@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd2d3365950ca94ca8eb1af9b2e41b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createDebug: 1
+  createDebug: 0
   PathFindingDebugObject: {fileID: 6370607194873716113, guid: 54fb6eea8cdc95a46bea77eeb9d8a844, type: 3}
   rayCastOffsetDistance: 5
   obstacleLayerMask:
@@ -189,7 +189,6 @@ MonoBehaviour:
   unitsLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  savedAction: {fileID: 0}
 --- !u!1 &1346879164
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,11 +561,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridDebugObjectPrefab: {fileID: 6370607194873716113, guid: 20de09bafd5197944a20d3c23fb39ec6, type: 3}
+  _highestLevelPoint: 5
   _cellSize: 2
   _length: 24
   _width: 24
-  test: []
-  sortUnitsByHP: []
 --- !u!1 &2283155131120845605
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a35a8762d1b3845a202a24f4140cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  critChanceIncrease: 20
+  divideFavorBy: 6
   startFavor: 300
   maxFavor: 600
 --- !u!1 &4909316955839326610

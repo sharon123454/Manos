@@ -58,22 +58,22 @@ public class CameraController : MonoBehaviour
     private void HandleMovement()
     {
         Vector3 inputMoveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) /*|| Input.mousePosition.y > Screen.height*/)
         {
             inputMoveDir.z += 1;
             StopAllCoroutines();
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) /*|| Input.mousePosition.y < 0 */)
         {
             inputMoveDir.z -= 1;
             StopAllCoroutines();
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftAlt) /*|| Input.mousePosition.x < 0 */)
         {
             inputMoveDir.x -= 1;
             StopAllCoroutines();
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) /*|| Input.mousePosition.x > Screen.width */)
         {
             inputMoveDir.x += 1;
             StopAllCoroutines();
