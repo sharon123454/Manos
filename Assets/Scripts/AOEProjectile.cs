@@ -9,6 +9,7 @@ public class AOEProjectile : MonoBehaviour
 
     [SerializeField] private float damage = 30;
     [SerializeField] private float hitChance = 100;
+    [SerializeField] private float postureDamage = 15;
     [SerializeField] private LayerMask damageLayer;
     [SerializeField] private float moveSpeed = 15f;
     [Tooltip("Unity world units, grid scale needs to be multiplied")]
@@ -45,7 +46,9 @@ public class AOEProjectile : MonoBehaviour
 
             foreach (Collider collider in colliderArray)
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
-                    targetUnit.Damage(damage, hitChance);
+                {
+                    targetUnit.Damage(damage,postureDamage, hitChance);
+                }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);
 

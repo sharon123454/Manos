@@ -26,6 +26,9 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         UpdateHealthBar();
     }
 
+    void Update()
+    {
+    }
     private void UpdateActionPointsText()
     {
         if (unit.GetActionPoints() >= 1) actionBarImage.fillAmount = 100;

@@ -49,7 +49,7 @@ public class MeleeAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, hitChance);
+                targetUnit.Damage(damage, postureDamage, hitChance);
                 break;
 
             case State.SwingAfterHit:

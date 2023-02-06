@@ -136,11 +136,19 @@ public class Unit : MonoBehaviour
         return unitStats.GetHealthNormalized();
     }
 
-    public void Damage(float damage, float hitChance)
+    public float GetPostureNormalized()
     {
-        unitStats.TryTakeDamage(damage, hitChance);
+        return unitStats.GetPostureNormalized();
     }
 
+    public void Damage(float damage,  float postureDamage, float hitChance)
+    {
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance);
+    }
+    public void PostureDamage(float damage)
+    {
+        unitStats.TakePostureDamage(damage);
+    }
     public void Dodge() { unitStats.Dodge(); }
 
     public void Block() { unitStats.Block(); }
