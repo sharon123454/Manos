@@ -72,7 +72,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();
                     break;
                 case "Melee":
-                    getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();
+                    getHitChance = selectedUnit.GetAction<MeleeAction>().GetAbilityHitChance();
                     break;
                 case "Volley":
                     getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();

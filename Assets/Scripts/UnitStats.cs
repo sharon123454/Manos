@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using TMPro;
 
 public class UnitStats : MonoBehaviour
@@ -79,7 +79,7 @@ public class UnitStats : MonoBehaviour
     }
 
     //missing posture damage
-    public void TryTakeDamage(float rawDamage,float postureDamage, float hitChance)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance)
     {
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
