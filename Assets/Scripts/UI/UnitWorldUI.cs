@@ -64,6 +64,9 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 case "Shoot":
                     getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
+                    break;   
+                case "Basic":
+                    getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
                     break;
                 case "AoE":
                     getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();
