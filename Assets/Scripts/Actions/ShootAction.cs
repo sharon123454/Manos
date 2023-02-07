@@ -155,7 +155,7 @@ public class ShootAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Shoot"; }
+    public override string GetActionName() { return "Basic"; }
 
     private void Shoot(float damage)
     {
