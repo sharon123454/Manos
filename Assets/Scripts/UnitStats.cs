@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
+using TMPro;
 
 public class UnitStats : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class UnitStats : MonoBehaviour
     public event EventHandler OnDamaged;
 
     [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float maxPosture = 50;
+    [SerializeField] private float maxPosture = 100;
     [SerializeField] private float Armor = 0;
     [SerializeField] private float evasion = 20;
 
@@ -78,11 +79,10 @@ public class UnitStats : MonoBehaviour
     }
 
     //missing posture damage
-    public void TryTakeDamage(float rawDamage, float hitChance)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance)
     {
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
-
         if (damageToRecieve <= 0)
             return;
 
@@ -90,24 +90,31 @@ public class UnitStats : MonoBehaviour
         {
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
-                TakeDamage(damageToRecieve);
+                TakeDamage(damageToRecieve, postureDamage);
             }
             else
                 return; //attack missed
         }
         else
-            TakeDamage(damageToRecieve);
+            TakeDamage(damageToRecieve, postureDamage);
 
     }
 
-    private void TakeDamage(float damageToRecieve)
+    private void TakeDamage(float damageToRecieve, float postureDamage)
     {
         health -= damageToRecieve;
+        currentPosture -= postureDamage;
+        //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         if (health < 0) health = 0;
 
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
         if (health == 0) Die();
+    }
+
+    public void TakePostureDamage(float damageToRecieve)
+    {
+        currentPosture -= damageToRecieve;
     }
 
     private void Die()

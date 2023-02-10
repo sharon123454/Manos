@@ -155,13 +155,13 @@ public class ShootAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Shoot"; }
+    public override string GetActionName() { return "Basic"; }
 
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        targetUnit.Damage(damage, hitChance);
+        targetUnit.Damage(damage,postureDamage, hitChance);
     }
 
 }

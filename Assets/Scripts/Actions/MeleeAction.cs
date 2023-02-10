@@ -9,7 +9,7 @@ public class MeleeAction : BaseAbility
 
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
-
+    private OnMelee melee;
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
@@ -19,6 +19,10 @@ public class MeleeAction : BaseAbility
     private float stateTimer;
     private State state;
 
+    void Start()
+    {
+        melee = GetComponent<OnMelee>();
+    }
     private void Update()
     {
         if (!_isActive)
@@ -49,7 +53,7 @@ public class MeleeAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, hitChance);
+                targetUnit.Damage(damage, postureDamage, hitChance);
                 break;
 
             case State.SwingAfterHit:
@@ -73,6 +77,7 @@ public class MeleeAction : BaseAbility
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);
+        StartCoroutine(melee.PlaySlashAnim());
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

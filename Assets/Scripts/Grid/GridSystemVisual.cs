@@ -23,8 +23,8 @@ public class GridSystemVisual : MonoBehaviour
     [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
     [SerializeField] private int _adjacent = 1;
     [SerializeField] private int _close = 4;
-    [SerializeField] private int _far = 9;
-    [SerializeField] private int _veryFar = 15;
+    [SerializeField] private int _far = 6;
+    [SerializeField] private int _veryFar = 9;
 
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
@@ -96,6 +96,10 @@ public class GridSystemVisual : MonoBehaviour
                 break;
             case AOEAction aOEAction:
                 FilterByRange(aOEAction.GetRange(), selectedUnit);
+                break;
+            case ArrowVolleyAction volleyAction:
+                FilterByRange(volleyAction.GetRange(), selectedUnit);
+                print(volleyAction.GetRange().ToString());
                 break;
             case SpinAction spinAction:
                 gridVisualType = GridVisualType.Blue;
