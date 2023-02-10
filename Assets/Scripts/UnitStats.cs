@@ -58,6 +58,7 @@ public class UnitStats : MonoBehaviour
 
     private void Instance_OnTurnChange(object sender, EventArgs e)
     {
+        GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
         if (!_unit.IsEnemy())
         {
             if (TurnSystem.Instance.IsPlayerTurn())

@@ -15,16 +15,15 @@ public class ShootAction : BaseAbility
         public Unit shootingUnit;
     }
 
+    [SerializeField] private StatusEffect _skillEffect;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
     [SerializeField] private float unitShoulderHeight = 1.7f;
     [SerializeField] private LayerMask obstacleLayerMask;
-    [SerializeField] private StatusEffect _skillEffect;
 
     private Unit targetUnit;
     private bool canShootBullt;
-
     private enum State { Aiming, Shooting, Cooloff }
     private float stateTimer;
     private State state;
@@ -33,7 +32,6 @@ public class ShootAction : BaseAbility
     {
         if (!_isActive)
             return;
-
         stateTimer -= Time.deltaTime;
 
         switch (state)

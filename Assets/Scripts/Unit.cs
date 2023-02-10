@@ -70,7 +70,7 @@ public class Unit : MonoBehaviour
     {
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction))
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCoolDown() == 0)
             {
                 SpendActionPoints(true);
                 // baseAction._usedAction = true;
@@ -79,7 +79,7 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
-        else if (!baseAction.GetIsBonusAction() && !usedAction)
+        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCoolDown() == 0)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -142,14 +142,11 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage,  float postureDamage, float hitChance)
+    public void Damage(float damage, float postureDamage, float hitChance)
     {
         unitStats.TryTakeDamage(damage, postureDamage, hitChance);
     }
-    public void PostureDamage(float damage)
-    {
-        unitStats.TakePostureDamage(damage);
-    }
+
     public void Dodge() { unitStats.Dodge(); }
 
     public void Block() { unitStats.Block(); }

@@ -11,6 +11,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI textMeshPro;
     [SerializeField] TextMeshProUGUI damageProUgui;
     [SerializeField] TextMeshProUGUI postureProUgui;
+    [SerializeField] TextMeshProUGUI cooldownProUgui;
     [SerializeField] GameObject selectedGameObject;
 
     private BaseAbility isBaseAbility;
@@ -42,12 +43,20 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             damageProUgui.gameObject.SetActive(true);
             postureProUgui.gameObject.SetActive(true);
-
+            cooldownProUgui.gameObject.SetActive(true);
             if (!isBaseAbility)
+            {
                 isBaseAbility = (BaseAbility)baseAction;
+                damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
+                postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
+                cooldownProUgui.text = $"Cooldown : {baseAction.GetCoolDown()}";
+            }
+        }
+        else
+        {
 
-            damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
-            postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
+            cooldownProUgui.gameObject.SetActive(true);
+            cooldownProUgui.text = $"Cooldown : {baseAction.GetCoolDown()}";
         }
     }
 
@@ -56,5 +65,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         damageProUgui.gameObject.SetActive(false);
         postureProUgui.gameObject.SetActive(false);
+        cooldownProUgui.gameObject.SetActive(false);
     }
 }

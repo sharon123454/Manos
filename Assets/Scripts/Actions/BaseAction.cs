@@ -9,6 +9,8 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionCompleted;
 
     [SerializeField] protected bool _isBonusAction;
+    [SerializeField] protected int cooldown;
+    [SerializeField] protected int addCooldown;
 
     protected Action onActionComplete;
     protected Unit unit;
@@ -18,6 +20,26 @@ public abstract class BaseAction : MonoBehaviour
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
+        
+    }
+
+    protected virtual void Start()
+    {
+        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+    }
+    private void Instance_OnTurnChange(object sender, EventArgs e)
+    {
+        if (unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (cooldown > 0)
+                cooldown--;
+        }
+
+        if (!unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (cooldown > 0)
+                cooldown--;
+        }
     }
 
     protected void ActionComplete()
@@ -29,6 +51,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
+        cooldown += addCooldown;
         _isActive = true;
         this.onActionComplete = onActionComple;
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
@@ -37,6 +60,7 @@ public abstract class BaseAction : MonoBehaviour
     public Unit GetUnit() { return unit; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
     public virtual bool GetIsBonusAction() { return _isBonusAction; }
+    public virtual int GetCoolDown() { return cooldown; }
 
     public abstract string GetActionName();
 

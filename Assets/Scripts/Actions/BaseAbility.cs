@@ -48,9 +48,11 @@ public class BaseAbility : BaseAction
     public AbilityRange GetRange() { return range; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
+    public float GetCooldown() { return cooldown; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        cooldown += addCooldown;
         OnAnySpellCast?.Invoke(this, GetFavorCost());
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
