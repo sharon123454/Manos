@@ -110,6 +110,7 @@ public class Unit : MonoBehaviour
     public Vector3 GetWorldPosition() { return transform.position; }
     public Effectiveness SetGridEffectivness(Effectiveness effective) { return gridPosition.range = effective; }
     public Effectiveness GetGridEffectivness() { return gridPosition.range; }
+    public StatusEffect GetGridStatusEffect() { return gridPosition.currentEffect; }
 
     public GridPosition GetGridPosition() { return gridPosition; }
 

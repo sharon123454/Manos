@@ -18,6 +18,18 @@ public enum Effectiveness
     Inaccurate/* 0 - 4, 5-9 */,
     Miss/* 2-4, 5 - 9, 10-15 */,
 }
+
+public enum StatusEffect
+{
+    None,//Default State
+    Stun,//Miss X Turns
+    IgnoreArmor,//Ignore Armor
+    Root,//Cant Move,but can use Abilities 
+    CowardPlague,
+    Nullify,
+    Heal,//Heal X HP
+    GainArmor,//Gain Armor
+}
 public class BaseAbility : BaseAction
 {
     public static event EventHandler<int> OnAnySpellCast;

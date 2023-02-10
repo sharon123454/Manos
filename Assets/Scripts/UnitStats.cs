@@ -9,7 +9,7 @@ public class UnitStats : MonoBehaviour
 {
     public event EventHandler OnDeath;
     public event EventHandler OnDamaged;
-
+    private Unit _unit;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float Armor = 0;
@@ -22,7 +22,8 @@ public class UnitStats : MonoBehaviour
     private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
 
-    private Effectiveness GetEffectiveness => GetComponent<Unit>().GetGridEffectivness();
+    private Effectiveness GetEffectiveness => _unit.GetGridEffectivness();
+    private StatusEffect GetCurrentEffect => _unit.GetGridStatusEffect();
     private int CurrentEffectiveness
     {
         get
@@ -47,6 +48,43 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture = maxPosture;
         health = maxHealth;
+    }
+
+    private void Start()
+    {
+        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+        _unit = GetComponent<Unit>();
+    }
+
+    private void Instance_OnTurnChange(object sender, EventArgs e)
+    {
+        if (!_unit.IsEnemy())
+        {
+            if (TurnSystem.Instance.IsPlayerTurn())
+            {
+                switch (GetCurrentEffect)
+                {
+                    case StatusEffect.None:
+                        break;
+                    case StatusEffect.Stun:
+                        break;
+                    case StatusEffect.IgnoreArmor:
+                        break;
+                    case StatusEffect.Root:
+                        break;
+                    case StatusEffect.CowardPlague:
+                        break;
+                    case StatusEffect.Nullify:
+                        break;
+                    case StatusEffect.Heal:
+                        break;
+                    case StatusEffect.GainArmor:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
     }
 
     private void Update()

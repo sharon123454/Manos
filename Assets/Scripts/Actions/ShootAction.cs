@@ -20,6 +20,7 @@ public class ShootAction : BaseAbility
     [Tooltip("Relevant for raycasting when this Unit shoots")]
     [SerializeField] private float unitShoulderHeight = 1.7f;
     [SerializeField] private LayerMask obstacleLayerMask;
+    [SerializeField] private StatusEffect _skillEffect;
 
     private Unit targetUnit;
     private bool canShootBullt;
