@@ -552,8 +552,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1357164184}
-  - {fileID: 386841864}
   - {fileID: 1680057125}
+  - {fileID: 386841864}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -819,17 +819,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 179750530}
     m_Modifications:
-    - target: {fileID: 4385532987445365409, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: damage
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: _isBonusAction
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -875,44 +867,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok
       objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: damage
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: hitChance
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxShootDistance
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: _isBonusAction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxMoveDistance
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: Armor
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: evasion
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxHealth
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxPosture
-      value: 150
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4142000546130311579, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1001 &372139334
 PrefabInstance:
@@ -988,36 +943,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1519307405346425750, guid: 8923fdc4a34875f4388af0176667a515, type: 3}
   m_PrefabInstance: {fileID: 924902191}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &386841849 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-  m_PrefabInstance: {fileID: 349615170}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &386841850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386841849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8cfbaf1b95763647aeaacfd9b088990, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  range: 3
-  isSpell: 1
-  favorCost: 100
-  damage: 50
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
-  maxThrowDistance: 9
 --- !u!4 &386841864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -3047,12 +2972,16 @@ PrefabInstance:
       value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: addCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: _isBonusAction
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3107,8 +3036,16 @@ PrefabInstance:
       value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: addCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxShootDistance
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: addCooldown
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: _isBonusAction
@@ -5778,6 +5715,10 @@ PrefabInstance:
     - target: {fileID: 6900432758506420500, guid: 0f68a1b203247404494c71f308b137f0, type: 3}
       propertyPath: m_Name
       value: Nanook
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900432758506420504, guid: 0f68a1b203247404494c71f308b137f0, type: 3}
+      propertyPath: addCooldown
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6900432758506420506, guid: 0f68a1b203247404494c71f308b137f0, type: 3}
       propertyPath: addCooldown

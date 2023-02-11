@@ -49,14 +49,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 isBaseAbility = (BaseAbility)baseAction;
                 damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
                 postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
-                cooldownProUgui.text = $"Cooldown : {baseAction.GetCoolDown()}";
+                cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
             }
         }
         else
         {
-
             cooldownProUgui.gameObject.SetActive(true);
-            cooldownProUgui.text = $"Cooldown : {baseAction.GetCoolDown()}";
+            cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
         }
     }
 

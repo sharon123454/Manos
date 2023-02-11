@@ -887,17 +887,20 @@ GameObject:
   - component: {fileID: 1357164184}
   - component: {fileID: 7786307098148229981}
   - component: {fileID: 7794121002179147597}
+  - component: {fileID: 3834886061997412093}
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 5814306370280244239}
   - component: {fileID: 4385532987445365409}
   - component: {fileID: 6856433945450308575}
-  - component: {fileID: 4142000546130311579}
   - component: {fileID: 8699227585896751039}
   - component: {fileID: 6887888118622141405}
   - component: {fileID: 2896592683690593462}
   - component: {fileID: 3763008778300365613}
   - component: {fileID: 6803592254727095901}
   - component: {fileID: 3438019536766426537}
+  - component: {fileID: 7065314422380150051}
+  - component: {fileID: 386841850}
+  - component: {fileID: 1812385428429043891}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
@@ -965,10 +968,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091616d43cb73942bd2df3c8e0982b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxPosture: 100
-  Armor: 0
-  evasion: 51
+  maxHealth: 130
+  maxPosture: 150
+  Armor: 5
+  evasion: 40
+  health: 0
+--- !u!114 &3834886061997412093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunDuration: 0
+  ignoreArmorDuration: 0
+  rootDuration: 0
+  cowardPlagueDuration: 0
+  nullifyDuration: 0
+  healDuration: 0
+  gainArmorDuration: 0
+  unitActiveStatusEffects: 
 --- !u!114 &7237301886958795925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,10 +1005,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isBonusAction: 0
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
   moveSpeed: 4
   rotateSpeed: 7.5
-  maxMoveDistance: 3
+  maxMoveDistance: 6
 --- !u!114 &5814306370280244239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +1023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5620d7c15cb324b962df54c2bbb697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isBonusAction: 1
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
   moveSpeed: 5
   rotateSpeed: 8
   maxMoveDistance: 3
@@ -1014,14 +1042,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
   range: 0
   isSpell: 1
   favorCost: 100
-  damage: 25
+  damage: 55
   postureDamage: 0
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
+  currentEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1039,15 +1070,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
   range: 2
   isSpell: 1
   favorCost: 100
-  damage: 10
+  damage: 33
   postureDamage: 0
-  hitChance: 100
+  hitChance: 120
   critChance: 0
   statusEffectChance: 0
-  maxShootDistance: 7
+  currentEffect: 0
+  _skillEffect: 0
+  maxShootDistance: 9
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -1056,29 +1091,6 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &4142000546130311579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 424df22154d391e4a913de1445a2fed9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  range: 3
-  isSpell: 1
-  favorCost: 100
-  damage: 30
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
-  maxThrowDistance: 7
 --- !u!114 &8699227585896751039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,6 +1104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
 --- !u!114 &6887888118622141405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,6 +1119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
 --- !u!114 &2896592683690593462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,6 +1134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
 --- !u!114 &3763008778300365613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,6 +1149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
 --- !u!114 &6803592254727095901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,6 +1178,72 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.8, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7065314422380150051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunDuration: 0
+  ignoreArmorDuration: 0
+  rootDuration: 0
+  cowardPlagueDuration: 0
+  nullifyDuration: 0
+  healDuration: 0
+  gainArmorDuration: 0
+  unitActiveStatusEffects: 
+--- !u!114 &386841850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cfbaf1b95763647aeaacfd9b088990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  range: 3
+  isSpell: 1
+  favorCost: 100
+  damage: 50
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  currentEffect: 0
+  aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
+  maxThrowDistance: 9
+--- !u!114 &1812385428429043891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunDuration: 0
+  ignoreArmorDuration: 0
+  rootDuration: 0
+  cowardPlagueDuration: 0
+  nullifyDuration: 0
+  healDuration: 0
+  gainArmorDuration: 0
+  unitActiveStatusEffects: 
 --- !u!1 &6603048865321195035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,6 +2220,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 41680dad0f0243748b4e228f49a2e3c4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
+--- !u!95 &5974149552420445432 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
+  m_PrefabInstance: {fileID: 6033764125481185952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6029328889231687136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4580766925885248, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
@@ -2147,10 +2238,5 @@ Transform:
 --- !u!4 &6029642999695731194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4966341056781146, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 6033764125481185952}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5974149552420445432 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 6033764125481185952}
   m_PrefabAsset: {fileID: 0}

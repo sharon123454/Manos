@@ -41,18 +41,21 @@ public class BaseAbility : BaseAction
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0,200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance;
+
+    [SerializeField] protected StatusEffect currentEffect;
+
     //status effect? what is it?
 
     public float GetDamage() { return damage; }
     public int GetFavorCost() { return favorCost; }
     public AbilityRange GetRange() { return range; }
+    public StatusEffect GetStatusEffect() { return currentEffect; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
-    public float GetCooldown() { return cooldown; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        cooldown += addCooldown;
+       // cooldown += addCooldown;
         OnAnySpellCast?.Invoke(this, GetFavorCost());
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();

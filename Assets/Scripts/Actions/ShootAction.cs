@@ -28,6 +28,8 @@ public class ShootAction : BaseAbility
     private float stateTimer;
     private State state;
 
+    public int ReturnFuckingCoolDown() { return cooldown;}
+
     void Update()
     {
         if (!_isActive)
@@ -155,12 +157,14 @@ public class ShootAction : BaseAbility
     }
 
     public override string GetActionName() { return "Basic"; }
+   // public override int GetCooldown() { return cooldown; }
 
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         targetUnit.Damage(damage,postureDamage, hitChance);
+        targetUnit.StatusEffect(_skillEffect,100);
     }
 
 }

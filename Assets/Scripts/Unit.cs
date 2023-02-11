@@ -70,7 +70,7 @@ public class Unit : MonoBehaviour
     {
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCoolDown() == 0)
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0)
             {
                 SpendActionPoints(true);
                 // baseAction._usedAction = true;
@@ -79,7 +79,7 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
-        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCoolDown() == 0)
+        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -110,7 +110,9 @@ public class Unit : MonoBehaviour
     public Vector3 GetWorldPosition() { return transform.position; }
     public Effectiveness SetGridEffectivness(Effectiveness effective) { return gridPosition.range = effective; }
     public Effectiveness GetGridEffectivness() { return gridPosition.range; }
+
     public StatusEffect GetGridStatusEffect() { return gridPosition.currentEffect; }
+    public StatusEffect SetGridStatusEffect(StatusEffect currenEffect) { return gridPosition.currentEffect = currenEffect; }
 
     public GridPosition GetGridPosition() { return gridPosition; }
 
@@ -145,6 +147,10 @@ public class Unit : MonoBehaviour
     public void Damage(float damage, float postureDamage, float hitChance)
     {
         unitStats.TryTakeDamage(damage, postureDamage, hitChance);
+    }
+    public void StatusEffect(StatusEffect abilityEffect, int hitChance)
+    {
+        unitStats.TryToTakeStatusEffect(abilityEffect, hitChance);
     }
 
     public void Dodge() { unitStats.Dodge(); }

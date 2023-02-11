@@ -4,18 +4,20 @@ using UnityEngine;
 using System;
 //using UnityEditor.PackageManager;
 using TMPro;
+using Random = System.Random;
 
 public class UnitStats : MonoBehaviour
 {
     public event EventHandler OnDeath;
     public event EventHandler OnDamaged;
     private Unit _unit;
+    private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float Armor = 0;
     [SerializeField] private float evasion = 20;
 
-    private float health;
+    public float health;
     private float currentPosture;
     private int armorMultiplayer = 1;
     private int evasionMultiplayer = 1;
@@ -23,7 +25,6 @@ public class UnitStats : MonoBehaviour
     private float postureDMGMultiplayer = 1;
 
     private Effectiveness GetEffectiveness => _unit.GetGridEffectivness();
-    private StatusEffect GetCurrentEffect => _unit.GetGridStatusEffect();
     private int CurrentEffectiveness
     {
         get
@@ -52,45 +53,14 @@ public class UnitStats : MonoBehaviour
 
     private void Start()
     {
-        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
         _unit = GetComponent<Unit>();
+        _unitStatusEffect = GetComponent<UnitStatusEffects>();
     }
 
-    private void Instance_OnTurnChange(object sender, EventArgs e)
-    {
-        GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
-        if (!_unit.IsEnemy())
-        {
-            if (TurnSystem.Instance.IsPlayerTurn())
-            {
-                switch (GetCurrentEffect)
-                {
-                    case StatusEffect.None:
-                        break;
-                    case StatusEffect.Stun:
-                        break;
-                    case StatusEffect.IgnoreArmor:
-                        break;
-                    case StatusEffect.Root:
-                        break;
-                    case StatusEffect.CowardPlague:
-                        break;
-                    case StatusEffect.Nullify:
-                        break;
-                    case StatusEffect.Heal:
-                        break;
-                    case StatusEffect.GainArmor:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-    }
 
     private void Update()
     {
-
+        //   print(_unit.GetGridStatusEffect() + ""+ _unit.name);
     }
     public float GetHealthNormalized() { return health / maxHealth; }
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
@@ -146,14 +116,19 @@ public class UnitStats : MonoBehaviour
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         if (health < 0) health = 0;
 
+
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
         if (health == 0) Die();
     }
 
-    public void TakePostureDamage(float damageToRecieve)
+    public void TryToTakeStatusEffect(StatusEffect currentEffect, int chanceToTakeStatusEffect)
     {
-        currentPosture -= damageToRecieve;
+         // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(currentEffect));
+          _unitStatusEffect.AddStatusEffectToUnit(currentEffect,1);
+        if (UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
+        {
+        }
     }
 
     private void Die()

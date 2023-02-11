@@ -9,8 +9,7 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionCompleted;
 
     [SerializeField] protected bool _isBonusAction;
-    [SerializeField] protected int cooldown;
-    [SerializeField] protected int addCooldown;
+    [SerializeField] protected int cooldown, addCooldown;
 
     protected Action onActionComplete;
     protected Unit unit;
@@ -60,7 +59,7 @@ public abstract class BaseAction : MonoBehaviour
     public Unit GetUnit() { return unit; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
     public virtual bool GetIsBonusAction() { return _isBonusAction; }
-    public virtual int GetCoolDown() { return cooldown; }
+    public virtual int GetCooldown() { return cooldown; }
 
     public abstract string GetActionName();
 
