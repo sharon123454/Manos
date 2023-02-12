@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class AOEProjectile : BaseAbility
+public class AOEProjectile : MonoBehaviour
 {
     public static event EventHandler OnAnyAOEHit;
 
@@ -20,6 +20,8 @@ public class AOEProjectile : BaseAbility
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private AnimationCurve arcYAnimationCurve;
 
+    private int _statusEffectChance, _statusEffectDuration;
+    private StatusEffect currentEffect;
     private Vector3 targetPosition;
     private Action onAOEBehaviourComplete;
     private Vector3 positionXZ;
@@ -47,7 +49,7 @@ public class AOEProjectile : BaseAbility
             foreach (Collider collider in colliderArray)
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
                 {
-                    targetUnit.Damage(damage, postureDamage, hitChance, currentEffect, statusEffectChance, statusEffectDuration);
+                    targetUnit.Damage(damage, postureDamage, hitChance, currentEffect, _statusEffectChance, _statusEffectDuration);
                 }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);
@@ -62,11 +64,14 @@ public class AOEProjectile : BaseAbility
         }
     }
 
-    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete)
+    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete, StatusEffect effect, int statusEffectChance, int statusEffectDuration)
     {
         this.onAOEBehaviourComplete = onAOEBehaviourComplete;
         targetPosition = LevelGrid.Instance.GetWorldPosition(targetGridPosition);
 
+        currentEffect = effect;
+        _statusEffectChance = statusEffectChance;
+        _statusEffectDuration = statusEffectDuration;
         positionXZ = transform.position;
         positionXZ.y = 0;
         totalDistance = Vector3.Distance(positionXZ, targetPosition);
