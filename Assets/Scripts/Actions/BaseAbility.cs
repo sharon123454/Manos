@@ -40,7 +40,7 @@ public class BaseAbility : BaseAction
     [SerializeField] protected int favorCost = 100;
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0,200)]
-    [SerializeField] protected int hitChance = 100, critChance, statusEffectChance;
+    [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
 
     [SerializeField] protected StatusEffect currentEffect;
 

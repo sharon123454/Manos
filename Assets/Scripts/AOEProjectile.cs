@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class AOEProjectile : MonoBehaviour
+public class AOEProjectile : BaseAbility
 {
     public static event EventHandler OnAnyAOEHit;
 
@@ -47,7 +47,7 @@ public class AOEProjectile : MonoBehaviour
             foreach (Collider collider in colliderArray)
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
                 {
-                    targetUnit.Damage(damage,postureDamage, hitChance);
+                    targetUnit.Damage(damage, postureDamage, hitChance, currentEffect, statusEffectChance, statusEffectDuration);
                 }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);

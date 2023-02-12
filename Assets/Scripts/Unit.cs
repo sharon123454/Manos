@@ -144,13 +144,13 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage, float postureDamage, float hitChance)
+    public void Damage(float damage, float postureDamage, float hitChance, StatusEffect abilityEffect, int AbilityhitChance,int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance);
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityEffect, AbilityhitChance, Duration);
     }
-    public void StatusEffect(StatusEffect abilityEffect, int hitChance)
+    public void StatusEffect()
     {
-        unitStats.TryToTakeStatusEffect(abilityEffect, hitChance);
+        unitStats.TryToTakeStatusEffect();
     }
 
     public void Dodge() { unitStats.Dodge(); }

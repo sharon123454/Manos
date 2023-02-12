@@ -21,12 +21,12 @@ public class UnitStatusEffects : MonoBehaviour
     public List<StatusEffect> unitActiveStatusEffects;
     private void Start()
     {
-        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChanged;
         _unit = GetComponent<Unit>();
         _stats = GetComponent<UnitStats>();
     }
 
-    private void Instance_OnTurnChange(object sender, EventArgs e)
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
         if (_unit.IsEnemy())
