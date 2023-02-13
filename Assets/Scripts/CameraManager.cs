@@ -22,7 +22,7 @@ public class CameraManager : MonoBehaviour
 
     private void HideActionCamera()
     {
-        actionCameraGameObject.SetActive(false);
+      //  actionCameraGameObject.SetActive(false);
     }
 
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)

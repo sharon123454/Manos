@@ -96,6 +96,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
+--- !u!1 &471868598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471868599}
+  m_Layer: 0
+  m_Name: ----------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471868599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471868598}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.0564752, y: 2.738677, z: 5.679344}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4909316955839326613}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &499473890
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,8 +321,8 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 2436d2181a493ba40a230ff31f150efb, type: 2}
   _adjacent: 1
   _close: 4
-  _far: 9
-  _veryFar: 15
+  _far: 6
+  _veryFar: 9
 --- !u!1 &1726795476
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDebugObjectPrefab: {fileID: 6370607194873716113, guid: 20de09bafd5197944a20d3c23fb39ec6, type: 3}
   _highestLevelPoint: 5
-  _cellSize: 2
+  _cellSize: 1
   _length: 24
   _width: 24
 --- !u!1 &2283155131120845605
@@ -650,6 +680,7 @@ Transform:
   - {fileID: 1888256666}
   - {fileID: 499473891}
   - {fileID: 297768594}
+  - {fileID: 471868599}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

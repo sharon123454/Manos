@@ -38,7 +38,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else bonusActionBarImage.fillAmount = 0;
     }
 
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         healthBarImage.fillAmount = unitStats.GetHealthNormalized();
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();

@@ -8,11 +8,12 @@ public struct GridPosition : IEquatable<GridPosition>
     public int _x;
     public int _z;
     public Effectiveness range;
-
+    public StatusEffect currentEffect;
     public GridPosition(int x, int z)
     {
         this._x = x; this._z = z;
         range = Effectiveness.Effective;
+        currentEffect = StatusEffect.None;
     }
 
     public override bool Equals(object obj) { return obj is GridPosition position && _x == position._x && _z == position._z; }

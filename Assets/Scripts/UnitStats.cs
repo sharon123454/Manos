@@ -4,25 +4,27 @@ using UnityEngine;
 using System;
 //using UnityEditor.PackageManager;
 using TMPro;
+using Random = System.Random;
 
 public class UnitStats : MonoBehaviour
 {
     public event EventHandler OnDeath;
     public event EventHandler OnDamaged;
-
+    private Unit _unit;
+    private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float Armor = 0;
     [SerializeField] private float evasion = 20;
 
-    private float health;
+    public float health;
     private float currentPosture;
     private int armorMultiplayer = 1;
     private int evasionMultiplayer = 1;
     private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
 
-    private Effectiveness GetEffectiveness => GetComponent<Unit>().GetGridEffectivness();
+    private Effectiveness GetEffectiveness => _unit.GetGridEffectivness();
     private int CurrentEffectiveness
     {
         get
@@ -49,9 +51,16 @@ public class UnitStats : MonoBehaviour
         health = maxHealth;
     }
 
+    private void Start()
+    {
+        _unit = GetComponent<Unit>();
+        _unitStatusEffect = GetComponent<UnitStatusEffects>();
+    }
+
+
     private void Update()
     {
-
+        //   print(_unit.GetGridStatusEffect() + ""+ _unit.name);
     }
     public float GetHealthNormalized() { return health / maxHealth; }
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
@@ -79,7 +88,7 @@ public class UnitStats : MonoBehaviour
     }
 
     //missing posture damage
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, StatusEffect currentEffect, int chanceToTakeStatusEffect,int effectDuration)
     {
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
@@ -91,6 +100,11 @@ public class UnitStats : MonoBehaviour
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
                 TakeDamage(damageToRecieve, postureDamage);
+                if (UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
+                {
+                    _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
+
+                }
             }
             else
                 return; //attack missed
@@ -99,7 +113,11 @@ public class UnitStats : MonoBehaviour
             TakeDamage(damageToRecieve, postureDamage);
 
     }
+    public void TryToTakeStatusEffect()
+    {
+        // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(currentEffect));
 
+    }
     private void TakeDamage(float damageToRecieve, float postureDamage)
     {
         health -= damageToRecieve;
@@ -107,15 +125,13 @@ public class UnitStats : MonoBehaviour
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         if (health < 0) health = 0;
 
+
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
         if (health == 0) Die();
     }
 
-    public void TakePostureDamage(float damageToRecieve)
-    {
-        currentPosture -= damageToRecieve;
-    }
+
 
     private void Die()
     {

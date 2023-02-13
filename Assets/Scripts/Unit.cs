@@ -70,7 +70,7 @@ public class Unit : MonoBehaviour
     {
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction))
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0)
             {
                 SpendActionPoints(true);
                 // baseAction._usedAction = true;
@@ -79,7 +79,7 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
-        else if (!baseAction.GetIsBonusAction() && !usedAction)
+        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -111,6 +111,9 @@ public class Unit : MonoBehaviour
     public Effectiveness SetGridEffectivness(Effectiveness effective) { return gridPosition.range = effective; }
     public Effectiveness GetGridEffectivness() { return gridPosition.range; }
 
+    public StatusEffect GetGridStatusEffect() { return gridPosition.currentEffect; }
+    public StatusEffect SetGridStatusEffect(StatusEffect currenEffect) { return gridPosition.currentEffect = currenEffect; }
+
     public GridPosition GetGridPosition() { return gridPosition; }
 
     public int GetActionPoints()
@@ -141,14 +144,15 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage,  float postureDamage, float hitChance)
+    public void Damage(float damage, float postureDamage, float hitChance, StatusEffect abilityEffect, int AbilityhitChance,int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance);
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityEffect, AbilityhitChance, Duration);
     }
-    public void PostureDamage(float damage)
+    public void StatusEffect()
     {
-        unitStats.TakePostureDamage(damage);
+        unitStats.TryToTakeStatusEffect();
     }
+
     public void Dodge() { unitStats.Dodge(); }
 
     public void Block() { unitStats.Block(); }

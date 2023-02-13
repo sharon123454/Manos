@@ -69,10 +69,13 @@ public class GridSystemVisual : MonoBehaviour
 
     private void UpdateGridVisual()
     {
-        HideAllGridPosition();
 
         Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+        if (selectedAction.GetCooldown() > 0)
+            return;
+        else
+            HideAllGridPosition();
 
         GridVisualType gridVisualType;
 
@@ -174,7 +177,7 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        ShowGridPositionList(gridPosList, gridVisualType,type);
+        ShowGridPositionList(gridPosList, gridVisualType, type);
     }
     private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
     {

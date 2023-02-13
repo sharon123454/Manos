@@ -15,6 +15,7 @@ public class ShootAction : BaseAbility
         public Unit shootingUnit;
     }
 
+    [SerializeField] private StatusEffect _skillEffect;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
@@ -23,16 +24,16 @@ public class ShootAction : BaseAbility
 
     private Unit targetUnit;
     private bool canShootBullt;
-
     private enum State { Aiming, Shooting, Cooloff }
     private float stateTimer;
     private State state;
+
+    public int ReturnFuckingCoolDown() { return cooldown;}
 
     void Update()
     {
         if (!_isActive)
             return;
-
         stateTimer -= Time.deltaTime;
 
         switch (state)
@@ -156,12 +157,13 @@ public class ShootAction : BaseAbility
     }
 
     public override string GetActionName() { return "Basic"; }
+   // public override int GetCooldown() { return cooldown; }
 
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        targetUnit.Damage(damage,postureDamage, hitChance);
+        targetUnit.Damage(damage,postureDamage, hitChance,currentEffect, statusEffectChance, statusEffectDuration);
     }
 
 }
