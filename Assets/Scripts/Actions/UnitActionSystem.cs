@@ -63,7 +63,7 @@ public class UnitActionSystem : MonoBehaviour
     public BaseAction GetSelectedAction() { return selectedAction; }
     public BaseAction GetSavedAction() { return savedAction; }
 
-    private void SetSelectedUnit(Unit unit)
+    public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
         SetSelectedAction(unit.GetAction<MoveAction>()); //default unit action

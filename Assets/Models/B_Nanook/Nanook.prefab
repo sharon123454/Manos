@@ -1791,9 +1791,9 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
-  moveSpeed: 4
-  rotateSpeed: 7.5
-  maxMoveDistance: 3
+  moveSpeed: 5
+  rotateSpeed: 8
+  maxMoveDistance: 4
 --- !u!114 &6005987505526827893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,18 +1808,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 3
   range: 2
   isSpell: 1
   favorCost: 149
   damage: 33
-  postureDamage: 33
+  postureDamage: 100
   hitChance: 120
   critChance: 0
   statusEffectChance: 0
   statusEffectDuration: 0
   currentEffect: 0
-  _skillEffect: 0
+  _skillEffect: 1
   maxShootDistance: 9
   aimingStateTime: 1
   shootingStateTime: 0.1
@@ -1870,12 +1870,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 2
   range: 0
   isSpell: 1
   favorCost: 100
   damage: 55
-  postureDamage: 0
+  postureDamage: 33
   hitChance: 100
   critChance: 0
   statusEffectChance: 0

@@ -22,6 +22,11 @@ public class UnitManagerUI : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void OnBrotherUIPressed(int brotherID)
+    {
+        UnitManager.Instance.TrySelectFriendlyUnit(brotherID);
+    }
+
     private void UnitManager_GameLost(object sender, EventArgs e)
     {
         LosePanel.SetActive(true);

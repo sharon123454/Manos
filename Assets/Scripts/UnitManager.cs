@@ -38,6 +38,24 @@ public class UnitManager : MonoBehaviour
 
     public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
 
+    public void TrySelectFriendlyUnit(int brotherID)
+    {
+        switch (brotherID)
+        {
+            case 0:
+                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[0]);
+                break;
+            case 1:
+                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[1]);
+                break;
+            case 2:
+                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[2]);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
     {
         Unit unit = sender as Unit;

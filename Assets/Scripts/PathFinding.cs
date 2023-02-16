@@ -168,7 +168,7 @@ public class PathFinding : MonoBehaviour
         int zDistance = Mathf.Abs(gridPositionDistance._z);
         int remaining = Mathf.Abs(xDistance - zDistance);
 
-        return /*MOVE_DIAGONAL_COST */MOVE_STRAIGHT_COST * Mathf.Min(xDistance, zDistance) + MOVE_STRAIGHT_COST * remaining;
+        return MOVE_DIAGONAL_COST * Mathf.Min(xDistance, zDistance) + MOVE_STRAIGHT_COST * remaining;
     }
 
     private PathNode GetLowestFCostPathNode(List<PathNode> pathNodeList)
