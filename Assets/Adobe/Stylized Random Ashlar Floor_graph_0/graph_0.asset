@@ -77,8 +77,8 @@ MonoBehaviour:
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
-    AlphaChannel: 
-    InvertAssignedAlpha: 0
+    AlphaChannel: basecolor
+    InvertAssignedAlpha: 1
     Flags: 0
   - Index: 2
     VirtualOutputIndex: 11
@@ -199,11 +199,16 @@ MonoBehaviour:
   HasThumbnail: 1
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://stylized_random_ashlar_floor\"
     label=\"\" >\n  <presetinput identifier=\"$outputsize\" uid=\"1410480360\" type=\"8\"
-    value=\"11,11\" />\n  <presetinput identifier=\"stone_scale\" uid=\"1060988238\"
-    type=\"0\" value=\"0.978\" />\n  <presetinput identifier=\"cracks_amount\" uid=\"1060276554\"
-    type=\"0\" value=\"0\" />\n  <presetinput identifier=\"cuts_density\" uid=\"1060282090\"
-    type=\"0\" value=\"1\" />\n  <presetinput identifier=\"height_variations\" uid=\"1060932663\"
-    type=\"0\" value=\"1\" />\n </sbspreset>\n"
+    value=\"11,11\" />\n  <presetinput identifier=\"$randomseed\" uid=\"56635066\"
+    type=\"4\" value=\"9892\" />\n  <presetinput identifier=\"stone_color\" uid=\"1060320009\"
+    type=\"2\" value=\"0.396226,0.357901,0.293058\" />\n  <presetinput identifier=\"stone_scale\"
+    uid=\"1060988238\" type=\"0\" value=\"0.55\" />\n  <presetinput identifier=\"concrete_color\"
+    uid=\"1060946207\" type=\"2\" value=\"0.339623,0.283281,0.190317\" />\n  <presetinput
+    identifier=\"cracks_amount\" uid=\"1060276554\" type=\"0\" value=\"0.936\" />\n 
+    <presetinput identifier=\"cuts_density\" uid=\"1060282090\" type=\"0\" value=\"1\"
+    />\n  <presetinput identifier=\"height_variations\" uid=\"1060932663\" type=\"0\"
+    value=\"0.965\" />\n  <presetinput identifier=\"height_position\" uid=\"695169634\"
+    type=\"0\" value=\"0.605\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -246,7 +251,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 0
-        Data: 0
+        Data: 9892
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -268,7 +273,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.47451, y: 0.458824, z: 0.411765}
+        Data: {x: 0.3962264, y: 0.35790116, z: 0.293058}
         NumericalDescription:
           DefaultValue: {x: 0.47451, y: 0.458824, z: 0.411765}
           MinValue: {x: 0, y: 0, z: 0}
@@ -288,7 +293,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.978
+        Data: 0.55
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -308,7 +313,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.607843, y: 0.527467, z: 0.40188}
+        Data: {x: 0.33962262, y: 0.28328082, z: 0.19031681}
         NumericalDescription:
           DefaultValue: {x: 0.607843, y: 0.527467, z: 0.40188}
           MinValue: {x: 0, y: 0, z: 0}
@@ -328,7 +333,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0
+        Data: 0.936
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -368,7 +373,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.965
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -732,7 +737,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.5
+        Data: 0.605
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
