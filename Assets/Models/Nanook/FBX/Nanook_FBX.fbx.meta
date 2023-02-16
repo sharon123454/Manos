@@ -56,7 +56,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftLowerLeg' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -64,7 +65,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -118,7 +119,122 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Nanook_FBX(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Brother_LP
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair&Beard
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0.07271856, y: 1.8423392, z: 0.000000019791019}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair
+      parentName: Hair&Beard
+      position: {x: 0.01937316, y: 0.13844466, z: -0.000000068634314}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_L
+      parentName: Hair&Beard
+      position: {x: -0.04457058, y: 0.029333191, z: -0.037867412}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eye_R
+      parentName: Hair&Beard
+      position: {x: -0.04457058, y: 0.029333191, z: 0.037866976}
+      rotation: {x: -0, y: 0, z: 1, w: 0.00000004371139}
+      scale: {x: -1, y: -1, z: -1}
+    - name: Brother_Shirt
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0.082282744, y: 1.4402951, z: -0.000034518132}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoe_L
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: -0.016014831, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Brother_Pants_HP
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Brace
+      parentName: Nanook_FBX(Clone)
+      position: {x: 0.06252849, y: 1.1121788, z: 0.38930747}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Brace_FUR
+      parentName: Brace
+      position: {x: -0.0027767085, y: -0.007396011, z: 0.00084255217}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0.24059139, y: 1.0797572, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt_Buckle_Main
+      parentName: Belt
+      position: {x: 0.0006945038, y: 0.0018949127, z: -0.0035767206}
+      rotation: {x: 2.2959e-41, y: -5.684343e-14, z: 7.105429e-15, w: 1}
+      scale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
+    - name: Belt_Strap
+      parentName: Belt
+      position: {x: -0.035314675, y: -0.1524337, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt_Buckle_Small.005
+      parentName: Belt
+      position: {x: 0.2888042, y: 0.064234234, z: 0.19019005}
+      rotation: {x: -2.7084952e-15, y: -0.38118684, z: 6.5689552e-15, w: 0.924498}
+      scale: {x: 1.8684309, y: 1.0758075, z: 0.8891806}
+    - name: Sheathe
+      parentName: Belt
+      position: {x: 0.08154032, y: -0.3428875, z: -0.29114792}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bag
+      parentName: Belt
+      position: {x: 0.25837478, y: -0.059818037, z: 0.27656817}
+      rotation: {x: -0.12624665, y: 0.8292252, z: -0.07799301, w: 0.5388548}
+      scale: {x: 0.044444203, y: 0.08953018, z: 0.08953018}
+    - name: Brother_Glove_L
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Cape_FUR
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0.069852404, y: 1.7700702, z: -0.00002031104}
+      rotation: {x: -0.004901104, y: -0.0016341631, z: -0.11693944, w: 0.9931256}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Claw.003
+      parentName: Bear_Cape_FUR
+      position: {x: -0.014707272, y: -0.39762014, z: -0.27208376}
+      rotation: {x: -0.16724876, y: -0.2595278, z: 0.69594526, w: 0.6483312}
+      scale: {x: 0.5, y: 0.49999994, z: 0.49999997}
+    - name: Brother_Glove_R
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: 0, z: 1, w: 0.00000004371139}
+      scale: {x: -1, y: -1, z: -1}
+    - name: Shin_Guard_With_Strap
+      parentName: Nanook_FBX(Clone)
+      position: {x: 0.117988765, y: 0.27369004, z: 4.1057954}
+      rotation: {x: 0.000053482476, y: 0.7071068, z: -0.7071067, w: -0.000052914893}
+      scale: {x: 0.263893, y: 0.263893, z: 0.263893}
+    - name: SHoe_R
+      parentName: Nanook_FBX(Clone)
+      position: {x: -0, y: -0.016014831, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -129,7 +245,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
