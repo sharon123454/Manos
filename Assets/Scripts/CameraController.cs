@@ -105,6 +105,21 @@ public class CameraController : MonoBehaviour
 
         cinemachineTransposer.m_FollowOffset =
             Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
+
+
+        //if (componentBase == null)
+        //    componentBase = cinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+
+        //if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        //{
+        //    cameraDistance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+        //    if (componentBase is CinemachineFramingTransposer)
+        //    {
+        //        framingTransposer = (CinemachineFramingTransposer)componentBase;
+        //        framingTransposer.m_CameraDistance -= cameraDistance;
+        //    }
+        //}
     }
 
 }

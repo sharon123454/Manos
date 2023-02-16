@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool usedBonusAction;
     [SerializeField] private bool usedAction;
 
+    public static event EventHandler<string> SendConsoleMessage;
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
@@ -72,6 +73,7 @@ public class Unit : MonoBehaviour
         {
             if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0)
             {
+                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
                 SpendActionPoints(true);
                 // baseAction._usedAction = true;
                 return true;
@@ -83,6 +85,7 @@ public class Unit : MonoBehaviour
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
+                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
                 SpendActionPoints(false);
                 //baseAction._usedAction = true;
                 return true;
