@@ -609,7 +609,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239987382}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 18, y: 7, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -710,7 +710,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259866273}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 18, y: 7, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3754,6 +3754,26 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6160243241624225474, guid: 4dab6fa2a2fcb7f449c5617f027118c9, type: 3}
+--- !u!1 &1750984743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6900432758506420500, guid: 0f68a1b203247404494c71f308b137f0, type: 3}
+  m_PrefabInstance: {fileID: 6900432759858845571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1750984754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750984743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0bab9a2e8008d4e9f2c7201e742351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
 --- !u!4 &1809301894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4056408290143209691, guid: 33c9baff304acfa4ca0d8005a773a59b, type: 3}
@@ -4735,7 +4755,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 900578673944831538, guid: 0f68a1b203247404494c71f308b137f0, type: 3}
   m_PrefabInstance: {fileID: 6900432759858845571}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1750984743}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f89ff8fce156b14eaf1d0f9eba8bf2a, type: 3}
