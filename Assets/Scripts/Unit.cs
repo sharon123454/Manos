@@ -122,7 +122,7 @@ public class Unit : MonoBehaviour
         return baseAction.GetIfUsedAction();
     }
 
-
+    public UnitStats GetUnitStats() { return unitStats;}
     public Vector3 GetWorldPosition() { return transform.position; }
     public Effectiveness SetGridEffectivness(Effectiveness effective) { return gridPosition.range = effective; }
     public Effectiveness GetGridEffectivness() { return gridPosition.range; }
@@ -162,9 +162,9 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage, float postureDamage, float hitChance, StatusEffect abilityEffect, int AbilityhitChance,int Duration)
+    public void Damage(float damage, float postureDamage, float hitChance,float abilityCritChance, StatusEffect abilityEffect, int AbilityhitChance,int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityEffect, AbilityhitChance, Duration);
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AbilityhitChance, Duration);
     }
     //public void StatusEffect()
     //{

@@ -68,6 +68,7 @@ public class UnitStats : MonoBehaviour
 
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
 
+    public float GetUnitMaxHP() { return maxHealth; }
     public void Block()
     {
         armorMultiplayer = 2;
@@ -90,9 +91,10 @@ public class UnitStats : MonoBehaviour
         postureDMGMultiplayer = 1f;
     }
 
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
     {
         int DiceRoll = UnityEngine.Random.Range(0, 101);
+        int critDiceRoll = UnityEngine.Random.Range(0, 101);
         float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
         if (damageToRecieve <= 0)
             return;
@@ -101,11 +103,21 @@ public class UnitStats : MonoBehaviour
         {
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
-                TakeDamage(damageToRecieve, postureDamage);
+                if (critDiceRoll <= abilityCritChance)
+                {
+                    TakeDamage(damageToRecieve * 2, postureDamage * 2);
+                    SendConsoleMessage?.Invoke(this, "Ability CRIT!");
+                }
+                else
+                {
+                    TakeDamage(damageToRecieve, postureDamage);
+                    SendConsoleMessage?.Invoke(this, "Ability HIT!");
+                }
+
                 if (UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
                 {
                     _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
-
+                    SendConsoleMessage?.Invoke(this, this.name + " Recived " + currentEffect);
                 }
             }
             else

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class MeleeAction : BaseAbility
+public class MurderAction : BaseAbility
 {
     public static event EventHandler OnAnyMeleeHit;
 
@@ -46,6 +46,7 @@ public class MeleeAction : BaseAbility
 
     private void NextState()
     {
+        float targetUnitMaxHP = targetUnit.GetUnitStats().GetUnitMaxHP();
         switch (state)
         {
             case State.SwingBeforeHit:
@@ -53,7 +54,10 @@ public class MeleeAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, postureDamage, hitChance,critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                if (targetUnit.GetUnitStats().health <= targetUnitMaxHP / 2)
+                    targetUnit.Damage(damage * 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                else
+                    targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
                 break;
 
             case State.SwingAfterHit:
@@ -116,6 +120,6 @@ public class MeleeAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Melee"; }
+    public override string GetActionName() { return "Murder"; }
 
 }

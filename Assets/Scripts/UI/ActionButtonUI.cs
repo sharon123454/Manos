@@ -18,6 +18,19 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private BaseAbility isBaseAbility;
     private BaseAction baseAction;
 
+    void Start()
+    {
+        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+    }
+
+    private void Instance_OnTurnChange(object sender, System.EventArgs e)
+    {
+        if (selectedGameObject != null)
+        {
+            UpdateSelectedVisual();
+        }
+    }
+
     public void SetBaseAction(BaseAction baseAction)
     {
         this.baseAction = baseAction;
@@ -35,8 +48,9 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
-        if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus())
+        if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus() || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0 || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0)
         {
             OnCooldown.SetActive(true);
         }

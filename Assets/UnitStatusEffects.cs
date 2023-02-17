@@ -39,6 +39,8 @@ public class UnitStatusEffects : MonoBehaviour
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
+
+        #region EnemyStatusEffects
         if (_unit.IsEnemy())
         {
             if (!TurnSystem.Instance.IsPlayerTurn())
@@ -109,6 +111,81 @@ public class UnitStatusEffects : MonoBehaviour
             }
         }
 
+        #endregion
+
+        #region PlayerStatusEffects
+        if (!_unit.IsEnemy())
+        {
+            if (TurnSystem.Instance.IsPlayerTurn())
+            {
+                for (int i = unitActiveStatusEffects.Count - 1; i >= 0; i--)
+                {
+                    switch (unitActiveStatusEffects[i])
+                    {
+                        case StatusEffect.None:
+                            break;
+                        case StatusEffect.Stun:
+                            _unit.ChangeStunStatus(true);
+                            stunDuration--;
+                            if (stunDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                                _unit.ChangeStunStatus(false);
+                            }
+                            break;
+                        case StatusEffect.IgnoreArmor:
+                            ignoreArmorDuration--;
+                            if (ignoreArmorDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Root:
+                            rootDuration--;
+                            if (rootDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.CowardPlague:
+                            cowardPlagueDuration--;
+                            if (cowardPlagueDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Nullify:
+                            nullifyDuration--;
+                            if (nullifyDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Heal:
+                            healDuration--;
+                            _stats.health += healValue;
+                            if (healDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.GainArmor:
+                            gainArmorDuration--;
+                            _stats.Armor += amountOfArmorGain;
+                            if (gainArmorDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+        }
+
+
+        #endregion
     }
 
     public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)

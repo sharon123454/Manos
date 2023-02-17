@@ -16,6 +16,7 @@ public class AOEProjectile : MonoBehaviour
     [SerializeField] private float damageRadius = 2f;
     [SerializeField] private float reachedTargetDistance = 0.2f;
     [SerializeField] private float hightFromGround = 1f;
+    [SerializeField] private float critChance = 1f;
     [SerializeField] private Transform aOEHitVFXPrefab;
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private AnimationCurve arcYAnimationCurve;
@@ -49,7 +50,8 @@ public class AOEProjectile : MonoBehaviour
             foreach (Collider collider in colliderArray)
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
                 {
-                    targetUnit.Damage(damage, postureDamage, hitChance, currentEffect, _statusEffectChance, _statusEffectDuration);
+                    //NEED TO ADD ABILITY CRIT CHANCE
+                    targetUnit.Damage(damage, postureDamage, hitChance,50, currentEffect, _statusEffectChance, _statusEffectDuration);
                 }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);
