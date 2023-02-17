@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Collections;
+using AmazingAssets.Beast.ExampleScripts;
 using UnityEngine;
 using TMPro;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class ConsoleApp : MonoBehaviour
 {
     public static ConsoleApp Instance;
-
+    
     [SerializeField] private Transform consoleLinePrefab;
     [SerializeField] private Transform textContainer;
     [SerializeField] private TMP_InputField inputField;
@@ -16,6 +18,7 @@ public class ConsoleApp : MonoBehaviour
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
     }
+
 
     public void EventPrint(object sender, string name)
     {

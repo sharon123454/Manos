@@ -12,6 +12,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI damageProUgui;
     [SerializeField] TextMeshProUGUI postureProUgui;
     [SerializeField] TextMeshProUGUI cooldownProUgui;
+    [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
     [SerializeField] GameObject selectedGameObject;
     [SerializeField] GameObject OnCooldown;
 
@@ -50,11 +51,22 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
-        if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus() || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0 || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0)
+        if (selectedunit.GetStunStatus()
+            || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0
+            || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0
+            /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+        {
             OnCooldown.SetActive(true);
+            if (baseAction.GetCooldown() == 0)
+                cooldownVisualProUgui.text = "";
+            else
+                cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+
+        }
         else if (baseAction.GetCooldown() > 0)
         {
             OnCooldown.SetActive(true);
+            cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
         }
         else
         {
