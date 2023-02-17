@@ -42,14 +42,14 @@ public class BaseAbility : BaseAction
     [Range(0,200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
 
-    [SerializeField] protected StatusEffect _abilityEffect;
+    [SerializeField] protected StatusEffect currentEffect;
 
     //status effect? what is it?
 
     public float GetDamage() { return damage; }
     public int GetFavorCost() { return favorCost; }
     public AbilityRange GetRange() { return range; }
-    public StatusEffect GetStatusEffect() { return _abilityEffect; }
+    public StatusEffect GetStatusEffect() { return currentEffect; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
 

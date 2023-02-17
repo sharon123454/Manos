@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using TMPro;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -121,13 +120,6 @@ public class EnemyAI : MonoBehaviour
         }
         if (_bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(_bestBaseAction))
         {
-            if (_bestBaseAction.GetActionName() == "Move" || _bestBaseAction.GetActionName() == "Dash")
-            {
-                if (enemyUnit.unitStatusEffects.ContainsEffect(StatusEffect.Root))
-                {
-                    return false;
-                }
-            }
             _bestBaseAction.TakeAction(_bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }

@@ -28,6 +28,11 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        SetSelectedUnit(selectedUnit);
+    }
+
     private void Update()
     {
         if (isBusy) { return; }

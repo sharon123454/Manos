@@ -34,18 +34,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void UpdateSelectedVisual()
     {
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
-        if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus())
+        if (baseAction.GetCooldown() > 0)
         {
             OnCooldown.SetActive(true);
-        }
-        else if (baseAction.GetActionName() == "Dash" || baseAction.GetActionName() == "Move")
-        {
-            if (selectedunit.unitStatusEffects.ContainsEffect(StatusEffect.Root))
-            {
-                OnCooldown.SetActive(true);
-            }
         }
         else
         {
