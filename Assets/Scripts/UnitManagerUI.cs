@@ -24,7 +24,7 @@ public class UnitManagerUI : MonoBehaviour
 
     public void OnBrotherUIPressed(int brotherID)
     {
-        UnitManager.Instance.TrySelectFriendlyUnit(brotherID);
+        UnitManager.Instance.SelectFriendlyUnitWithUI(brotherID);
     }
 
     private void UnitManager_GameLost(object sender, EventArgs e)

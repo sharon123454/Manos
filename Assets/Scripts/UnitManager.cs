@@ -12,6 +12,7 @@ public class UnitManager : MonoBehaviour
     private List<Unit> enemyUnitList;
     private List<Unit> friendlyUnitList;
     private bool partyWipped = false;
+    private int friendlyID = 0;
 
     private void Awake()
     {
@@ -27,9 +28,23 @@ public class UnitManager : MonoBehaviour
 
     private void Start()
     {
-        Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+        Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            friendlyID++;
+
+            if (friendlyID > friendlyUnitList.Count - 1)
+                friendlyID = 0;
+
+            UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[friendlyID]);
+        }
     }
 
     public List<Unit> GetUnitList() { return unitList; }
@@ -38,17 +53,20 @@ public class UnitManager : MonoBehaviour
 
     public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
 
-    public void TrySelectFriendlyUnit(int brotherID)
+    public void SelectFriendlyUnitWithUI(int brotherID)
     {
         switch (brotherID)
         {
             case 0:
+                friendlyID = 0;
                 UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[0]);
                 break;
             case 1:
+                friendlyID = 1;
                 UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[1]);
                 break;
             case 2:
+                friendlyID = 2;
                 UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[2]);
                 break;
             default:
@@ -80,7 +98,25 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
             enemyUnitList.Add(unit);
         else
+        {
             friendlyUnitList.Add(unit);
+
+            if (friendlyUnitList.Count == 1)
+                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[0]);
+        }
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    {
+        int _selectedFriendlyID = 0;
+
+        foreach (Unit friendlyUnit in friendlyUnitList)
+        {
+            if (friendlyUnit == UnitActionSystem.Instance.GetSelectedUnit())
+                friendlyID = _selectedFriendlyID;
+
+            _selectedFriendlyID++;
+        }
     }
 
     private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
