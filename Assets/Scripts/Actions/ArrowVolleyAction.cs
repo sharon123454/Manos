@@ -19,7 +19,7 @@ public class ArrowVolleyAction : BaseAbility
         base.TakeAction(gridPosition, actionComplete);
         Transform aOEProjectileTransform = Instantiate(aOEProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
         AOEProjectile aOEProjectile = aOEProjectileTransform.GetComponent<AOEProjectile>();
-        aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete, currentEffect, statusEffectChance, statusEffectDuration);
+        aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete, _abilityEffect, statusEffectChance, statusEffectDuration);
 
         ActionStart(actionComplete);
     }
