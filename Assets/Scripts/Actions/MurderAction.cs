@@ -54,6 +54,7 @@ public class MurderAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
+
                 if (targetUnit.GetUnitStats().health <= targetUnitMaxHP / 2)
                     targetUnit.Damage(damage * 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
                 else
