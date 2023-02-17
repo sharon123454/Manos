@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wild Grass_vczndjqja
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 32093f7b7039de843b493789210df3a8, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - DistortionVectors
   - TransparentDepthPrepass
@@ -25,6 +24,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_33595cf877304fa1949c40638c31085d:
+        m_Texture: {fileID: 2800000, guid: 0d0457c08162c2b4f8de9ef42fd82525, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_5ed8c7fb8a7640acaaedd95b260b5e6e:
+        m_Texture: {fileID: 2800000, guid: 4454959a70878f5429eca7b5a9eed422, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 0d0457c08162c2b4f8de9ef42fd82525, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -82,6 +89,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_07513b2f0cf94877b060912c3dec30e2: 2
+    - Vector1_2c91b54cf80a4cab819f7e93bad5cb34: 0.01
+    - Vector1_49644cb58fad4d7baa8f49a8032fe3bb: 0.15
+    - Vector1_6ee1a4641173444682488008ccbc6df1: 2
+    - Vector1_862d250346af4fbc9f95dcf9f0dfcbef: 5
     - _AlphaClip: 1
     - _Blend: 0
     - _BumpScale: 1
@@ -111,6 +123,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_8a83e5db03f346c8b0c9534a0ef35a42: {r: 0.7735849, g: 0.7538472, b: 0.5874866, a: 0}
+    - Vector2_db7675c28e2642ecac05e14fdcc2d0cb: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _BaseColor: {r: 1, g: 0.8305066, b: 0.6179246, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
