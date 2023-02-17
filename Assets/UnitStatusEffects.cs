@@ -36,6 +36,16 @@ public class UnitStatusEffects : MonoBehaviour
         _stats = GetComponent<UnitStats>();
     }
 
+    public void ReduceCooldowns()
+    {
+        stunDuration--;
+        ignoreArmorDuration--;
+        rootDuration--;
+        cowardPlagueDuration--;
+        nullifyDuration--;
+        healDuration--;
+        gainArmorDuration--;
+    }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();

@@ -60,7 +60,6 @@ public class MurderAction : BaseAbility
                 else
                     targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
                 break;
-
             case State.SwingAfterHit:
                 OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
