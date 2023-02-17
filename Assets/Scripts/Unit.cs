@@ -9,18 +9,15 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool isEnemy;
     [SerializeField] private bool usedBonusAction;
     [SerializeField] private bool usedAction;
-    [SerializeField] private bool isStunned;
 
     public static event EventHandler<string> SendConsoleMessage;
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
-    [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
     private UnitStats unitStats;
-
     //serializeField to see changes live (unnecessary)
     [SerializeField] private bool canMakeAttackOfOpportunity = true;
     private bool engagedInCombat;
@@ -29,7 +26,6 @@ public class Unit : MonoBehaviour
     {
         unitStats = GetComponent<UnitStats>();
         baseActionArray = GetComponents<BaseAction>();
-        unitStatusEffects = GetComponent<UnitStatusEffects>();
     }
 
     private void Start()
@@ -73,18 +69,9 @@ public class Unit : MonoBehaviour
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        if (baseAction.GetActionName() == "Move" || baseAction.GetActionName() == "Dash")
-        {
-            Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-            if (selectedunit.unitStatusEffects.ContainsEffect(StatusEffect.Root))
-            {
-                return false;
-            }
-        }
-
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0  && !isStunned)
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0)
             {
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
                 SpendActionPoints(true);
@@ -94,7 +81,7 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
-        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
+        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -132,8 +119,6 @@ public class Unit : MonoBehaviour
 
     public GridPosition GetGridPosition() { return gridPosition; }
 
-    public bool GetStunStatus() { return isStunned;}
-    public bool ChangeStunStatus(bool newStatus) { return isStunned = newStatus; }
     public int GetActionPoints()
     {
         if (usedAction)
@@ -166,10 +151,10 @@ public class Unit : MonoBehaviour
     {
         unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AbilityhitChance, Duration);
     }
-    //public void StatusEffect()
-    //{
-    //    unitStats.TryToTakeStatusEffect();
-    //}
+    public void StatusEffect()
+    {
+        unitStats.TryToTakeStatusEffect();
+    }
 
     public void Dodge() { unitStats.Dodge(); }
 
