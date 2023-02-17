@@ -940,6 +940,8 @@ MonoBehaviour:
   isEnemy: 0
   usedBonusAction: 0
   usedAction: 0
+  isStunned: 0
+  unitStatusEffects: {fileID: 0}
   canMakeAttackOfOpportunity: 0
 --- !u!114 &7786307098148229981
 MonoBehaviour:
@@ -969,9 +971,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 130
-  maxPosture: 150
-  Armor: 5
-  evasion: 40
+  maxPosture: 80
+  Armor: 2
+  evasion: 30
   health: 0
 --- !u!114 &3834886061997412093
 MonoBehaviour:
@@ -1010,7 +1012,7 @@ MonoBehaviour:
   addCooldown: 0
   moveSpeed: 4
   rotateSpeed: 7.5
-  maxMoveDistance: 6
+  maxMoveDistance: 3
 --- !u!114 &5814306370280244239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,7 +1054,8 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1071,7 +1074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 5
   range: 2
   isSpell: 1
   favorCost: 100
@@ -1079,9 +1082,9 @@ MonoBehaviour:
   postureDamage: 0
   hitChance: 120
   critChance: 0
-  statusEffectChance: 0
-  currentEffect: 0
-  _skillEffect: 0
+  statusEffectChance: 200
+  statusEffectDuration: 4
+  _abilityEffect: 7
   maxShootDistance: 9
   aimingStateTime: 1
   shootingStateTime: 0.1
@@ -1221,7 +1224,8 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
   maxThrowDistance: 9
 --- !u!114 &1812385428429043891

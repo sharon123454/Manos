@@ -230,7 +230,7 @@ public class GridSystemVisual : MonoBehaviour
     }
     public void ShowGridPositionList(List<GridPosition> gridPositions, GridVisualType gridVisualType)
     {
-        int localCount = 0;
+        //int localCount = 0;
         foreach (GridPosition position in gridPositions)
         {
             if (gridSystemVisualSingleArray[position._x, position._z] != null)

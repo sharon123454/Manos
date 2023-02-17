@@ -1725,6 +1725,8 @@ MonoBehaviour:
   isEnemy: 0
   usedBonusAction: 0
   usedAction: 0
+  isStunned: 0
+  unitStatusEffects: {fileID: 0}
   canMakeAttackOfOpportunity: 0
 --- !u!114 &6949611150641781751
 MonoBehaviour:
@@ -1775,7 +1777,7 @@ MonoBehaviour:
   addCooldown: 0
   moveSpeed: 4
   rotateSpeed: 7.5
-  maxMoveDistance: 4
+  maxMoveDistance: 6
 --- !u!114 &6900432758506420504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,13 +1815,12 @@ MonoBehaviour:
   isSpell: 1
   favorCost: 149
   damage: 33
-  postureDamage: 100
+  postureDamage: 84.8
   hitChance: 120
   critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  currentEffect: 0
-  _skillEffect: 1
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  _abilityEffect: 1
   maxShootDistance: 9
   aimingStateTime: 1
   shootingStateTime: 0.1
@@ -1880,7 +1881,7 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  currentEffect: 0
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1917,7 +1918,7 @@ MonoBehaviour:
   nullifyDuration: 0
   healDuration: 0
   gainArmorDuration: 0
-  unitActiveStatusEffects: 
+  unitActiveStatusEffects: 03000000
 --- !u!1 &6900432758608181653
 GameObject:
   m_ObjectHideFlags: 0
