@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Elderberry_wfzobb2ia
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b9fd5bf27e61067408912958f3194e75, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - DistortionVectors
   - TransparentDepthPrepass
@@ -25,6 +24,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_33595cf877304fa1949c40638c31085d:
+        m_Texture: {fileID: 2800000, guid: 07e09b527858c724d8b1dacc9e0d1015, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_5ed8c7fb8a7640acaaedd95b260b5e6e:
+        m_Texture: {fileID: 2800000, guid: 3150772d807e71d4b977ac415a12fdfe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 07e09b527858c724d8b1dacc9e0d1015, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -65,6 +72,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6fd22d1081804647b6f962efd1affd85_Texture_1:
+        m_Texture: {fileID: 2800000, guid: fbc772a4b5e0ef34f90302517f36df4c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_95b3b93b346449c2bb8663beab5fcbcb_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 9a504d4da0c9ecb4ea31820c18ead55d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -82,6 +97,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_07513b2f0cf94877b060912c3dec30e2: 2
+    - Vector1_2c91b54cf80a4cab819f7e93bad5cb34: 0.01
+    - Vector1_49644cb58fad4d7baa8f49a8032fe3bb: 0.1
+    - Vector1_6ee1a4641173444682488008ccbc6df1: 2
+    - Vector1_862d250346af4fbc9f95dcf9f0dfcbef: 1
     - _AlphaClip: 1
     - _Blend: 0
     - _BumpScale: 1
@@ -111,6 +131,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Vector2_db7675c28e2642ecac05e14fdcc2d0cb: {r: 0.5, g: 1, b: -1, a: 0}
     - _BaseColor: {r: 0.9622642, g: 0.6888611, b: 0.52198297, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
