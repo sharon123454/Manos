@@ -900,7 +900,6 @@ GameObject:
   - component: {fileID: 3438019536766426537}
   - component: {fileID: 7065314422380150051}
   - component: {fileID: 386841850}
-  - component: {fileID: 1812385428429043891}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
@@ -940,6 +939,8 @@ MonoBehaviour:
   isEnemy: 0
   usedBonusAction: 0
   usedAction: 0
+  isStunned: 0
+  unitStatusEffects: {fileID: 0}
   canMakeAttackOfOpportunity: 0
 --- !u!114 &7786307098148229981
 MonoBehaviour:
@@ -970,9 +971,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 130
   maxPosture: 150
-  Armor: 5
   evasion: 40
   health: 0
+  Armor: 5
 --- !u!114 &3834886061997412093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healValue: 0
+  amountOfArmorGain: 0
   stunDuration: 0
   ignoreArmorDuration: 0
   rootDuration: 0
@@ -1052,7 +1055,8 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1080,7 +1084,8 @@ MonoBehaviour:
   hitChance: 120
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   _skillEffect: 0
   maxShootDistance: 9
   aimingStateTime: 1
@@ -1190,6 +1195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healValue: 0
+  amountOfArmorGain: 0
   stunDuration: 0
   ignoreArmorDuration: 0
   rootDuration: 0
@@ -1221,29 +1228,10 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
   maxThrowDistance: 9
---- !u!114 &1812385428429043891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stunDuration: 0
-  ignoreArmorDuration: 0
-  rootDuration: 0
-  cowardPlagueDuration: 0
-  nullifyDuration: 0
-  healDuration: 0
-  gainArmorDuration: 0
-  unitActiveStatusEffects: 
 --- !u!1 &6603048865321195035
 GameObject:
   m_ObjectHideFlags: 0
