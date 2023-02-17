@@ -51,8 +51,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
         if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus() || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0 || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0)
-        selectedGameObject.SetActive(selectedBaseAction == baseAction);
-        if (baseAction.GetCooldown() > 0)
+            OnCooldown.SetActive(true);
+        else if (baseAction.GetCooldown() > 0)
         {
             OnCooldown.SetActive(true);
         }
