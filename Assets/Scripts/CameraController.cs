@@ -90,6 +90,10 @@ public class CameraController : MonoBehaviour
             rotationVector.y += 1;
         if (Input.GetKey(KeyCode.E))
             rotationVector.y -= 1;
+        if (Input.GetMouseButton(2) && Input.GetAxis("Mouse X") > 0)
+            rotationVector.y -= 1;
+        if (Input.GetMouseButton(2) && Input.GetAxis("Mouse X") < 0)
+            rotationVector.y += 1;
 
         transform.eulerAngles += rotationVector * camRotationSpeed * Time.deltaTime;
     }

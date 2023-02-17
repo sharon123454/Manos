@@ -16,11 +16,11 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
 
+    [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
     private UnitStats unitStats;
 
-    public UnitStatusEffects unitStatusEffects;
     //serializeField to see changes live (unnecessary)
     [SerializeField] private bool canMakeAttackOfOpportunity = true;
     private bool engagedInCombat;
