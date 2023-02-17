@@ -163,11 +163,7 @@ public class ShootAction : BaseAbility
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-<<<<<<< HEAD
         targetUnit.Damage(damage,postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
-=======
-        targetUnit.Damage(damage,postureDamage, hitChance,currentEffect, statusEffectChance, statusEffectDuration);
->>>>>>> origin/main
     }
 
 }

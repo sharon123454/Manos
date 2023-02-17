@@ -16,10 +16,10 @@ public class UnitStats : MonoBehaviour
     private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private float maxPosture = 100;
-    [SerializeField] private float Armor = 0;
     [SerializeField] private float evasion = 20;
 
     public float health;
+    public float Armor = 0;
     private float currentPosture;
     private int armorMultiplayer = 1;
     private int evasionMultiplayer = 1;
@@ -127,15 +127,18 @@ public class UnitStats : MonoBehaviour
             }
             else
                 SendConsoleMessage?.Invoke(this, "Attack Missed");
-                return;
+            return;
         }
         else
+        {
             TakeDamage(damageToRecieve, postureDamage);
+            _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
+        }
     }
 
     public void TryToTakeStatusEffect()
     {
-        // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(currentEffect));
+        // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(_abilityEffect));
 
     }
 

@@ -47,15 +47,12 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void UpdateSelectedVisual()
     {
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-<<<<<<< HEAD
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
         if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus() || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0 || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0)
-=======
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
         if (baseAction.GetCooldown() > 0)
->>>>>>> origin/main
         {
             OnCooldown.SetActive(true);
         }
