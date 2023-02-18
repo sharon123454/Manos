@@ -10,11 +10,13 @@ public abstract class BaseAction : MonoBehaviour
 
     [SerializeField] protected bool _isBonusAction;
     [SerializeField] protected int cooldown, addCooldown;
+    [SerializeField] protected int favorCost = 100;
 
     protected Action onActionComplete;
     protected Unit unit;
     protected bool _isActive;
     protected bool _usedAction;
+    
 
     protected virtual void Awake()
     {
@@ -50,6 +52,7 @@ public abstract class BaseAction : MonoBehaviour
                 cooldown--;
         }
     }
+    public virtual int GetFavorCost() { return favorCost; }
 
     protected void ActionComplete()
     {

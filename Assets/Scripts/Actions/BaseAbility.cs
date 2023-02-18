@@ -37,7 +37,6 @@ public class BaseAbility : BaseAction
     [SerializeField] protected AbilityRange range;
     [SerializeField] protected bool isSpell = true;
     [Range(1f, 600f)]
-    [SerializeField] protected int favorCost = 100;
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0,200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
@@ -47,7 +46,6 @@ public class BaseAbility : BaseAction
     //status effect? what is it?
 
     public float GetDamage() { return damage; }
-    public int GetFavorCost() { return favorCost; }
     public AbilityRange GetRange() { return range; }
     public StatusEffect GetStatusEffect() { return _abilityEffect; }
     public float GetAbilityHitChance() { return hitChance; }
