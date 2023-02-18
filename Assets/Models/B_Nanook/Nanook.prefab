@@ -1678,11 +1678,15 @@ GameObject:
   - component: {fileID: 6941516289654276071}
   - component: {fileID: 7498335258879980607}
   - component: {fileID: 6900432758506420504}
-  - component: {fileID: 6005987505526827893}
   - component: {fileID: 2578648360964740355}
   - component: {fileID: 6900432758506420506}
   - component: {fileID: 6900432758506420505}
   - component: {fileID: 6227142003593184268}
+  - component: {fileID: 1056688732}
+  - component: {fileID: 1056688736}
+  - component: {fileID: 1056688737}
+  - component: {fileID: 1056688738}
+  - component: {fileID: 1750984754}
   m_Layer: 6
   m_Name: Nanook
   m_TagString: Untagged
@@ -1773,10 +1777,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBonusAction: 1
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 4
+  favorCost: 100
   moveSpeed: 4
   rotateSpeed: 7.5
-  maxMoveDistance: 4
+  maxMoveDistance: 6
 --- !u!114 &6900432758506420504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,45 +1796,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 4
+  favorCost: 100
   moveSpeed: 5
   rotateSpeed: 8
   maxMoveDistance: 4
---- !u!114 &6005987505526827893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900432758506420500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 3
-  range: 2
-  isSpell: 1
-  favorCost: 149
-  damage: 33
-  postureDamage: 100
-  hitChance: 120
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  _skillEffect: 1
-  maxShootDistance: 9
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!65 &2578648360964740355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1858,12 +1829,12 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 2
+  favorCost: 100
   range: 0
   isSpell: 1
-  favorCost: 100
   damage: 55
   postureDamage: 33
-  hitChance: 100
+  hitChance: 150
   critChance: 0
   statusEffectChance: 0
   statusEffectDuration: 0
@@ -1907,6 +1878,112 @@ MonoBehaviour:
   healDuration: 0
   gainArmorDuration: 0
   unitActiveStatusEffects: 
+--- !u!114 &1056688732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900432758506420500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7e3cfa7788ac4468200d1d95766fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &1056688736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900432758506420500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a83a0aa490b0534c993697727206bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &1056688737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900432758506420500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2ce9a179fe8844998640cf1edd9e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+--- !u!114 &1056688738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900432758506420500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a838a3a12ec7ef4f8f76947ef0483a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+--- !u!114 &1750984754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900432758506420500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0bab9a2e8008d4e9f2c7201e742351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
 --- !u!1 &6900432758608181653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3357,6 +3434,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+--- !u!4 &3955576150210393785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2116026998644805803, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+  m_PrefabInstance: {fileID: 3150449174182372882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6363538649841583895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8356271306191593733, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
@@ -3365,11 +3447,6 @@ Transform:
 --- !u!95 &3538324557117514810 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1919100398704509480, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
-  m_PrefabInstance: {fileID: 3150449174182372882}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3955576150210393785 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2116026998644805803, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
   m_PrefabInstance: {fileID: 3150449174182372882}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6900432758150955045
@@ -3701,14 +3778,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
---- !u!1 &8667861521458545517 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2848857895844214047, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
-  m_PrefabInstance: {fileID: 6900432758746396274}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8667861521458545516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2848857895844214046, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
+  m_PrefabInstance: {fileID: 6900432758746396274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8667861521458545517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2848857895844214047, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
   m_PrefabInstance: {fileID: 6900432758746396274}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6900432758767546586

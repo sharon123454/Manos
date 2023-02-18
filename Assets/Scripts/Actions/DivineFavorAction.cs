@@ -32,5 +32,5 @@ public class DivineFavorAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName() { return "Divine"; }
+    public override string GetActionName() { return "Momentum"; }
 }
