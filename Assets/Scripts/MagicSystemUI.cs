@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class MagicSystemUI : MonoBehaviour
 {
     [SerializeField] private Image frontBar;
+    [SerializeField] private TextMeshProUGUI friendlyFavorText, enemyFavorText;
     [Tooltip("How fast the bar moves on change")]
     [SerializeField] private float favorChangeSpeed = 1f;
 
