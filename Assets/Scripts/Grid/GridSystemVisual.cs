@@ -96,6 +96,9 @@ public class GridSystemVisual : MonoBehaviour
             case PunctureAction punctureAction:
                 FilterByRange(punctureAction.GetRange(), selectedUnit);
                 break;
+            case MurderAction murderAction:
+                FilterByRange(murderAction.GetRange(), selectedUnit);
+                break;
             case AOEAction aOEAction:
                 FilterByRange(aOEAction.GetRange(), selectedUnit);
                 break;
