@@ -97,6 +97,9 @@ public class GridSystemVisual : MonoBehaviour
             case MeleeAction meleeAction:
                 FilterByRange(meleeAction.GetRange(), selectedUnit);
                 break;
+            case PunctureAction punctureAction:
+                FilterByRange(punctureAction.GetRange(), selectedUnit);
+                break;
             case AOEAction aOEAction:
                 FilterByRange(aOEAction.GetRange(), selectedUnit);
                 break;
@@ -120,6 +123,7 @@ public class GridSystemVisual : MonoBehaviour
                 gridVisualType = GridVisualType.Green;
                 ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                 break;
+
         }
     }
 
