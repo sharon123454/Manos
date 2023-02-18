@@ -207,11 +207,11 @@ public class Unit : MonoBehaviour
     {
         unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AbilityhitChance, Duration);
     }
-    //public void StatusEffect()
-    //{
-    //    unitStats.TryToTakeStatusEffect();
-    //}
 
+    public void Heal(float healValue)
+    {
+        unitStats.Heal(healValue);
+    }
     public void Dodge() { unitStats.Dodge(); }
 
     public void Block() { unitStats.Block(); }

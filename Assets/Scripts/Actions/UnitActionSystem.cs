@@ -73,6 +73,10 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
+            {
+                return false;
+            }
             Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))
