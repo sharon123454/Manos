@@ -13,7 +13,14 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI postureProUgui;
     // [SerializeField] TextMeshProUGUI cooldownProUgui;
     [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
-    [SerializeField] GameObject selectedGameObject;
+
+    [SerializeField] GameObject actionSelected;
+    [SerializeField] GameObject actionOutline;
+
+    [SerializeField] GameObject bonusActionSelected;
+    [SerializeField] GameObject bonusActionOutline;
+
+
     [SerializeField] GameObject OnCooldown;
 
     private BaseAbility isBaseAbility;
@@ -22,14 +29,21 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+        if (baseAction.GetIsBonusAction())
+        {
+            bonusActionOutline.SetActive(true);
+            actionOutline.SetActive(false);
+        }
+        else
+        {
+            bonusActionOutline.SetActive(false);
+            actionOutline.SetActive(true);
+        }
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        if (selectedGameObject != null)
-        {
-            UpdateSelectedVisual();
-        }
+        UpdateSelectedVisual();
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -48,9 +62,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void UpdateSelectedVisual()
     {
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
-        selectedGameObject.SetActive(selectedBaseAction == baseAction);
+        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (baseAction.GetIsBonusAction())
+            bonusActionSelected.SetActive(selectedBaseAction == baseAction);
+        else
+            actionSelected.SetActive(selectedBaseAction == baseAction);
+
         if (selectedunit.GetStunStatus()
             || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0
             || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0
