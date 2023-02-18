@@ -13,11 +13,11 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
 
-    [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitsLayerMask;
 
     internal BaseAction selectedAction;
     internal BaseAction savedAction;
+    private Unit selectedUnit;
     private bool isBusy;
 
     private void Awake()
@@ -26,11 +26,6 @@ public class UnitActionSystem : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-    }
-
-    private void Start()
-    {
-        SetSelectedUnit(selectedUnit);
     }
 
     private void Update()

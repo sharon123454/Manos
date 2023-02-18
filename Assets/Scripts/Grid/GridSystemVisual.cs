@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using static UnityEngine.UI.CanvasScaler;
-using static GridSystemVisual;
-using UnityEngine.UIElements;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -97,6 +94,9 @@ public class GridSystemVisual : MonoBehaviour
             case MeleeAction meleeAction:
                 FilterByRange(meleeAction.GetRange(), selectedUnit);
                 break;
+            case PunctureAction punctureAction:
+                FilterByRange(punctureAction.GetRange(), selectedUnit);
+                break;
             case AOEAction aOEAction:
                 FilterByRange(aOEAction.GetRange(), selectedUnit);
                 break;
@@ -120,6 +120,7 @@ public class GridSystemVisual : MonoBehaviour
                 gridVisualType = GridVisualType.Green;
                 ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                 break;
+
         }
     }
 
@@ -243,6 +244,7 @@ public class GridSystemVisual : MonoBehaviour
         }
 
     }
+
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
         foreach (GridVisualTypeMaterail gridVisualTypeMaterial in gridVisualTypeMaterialList)

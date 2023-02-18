@@ -103,14 +103,35 @@ public class UnitStats : MonoBehaviour
 
     public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
     {
+        #region Dice Rools
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
-        float damageToRecieve = rawDamage - (Armor * armorMultiplayer);
+        #endregion
+
+        #region Damage To Recieve Types
+        float damageToRecieve;
+        if (currentEffect == StatusEffect.IgnoreArmor)
+        {
+            damageToRecieve = rawDamage;
+            SendConsoleMessage?.Invoke(this, "Armor Ignored!");
+        }
+        else
+        {
+            damageToRecieve = rawDamage - (Armor * armorMultiplayer);
+
+        }
+
         if (damageToRecieve <= 0)
             return;
 
+
+        #endregion
+
+        #region Normal Calculation
         if (currentPosture > 0)
         {
+
+
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
                 if (critDiceRoll <= abilityCritChance)
@@ -133,12 +154,23 @@ public class UnitStats : MonoBehaviour
             else
                 SendConsoleMessage?.Invoke(this, "Attack Missed");
             return;
+
+
         }
+        #endregion
+
+        #region PostureBrake
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
             _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
+            SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
+
         }
+
+
+        #endregion
+
     }
 
     public void TryToTakeStatusEffect()

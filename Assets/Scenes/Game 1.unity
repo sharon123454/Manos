@@ -549,6 +549,40 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6716611253599831144, guid: 4dab6fa2a2fcb7f449c5617f027118c9, type: 3}
+--- !u!1 &237515902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 349615170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &237515917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237515902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a094196e56195484a9cf1b707a808888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 5
+  range: 0
+  isSpell: 1
+  favorCost: 200
+  damage: 80
+  postureDamage: 0
+  hitChance: 90
+  critChance: 25
+  statusEffectChance: 80
+  statusEffectDuration: 0
+  _abilityEffect: 2
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
 --- !u!1 &239987382
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +874,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2896592683690593462, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1001 &372139334
 PrefabInstance:
@@ -2458,7 +2493,9 @@ PrefabInstance:
       propertyPath: addCooldown
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 151579356, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    - {fileID: 1156274679, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1 &1218270768
 GameObject:
@@ -4617,6 +4654,10 @@ PrefabInstance:
     - target: {fileID: 5289430664188282362, guid: 37b3f2a34a2539d43b4a020b2422e1e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289430665841619365, guid: 37b3f2a34a2539d43b4a020b2422e1e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 868
       objectReference: {fileID: 0}
     - target: {fileID: 5504505228536892299, guid: 37b3f2a34a2539d43b4a020b2422e1e5, type: 3}
       propertyPath: m_AnchorMax.y
