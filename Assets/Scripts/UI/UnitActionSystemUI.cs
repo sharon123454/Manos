@@ -58,13 +58,16 @@ public class UnitActionSystemUI : MonoBehaviour
 
         Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
 
-        foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
+        if (selectedUnit)
         {
-            Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
-            ActionButtonUI actionbuttonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
-            actionbuttonUI.SetBaseAction(baseAction);
+            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
+            {
+                Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
+                ActionButtonUI actionbuttonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
+                actionbuttonUI.SetBaseAction(baseAction);
 
-            actionButtonUIList.Add(actionbuttonUI);
+                actionButtonUIList.Add(actionbuttonUI);
+            }
         }
     }
 
@@ -77,13 +80,16 @@ public class UnitActionSystemUI : MonoBehaviour
     private void UpdateActionPoints()
     {
         var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
-            actionPointsText.text = $"Bonus Action";
-        //{selectedUnit.GetBonusActionPoints()}
-        else
-            actionPointsText.text = $"Action";
-        // {selectedUnit.GetActionPoints()}
 
+        if (selectedUnit)
+        {
+            if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
+                actionPointsText.text = $"Bonus Action";
+            //{selectedUnit.GetBonusActionPoints()}
+            else
+                actionPointsText.text = $"Action";
+            // {selectedUnit.GetActionPoints()}
+        }
     }
 
 }

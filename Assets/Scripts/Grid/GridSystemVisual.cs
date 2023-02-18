@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using static UnityEngine.UI.CanvasScaler;
-using static GridSystemVisual;
-using UnityEngine.UIElements;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -247,6 +244,7 @@ public class GridSystemVisual : MonoBehaviour
         }
 
     }
+
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
         foreach (GridVisualTypeMaterail gridVisualTypeMaterial in gridVisualTypeMaterialList)
