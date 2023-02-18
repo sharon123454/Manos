@@ -41,9 +41,17 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
+    IEnumerator test()
+    {
+        yield return new WaitForSeconds(0.05f);
+
+    }
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        UpdateSelectedVisual();
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateSelectedVisual();
+        }
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -64,6 +72,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+
         if (baseAction.GetIsBonusAction())
             bonusActionSelected.SetActive(selectedBaseAction == baseAction);
         else
