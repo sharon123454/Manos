@@ -46,15 +46,20 @@ public class GridSystemVisual : MonoBehaviour
                 RaycastHit ray;
                 Vector3 myWorldPos = LevelGrid.Instance.GetWorldPosition(gridPosition);
 
-                if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000, PathFinding.Instance.obstacleLayerMask)) { }
+                if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x,0,transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 2000, PathFinding.Instance.obstacleLayerMask)) { }
 
-                else if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000, PathFinding.Instance.floorGridLayer))
+                else if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x, 0, transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 20000, PathFinding.Instance.floorGridLayer))
                 {
+                    Debug.DrawRay(myWorldPos + new Vector3(transform.position.x, 0, transform.position.z) + Vector3.up * 10, Vector3.down,Color.red,Mathf.Infinity);
+                    if (ray.point.y > 0 && ray.point.y < 1.1f)
+                    {
+
+                    }
+
                     Transform gridSystemVisualSingleTransform =
                         Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x + transform.position.x, ray.point.y, myWorldPos.z + transform.position.z), Quaternion.identity);
 
                     gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
-
                 }
 
             }
