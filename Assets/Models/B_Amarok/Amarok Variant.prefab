@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3214296252706609821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9082986261314055281}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9082986261314055281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214296252706609821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3, y: 0.075, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3428436075894011442}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &139384875645435655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59,6 +89,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1470815232581671524}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: shootPointTransform
+      value: 
+      objectReference: {fileID: 3428436075894011442}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!4 &5932099766744026806 stripped
@@ -123,3 +161,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5fc884d1bf1a3a48a10f8f82e30b9e3, type: 3}
+--- !u!95 &1470815232581671524 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6085607258811633626, guid: a5fc884d1bf1a3a48a10f8f82e30b9e3, type: 3}
+  m_PrefabInstance: {fileID: 4619858852979021246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3428436075894011442 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8037035635456467852, guid: a5fc884d1bf1a3a48a10f8f82e30b9e3, type: 3}
+  m_PrefabInstance: {fileID: 4619858852979021246}
+  m_PrefabAsset: {fileID: 0}

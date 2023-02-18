@@ -203,15 +203,16 @@ MonoBehaviour:
   HasThumbnail: 1
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://thick_waterlogged_mud\" label=\"\"
     >\n  <presetinput identifier=\"$outputsize\" uid=\"2421228908\" type=\"8\" value=\"11,11\"
-    />\n  <presetinput identifier=\"mud_color\" uid=\"4225434934\" type=\"2\" value=\"0.290196,0.260959,0.14902\"
+    />\n  <presetinput identifier=\"$randomseed\" uid=\"3340964670\" type=\"4\" value=\"3384\"
+    />\n  <presetinput identifier=\"mud_color\" uid=\"4225434934\" type=\"2\" value=\"0.333,0.285792,0.172494\"
     />\n  <presetinput identifier=\"mud_roughness\" uid=\"4226269676\" type=\"0\"
     value=\"0.872\" />\n  <presetinput identifier=\"water_color\" uid=\"4226210154\"
-    type=\"2\" value=\"0.117647,0.113725,0.0784314\" />\n  <presetinput identifier=\"water_roughness\"
+    type=\"2\" value=\"0,0,0\" />\n  <presetinput identifier=\"water_roughness\"
     uid=\"4226715422\" type=\"0\" value=\"0.531\" />\n  <presetinput identifier=\"pebbles_color\"
-    uid=\"4225434571\" type=\"2\" value=\"0.407843,0.34902,0.298039\" />\n  <presetinput
+    uid=\"4225434571\" type=\"2\" value=\"0.792453,0.434007,0.123354\" />\n  <presetinput
     identifier=\"humidity\" uid=\"4224502280\" type=\"0\" value=\"1\" />\n  <presetinput
-    identifier=\"water_level\" uid=\"4225145650\" type=\"0\" value=\"0.609\" />\n 
-    <presetinput identifier=\"bubbles_density\" uid=\"4227036853\" type=\"0\" value=\"0.775\"
+    identifier=\"water_level\" uid=\"4225145650\" type=\"0\" value=\"0.245\" />\n 
+    <presetinput identifier=\"bubbles_density\" uid=\"4227036853\" type=\"0\" value=\"0\"
     />\n  <presetinput identifier=\"pebbles_density\" uid=\"4225496764\" type=\"0\"
     value=\"0\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
@@ -256,7 +257,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 0
-        Data: 0
+        Data: 3384
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -278,7 +279,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.2901961, y: 0.2609588, z: 0.14901961}
+        Data: {x: 0.333, y: 0.28579238, z: 0.17249401}
         NumericalDescription:
           DefaultValue: {x: 0.392157, y: 0.345098, z: 0.290196}
           MinValue: {x: 0, y: 0, z: 0}
@@ -318,7 +319,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.11764707, y: 0.1137255, z: 0.078431375}
+        Data: {x: 0, y: 0, z: 0}
         NumericalDescription:
           DefaultValue: {x: 0.631373, y: 0.546942, z: 0.401108}
           MinValue: {x: 0, y: 0, z: 0}
@@ -358,7 +359,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.40784317, y: 0.34901962, z: 0.29803923}
+        Data: {x: 0.7924528, y: 0.43400672, z: 0.12335351}
         NumericalDescription:
           DefaultValue: {x: 0.57, y: 0.506024, z: 0.3021}
           MinValue: {x: 0, y: 0, z: 0}
@@ -418,7 +419,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.609
+        Data: 0.245
         NumericalDescription:
           DefaultValue: 0.85
           MinValue: 0
@@ -438,7 +439,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.775
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
