@@ -54,7 +54,7 @@ public class GridSystemVisual : MonoBehaviour
                 else if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000, PathFinding.Instance.floorGridLayer))
                 {
                     Transform gridSystemVisualSingleTransform =
-                        Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z), Quaternion.identity);
+                        Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x + transform.position.x, ray.point.y, myWorldPos.z + transform.position.z), Quaternion.identity);
 
                     gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
 
