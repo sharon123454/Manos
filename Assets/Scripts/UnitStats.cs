@@ -95,7 +95,13 @@ public class UnitStats : MonoBehaviour
     public float GetArmor() { return Armor; }
     public void ResetUnitStats()
     {
-        currentPosture = maxPosture;
+        float addPosture = maxPosture * 0.2f;
+
+        if (currentPosture <= 0)
+            currentPosture = maxPosture;
+        else
+            currentPosture += addPosture;
+
         armorMultiplayer = 1;
         evasionMultiplayer = 1;
         postureDMGMultiplayer = 1f;

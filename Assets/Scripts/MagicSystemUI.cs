@@ -32,6 +32,8 @@ public class MagicSystemUI : MonoBehaviour
     {
         float normalizedFavor = currentFavor / MagicSystem.Instance.GetMaxFavor();
         favorValue = normalizedFavor;
+        friendlyFavorText.text = currentFavor.ToString();
+        enemyFavorText.text = (MagicSystem.Instance.GetMaxFavor() -  currentFavor).ToString();
     }
 
 }

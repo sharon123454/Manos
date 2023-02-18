@@ -73,6 +73,8 @@ public class Unit : MonoBehaviour
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
+        #region Move Or Dash
+
         if (baseAction.GetActionName() == "Move" || baseAction.GetActionName() == "Dash")
         {
             Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
@@ -82,10 +84,26 @@ public class Unit : MonoBehaviour
             }
         }
 
+        #endregion
+
+
+        #region Bonus Action
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !isStunned)
             {
+                if (TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
+                if (!TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
                 SpendActionPoints(true);
                 // baseAction._usedAction = true;
@@ -94,10 +112,30 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
+
+
+        #endregion
+
+
+        #region Action
         else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
+                if (TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
+
+                if (!TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
+
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
                 SpendActionPoints(false);
                 //baseAction._usedAction = true;
@@ -108,6 +146,9 @@ public class Unit : MonoBehaviour
         }
         else
             return false;
+
+        #endregion
+
     }
 
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)

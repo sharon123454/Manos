@@ -33,6 +33,8 @@ public class MagicSystem : MonoBehaviour
         UpdateFavorVisual();
     }
 
+    private void Update() { Mathf.Clamp(currentFavor, 0, maxFavor); }
+
     public float GetMaxFavor() { return maxFavor; }
     public float GetCurrentFavor() { return currentFavor; }
     public bool CanEnemySpendFavorToTakeAction(int spellFavorCost)
