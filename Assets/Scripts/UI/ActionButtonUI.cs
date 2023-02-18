@@ -70,8 +70,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             actionSelected.SetActive(selectedBaseAction == baseAction);
 
         if (selectedunit.GetStunStatus()
-            || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0
-            || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0
+            || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
+            || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
             /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
         {
             OnCooldown.SetActive(true);

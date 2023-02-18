@@ -85,10 +85,10 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
                 actionPointsText.text = $"Bonus Action";
-            //{selectedUnit.GetBonusActionPoints()}
+            //{selectedUnit.GetUsedBonusActionPoints()}
             else
                 actionPointsText.text = $"Action";
-            // {selectedUnit.GetActionPoints()}
+            // {selectedUnit.GetUsedActionPoints()}
         }
     }
 

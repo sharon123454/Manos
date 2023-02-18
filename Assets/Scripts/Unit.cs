@@ -134,20 +134,20 @@ public class Unit : MonoBehaviour
 
     public bool GetStunStatus() { return isStunned; }
     public bool ChangeStunStatus(bool newStatus) { return isStunned = newStatus; }
-    public int GetActionPoints()
+    public bool GetUsedActionPoints()
     {
         if (usedAction)
-            return 0;
+            return true;
         else
-            return 1;
+            return false;
     }
 
-    public int GetBonusActionPoints()
+    public bool GetUsedBonusActionPoints()
     {
         if (usedBonusAction)
-            return 0;
+            return true;
         else
-            return 1;
+            return false;
     }
 
     public bool IsEnemy() { return isEnemy; }
