@@ -36,12 +36,12 @@ public class UnitAnimator : MonoBehaviour
 
         if (TryGetComponent<DodgeAction>(out DodgeAction dodgeAction))
         {
-            dodgeAction.OnDodge += DodgeAction_OnDodge;
+            dodgeAction.OnDodgeAction += DodgeAction_OnDodgeAction;
         }
 
         if (TryGetComponent<BlockAction>(out BlockAction blockAction))
         {
-            blockAction.OnBlock += BlockAction_OnBlock;
+            blockAction.OnBlockAction += BlockAction_OnBlockAction;
         }
 
         if (TryGetComponent<DisengageAction>(out DisengageAction disengageAction))
@@ -50,12 +50,25 @@ public class UnitAnimator : MonoBehaviour
         }
     }
 
-    private void DodgeAction_OnDodge(object sender, EventArgs e)
+    private void Start()
+    {
+        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+    }
+
+    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    {
+        Unit unit = sender as Unit;
+
+        if (transform.GetComponent<Unit>() == unit)
+            animator.SetBool("IsDead", true);
+    }
+
+    private void DodgeAction_OnDodgeAction(object sender, EventArgs e)
     {
 
     }
 
-    private void BlockAction_OnBlock(object sender, EventArgs e)
+    private void BlockAction_OnBlockAction(object sender, EventArgs e)
     {
 
     }
