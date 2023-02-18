@@ -68,9 +68,14 @@ public class UnitStats : MonoBehaviour
 
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
 
-    public void ReduceAllCooldowns()
+    public void ReduceStatusEffectCooldowns()
     {
         _unitStatusEffect.ReduceCooldowns();
+    }
+
+    public void ReduceAbilityCooldowns()
+    {
+
     }
 
     public float GetUnitMaxHP() { return maxHealth; }

@@ -12,9 +12,7 @@ public class UnitStatusEffects : MonoBehaviour
 
     [SerializeField] private int healValue;
     [SerializeField] private int amountOfArmorGain;
-    [Space]
-    [Space]
-    [Space]
+    [Space] [Space] [Space]
 
     [SerializeField] private int stunDuration;
     [SerializeField] private int ignoreArmorDuration;

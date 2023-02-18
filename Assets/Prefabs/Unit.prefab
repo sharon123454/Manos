@@ -892,15 +892,12 @@ GameObject:
   - component: {fileID: 5814306370280244239}
   - component: {fileID: 4385532987445365409}
   - component: {fileID: 6856433945450308575}
-  - component: {fileID: 8699227585896751039}
-  - component: {fileID: 6887888118622141405}
   - component: {fileID: 2896592683690593462}
-  - component: {fileID: 3763008778300365613}
-  - component: {fileID: 6803592254727095901}
   - component: {fileID: 3438019536766426537}
   - component: {fileID: 7065314422380150051}
   - component: {fileID: 386841850}
-  - component: {fileID: 1812385428429043891}
+  - component: {fileID: 1156274679}
+  - component: {fileID: 151579356}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
@@ -940,6 +937,8 @@ MonoBehaviour:
   isEnemy: 0
   usedBonusAction: 0
   usedAction: 0
+  isStunned: 0
+  unitStatusEffects: {fileID: 0}
   canMakeAttackOfOpportunity: 0
 --- !u!114 &7786307098148229981
 MonoBehaviour:
@@ -970,9 +969,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 130
   maxPosture: 150
-  Armor: 5
   evasion: 40
   health: 0
+  Armor: 5
 --- !u!114 &3834886061997412093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healValue: 0
+  amountOfArmorGain: 0
   stunDuration: 0
   ignoreArmorDuration: 0
   rootDuration: 0
@@ -1052,7 +1053,8 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1080,7 +1082,8 @@ MonoBehaviour:
   hitChance: 120
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   _skillEffect: 0
   maxShootDistance: 9
   aimingStateTime: 1
@@ -1091,36 +1094,6 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &8699227585896751039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a838a3a12ec7ef4f8f76947ef0483a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
---- !u!114 &6887888118622141405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2ce9a179fe8844998640cf1edd9e01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
 --- !u!114 &2896592683690593462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,35 +1109,6 @@ MonoBehaviour:
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 0
---- !u!114 &3763008778300365613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314eefd6392ef124383d87bf248bbad9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
---- !u!114 &6803592254727095901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10639e68a3d941745951cfdb0e88442d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalRootBone: {fileID: 6029642999695731194}
-  ragdollPrefab: {fileID: 6033764124026794417, guid: 35788bf7086f5ce46a9e5b73e0308965, type: 3}
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1190,6 +1134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healValue: 0
+  amountOfArmorGain: 0
   stunDuration: 0
   ignoreArmorDuration: 0
   rootDuration: 0
@@ -1221,10 +1167,11 @@ MonoBehaviour:
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
-  currentEffect: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
   aOEProjectilePrefab: {fileID: 8890799014535029406, guid: 90b62fa657ba9f646abf3b6d6f6cbb15, type: 3}
   maxThrowDistance: 9
---- !u!114 &1812385428429043891
+--- !u!114 &1156274679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1233,17 +1180,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 6033764124026794430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f3846f00b9d474d8321b5b129556f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5adcfcd326725d04eb9214e3e5051f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stunDuration: 0
-  ignoreArmorDuration: 0
-  rootDuration: 0
-  cowardPlagueDuration: 0
-  nullifyDuration: 0
-  healDuration: 0
-  gainArmorDuration: 0
-  unitActiveStatusEffects: 
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 5
+--- !u!114 &151579356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c144828feb438854aa130fd871e83875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  range: 0
+  isSpell: 1
+  favorCost: 100
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
 --- !u!1 &6603048865321195035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,23 +2191,18 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 41680dad0f0243748b4e228f49a2e3c4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
---- !u!95 &5974149552420445432 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 6033764125481185952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6029328889231687136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4580766925885248, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 6033764125481185952}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5974149552420445432 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
+  m_PrefabInstance: {fileID: 6033764125481185952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6031144368237664938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4170833147357194, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 6033764125481185952}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6029642999695731194 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4966341056781146, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 6033764125481185952}
   m_PrefabAsset: {fileID: 0}

@@ -11,7 +11,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI textMeshPro;
     [SerializeField] TextMeshProUGUI damageProUgui;
     [SerializeField] TextMeshProUGUI postureProUgui;
-    [SerializeField] TextMeshProUGUI cooldownProUgui;
+    // [SerializeField] TextMeshProUGUI cooldownProUgui;
+    [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
     [SerializeField] GameObject selectedGameObject;
     [SerializeField] GameObject OnCooldown;
 
@@ -50,11 +51,22 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
-        if (baseAction.GetCooldown() > 0 || selectedunit.GetStunStatus() || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0 || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0)
+        if (selectedunit.GetStunStatus()
+            || baseAction.GetIsBonusAction() && selectedunit.GetBonusActionPoints() == 0
+            || !baseAction.GetIsBonusAction() && selectedunit.GetActionPoints() == 0
+            /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+        {
             OnCooldown.SetActive(true);
+            if (baseAction.GetCooldown() == 0)
+                cooldownVisualProUgui.text = "";
+            else
+                cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+
+        }
         else if (baseAction.GetCooldown() > 0)
         {
             OnCooldown.SetActive(true);
+            cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
         }
         else
         {
@@ -67,29 +79,16 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
         if (baseAction is BaseAbility)
         {
-            //if (isBaseAbility.GetCooldown() > 0)
-            //{
-            //    return;
-            //}
             damageProUgui.gameObject.SetActive(true);
             postureProUgui.gameObject.SetActive(true);
-            cooldownProUgui.gameObject.SetActive(true);
+            //   cooldownProUgui.gameObject.SetActive(true);
             if (!isBaseAbility)
             {
                 isBaseAbility = (BaseAbility)baseAction;
                 damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
                 postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
-                cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
+                //cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
             }
-        }
-        else
-        {
-            //if (baseAction.GetCooldown() > 0)
-            //{
-            //    return;
-            //}
-            cooldownProUgui.gameObject.SetActive(true);
-            cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
         }
     }
 
@@ -98,6 +97,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         damageProUgui.gameObject.SetActive(false);
         postureProUgui.gameObject.SetActive(false);
-        cooldownProUgui.gameObject.SetActive(false);
+        //cooldownProUgui.gameObject.SetActive(false);
     }
 }

@@ -19,13 +19,23 @@ public abstract class BaseAction : MonoBehaviour
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
-        
+
     }
 
     protected virtual void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
+        DivineFavorAction.OnDivineActive += BaseAction_OnDivineActive;
     }
+
+    private void BaseAction_OnDivineActive(object sender, EventArgs e)
+    {
+        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (unit == selectedunit)
+            if (cooldown > 0)
+                cooldown--;
+    }
+
     private void Instance_OnTurnChange(object sender, EventArgs e)
     {
         if (unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())

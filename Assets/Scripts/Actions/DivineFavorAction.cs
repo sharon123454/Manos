@@ -6,8 +6,7 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class DivineFavorAction : BaseAction
 {
-    public event EventHandler OnDodge;
-
+    public static event EventHandler OnDivineActive;
     private void Update()
     {
         if (!_isActive) { return; }
@@ -17,7 +16,8 @@ public class DivineFavorAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        unit.GetUnitStats().ReduceAllCooldowns();
+        //unit.GetUnitStats().ReduceStatusEffectCooldowns();
+        OnDivineActive.Invoke(this, null);
         ActionStart(actionComplete);
     }
 
