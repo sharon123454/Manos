@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
-using AmazingAssets.Beast.ExampleScripts;
 using UnityEngine;
 using TMPro;
-using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class ConsoleApp : MonoBehaviour
 {
@@ -11,7 +9,6 @@ public class ConsoleApp : MonoBehaviour
     
     [SerializeField] private Transform consoleLinePrefab;
     [SerializeField] private Transform textContainer;
-    [SerializeField] private TMP_InputField inputField;
 
     private void Start()
     {
