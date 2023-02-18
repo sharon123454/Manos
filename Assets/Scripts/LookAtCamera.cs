@@ -21,7 +21,9 @@ public class LookAtCamera : MonoBehaviour
             transform.LookAt(transform.position + dirToCamera * -1);
         }
         else
-            transform.LookAt(cameraTransform);
+        {
+            transform.LookAt(cameraTransform.forward + transform.position);
+        }
     }
 
 }

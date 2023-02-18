@@ -1009,6 +1009,7 @@ MonoBehaviour:
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   moveSpeed: 4
   rotateSpeed: 7.5
   maxMoveDistance: 6
@@ -1027,6 +1028,7 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   moveSpeed: 5
   rotateSpeed: 8
   maxMoveDistance: 3
@@ -1045,9 +1047,9 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   range: 0
   isSpell: 1
-  favorCost: 100
   damage: 55
   postureDamage: 0
   hitChance: 100
@@ -1074,9 +1076,9 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   range: 2
   isSpell: 1
-  favorCost: 100
   damage: 33
   postureDamage: 0
   hitChance: 120
@@ -1109,6 +1111,7 @@ MonoBehaviour:
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1159,9 +1162,9 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   range: 3
   isSpell: 1
-  favorCost: 100
   damage: 50
   postureDamage: 0
   hitChance: 100
@@ -1186,6 +1189,7 @@ MonoBehaviour:
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 5
+  favorCost: 100
 --- !u!114 &151579356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,9 +1205,9 @@ MonoBehaviour:
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
+  favorCost: 100
   range: 0
   isSpell: 1
-  favorCost: 100
   damage: 10
   postureDamage: 0
   hitChance: 100
@@ -1655,7 +1659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d0e294ea8ba7447be1c4e35ab7d7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invert: 1
+  invert: 0
 --- !u!223 &5840368869751559704
 Canvas:
   m_ObjectHideFlags: 0

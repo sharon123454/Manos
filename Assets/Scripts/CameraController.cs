@@ -13,10 +13,14 @@ public class CameraController : MonoBehaviour
 
         Instance = this;
     }
-    private const float MIN_FOLLOW_Y_OFFSET = 2f;
-    private const float MAX_FOLLOW_Y_OFFSET = 12f;
+
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private float camMoveSpeed = 10f, camRotationSpeed = 100f, zoomAmount = 1f, zoomSpeed = 5f;
+    [Range(1, 10)]
+    [SerializeField] private float camOrbitSpeed = 1f;
+    [SerializeField] float MIN_FOLLOW_Y_OFFSET = 2f;
+    [SerializeField] float MAX_FOLLOW_Y_OFFSET = 12f;
+
     private IEnumerator cameraLerp;
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
@@ -90,10 +94,10 @@ public class CameraController : MonoBehaviour
             rotationVector.y += 1;
         if (Input.GetKey(KeyCode.E))
             rotationVector.y -= 1;
-        if (Input.GetMouseButton(2) && Input.GetAxis("Mouse X") > 0)
-            rotationVector.y -= 1;
-        if (Input.GetMouseButton(2) && Input.GetAxis("Mouse X") < 0)
-            rotationVector.y += 1;
+        if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") > 0)
+            rotationVector.y -= camOrbitSpeed;
+        if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") < 0)
+            rotationVector.y += camOrbitSpeed;
 
         transform.eulerAngles += rotationVector * camRotationSpeed * Time.deltaTime;
     }
