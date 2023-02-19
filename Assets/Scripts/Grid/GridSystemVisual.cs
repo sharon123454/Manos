@@ -104,7 +104,18 @@ public class GridSystemVisual : MonoBehaviour
                 break;
             case ArrowVolleyAction volleyAction:
                 FilterByRange(volleyAction.GetRange(), selectedUnit);
-                print(volleyAction.GetRange().ToString());
+                break;
+            case PommelStrike pommelStrike:
+                FilterByRange(pommelStrike.GetRange(), selectedUnit);
+                break;
+            case MendAction mendAction:
+                FilterByRange(mendAction.GetRange(), selectedUnit);
+                break;
+            case StunBolt stunBolt:
+                FilterByRange(stunBolt.GetRange(), selectedUnit);
+                break;    
+            case BrakeALegAction brakeALegAction:
+                FilterByRange(brakeALegAction.GetRange(), selectedUnit);
                 break;
             case SpinAction spinAction:
                 gridVisualType = GridVisualType.Blue;
