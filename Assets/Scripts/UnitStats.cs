@@ -182,6 +182,10 @@ public class UnitStats : MonoBehaviour
     public void Heal(float healValue)
     {
         health += healValue;
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
     public void TryToTakeStatusEffect()
     {
