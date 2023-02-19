@@ -57,7 +57,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2433791431500041482, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
       propertyPath: m_Name
-      value: Nanook Variant
+      value: Nanook
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+--- !u!1 &1189997891431049025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2433791431500041482, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+  m_PrefabInstance: {fileID: 3550288611218106955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1194505540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189997891431049025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  isSpell: 1
+  healValue: 10

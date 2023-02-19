@@ -16,6 +16,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private UnitStats unitStats;
     [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
+    [SerializeField] private TextMeshProUGUI healthVisual;
 
     private void Start()
     {
@@ -57,6 +58,8 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
         float getHitChance = 0;
+        healthVisual.gameObject.SetActive(true);
+        healthVisual.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
@@ -122,5 +125,6 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         hitChanceText.gameObject.SetActive(false);
+        healthVisual.gameObject.SetActive(false);
     }
 }

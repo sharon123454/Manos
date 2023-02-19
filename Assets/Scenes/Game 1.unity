@@ -2175,30 +2175,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4869377482885497750, guid: 4dab6fa2a2fcb7f449c5617f027118c9, type: 3}
---- !u!1 &1194505539 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1189997891431049025, guid: ca00e2c4e6a4d3f488b917d6a0a0d978, type: 3}
-  m_PrefabInstance: {fileID: 1189997892783475158}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1194505540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194505539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 0
-  isSpell: 1
-  healValue: 10
 --- !u!1 &1218270768
 GameObject:
   m_ObjectHideFlags: 0
@@ -12164,46 +12140,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: range
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: damage
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: hitChance
-      value: 123
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: critChance
-      value: 106
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: _skillEffect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: _abilityEffect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: maxShootDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: statusEffectChance
-      value: 125
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: statusEffectDuration
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
-      propertyPath: obstacleLayerMask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
 --- !u!114 &6033764124026794417 stripped
@@ -12211,7 +12147,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4845737168675436647, guid: ca00e2c4e6a4d3f488b917d6a0a0d978, type: 3}
   m_PrefabInstance: {fileID: 1189997892783475158}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194505539}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f89ff8fce156b14eaf1d0f9eba8bf2a, type: 3}
@@ -12411,22 +12347,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 179750530}
     m_Modifications:
-    - target: {fileID: 847183122626261076, guid: d984f9637f6e83b4c8358405ac6ab51d, type: 3}
-      propertyPath: range
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 847183122626261076, guid: d984f9637f6e83b4c8358405ac6ab51d, type: 3}
-      propertyPath: healValue
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 847183122626261076, guid: d984f9637f6e83b4c8358405ac6ab51d, type: 3}
-      propertyPath: addCooldown
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 847183122626261076, guid: d984f9637f6e83b4c8358405ac6ab51d, type: 3}
-      propertyPath: maxMeleeDistance
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 847183122626261077, guid: d984f9637f6e83b4c8358405ac6ab51d, type: 3}
       propertyPath: m_Name
       value: Raynard
