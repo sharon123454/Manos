@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8700005422748580799, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
       propertyPath: m_Name
-      value: NanooKVisual (1)
+      value: NanooKVisual
       objectReference: {fileID: 0}
     - target: {fileID: 8718135649874674789, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
       propertyPath: m_LocalRotation.w
@@ -97,6 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+--- !u!95 &1664194587102069262 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1919100398704509480, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+  m_PrefabInstance: {fileID: 989221325527515174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3002226316670359258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,6 +125,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.319
       objectReference: {fileID: 0}
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -130,15 +143,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14
+      value: 16.870712
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.004029274
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 18.09016
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalRotation.w
@@ -146,15 +159,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -178,39 +191,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: favorCost
-      value: 100
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: addCooldown
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxMoveDistance
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: 
+      value: Description...
       objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 6178225879384936969, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      objectReference: {fileID: 1664194587102069262}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: shootPointTransform
       value: 
-      objectReference: {fileID: 6178225879384936974, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: Armor
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: evasion
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxHealth
-      value: 180
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxPosture
@@ -244,20 +261,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a83a0aa490b0534c993697727206bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: 
+  actionDescription: 'Attack an enemy with a chance to root them in place.While affected
+    by root a unit cant use the actions move & dash '
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
-  favorCost: 100
+  addCooldown: 3
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
+  isSpell: 0
+  damage: 15
+  postureDamage: 40
   hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
+  critChance: 25
+  statusEffectChance: 30
+  statusEffectDuration: 1
+  _abilityEffect: 3
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -274,17 +292,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e3cfa7788ac4468200d1d95766fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: 
-  _isBonusAction: 0
+  actionDescription: Description...
+  _isBonusAction: 1
   cooldown: 0
-  addCooldown: 0
-  favorCost: 100
+  addCooldown: 2
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 10
+  isSpell: 0
+  damage: 30
   postureDamage: 0
-  hitChance: 100
-  critChance: 0
+  hitChance: 70
+  critChance: 15
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0
@@ -317,17 +335,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: 
+  actionDescription: Description...
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 2
-  favorCost: 100
+  addCooldown: 0
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 55
-  postureDamage: 33
-  hitChance: 150
-  critChance: 0
+  isSpell: 0
+  damage: 15
+  postureDamage: 25
+  hitChance: 100
+  critChance: 10
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0
