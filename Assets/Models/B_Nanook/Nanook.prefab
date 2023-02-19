@@ -1686,7 +1686,6 @@ GameObject:
   - component: {fileID: 1056688736}
   - component: {fileID: 1056688737}
   - component: {fileID: 1056688738}
-  - component: {fileID: 1750984754}
   m_Layer: 6
   m_Name: Nanook
   m_TagString: Untagged
@@ -1775,13 +1774,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: Description...
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 0
-  favorCost: 100
-  moveSpeed: 4
+  favorCost: 0
+  moveSpeed: 5
   rotateSpeed: 7.5
-  maxMoveDistance: 6
+  maxMoveDistance: 5
 --- !u!114 &6900432758506420504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,13 +1794,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5620d7c15cb324b962df54c2bbb697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: Description...
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
-  favorCost: 100
+  favorCost: 0
   moveSpeed: 5
   rotateSpeed: 8
-  maxMoveDistance: 4
+  maxMoveDistance: 5
 --- !u!65 &2578648360964740355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1826,16 +1827,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: Description...
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 2
-  favorCost: 100
+  addCooldown: 0
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 55
-  postureDamage: 33
-  hitChance: 150
-  critChance: 0
+  isSpell: 0
+  damage: 15
+  postureDamage: 25
+  hitChance: 100
+  critChance: 10
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0
@@ -1890,16 +1892,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e3cfa7788ac4468200d1d95766fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isBonusAction: 0
+  actionDescription: Description...
+  _isBonusAction: 1
   cooldown: 0
-  addCooldown: 0
-  favorCost: 100
+  addCooldown: 2
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 10
+  isSpell: 0
+  damage: 30
   postureDamage: 0
-  hitChance: 100
-  critChance: 0
+  hitChance: 70
+  critChance: 15
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0
@@ -1919,19 +1922,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a83a0aa490b0534c993697727206bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: 'Attack an enemy with a chance to root them in place.While affected
+    by root a unit cant use the actions move & dash '
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
-  favorCost: 100
+  addCooldown: 3
+  favorCost: 0
   range: 0
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
+  isSpell: 0
+  damage: 15
+  postureDamage: 40
   hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
+  critChance: 25
+  statusEffectChance: 30
+  statusEffectDuration: 1
+  _abilityEffect: 3
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1948,10 +1953,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2ce9a179fe8844998640cf1edd9e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: Description...
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
-  favorCost: 100
+  favorCost: 0
 --- !u!114 &1056688738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1964,26 +1970,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a838a3a12ec7ef4f8f76947ef0483a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionDescription: Double your armor and reduce incoming posture damage by 50%
+    until the start of your next turn
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
-  favorCost: 100
---- !u!114 &1750984754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900432758506420500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce0bab9a2e8008d4e9f2c7201e742351, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
+  favorCost: 0
 --- !u!1 &6900432758608181653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3435,9 +3427,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
---- !u!4 &3955576150210393785 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2116026998644805803, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+--- !u!95 &3538324557117514810 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1919100398704509480, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
   m_PrefabInstance: {fileID: 3150449174182372882}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6363538649841583895 stripped
@@ -3445,9 +3437,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8356271306191593733, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
   m_PrefabInstance: {fileID: 3150449174182372882}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3538324557117514810 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1919100398704509480, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
+--- !u!4 &3955576150210393785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2116026998644805803, guid: 9c01dcdf86c489b4997b4ed0137e8062, type: 3}
   m_PrefabInstance: {fileID: 3150449174182372882}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6900432758150955045

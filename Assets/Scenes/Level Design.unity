@@ -193,6 +193,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701212953}
     m_Modifications:
+    - target: {fileID: 4517185371802607010, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4517185372378678932, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5952074154592531224, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
       propertyPath: Armor
       value: 10
@@ -216,6 +224,10 @@ PrefabInstance:
     - target: {fileID: 6539309747004815552, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
       propertyPath: maxMoveDistance
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032008466419361674, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+      propertyPath: hitChance
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7032008466419361674, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
       propertyPath: maxShootDistance
@@ -276,6 +288,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2151106789566596742, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
     - {fileID: 2852650860688882918, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 4517185371802607010, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+    - {fileID: 4517185372378678932, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
 --- !u!4 &51869244 stripped
 Transform:
@@ -10794,18 +10808,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 179750530}
     m_Modifications:
-    - target: {fileID: 4385532987445365409, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: damage
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: addCooldown
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: _isBonusAction
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -10854,46 +10856,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Raynard
       objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: damage
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: hitChance
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: addCooldown
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxShootDistance
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: addCooldown
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: _isBonusAction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxMoveDistance
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: Armor
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: evasion
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: maxPosture
-      value: 80
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1001 &1215288359
@@ -10903,10 +10865,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 179750530}
     m_Modifications:
-    - target: {fileID: 5178028984222651906, guid: b13250f694fa3e1429bac55b7b0f2caa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5932099766744026806, guid: b13250f694fa3e1429bac55b7b0f2caa, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -10954,10 +10912,6 @@ PrefabInstance:
     - target: {fileID: 5932099766744026809, guid: b13250f694fa3e1429bac55b7b0f2caa, type: 3}
       propertyPath: m_Name
       value: Amarok Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 6837186051001925734, guid: b13250f694fa3e1429bac55b7b0f2caa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.111
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13250f694fa3e1429bac55b7b0f2caa, type: 3}
@@ -13753,6 +13707,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701212953}
     m_Modifications:
+    - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938453, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938454, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6563545203030061650, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
       propertyPath: m_Name
       value: Brook Variant
@@ -13801,7 +13767,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 385938453, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
 --- !u!1 &1480922389
 GameObject:
@@ -16032,6 +15999,47 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791814908}
   m_Mesh: {fileID: -4869377482885497750, guid: 4dab6fa2a2fcb7f449c5617f027118c9, type: 3}
+--- !u!1 &1801516021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7857788119198021099, guid: 96f0961c27b6f304dbca9d5b384d5379, type: 3}
+  m_PrefabInstance: {fileID: 31417476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1801516022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801516021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 50
+  range: 3
+  isSpell: 1
+  damage: 40
+  postureDamage: 0
+  hitChance: 90
+  critChance: 15
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  _skillEffect: 2
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1814661707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4009373546809246018, guid: ed890f900078a184499d215263c89752, type: 3}
@@ -18347,6 +18355,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701212953}
     m_Modifications:
+    - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938453, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938454, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6563545203030061650, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
       propertyPath: m_Name
       value: Brook Variant (1)
@@ -18395,7 +18415,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 385938453, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
 --- !u!1001 &2121206542
 PrefabInstance:
