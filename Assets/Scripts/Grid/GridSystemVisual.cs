@@ -297,7 +297,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private void MeleeRange(Unit selectedUnit, int adjacent)
     {
-        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.RedSoft, Effectiveness.Effective);
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective);
     }
 
     private void CloseRange(Unit selectedUnit, int close, int far)
