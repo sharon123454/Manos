@@ -462,7 +462,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239987382}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 18, y: 7, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -563,7 +563,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259866273}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 18, y: 7, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3574,6 +3574,9 @@ MonoBehaviour:
   camRotationSpeed: 100
   zoomAmount: 1
   zoomSpeed: 5
+  camOrbitSpeed: 1
+  MIN_FOLLOW_Y_OFFSET: 2
+  MAX_FOLLOW_Y_OFFSET: 12
 --- !u!4 &1970022699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7656489080396752776, guid: 0b2846c0607736a41a6f78e988f07d28, type: 3}
@@ -12089,6 +12092,46 @@ PrefabInstance:
     - target: {fileID: 15871775085112766, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: damage
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: hitChance
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: critChance
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: _skillEffect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: _abilityEffect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: maxShootDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: statusEffectChance
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: statusEffectDuration
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 15871775085112783, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}
+      propertyPath: obstacleLayerMask.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afb7a15052abfc240921bb58b2c09fe6, type: 3}

@@ -77,6 +77,21 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 case "Volley":
                     getHitChance = selectedUnit.GetAction<ArrowVolleyAction>().GetAbilityHitChance();
                     break;
+                case "Stun":
+                    getHitChance = selectedUnit.GetAction<StunBolt>().GetAbilityHitChance();
+                    break;
+                case "Murder":
+                    getHitChance = selectedUnit.GetAction<MurderAction>().GetAbilityHitChance();
+                    break;
+                case "Root":
+                    getHitChance = selectedUnit.GetAction<BrakeALegAction>().GetAbilityHitChance();
+                    break;
+                case "Puncture":
+                    getHitChance = selectedUnit.GetAction<PunctureAction>().GetAbilityHitChance();
+                    break;
+                case "PommelStrike":
+                    getHitChance = selectedUnit.GetAction<PommelStrike>().GetAbilityHitChance();
+                    break;
             }
             hitChanceText.gameObject.SetActive(true);
             if (unitStats.GetPosture() <= 0)
