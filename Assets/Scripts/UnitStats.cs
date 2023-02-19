@@ -179,6 +179,10 @@ public class UnitStats : MonoBehaviour
 
     }
 
+    public void Heal(float healValue)
+    {
+        health += healValue;
+    }
     public void TryToTakeStatusEffect()
     {
         // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(_abilityEffect));

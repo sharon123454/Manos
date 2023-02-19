@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class MendAction : BaseAbility
+public class MendAction : BaseHeal
 {
     public static event EventHandler OnAnyMeleeHit;
 
@@ -15,7 +15,7 @@ public class MendAction : BaseAbility
 
     private Unit targetUnit;
 
-    private enum State { SwingBeforeHit, SwingAfterHit, }
+    private enum State { RotateToHeal, HealComplete, }
     private float stateTimer;
     private State state;
 
@@ -32,11 +32,11 @@ public class MendAction : BaseAbility
 
         switch (state)
         {
-            case State.SwingBeforeHit:
+            case State.RotateToHeal:
                 Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
                 break;
-            case State.SwingAfterHit:
+            case State.HealComplete:
                 break;
         }
 
@@ -48,22 +48,20 @@ public class MendAction : BaseAbility
     {
         switch (state)
         {
-            case State.SwingBeforeHit:
-                state = State.SwingAfterHit;
+            case State.RotateToHeal:
+                state = State.HealComplete;
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, postureDamage, hitChance,critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                targetUnit.Heal(healValue);
                 break;
 
-            case State.SwingAfterHit:
+            case State.HealComplete:
                 OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
                 break;
         }
     }
-
-    public int GetMaxMeleeDistance() { return maxMeleeDistance; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
@@ -71,13 +69,12 @@ public class MendAction : BaseAbility
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.SwingBeforeHit;
+        state = State.RotateToHeal;
         stateTimer = beforeHitStateTime;
 
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);
-        StartCoroutine(melee.PlaySlashAnim());
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -104,10 +101,6 @@ public class MendAction : BaseAbility
                 if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position has no unit
                     continue;
 
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-
-                if (targetUnit.IsEnemy() == unit.IsEnemy())// Both units on the same team
-                    continue;
 
                 _validGridPositionList.Add(testGridPosition);
             }
