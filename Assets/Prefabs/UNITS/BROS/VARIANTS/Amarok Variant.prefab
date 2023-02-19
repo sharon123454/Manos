@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 872854680245264044, guid: c8d032a009b13a348abebf843842a22d, type: 3}
       propertyPath: m_Name
-      value: Amarok
+      value: Amarok Variant
       objectReference: {fileID: 0}
     - target: {fileID: 872854680245264082, guid: c8d032a009b13a348abebf843842a22d, type: 3}
       propertyPath: range
@@ -101,3 +101,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d032a009b13a348abebf843842a22d, type: 3}
+--- !u!1 &15871775085112753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 872854680245264044, guid: c8d032a009b13a348abebf843842a22d, type: 3}
+  m_PrefabInstance: {fileID: 875215647840760605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5031127468213589309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15871775085112753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e39f209c0af114e8c5618324b183e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 50
+  range: 4
+  isSpell: 1
+  healValue: 15
