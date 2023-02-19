@@ -8,6 +8,7 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
 
+    [SerializeField] protected string actionDescription = "Description...";
     [SerializeField] protected bool _isBonusAction;
     [SerializeField] protected int cooldown, addCooldown;
     [SerializeField] protected int favorCost = 100;
@@ -52,6 +53,8 @@ public abstract class BaseAction : MonoBehaviour
                 cooldown--;
         }
     }
+
+    public virtual string GetActionDescription() { return actionDescription; }
     public virtual int GetFavorCost() { return favorCost; }
 
     protected void ActionComplete()

@@ -8,7 +8,7 @@ using TMPro;
 public class UnitActionSystemUI : MonoBehaviour
 {
     [SerializeField] Transform actionButtonPrefab, actionButtonContainerTransform;
-    [SerializeField] TextMeshProUGUI actionPointsText;
+    //[SerializeField] TextMeshProUGUI actionPointsText;
 
     private List<ActionButtonUI> actionButtonUIList;
 
@@ -83,11 +83,11 @@ public class UnitActionSystemUI : MonoBehaviour
 
         if (selectedUnit)
         {
-            if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
-                actionPointsText.text = $"Bonus Action";
-            //{selectedUnit.GetUsedBonusActionPoints()}
-            else
-                actionPointsText.text = $"Action";
+            //if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
+            //    actionPointsText.text = $"Bonus Action";
+            ////{selectedUnit.GetUsedBonusActionPoints()}
+            //else
+            //    actionPointsText.text = $"Action";
             // {selectedUnit.GetUsedActionPoints()}
         }
     }

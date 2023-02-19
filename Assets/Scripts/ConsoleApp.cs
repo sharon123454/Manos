@@ -6,7 +6,8 @@ using TMPro;
 public class ConsoleApp : MonoBehaviour
 {
     public static ConsoleApp Instance;
-    
+
+    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private Transform consoleLinePrefab;
     [SerializeField] private Transform textContainer;
 
@@ -16,10 +17,25 @@ public class ConsoleApp : MonoBehaviour
         UnitStats.SendConsoleMessage += EventPrint;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            settingsMenu.SetActive(!settingsMenu.activeSelf);
+    }
 
     public void EventPrint(object sender, string name)
     {
         CreateLine(name);
+    }
+
+    public void CloseGame()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     private void CreateLine(string textToPrint)

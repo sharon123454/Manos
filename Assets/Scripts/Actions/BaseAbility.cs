@@ -47,6 +47,8 @@ public class BaseAbility : BaseAction
 
     public float GetDamage() { return damage; }
     public AbilityRange GetRange() { return range; }
+    public int GetCritChance() { return critChance; }
+    public int GetStatusChance() { return statusEffectChance; }
     public StatusEffect GetStatusEffect() { return _abilityEffect; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }

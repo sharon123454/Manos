@@ -8,9 +8,14 @@ using TMPro;
 public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button button;
+    [SerializeField] GameObject actionInfo;
     [SerializeField] TextMeshProUGUI textMeshPro;
+    [SerializeField] TextMeshProUGUI descriptionUgui;
     [SerializeField] TextMeshProUGUI damageProUgui;
     [SerializeField] TextMeshProUGUI postureProUgui;
+    [SerializeField] TextMeshProUGUI favorProUgui;
+    [SerializeField] TextMeshProUGUI critHitChanceProUgui;
+    [SerializeField] TextMeshProUGUI statusHitChanceProUgui;
     // [SerializeField] TextMeshProUGUI cooldownProUgui;
     [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
 
@@ -107,14 +112,17 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
         if (baseAction is BaseAbility)
         {
-            damageProUgui.gameObject.SetActive(true);
-            postureProUgui.gameObject.SetActive(true);
+            actionInfo.SetActive(true);
             //   cooldownProUgui.gameObject.SetActive(true);
             if (!isBaseAbility)
             {
                 isBaseAbility = (BaseAbility)baseAction;
                 damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
                 postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
+                favorProUgui.text = $"Favor Cost: {isBaseAbility.GetFavorCost()}";
+                descriptionUgui.text = $"{isBaseAbility.GetActionDescription()}";
+                critHitChanceProUgui.text = $"Crit Chance: {isBaseAbility.GetCritChance()}%";
+                statusHitChanceProUgui.text = $"Status Chance: {isBaseAbility.GetStatusChance()}%";
                 //cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
             }
         }
@@ -123,8 +131,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
-        damageProUgui.gameObject.SetActive(false);
-        postureProUgui.gameObject.SetActive(false);
+            actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
     }
 }
