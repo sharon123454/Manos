@@ -8420,13 +8420,31 @@ GameObject:
   - component: {fileID: 6269624858933195820}
   - component: {fileID: 6269624857634817799}
   - component: {fileID: 5918153917341946254}
+  - component: {fileID: 341730514880453734}
   m_Layer: 6
-  m_Name: Hand of Bal
+  m_Name: Fist of Bal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &341730514880453734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341730514880453733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065ad769ddd65ed43b1aec45b0af3a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  rootDuration: 3
 --- !u!4 &341730514880453738
 Transform:
   m_ObjectHideFlags: 0
@@ -10637,6 +10655,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701212953}
     m_Modifications:
+    - target: {fileID: 1369884979138432109, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369884979138432109, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: unitActiveStatusEffects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470489386923663197, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768449582528366279, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776771194872544773, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915544474356744115, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8468653167735714593, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -10685,7 +10727,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Finger of Bal
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8541674251505829535, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1369884979138432109, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af22b339e8f450842bcab8c6a0686f5c, type: 3}
 --- !u!1 &1786748483884326322
 GameObject:

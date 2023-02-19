@@ -179,6 +179,7 @@ public class UnitStats : MonoBehaviour
 
     }
 
+  public  UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect;}
     public void Heal(float healValue)
     {
         health += healValue;
