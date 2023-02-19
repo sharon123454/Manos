@@ -8,6 +8,7 @@ public class DeafeningScreechAction : BaseAction
 {
     public static event EventHandler OnDivineActive;
     [SerializeField] private int rootDuration;
+    [SerializeField] private int postureDamage;
     private void Update()
     {
         if (!_isActive) { return; }
@@ -20,6 +21,7 @@ public class DeafeningScreechAction : BaseAction
         foreach (var VARIABLE in UnitManager.Instance.GetFriendlyUnitList())
         {
             VARIABLE.GetUnitStats().getUnitStatusEffects().AddStatusEffectToUnit(StatusEffect.Root, rootDuration);
+            VARIABLE.GetUnitStats().RemovePosture(postureDamage);
         }
         ActionStart(actionComplete);
     }

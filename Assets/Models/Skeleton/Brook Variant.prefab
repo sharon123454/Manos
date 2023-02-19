@@ -134,54 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091616d43cb73942bd2df3c8e0982b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &385938454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563545203030061650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 0
-  range: 0
-  isSpell: 0
-  damage: 10
-  postureDamage: 40
-  hitChance: 90
-  critChance: 10
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &385938453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563545203030061650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065ad769ddd65ed43b1aec45b0af3a9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 6
-  favorCost: 100
-  rootDuration: 1
 --- !u!114 &385938452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +156,36 @@ MonoBehaviour:
   damage: 20
   postureDamage: 60
   hitChance: 75
+  critChance: 10
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &385938454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563545203030061650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 0
+  range: 0
+  isSpell: 0
+  damage: 10
+  postureDamage: 40
+  hitChance: 90
   critChance: 10
   statusEffectChance: 0
   statusEffectDuration: 0

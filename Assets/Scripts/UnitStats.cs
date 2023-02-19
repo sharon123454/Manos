@@ -107,6 +107,10 @@ public class UnitStats : MonoBehaviour
         postureDMGMultiplayer = 1f;
     }
 
+    public void RemovePosture(float postureDamage)
+    {
+        currentPosture -= postureDamage;
+    }
     public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
     {
         #region Dice Rools
