@@ -206,6 +206,11 @@ public class UnitStats : MonoBehaviour
         if (health == 0) Die();
     }
 
+    public void InvokeHPChange()
+    {
+        OnDamaged?.Invoke(this, EventArgs.Empty);
+    }
+
     private void Die()
     {
         OnDeath?.Invoke(this, EventArgs.Empty);

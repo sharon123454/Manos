@@ -18,6 +18,7 @@ public class ResponsibilityAction : BaseHeal
     {
         unit.GetUnitStats().Heal(healValue);
         ActionStart(actionComplete);
+        unit.GetUnitStats().InvokeHPChange();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

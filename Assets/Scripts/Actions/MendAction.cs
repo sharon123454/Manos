@@ -71,9 +71,9 @@ public class MendAction : BaseHeal
 
         state = State.RotateToHeal;
         stateTimer = beforeHitStateTime;
-
+        targetUnit.Heal(healValue);
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
-
+        targetUnit.GetUnitStats().InvokeHPChange();
         ActionStart(actionComplete);
     }
 
