@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2842350041083676706}
   - component: {fileID: 2841862941667526168}
   - component: {fileID: 2636277876084456662}
+  - component: {fileID: 6882579946591983375}
+  - component: {fileID: -2454082114349295782}
   m_Layer: 0
   m_Name: spike
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2717553697240839268}
   m_LocalRotation: {x: -0.000000014902637, y: -0.70710576, z: 0.000000029802319, w: 0.70710784}
   m_LocalPosition: {x: 10.51, y: 0.5223463, z: 2.8654912}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 2719243687828179162}
   - {fileID: 2719231291225469646}
@@ -52,8 +54,8 @@ ParticleSystem:
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
-  prewarm: 1
+  looping: 0
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -121,7 +123,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4771,7 +4773,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 31d4354cef3a92a4481b8c1464e22afd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4855,6 +4857,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &6882579946591983375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717553697240839268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f628ef55acdc0489b92c26beee91da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHitVFXPrefab: {fileID: 3161066133269438920, guid: 8a3ba5e7854a89d48972dd69228bd3c0, type: 3}
+  trailRenderer: {fileID: 0}
+  speed: 100
+--- !u!114 &-2454082114349295782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717553697240839268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c3f5eb48b933b42a605633ddb97b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2717695929321812716
 GameObject:
   m_ObjectHideFlags: 0
@@ -9750,7 +9779,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -38451,7 +38480,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 78c1c4dd7e76e0944aa2ce64e5aca494, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1.3
   Loop: 0
   Mute: 0

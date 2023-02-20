@@ -210,7 +210,7 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        ShowGridPositionList(gridPosList, gridVisualType);
+        ShowGridPositionList(gridPosList, gridVisualType,type);
     }
 
     public void HideGridPositionList(List<GridPosition> gridPositions)
@@ -275,7 +275,7 @@ public class GridSystemVisual : MonoBehaviour
         switch (AbilityRange)
         {
             case AbilityRange.Melee:
-                MeleeRange(selectedUnit, _adjacent);
+                MeleeRange(selectedUnit, _adjacent,_veryFar);
                 break;
             case AbilityRange.Close:
                 CloseRange(selectedUnit, _close, _far);
@@ -295,8 +295,9 @@ public class GridSystemVisual : MonoBehaviour
         }
     }
 
-    private void MeleeRange(Unit selectedUnit, int adjacent)
+    private void MeleeRange(Unit selectedUnit, int adjacent,int veryfar)
     {
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryfar, GridVisualType.White, Effectiveness.Inaccurate);
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective);
     }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
+using AmazingAssets.Beast.ExampleScripts;
 using UnityEngine;
 using TMPro;
 
@@ -12,6 +13,13 @@ public class ConsoleApp : MonoBehaviour
     [SerializeField] private Transform textContainer;
 
     private void Start()
+    {
+        Unit.SendConsoleMessage += EventPrint;
+        UnitStats.SendConsoleMessage += EventPrint;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+
+    private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
     {
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
@@ -40,12 +48,16 @@ public class ConsoleApp : MonoBehaviour
 
     private void CreateLine(string textToPrint)
     {
-        if (textContainer.childCount > 4)
-            Destroy(textContainer.GetChild(0).gameObject);
+        if (textContainer != null)
+        {
+            if (textContainer.childCount > 4)
+                Destroy(textContainer.GetChild(0).gameObject);
 
-        GameObject newConsoleLine = Instantiate(consoleLinePrefab.gameObject, textContainer);
-        TextMeshProUGUI newTextLine = newConsoleLine.GetComponentInChildren<TextMeshProUGUI>();
-        newTextLine.text = textToPrint;
+            GameObject newConsoleLine = Instantiate(consoleLinePrefab.gameObject, textContainer);
+            TextMeshProUGUI newTextLine = newConsoleLine.GetComponentInChildren<TextMeshProUGUI>();
+            newTextLine.text = textToPrint;
+        }
+
     }
 
 }

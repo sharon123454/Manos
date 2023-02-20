@@ -53,7 +53,7 @@ public class MeleeAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, postureDamage, hitChance,critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
                 break;
 
             case State.SwingAfterHit:
@@ -77,7 +77,11 @@ public class MeleeAction : BaseAbility
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);
-        StartCoroutine(melee.PlaySlashAnim());
+        if (melee != null)
+        {
+            StartCoroutine(melee.PlaySlashAnim());
+
+        }
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

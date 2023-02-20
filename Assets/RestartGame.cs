@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AmazingAssets.Beast.ExampleScripts;
-using UnityEditor.SearchService;
 using UnityEngine;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 

@@ -42,6 +42,9 @@ public class UnitStats : MonoBehaviour
                 case Effectiveness.Miss:
                     _Effectivness = 100;
                     break;
+                default:
+                    _Effectivness = 50;
+                    break;
             }
             return _Effectivness;
         }
