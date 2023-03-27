@@ -34,7 +34,7 @@ public class UnitActionSystem : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         //canceles current action
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (ManosInputController.Instance.Space.IsPressed())
         {
             if (selectedAction is MoveAction) { }
             else
@@ -71,13 +71,13 @@ public class UnitActionSystem : MonoBehaviour
 
     private bool TryHandleUnitSelection()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (ManosInputController.Instance.LeftClick.IsPressed())
         {
             if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
             {
                 return false;
             }
-            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
 
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))
                 if (_rayCastHit.transform.TryGetComponent<Unit>(out Unit _unit))
@@ -101,7 +101,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (ManosInputController.Instance.LeftClick.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 

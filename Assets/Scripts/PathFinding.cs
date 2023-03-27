@@ -135,7 +135,7 @@ public class PathFinding : MonoBehaviour
                     continue;
                 }
 
-                //(not closed node) move cost from current node to neighbour node
+                //(not closed node) Move cost from current node to neighbour node
                 int tentativeGCost = currentNode.GetGCost() + CalculateDistance(currentNode.GetGridPosition(), neighbourNode.GetGridPosition());
 
                 //if cost is lower than neighbour, update neighbour of cheaper route

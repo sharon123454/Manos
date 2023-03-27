@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using System.Collections;
-using AmazingAssets.Beast.ExampleScripts;
 using UnityEngine;
 using TMPro;
 
@@ -16,19 +16,19 @@ public class ConsoleApp : MonoBehaviour
     {
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
+        ManosInputController.Instance.Pause.performed += InputController_Pause;
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        ManosInputController.Instance.Pause.performed -= InputController_Pause;
     }
 
     private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
     {
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
     public void EventPrint(object sender, string name)
@@ -58,6 +58,11 @@ public class ConsoleApp : MonoBehaviour
             newTextLine.text = textToPrint;
         }
 
+    }
+
+    private void InputController_Pause(InputAction.CallbackContext context)
+    {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
 }

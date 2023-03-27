@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine;
 using System;
@@ -31,20 +32,17 @@ public class UnitManager : MonoBehaviour
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        ManosInputController.Instance.SwitchSelectedPlayer.performed += InputController_SwitchSelectedPlayer;
     }
 
-    private void Update()
+    private void InputController_SwitchSelectedPlayer(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            friendlyID++;
+        friendlyID++;
 
-            if (friendlyID > friendlyUnitList.Count - 1)
-                friendlyID = 0;
+        if (friendlyID > friendlyUnitList.Count - 1)
+            friendlyID = 0;
 
-            UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[friendlyID]);
-        }
+        UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[friendlyID]);
     }
 
     public List<Unit> GetUnitList() { return unitList; }

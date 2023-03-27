@@ -61,59 +61,38 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 inputMoveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) /*|| Input.mousePosition.y > Screen.height*/)
-        {
-            inputMoveDir.z += 1;
-            StopAllCoroutines();
-        }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) /*|| Input.mousePosition.y < 0 */)
-        {
-            inputMoveDir.z -= 1;
-            StopAllCoroutines();
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftAlt) /*|| Input.mousePosition.x < 0 */)
-        {
-            inputMoveDir.x -= 1;
-            StopAllCoroutines();
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) /*|| Input.mousePosition.x > Screen.width */)
-        {
-            inputMoveDir.x += 1;
-            StopAllCoroutines();
-        }
+        Vector3 inputMoveDir = ManosInputController.Instance.GetMoveDirection();
 
         Vector3 moveVector = transform.forward * inputMoveDir.z + transform.right * inputMoveDir.x;
         transform.position += moveVector * camMoveSpeed * Time.deltaTime;
     }
 
-    private void HandleRotation()
+    private void HandleRotation()//need to fix with new input sys
     {
-        Vector3 rotationVector = Vector3.zero;
-        if (Input.GetKey(KeyCode.Q))
-            rotationVector.y += 1;
-        if (Input.GetKey(KeyCode.E))
-            rotationVector.y -= 1;
-        if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") > 0)
-            rotationVector.y -= camOrbitSpeed;
-        if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") < 0)
-            rotationVector.y += camOrbitSpeed;
+        Vector3 rotationVector = ManosInputController.Instance.RotateCamBy();
+        //if (Input.GetKey(KeyCode.Q))
+        //    rotationVector.y += 1;
+        //if (Input.GetKey(KeyCode.E))
+        //    rotationVector.y -= 1;
+        //if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") > 0)
+        //    rotationVector.y -= camOrbitSpeed;
+        //if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") < 0)
+        //    rotationVector.y += camOrbitSpeed;
 
         transform.eulerAngles += rotationVector * camRotationSpeed * Time.deltaTime;
     }
 
-    private void HandleZoom()
+    private void HandleZoom()//need to fix with new input sys
     {
-        if (Input.mouseScrollDelta.y > 0)
-            targetFollowOffset.y += zoomAmount;
-        if (Input.mouseScrollDelta.y < 0)
-            targetFollowOffset.y -= zoomAmount;
+        //if (Input.mouseScrollDelta.y > 0)
+        //    targetFollowOffset.y += zoomAmount;
+        //if (Input.mouseScrollDelta.y < 0)
+        //    targetFollowOffset.y -= zoomAmount;
 
         targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_FOLLOW_Y_OFFSET, MAX_FOLLOW_Y_OFFSET);
 
         cinemachineTransposer.m_FollowOffset =
             Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
-
 
         //if (componentBase == null)
         //    componentBase = cinemachineVirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
