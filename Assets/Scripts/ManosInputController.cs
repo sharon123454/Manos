@@ -7,14 +7,18 @@ public class ManosInputController : MonoBehaviour
 {
     public static ManosInputController Instance { get; private set; }
 
-    private PlayerInput playerInput;
-    public InputAction Move { get; private set; }
-    public InputAction Space { get; private set; }
-    public InputAction Pause { get; private set; }
-    public InputAction Rotate { get; private set; }
-    public InputAction LeftClick { get; private set; }
-    public InputAction PointerPosition{ get; private set; }
-    public InputAction SwitchSelectedPlayer{ get; private set; }
+    internal PlayerInput PlayerInput { get; private set; }
+    internal InputAction Move { get; private set; }
+    internal InputAction Space { get; private set; }
+    internal InputAction Pause { get; private set; }
+    internal InputAction Scroll { get; private set; }
+    internal InputAction Click { get; private set; }
+    internal InputAction Rotate { get; private set; }
+    internal InputAction RotateLeft { get; private set; }
+    internal InputAction RotateRight { get; private set; }
+    internal InputAction PointerDelta { get; private set; }
+    internal InputAction PointerPosition { get; private set; }
+    internal InputAction SwitchSelectedPlayer { get; private set; }
 
     private void Awake()
     {
@@ -22,67 +26,69 @@ public class ManosInputController : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-        playerInput = GetComponent<PlayerInput>();
+        PlayerInput = GetComponent<PlayerInput>();
     }
 
     private void OnEnable()
     {
-        Move = playerInput.actions["Move"];
-        Space = playerInput.actions["Space"];
-        Pause = playerInput.actions["Pause"];
-        Rotate = playerInput.actions["Rotate"];
-        LeftClick = playerInput.actions["LeftClick"];
-        PointerPosition = playerInput.actions["PointerPosition"];
-        SwitchSelectedPlayer = playerInput.actions["SwitchSelectedPlayer"];
+        Move = PlayerInput.actions["Move"];
+        Click = PlayerInput.actions["Click"];
+        Space = PlayerInput.actions["Space"];
+        Pause = PlayerInput.actions["Pause"];
+        Scroll = PlayerInput.actions["Scroll"];
+        Rotate = PlayerInput.actions["Rotate"];
+        RotateLeft = PlayerInput.actions["RotateLeft"];
+        RotateRight = PlayerInput.actions["RotateRight"];
+        PointerDelta = PlayerInput.actions["PointerDelta"];
+        PointerPosition = PlayerInput.actions["PointerPosition"];
+        SwitchSelectedPlayer = PlayerInput.actions["SwitchSelectedPlayer"];
         Move.Enable();
+        Click.Enable();
         Space.Enable();
         Pause.Enable();
+        Scroll.Enable();
         Rotate.Enable();
-        LeftClick.Enable();
+        RotateLeft.Enable();
+        RotateRight.Enable();
+        PointerDelta.Enable();
         PointerPosition.Enable();
         SwitchSelectedPlayer.Enable();
-
-        LeftClick.performed += leftClickPerformed;
     }
 
     private void OnDisable()
     {
         Move.Disable();
+        Click.Disable();
         Space.Disable();
         Pause.Disable();
+        Scroll.Disable();
         Rotate.Disable();
-        LeftClick.Disable();
+        RotateLeft.Disable();
+        RotateRight.Disable();
+        PointerDelta.Disable();
         PointerPosition.Disable();
         SwitchSelectedPlayer.Disable();
     }
 
-    public PlayerInput GetPlayerInput() { return playerInput; }
-
     public Vector3 GetPointerPosition()
     {
         Vector2 _pointerPosition = PointerPosition.ReadValue<Vector2>();
-        return _pointerPosition; 
+        return _pointerPosition;
     }
 
-    public Vector3 GetMoveDirection()
+    public Vector3 GetMoveDirection(Transform movingObject)
     {
         Vector2 _playerMoveInput = Move.ReadValue<Vector2>();
-        return new Vector3(_playerMoveInput.x, 0, _playerMoveInput.y);
+        Vector3 _InputAsVector3 = new Vector3(_playerMoveInput.x, 0, _playerMoveInput.y);
+        Vector3 _moveDirection = movingObject.forward * _InputAsVector3.z + movingObject.right * _InputAsVector3.x;
+
+        return _moveDirection;
     }
 
-    public Vector3 RotateCamBy() 
+    public Vector3 GetRotateCamBy()
     {
-        if (Rotate.IsPressed())
-        {
-            float _playerRotateInput = Rotate.ReadValue<float>();
-            return new Vector3(_playerRotateInput, 0, 0);
-        }
-
-        return Vector3.zero;
-    }
-
-    private void leftClickPerformed(InputAction.CallbackContext context)
-    {
+        float _playerRotateInput = Rotate.ReadValue<float>();
+        return new Vector3(0, _playerRotateInput, 0);
     }
 
 }

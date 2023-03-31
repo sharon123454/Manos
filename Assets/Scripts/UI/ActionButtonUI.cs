@@ -46,11 +46,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    IEnumerator test()
-    {
-        yield return new WaitForSeconds(0.05f);
-
-    }
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
         if (TurnSystem.Instance.IsPlayerTurn())
@@ -64,12 +59,11 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
 
-        button.onClick.AddListener(
-            (/*anonymouseFunction*/) =>
-            {
-                UnitActionSystem.Instance.SetSelectedAction(baseAction);
-                UnitActionSystem.Instance.savedAction = baseAction;
-            });
+        button.onClick.AddListener((/*anonymouseFunction*/) =>
+        {
+            UnitActionSystem.Instance.SetSelectedAction(baseAction);
+            UnitActionSystem.Instance.savedAction = baseAction;
+        });
     }
 
     public void UpdateSelectedVisual()
