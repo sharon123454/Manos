@@ -5,6 +5,7 @@ using System;
 
 public enum AbilityRange 
 {
+    Move,
     Melee/* 0 - 1 */,
     Close/* 0 - 4, 5-9 */,
     Medium/* 2-4, 5 - 9, 10-15 */,
@@ -34,7 +35,6 @@ public class BaseAbility : BaseAction
 {
     public static event EventHandler<int> OnAnySpellCast;
 
-    [SerializeField] protected AbilityRange range;
     [SerializeField] protected bool isSpell = true;
     [Range(1f, 600f)]
     [SerializeField] protected float damage = 10, postureDamage = 0;

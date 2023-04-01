@@ -6,8 +6,6 @@ using System;
 
 public class BaseHeal : BaseAction
 {
-    [SerializeField] protected AbilityRange range;
-
     public static event EventHandler<int> OnAnySpellCast;
 
     [SerializeField] protected bool isSpell = true;

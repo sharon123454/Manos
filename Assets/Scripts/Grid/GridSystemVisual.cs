@@ -46,7 +46,7 @@ public class GridSystemVisual : MonoBehaviour
                 RaycastHit ray;
                 Vector3 myWorldPos = LevelGrid.Instance.GetWorldPosition(gridPosition);
 
-                if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x,0,transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 2000, PathFinding.Instance.obstacleLayerMask)) { }
+                if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x, 0, transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 2000, PathFinding.Instance.obstacleLayerMask)) { }
 
                 else if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x, 0, transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 20000, PathFinding.Instance.floorGridLayer))
                 {
@@ -75,66 +75,94 @@ public class GridSystemVisual : MonoBehaviour
 
         GridVisualType gridVisualType;
 
-        switch (selectedAction)
+        switch (selectedAction.ReturnRange())
         {
-            default:
-            case MoveAction moveAction:
+            case AbilityRange.Move:
                 gridVisualType = GridVisualType.White;
                 ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                 break;
-            case DashAction dashAction:
-                gridVisualType = GridVisualType.White;
-
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+            case AbilityRange.Melee:
+                FilterByRange(AbilityRange.Melee, selectedUnit);
                 break;
-            case ShootAction shootAction:
-                FilterByRange(shootAction.GetRange(), selectedUnit);
+            case AbilityRange.Close:
+                FilterByRange(AbilityRange.Close, selectedUnit);
                 break;
-            case MeleeAction meleeAction:
-                FilterByRange(meleeAction.GetRange(), selectedUnit);
+            case AbilityRange.Medium:
+                FilterByRange(AbilityRange.Medium, selectedUnit);
                 break;
-            case PunctureAction punctureAction:
-                FilterByRange(punctureAction.GetRange(), selectedUnit);
+            case AbilityRange.Long:
+                FilterByRange(AbilityRange.Long, selectedUnit);
                 break;
-            case MurderAction murderAction:
-                FilterByRange(murderAction.GetRange(), selectedUnit);
+            case AbilityRange.EffectiveAtAll:
+                FilterByRange(AbilityRange.EffectiveAtAll, selectedUnit);
                 break;
-            case AOEAction aOEAction:
-                FilterByRange(aOEAction.GetRange(), selectedUnit);
+            case AbilityRange.InaccurateAtAll:
+                FilterByRange(AbilityRange.InaccurateAtAll, selectedUnit);
                 break;
-            case ArrowVolleyAction volleyAction:
-                FilterByRange(volleyAction.GetRange(), selectedUnit);
-                break;
-            case PommelStrike pommelStrike:
-                FilterByRange(pommelStrike.GetRange(), selectedUnit);
-                break;
-            case MendAction mendAction:
-                FilterByRange(mendAction.GetRange(), selectedUnit);
-                break;
-            case StunBolt stunBolt:
-                FilterByRange(stunBolt.GetRange(), selectedUnit);
-                break;    
-            case BrakeALegAction brakeALegAction:
-                FilterByRange(brakeALegAction.GetRange(), selectedUnit);
-                break;
-            case SpinAction spinAction:
-                gridVisualType = GridVisualType.Blue;
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
-                break;
-            case DisengageAction disengageAction:
-                gridVisualType = GridVisualType.Green;
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
-                break;
-            case BlockAction blockAction:
-                gridVisualType = GridVisualType.Green;
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
-                break;
-            case DodgeAction dodgeAction:
-                gridVisualType = GridVisualType.Green;
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
-                break;
-
         }
+        #region OLD
+        //switch (selectedAction)
+        //{
+        //    default:
+        //    case MoveAction moveAction:
+        //        gridVisualType = GridVisualType.White;
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+        //    case DashAction dashAction:
+        //        gridVisualType = GridVisualType.White;
+
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+        //    case ShootAction shootAction:
+        //        FilterByRange(shootAction.GetRange(), selectedUnit);
+        //        break;
+        //    case MeleeAction meleeAction:
+        //        FilterByRange(meleeAction.GetRange(), selectedUnit);
+        //        break;
+        //    case PunctureAction punctureAction:
+        //        FilterByRange(punctureAction.GetRange(), selectedUnit);
+        //        break;
+        //    case MurderAction murderAction:
+        //        FilterByRange(murderAction.GetRange(), selectedUnit);
+        //        break;
+        //    case AOEAction aOEAction:
+        //        FilterByRange(aOEAction.GetRange(), selectedUnit);
+        //        break;
+        //    case ArrowVolleyAction volleyAction:
+        //        FilterByRange(volleyAction.GetRange(), selectedUnit);
+        //        break;
+        //    case PommelStrike pommelStrike:
+        //        FilterByRange(pommelStrike.GetRange(), selectedUnit);
+        //        break;
+        //    case MendAction mendAction:
+        //        FilterByRange(mendAction.GetRange(), selectedUnit);
+        //        break;
+        //    case StunBolt stunBolt:
+        //        FilterByRange(stunBolt.GetRange(), selectedUnit);
+        //        break;
+        //    case BrakeALegAction brakeALegAction:
+        //        FilterByRange(brakeALegAction.GetRange(), selectedUnit);
+        //        break;
+        //    case SpinAction spinAction:
+        //        gridVisualType = GridVisualType.Blue;
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+        //    case DisengageAction disengageAction:
+        //        gridVisualType = GridVisualType.Green;
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+        //    case BlockAction blockAction:
+        //        gridVisualType = GridVisualType.Green;
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+        //    case DodgeAction dodgeAction:
+        //        gridVisualType = GridVisualType.Green;
+        //        ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+        //        break;
+
+        //}
+        #endregion
+
     }
 
     public void HideAllGridPosition()
@@ -210,7 +238,7 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        ShowGridPositionList(gridPosList, gridVisualType,type);
+        ShowGridPositionList(gridPosList, gridVisualType, type);
     }
 
     public void HideGridPositionList(List<GridPosition> gridPositions)
@@ -275,7 +303,7 @@ public class GridSystemVisual : MonoBehaviour
         switch (AbilityRange)
         {
             case AbilityRange.Melee:
-                MeleeRange(selectedUnit, _adjacent,_veryFar);
+                MeleeRange(selectedUnit, _adjacent, _veryFar);
                 break;
             case AbilityRange.Close:
                 CloseRange(selectedUnit, _close, _far);
@@ -295,7 +323,7 @@ public class GridSystemVisual : MonoBehaviour
         }
     }
 
-    private void MeleeRange(Unit selectedUnit, int adjacent,int veryfar)
+    private void MeleeRange(Unit selectedUnit, int adjacent, int veryfar)
     {
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryfar, GridVisualType.White, Effectiveness.Inaccurate);
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective);

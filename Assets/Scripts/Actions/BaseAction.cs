@@ -12,6 +12,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected bool _isBonusAction;
     [SerializeField] protected int cooldown, addCooldown;
     [SerializeField] protected int favorCost = 100;
+    [SerializeField] protected AbilityRange range;
 
     protected Action onActionComplete;
     protected Unit unit;
@@ -31,6 +32,7 @@ public abstract class BaseAction : MonoBehaviour
         DivineFavorAction.OnDivineActive += BaseAction_OnDivineActive;
     }
 
+    public AbilityRange ReturnRange() { return range; }
     private void BaseAction_OnDivineActive(object sender, EventArgs e)
     {
         Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
