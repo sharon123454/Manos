@@ -2,152 +2,7 @@
     "name": "PlayerActions",
     "maps": [
         {
-            "name": "Gameplay",
-            "id": "8e11a806-753d-41d8-af38-51876e9ea8b1",
-            "actions": [
-                {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "9d8fcbff-87d1-43ef-857e-931c84d5bd72",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "ddab72da-d325-4b4c-a484-abe4f6bdf113",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "2bd60403-0923-469e-a3a4-7338b04f6bbc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "fe58f6b8-88b0-42a8-86a4-99f59376ac5c",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "WASD",
-                    "id": "076f1159-4d00-4240-9bb2-d48719a9446e",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "b560f8cd-3a2a-425f-b404-daa491858c5d",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "f79a6ed1-9a19-4fd2-b37f-50052393b62e",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "3f392b14-78a0-49d0-b99e-e1aa0dd94b15",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "7688f62b-0428-4d34-933e-b0b7fc783faf",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "d540edf6-bfaa-4b08-b8d5-925398a2debe",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7c03e976-d9da-4d96-9bcd-622e98b0f3c3",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "de604efe-a9ca-4fa6-9d4a-4b0053d61efc",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50a5adae-36bc-4b42-ac08-266d143e2c62",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera",
+            "name": "PlayerCamera",
             "id": "9eebd91f-6555-48fa-851f-de4c4f07c1fa",
             "actions": [
                 {
@@ -158,15 +13,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Rotate",
-                    "type": "Button",
-                    "id": "4f955c3a-d5eb-4177-9ecc-4f6cfb45f677",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Space",
@@ -187,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PointerDelta",
+                    "type": "Value",
+                    "id": "899cc6e3-609a-4d49-a4a0-78ab46671dd5",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "PointerPosition",
                     "type": "Value",
                     "id": "893f0c85-ea82-45bc-ae4e-c5414b8278b5",
@@ -196,18 +51,72 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftClick",
+                    "name": "SwitchSelectedPlayer",
                     "type": "Button",
-                    "id": "e676821e-b205-4307-8d06-f51ff9244fe1",
+                    "id": "2a4450ae-14d1-49fa-87e3-dff5597483f7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchSelectedPlayer",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "2a4450ae-14d1-49fa-87e3-dff5597483f7",
+                    "id": "6c05cc9a-97e2-4839-b6b4-1ed7b3bd2013",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "f4f2cb01-766a-4971-a683-a36783eaa274",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateLeft",
+                    "type": "Button",
+                    "id": "4f955c3a-d5eb-4177-9ecc-4f6cfb45f677",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateRight",
+                    "type": "Button",
+                    "id": "e682ad32-67d8-4a57-9ba4-36c0fd49ccec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Scroll",
+                    "type": "PassThrough",
+                    "id": "869a4c23-8532-4e96-921e-3aa6aa0adc28",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "PassThrough",
+                    "id": "cac6c08f-b188-4d28-9f66-18dacc0bcb4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Numbers",
+                    "type": "Button",
+                    "id": "83574331-0aa9-45e3-80fa-66bd64fb801e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -353,19 +262,8 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "PointerPosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b50b8e49-0923-42c4-bb16-1309ae2da19d",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
                     "groups": "Keyboard",
-                    "action": "LeftClick",
+                    "action": "PointerPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -392,8 +290,52 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "4a77cbee-def2-4166-ba5c-1c4c3c9dee4c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "018a7607-0ca9-4dc8-9bfc-d9ed45d3dcd2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "661f8cbe-858d-4bd5-a763-562c1d473d29",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "513dfe54-f9f8-493c-9892-bfab8abc6e8b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Q/E",
-                    "id": "33e5b85d-dd29-4d6f-b95e-991f2cd0b0a2",
+                    "id": "0973528c-56b8-457d-8993-fb92a3996523",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -403,26 +345,169 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "1aa4b50f-6710-4d1b-aae2-7a6fbb459e88",
-                    "path": "<Keyboard>/e",
+                    "name": "positive",
+                    "id": "33722ce7-3b1b-42fd-8fd8-7e91d64c18a9",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "d8f2493a-cd99-4ced-a552-39cfdc5567bc",
-                    "path": "<Keyboard>/q",
+                    "name": "negative",
+                    "id": "400e313b-29e5-41bb-9c2f-55fa4a8282c6",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6aac2106-8097-4ca0-bed0-e15c034f3e8a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03a185b0-2c03-49f1-91e8-0642e07666e9",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e70beca6-494d-4df3-b806-17780e7c46fe",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9952843-0993-4f1c-a4b0-1b375c5f12e6",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63bf89c2-c4f2-4bac-9d66-06682557fc0b",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d755625-d55f-416e-858d-71ccfa2ccf48",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74c1b448-5cfa-49de-9544-ae53d6467777",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0968d2cb-25b1-4cf7-a1c8-fee87a47404e",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f89d3c46-1db9-4310-b551-80845ae5ab9e",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7fed3b4-3264-4fcd-967d-4023b8a578de",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Numbers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83d19233-2b92-4769-a8e9-c2265a3701b2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "RotateRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89c06352-04bc-4281-b015-b6b22030af8c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "RotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fcf5d5a-9527-4ac2-bce2-86859e675b5a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "PointerDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

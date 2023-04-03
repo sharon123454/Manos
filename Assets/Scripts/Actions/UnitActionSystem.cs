@@ -71,7 +71,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private bool TryHandleUnitSelection()
     {
-        if (ManosInputController.Instance.LeftClick.IsPressed())
+        if (ManosInputController.Instance.Click.IsPressed())
         {
             if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
             {
@@ -101,7 +101,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (ManosInputController.Instance.LeftClick.IsPressed())
+        if (ManosInputController.Instance.Click.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 

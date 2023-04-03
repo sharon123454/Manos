@@ -18,38 +18,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float camMoveSpeed = 10f, camRotationSpeed = 100f, zoomAmount = 1f, zoomSpeed = 5f;
     [Range(1, 10)]
     [SerializeField] private float camOrbitSpeed = 1f;
-    [SerializeField] float MIN_FOLLOW_Y_OFFSET = 2f;
-    [SerializeField] float MAX_FOLLOW_Y_OFFSET = 12f;
+    [SerializeField] float MIN_ZOOM = 2f, MAX_ZOOM = 12f;
+    [SerializeField] float lerpDistanceFromUnit = 1.5f, lerpSpeed = 2.5f;
 
-    private IEnumerator cameraLerp;
     private CinemachineTransposer cinemachineTransposer;
     private Vector3 targetFollowOffset;
 
     private void Start()
     {
-        //   cameraLerp = LerpToUnit();
         cinemachineTransposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         targetFollowOffset = cinemachineTransposer.m_FollowOffset;
         UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
-    }
-
-    private void Instance_OnSelectedUnitChanged(object sender, System.EventArgs e)
-    {
-        StopAllCoroutines();
-        StartCoroutine(LerpToUnit(UnitActionSystem.Instance.GetSelectedUnit().transform.position));
-    }
-
-    public IEnumerator LerpToUnit(Vector3 unitPos)
-    {
-        float t = 0;
-        float duration = 2.5f;
-        while (t < duration)
-        {
-            t += Time.deltaTime / duration;
-            transform.position = Vector3.Lerp(transform.position, new Vector3(unitPos.x, transform.position.y, unitPos.z), t / duration);
-
-            yield return null;
-        }
     }
 
     void Update()
@@ -61,25 +40,30 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 inputMoveDir = ManosInputController.Instance.GetMoveDirection();
+        Vector3 moveVector = ManosInputController.Instance.GetMoveDirection(transform);
 
-        Vector3 moveVector = transform.forward * inputMoveDir.z + transform.right * inputMoveDir.x;
-        transform.position += moveVector * camMoveSpeed * Time.deltaTime;
+        if (moveVector == Vector3.zero)
+            return;
+
+        StopAllCoroutines();
+
+        transform.position += camMoveSpeed * Time.deltaTime * moveVector;
     }
 
-    private void HandleRotation()//need to fix with new input sys
+    private void HandleRotation()
     {
-        Vector3 rotationVector = ManosInputController.Instance.RotateCamBy();
-        //if (Input.GetKey(KeyCode.Q))
-        //    rotationVector.y += 1;
-        //if (Input.GetKey(KeyCode.E))
-        //    rotationVector.y -= 1;
-        //if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") > 0)
-        //    rotationVector.y -= camOrbitSpeed;
-        //if (Input.GetMouseButton(1) && Input.GetAxis("Mouse X") < 0)
-        //    rotationVector.y += camOrbitSpeed;
+        Vector3 rotationVector = ManosInputController.Instance.GetRotateCamBy();
+        Vector3 pointerDelta = ManosInputController.Instance.PointerDelta.ReadValue<Vector2>();
 
-        transform.eulerAngles += rotationVector * camRotationSpeed * Time.deltaTime;
+        if (ManosInputController.Instance.RotateRight.inProgress && pointerDelta.x < 0)
+            rotationVector.y -= camOrbitSpeed;
+        if (ManosInputController.Instance.RotateLeft.inProgress && pointerDelta.x > 0)
+            rotationVector.y += camOrbitSpeed;
+
+        if (rotationVector == Vector3.zero)
+            return;
+
+        transform.eulerAngles += camRotationSpeed * Time.deltaTime * rotationVector;
     }
 
     private void HandleZoom()//need to fix with new input sys
@@ -89,7 +73,7 @@ public class CameraController : MonoBehaviour
         //if (Input.mouseScrollDelta.y < 0)
         //    targetFollowOffset.y -= zoomAmount;
 
-        targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_FOLLOW_Y_OFFSET, MAX_FOLLOW_Y_OFFSET);
+        targetFollowOffset.y = Mathf.Clamp(targetFollowOffset.y, MIN_ZOOM, MAX_ZOOM);
 
         cinemachineTransposer.m_FollowOffset =
             Vector3.Lerp(cinemachineTransposer.m_FollowOffset, targetFollowOffset, Time.deltaTime * zoomSpeed);
@@ -107,6 +91,20 @@ public class CameraController : MonoBehaviour
         //        framingTransposer.m_CameraDistance -= cameraDistance;
         //    }
         //}
+    }
+
+    private IEnumerator LerpToUnit(Vector3 unitPos)
+    {
+        while (Vector3.Distance(transform.position, unitPos) > lerpDistanceFromUnit)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(unitPos.x, transform.position.y, unitPos.z), lerpSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    private void Instance_OnSelectedUnitChanged(object sender, System.EventArgs e)
+    {
+        StartCoroutine(LerpToUnit(UnitActionSystem.Instance.GetSelectedUnit().transform.position));
     }
 
 }
