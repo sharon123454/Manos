@@ -73,6 +73,11 @@ public class Unit : MonoBehaviour
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
+        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun))
+        {
+            return false;
+        }
+
         #region Move Or Dash
 
         if (baseAction.GetActionName() == "Move" || baseAction.GetActionName() == "Dash")

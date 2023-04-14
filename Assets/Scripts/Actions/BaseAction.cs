@@ -68,6 +68,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
+
         cooldown += addCooldown;
         _isActive = true;
         this.onActionComplete = onActionComple;

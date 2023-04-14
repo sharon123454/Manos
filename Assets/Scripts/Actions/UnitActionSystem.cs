@@ -36,6 +36,7 @@ public class UnitActionSystem : MonoBehaviour
         //canceles current action
         if (ManosInputController.Instance.Space.IsPressed())
         {
+
             if (selectedAction is MoveAction) { }
             else
                 SetSelectedAction(selectedUnit.GetAction<MoveAction>());

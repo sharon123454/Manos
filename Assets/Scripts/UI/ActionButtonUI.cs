@@ -77,7 +77,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
             actionSelected.SetActive(selectedBaseAction == baseAction);
 
-        if (selectedunit.GetStunStatus()
+        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
             || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
             || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
             || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
