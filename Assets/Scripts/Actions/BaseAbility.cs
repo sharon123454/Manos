@@ -30,6 +30,7 @@ public enum StatusEffect
     Nullify,
     Heal,//Heal X HP
     GainArmor,//Gain Armor
+    Haste,//Double the move Speed
 }
 public class BaseAbility : BaseAction
 {
