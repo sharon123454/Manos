@@ -102,7 +102,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (ManosInputController.Instance.Click.IsPressed())
+        if (ManosInputController.Instance.RightClick.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
