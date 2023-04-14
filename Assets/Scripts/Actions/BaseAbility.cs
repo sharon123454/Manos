@@ -31,6 +31,7 @@ public enum StatusEffect
     Heal,//Heal X HP
     GainArmor,//Gain Armor
     Haste,//Double the move Speed
+    Blind,//Halves the unit's chance to hit attacks  ((Affect on posture broken units?))
 }
 public class BaseAbility : BaseAction
 {

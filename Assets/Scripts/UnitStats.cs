@@ -123,6 +123,10 @@ public class UnitStats : MonoBehaviour
 
         #region Damage To Recieve Types
         float damageToRecieve;
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
+        {
+            hitChance /= 2;
+        }
         if (currentEffect == StatusEffect.IgnoreArmor)
         {
             damageToRecieve = rawDamage;
