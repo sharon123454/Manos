@@ -19,6 +19,7 @@ public class ManosInputController : MonoBehaviour
     internal InputAction PointerDelta { get; private set; }
     internal InputAction PointerPosition { get; private set; }
     internal InputAction SwitchSelectedPlayer { get; private set; }
+    internal InputAction SelectActionWithNumbers { get; private set; }
 
     private PlayerActions _inputActions;
 
@@ -45,6 +46,7 @@ public class ManosInputController : MonoBehaviour
         PointerDelta = _inputActions.PlayerCamera.PointerDelta;
         PointerPosition = _inputActions.PlayerCamera.PointerPosition;
         SwitchSelectedPlayer = _inputActions.PlayerCamera.SwitchSelectedPlayer;
+        SelectActionWithNumbers = _inputActions.PlayerCamera.SelectActionWithNumbers;
 
         _inputActions.PlayerCamera.Enable();
     }

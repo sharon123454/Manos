@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine;
 using System;
@@ -28,6 +29,16 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
     }
 
+    private void SignToNumerics()
+    {
+        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
+    }//invoked on enable as script loads before ManosInputController
+
+    private void OnEnable()
+    {
+        Invoke("SignToNumerics", 1);
+    }
+
     private void Update()
     {
         if (isBusy) { return; }
@@ -46,6 +57,11 @@ public class UnitActionSystem : MonoBehaviour
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
+    }
+
+    private void OnDisable()
+    {
+        ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
     public Unit GetSelectedUnit() { return selectedUnit; }
@@ -126,6 +142,22 @@ public class UnitActionSystem : MonoBehaviour
     {
         isBusy = true;
         OnBusyChanged?.Invoke(this, isBusy);
+    }
+
+    private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
+    {
+        if (isBusy) { return; }
+        if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
+
+        BaseAction[] unitAvailableActions = selectedUnit.GetBaseActionArray();
+        int passedInput = (int)inputValue.ReadValue<float>();
+
+        if (!unitAvailableActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedActionPoints()) { return; }
+        else if (unitAvailableActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedBonusActionPoints()) { return; }
+
+        if (passedInput >= unitAvailableActions.Length) { return; }
+
+        SetSelectedAction(unitAvailableActions[passedInput]);
     }
 
 }
