@@ -149,15 +149,15 @@ public class UnitActionSystem : MonoBehaviour
         if (isBusy) { return; }
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
-        BaseAction[] unitAvailableActions = selectedUnit.GetBaseActionArray();
+        BaseAction[] availableUnitActions = selectedUnit.GetBaseActionArray();
         int passedInput = (int)inputValue.ReadValue<float>();
 
-        if (!unitAvailableActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedActionPoints()) { return; }
-        else if (unitAvailableActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedBonusActionPoints()) { return; }
+        if (passedInput >= availableUnitActions.Length) { return; }
 
-        if (passedInput >= unitAvailableActions.Length) { return; }
+        if (!availableUnitActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedActionPoints()) { return; }
+        else if (availableUnitActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedBonusActionPoints()) { return; }
 
-        SetSelectedAction(unitAvailableActions[passedInput]);
+        SetSelectedAction(availableUnitActions[passedInput]);
     }
 
 }
