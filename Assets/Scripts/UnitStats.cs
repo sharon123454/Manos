@@ -136,12 +136,13 @@ public class UnitStats : MonoBehaviour
         else
         {
             damageToRecieve = rawDamage - (Armor * armorMultiplayer);
+            if (AP.Contains(AbilityProperties.Finisher))
+                if (health <= maxHealth / 2) damageToRecieve *= 2;
         }
 
         if (damageToRecieve <= 0)
             return;
         #endregion
-
         #region Normal Calculation
         if (currentPosture > 0)
         {
@@ -173,19 +174,14 @@ public class UnitStats : MonoBehaviour
 
         }
         #endregion
-
         #region PostureBrake
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
             _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
-
         }
-
-
         #endregion
-
     }
 
     public UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect; }

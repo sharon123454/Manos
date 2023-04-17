@@ -53,7 +53,6 @@ public class BaseAbility : BaseAction
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0, 200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
-
     [SerializeField] protected StatusEffect _abilityEffect;
     [SerializeField] protected List<AbilityProperties> _AbilityProperties;
 
@@ -68,7 +67,7 @@ public class BaseAbility : BaseAction
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
 
-   // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+    // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {

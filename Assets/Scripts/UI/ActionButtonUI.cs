@@ -88,7 +88,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 cooldownVisualProUgui.text = "";
             else
                 cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
-
         }
         else if (baseAction.GetCooldown() > 0)
         {
