@@ -208,9 +208,9 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect abilityEffect, int AbilityhitChance, int Duration)
+    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect abilityEffect,List<AbilityProperties> AP, int AbilityhitChance, int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AbilityhitChance, Duration);
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect,AP, AbilityhitChance, Duration);
     }
 
     public void Heal(float healValue)

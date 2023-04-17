@@ -114,34 +114,32 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture -= postureDamage;
     }
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
     {
         #region Dice Rools
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
-
         #region Damage To Recieve Types
         float damageToRecieve;
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
         {
             hitChance /= 2;
         }
-        if (currentEffect == StatusEffect.IgnoreArmor)
+        if (AP.Contains(AbilityProperties.IgnoreArmor))
         {
             damageToRecieve = rawDamage;
+            if (AP.Contains(AbilityProperties.Finisher))
+                if (health <= maxHealth / 2) damageToRecieve *= 2;
             SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
         else
         {
             damageToRecieve = rawDamage - (Armor * armorMultiplayer);
-
         }
 
         if (damageToRecieve <= 0)
             return;
-
-
         #endregion
 
         #region Normal Calculation
@@ -190,7 +188,7 @@ public class UnitStats : MonoBehaviour
 
     }
 
-  public  UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect;}
+    public UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect; }
     public void Heal(float healValue)
     {
         health += healValue;

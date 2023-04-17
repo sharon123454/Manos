@@ -19,7 +19,7 @@ public class AOEAction : BaseAbility
         base.TakeAction(gridPosition, actionComplete);
         Transform aOEProjectileTransform = Instantiate(aOEProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
         AOEProjectile aOEProjectile = aOEProjectileTransform.GetComponent<AOEProjectile>();
-        aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete, _abilityEffect, statusEffectChance, statusEffectDuration);
+        aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
 
         ActionStart(actionComplete);
     }
