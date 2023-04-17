@@ -13,6 +13,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected int cooldown, addCooldown;
     [SerializeField] protected int favorCost = 100;
     [SerializeField] protected AbilityRange range;
+    [SerializeField] protected List<AbilityProperties> _AbilityProperties;
 
     protected Action onActionComplete;
     protected Unit unit;
@@ -79,6 +80,7 @@ public abstract class BaseAction : MonoBehaviour
     public virtual bool GetIfUsedAction() { return _usedAction; }
     public virtual bool GetIsBonusAction() { return _isBonusAction; }
     public virtual int GetCooldown() { return cooldown; }
+    public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
 
     public abstract string GetActionName();
 

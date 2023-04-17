@@ -3899,6 +3899,7 @@ MonoBehaviour:
   addCooldown: 6
   favorCost: 100
   range: 0
+  _AbilityProperties: 
   isSpell: 1
   healValue: 80
 --- !u!1 &493833486 stripped
@@ -3924,6 +3925,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
+  _AbilityProperties: 
   isSpell: 1
   damage: 30
   postureDamage: 5
@@ -3954,6 +3956,7 @@ MonoBehaviour:
   addCooldown: 4
   favorCost: 100
   range: 2
+  _AbilityProperties: 
   isSpell: 1
   damage: 10
   postureDamage: 0
@@ -7676,6 +7679,7 @@ MonoBehaviour:
   addCooldown: 6
   favorCost: 100
   range: 0
+  _AbilityProperties: 
   rootDuration: 2
   postureDamage: 20
 --- !u!1 &854529211 stripped
@@ -7701,6 +7705,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 100
   range: 0
+  _AbilityProperties: 
   isSpell: 1
   damage: 30
   postureDamage: 10
@@ -11255,6 +11260,26 @@ PrefabInstance:
       propertyPath: maxMeleeDistance
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 456196802, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 456196803, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834886061997412093, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: unitActiveStatusEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834886061997412093, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: unitActiveStatusEffects.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11306,6 +11331,26 @@ PrefabInstance:
     - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxShootDistance
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065314422380150051, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: stunDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065314422380150051, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: unitActiveStatusEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065314422380150051, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: unitActiveStatusEffects.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: Armor
@@ -14206,6 +14251,18 @@ PrefabInstance:
     - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
       propertyPath: postureDamage
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: _AbilityProperties.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: _AbilityProperties.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 385938452, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
+      propertyPath: _AbilityProperties.Array.data[1]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 385938454, guid: 944d6e0a8e854c94eae7b9a72341e793, type: 3}
       propertyPath: damage

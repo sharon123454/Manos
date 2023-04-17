@@ -24,6 +24,7 @@ public enum StatusEffect
 {
     None,//Default State
     Stun,//Miss X Turns
+    Silence,//While affected the target cant use abilities
     IgnoreArmor,//Ignore Armor
     Root,//Cant Move,but can use Abilities 
     CowardPlague,
@@ -36,7 +37,7 @@ public enum StatusEffect
 
 public enum AbilityProperties
 {
-    None,//NULL
+    Basic,//Ignores Silance Effect
     Finisher,//If the Target has less then 50% before the attack, deal double damage
     Heal,//Give a friendly unit health points
     IgnoreArmor,//The attack damage is done directly to a units health
@@ -54,7 +55,6 @@ public class BaseAbility : BaseAction
     [Range(0, 200)]
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
     [SerializeField] protected StatusEffect _abilityEffect;
-    [SerializeField] protected List<AbilityProperties> _AbilityProperties;
 
     //status effect? what is it?
 
@@ -63,7 +63,6 @@ public class BaseAbility : BaseAction
     public int GetCritChance() { return critChance; }
     public int GetStatusChance() { return statusEffectChance; }
     public StatusEffect GetStatusEffect() { return _abilityEffect; }
-    public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
 
@@ -89,11 +88,6 @@ public class BaseAbility : BaseAction
 
     public override string GetActionName() { return "Ability"; }
 
-    public bool ContainsAbilityPropertie(AbilityProperties AP)
-    {
-        if (_AbilityProperties.Contains(AP)) { return true; }
-        else return false;
-    }
     protected virtual void CastSpell()
     {
         OnAnySpellCast?.Invoke(this, GetFavorCost());

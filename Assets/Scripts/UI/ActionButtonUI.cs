@@ -77,7 +77,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
             actionSelected.SetActive(selectedBaseAction == baseAction);
 
-        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
+        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
+            || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
             || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
             || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
             || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
@@ -88,6 +89,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 cooldownVisualProUgui.text = "";
             else
                 cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+
         }
         else if (baseAction.GetCooldown() > 0)
         {
@@ -124,7 +126,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
-            actionInfo.SetActive(false);
+        actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
     }
 }
