@@ -204,6 +204,11 @@ public class UnitStats : MonoBehaviour
         health -= damageToRecieve;
         currentPosture -= postureDamage;
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying))
+        {
+            OnDamaged?.Invoke(this, EventArgs.Empty);
+            return;
+        }
         if (health < 0) health = 0;
 
         OnDamaged?.Invoke(this, EventArgs.Empty);
