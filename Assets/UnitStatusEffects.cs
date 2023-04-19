@@ -12,7 +12,11 @@ public class UnitStatusEffects : MonoBehaviour
 
     [SerializeField] private int healValue;
     [SerializeField] private int amountOfArmorGain;
-    [Space] [Space] [Space]
+    [SerializeField] private int curruptionDMG;
+    [SerializeField] private int regenerationAmount;
+    [Space]
+    [Space]
+    [Space]
 
     [SerializeField] private int stunDuration;
     [SerializeField] private int ignoreArmorDuration;
@@ -21,6 +25,14 @@ public class UnitStatusEffects : MonoBehaviour
     [SerializeField] private int nullifyDuration;
     [SerializeField] private int healDuration;
     [SerializeField] private int gainArmorDuration;
+    [SerializeField] private int SilenceDuration;
+    [SerializeField] private int HasteDuration;
+    [SerializeField] private int BlindDuration;
+    [SerializeField] private int UndyingDuration;
+    [SerializeField] private int RegenerationDuration;
+    [SerializeField] private int CorruptionDuration;
+
+
 
 
 
@@ -48,6 +60,14 @@ public class UnitStatusEffects : MonoBehaviour
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
+        if (ContainsEffect(StatusEffect.Corruption))
+        {
+            _unit.GetUnitStats().health -= curruptionDMG;
+        }
+        if (ContainsEffect(StatusEffect.Regeneration))
+        {
+            _unit.GetUnitStats().health -= regenerationAmount;
+        }
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
 
         #region EnemyStatusEffects
@@ -110,6 +130,48 @@ public class UnitStatusEffects : MonoBehaviour
                             gainArmorDuration--;
                             _stats.Armor += amountOfArmorGain;
                             if (gainArmorDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Silence:
+                            SilenceDuration--;
+                            if (SilenceDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Haste:
+                            HasteDuration--;
+                            if (HasteDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Blind:
+                            BlindDuration--;
+                            if (BlindDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Undying:
+                            UndyingDuration--;
+                            if (UndyingDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Regeneration:
+                            RegenerationDuration--;
+                            if (RegenerationDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Corruption:
+                            CorruptionDuration--;
+                            if (CorruptionDuration == 0)
                             {
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
@@ -183,6 +245,48 @@ public class UnitStatusEffects : MonoBehaviour
                             gainArmorDuration--;
                             _stats.Armor += amountOfArmorGain;
                             if (gainArmorDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Silence:
+                            SilenceDuration--;
+                            if (SilenceDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Haste:
+                            HasteDuration--;
+                            if (HasteDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Blind:
+                            BlindDuration--;
+                            if (BlindDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Undying:
+                            UndyingDuration--;
+                            if (UndyingDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Regeneration:
+                            RegenerationDuration--;
+                            if (RegenerationDuration == 0)
+                            {
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            }
+                            break;
+                        case StatusEffect.Corruption:
+                            CorruptionDuration--;
+                            if (CorruptionDuration == 0)
                             {
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }

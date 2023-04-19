@@ -27,12 +27,15 @@ public enum StatusEffect
     Silence,//While affected the target cant use abilities
     IgnoreArmor,//Ignore Armor
     Root,//Cant Move,but can use Abilities 
-    CowardPlague,
+    CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
     Nullify,
     Heal,//Heal X HP
     GainArmor,//Gain Armor
     Haste,//Double the move Speed
     Blind,//Halves the unit's chance to hit attacks  ((Affect on posture broken units?))
+    Undying,//Affected unit's hp Cant go below 1 HP for x turns
+    Regeneration,//Affected unit regains a set amount of HP at the end of the unit's turn
+    Corruption,//Affected unit suffers damage at the beginning of their turn
 }
 
 public enum AbilityProperties
