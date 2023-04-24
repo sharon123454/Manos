@@ -27,7 +27,10 @@ public class DashAction : BaseAction
 
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+                transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+            else
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
         else
         {

@@ -27,7 +27,10 @@ public class MoveAction : BaseAction
 
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+                transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+            else
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
         else
         {
@@ -70,7 +73,7 @@ public class MoveAction : BaseAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-      //  int targetCountAtGridPosition = unit.GetAction<ShootAction>().GetTargetCountAtPosition(gridPosition);
+        //  int targetCountAtGridPosition = unit.GetAction<ShootAction>().GetTargetCountAtPosition(gridPosition);
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 25 };
     }
 

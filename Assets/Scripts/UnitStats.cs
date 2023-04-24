@@ -114,32 +114,35 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture -= postureDamage;
     }
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, int chanceToTakeStatusEffect, int effectDuration)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
     {
         #region Dice Rools
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
-
         #region Damage To Recieve Types
         float damageToRecieve;
-        if (currentEffect == StatusEffect.IgnoreArmor)
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
+        {
+            hitChance /= 2;
+        }
+        if (AP.Contains(AbilityProperties.IgnoreArmor))
         {
             damageToRecieve = rawDamage;
+            if (AP.Contains(AbilityProperties.Finisher))
+                if (health <= maxHealth / 2) damageToRecieve *= 2;
             SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
         else
         {
             damageToRecieve = rawDamage - (Armor * armorMultiplayer);
-
+            if (AP.Contains(AbilityProperties.Finisher))
+                if (health <= maxHealth / 2) damageToRecieve *= 2;
         }
 
         if (damageToRecieve <= 0)
             return;
-
-
         #endregion
-
         #region Normal Calculation
         if (currentPosture > 0)
         {
@@ -171,22 +174,17 @@ public class UnitStats : MonoBehaviour
 
         }
         #endregion
-
         #region PostureBrake
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
             _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
-
         }
-
-
         #endregion
-
     }
 
-  public  UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect;}
+    public UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect; }
     public void Heal(float healValue)
     {
         health += healValue;
@@ -206,6 +204,11 @@ public class UnitStats : MonoBehaviour
         health -= damageToRecieve;
         currentPosture -= postureDamage;
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying))
+        {
+            OnDamaged?.Invoke(this, EventArgs.Empty);
+            return;
+        }
         if (health < 0) health = 0;
 
         OnDamaged?.Invoke(this, EventArgs.Empty);

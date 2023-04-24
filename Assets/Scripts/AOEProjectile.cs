@@ -23,6 +23,7 @@ public class AOEProjectile : MonoBehaviour
 
     private int _statusEffectChance, _statusEffectDuration;
     private StatusEffect currentEffect;
+    private List<AbilityProperties> abilityProperties;
     private Vector3 targetPosition;
     private Action onAOEBehaviourComplete;
     private Vector3 positionXZ;
@@ -51,7 +52,7 @@ public class AOEProjectile : MonoBehaviour
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
                 {
                     //NEED TO ADD ABILITY CRIT CHANCE
-                    targetUnit.Damage(damage, postureDamage, hitChance,50, currentEffect, _statusEffectChance, _statusEffectDuration);
+                    targetUnit.Damage(damage, postureDamage, hitChance, 50, currentEffect, abilityProperties, _statusEffectChance, _statusEffectDuration);
                 }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);
@@ -66,12 +67,13 @@ public class AOEProjectile : MonoBehaviour
         }
     }
 
-    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete, StatusEffect effect, int statusEffectChance, int statusEffectDuration)
+    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete, StatusEffect effect, List<AbilityProperties> AP, int statusEffectChance, int statusEffectDuration)
     {
         this.onAOEBehaviourComplete = onAOEBehaviourComplete;
         targetPosition = LevelGrid.Instance.GetWorldPosition(targetGridPosition);
 
         currentEffect = effect;
+        abilityProperties = AP;
         _statusEffectChance = statusEffectChance;
         _statusEffectDuration = statusEffectDuration;
         positionXZ = transform.position;

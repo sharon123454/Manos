@@ -54,11 +54,7 @@ public class MurderAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-
-                if (targetUnit.GetUnitStats().health <= targetUnitMaxHP / 2)
-                    targetUnit.Damage(damage * 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
-                else
-                    targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                    targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 break;
             case State.SwingAfterHit:
                 OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);

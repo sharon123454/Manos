@@ -53,7 +53,7 @@ public class PommelStrike : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                targetUnit.Damage(damage, postureDamage, hitChance,critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
+                targetUnit.Damage(damage, postureDamage, hitChance,critChance, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
                 break;
 
             case State.SwingAfterHit:
