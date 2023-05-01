@@ -11,7 +11,8 @@ public enum AbilityRange
     Medium/* 2-4, 5 - 9, 10-15 */,
     Long/* 5 - 15 */,
     EffectiveAtAll/* 0 - 15 */,
-    InaccurateAtAll/* 0-15 */
+    InaccurateAtAll/* 0-15 */,
+    ResetGrid
 }
 public enum Effectiveness
 {

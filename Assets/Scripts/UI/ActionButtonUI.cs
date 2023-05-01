@@ -68,39 +68,43 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateSelectedVisual()
     {
-        BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-
-        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-
-        if (baseAction.GetIsBonusAction())
-            bonusActionSelected.SetActive(selectedBaseAction == baseAction);
-        else
-            actionSelected.SetActive(selectedBaseAction == baseAction);
-
-        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
-            || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
-            || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.ReturnRange() != AbilityRange.Move
-            || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
-            || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
-            || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
-            /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+        if (TurnSystem.Instance.IsPlayerTurn())
         {
-            OnCooldown.SetActive(true);
-            if (baseAction.GetCooldown() == 0)
-                cooldownVisualProUgui.text = "";
+            BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
+
+            Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+
+            if (baseAction.GetIsBonusAction())
+                bonusActionSelected.SetActive(selectedBaseAction == baseAction);
             else
-                cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+                actionSelected.SetActive(selectedBaseAction == baseAction);
 
+            if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
+                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
+                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.ReturnRange() != AbilityRange.Move
+                || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
+                || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
+                || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
+                /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+            {
+                OnCooldown.SetActive(true);
+                if (baseAction.GetCooldown() == 0)
+                    cooldownVisualProUgui.text = "";
+                else
+                    cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+
+            }
+            else if (baseAction.GetCooldown() > 0)
+            {
+                OnCooldown.SetActive(true);
+                cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+            }
+            else
+            {
+                OnCooldown.SetActive(false);
+            }
         }
-        else if (baseAction.GetCooldown() > 0)
-        {
-            OnCooldown.SetActive(true);
-            cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
-        }
-        else
-        {
-            OnCooldown.SetActive(false);
-        }
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)

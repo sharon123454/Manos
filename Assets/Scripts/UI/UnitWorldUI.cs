@@ -110,7 +110,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 30, 0, 100)}]%";
                         break;
                     case Effectiveness.Miss:
-                        hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 100, 0, 100)}]%";
+                        hitChanceText.text = $"hitChance = [0]%";
                         break;
                     default:
                         hitChanceText.text = "Cant find Effectiveness";
