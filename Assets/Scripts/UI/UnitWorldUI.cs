@@ -13,23 +13,28 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Image postureBarImage;
     [SerializeField] private Image actionBarImage;
     [SerializeField] private Image bonusActionBarImage;
+    [SerializeField] private Image critImage;
     [SerializeField] private UnitStats unitStats;
     [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
     [SerializeField] private TextMeshProUGUI healthVisual;
+    [SerializeField] private GameObject VisualParent;
 
     private void Start()
     {
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
         unitStats.OnDamaged += HealthSystem_OnDamaged;
+        unitStats.OnCriticalHit += UnitStats_OnCriticalHit;
 
         UpdateActionPointsText();
         UpdateHealthBar();
     }
 
-    void Update()
+    private void UnitStats_OnCriticalHit(object sender, EventArgs e)
     {
+        StartCoroutine(ShowCriticalHitVisual());
     }
+
     private void UpdateActionPointsText()
     {
         if (!unit.GetUsedActionPoints()) actionBarImage.fillAmount = 100;
@@ -46,6 +51,12 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         armorPointsText.text = unitStats.GetArmor().ToString();
     }
 
+    IEnumerator ShowCriticalHitVisual()
+    {
+        critImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        critImage.gameObject.SetActive(false);
+    }
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
 
     private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPointsText(); }
@@ -58,7 +69,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
         float getHitChance = 0;
-        healthVisual.gameObject.SetActive(true);
+        VisualParent.SetActive(true);
         healthVisual.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
@@ -127,7 +138,6 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        hitChanceText.gameObject.SetActive(false);
-        healthVisual.gameObject.SetActive(false);
+        VisualParent.SetActive(false);
     }
 }

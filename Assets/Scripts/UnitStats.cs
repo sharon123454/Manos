@@ -12,6 +12,7 @@ public class UnitStats : MonoBehaviour
 
     public event EventHandler OnDeath;
     public event EventHandler OnDamaged;
+    public event EventHandler OnCriticalHit;
     private Unit _unit;
     private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
@@ -154,6 +155,7 @@ public class UnitStats : MonoBehaviour
                 {
                     TakeDamage(damageToRecieve * 2, postureDamage * 2);
                     SendConsoleMessage?.Invoke(this, "Ability CRIT!");
+                    OnCriticalHit.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
