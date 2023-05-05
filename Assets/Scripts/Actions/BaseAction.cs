@@ -19,12 +19,16 @@ public abstract class BaseAction : MonoBehaviour
     protected Unit unit;
     protected bool _isActive;
     protected bool _usedAction;
-    
+
+    BaseAbility baseAbility;
 
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
-
+        if (this is BaseAbility)
+        {
+            baseAbility = GetComponent<BaseAbility>();
+        }
     }
 
     protected virtual void Start()

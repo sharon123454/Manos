@@ -18,6 +18,7 @@ public class UnitActionSystem : MonoBehaviour
 
     internal BaseAction selectedAction;
     internal BaseAction savedAction;
+    internal BaseAbility selectedBaseAbility;
     private Unit selectedUnit;
     private bool isBusy;
 
@@ -69,10 +70,18 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+        if (baseAction is BaseAbility)
+        {
+            selectedBaseAbility = (BaseAbility)baseAction;
+        }
+        else
+        { selectedBaseAbility = null; }
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public BaseAction GetSelectedAction() { return selectedAction; }
+    public BaseAbility GetSelectedBaseAbility() { return selectedBaseAbility; }
+    public BaseAction GetBaseAbility() { return selectedAction; }
     public BaseAction GetSavedAction() { return savedAction; }
 
     public void SetSelectedUnit(Unit unit)

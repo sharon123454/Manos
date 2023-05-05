@@ -63,39 +63,42 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
-            switch (checkIfBaseAbility.GetActionName())
-            {
-                case "Shoot":
-                    getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
-                    break;   
-                case "Basic":
-                    getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
-                    break;
-                case "AoE":
-                    getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();
-                    break;
-                case "Melee":
-                    getHitChance = selectedUnit.GetAction<MeleeAction>().GetAbilityHitChance();
-                    break;
-                case "Volley":
-                    getHitChance = selectedUnit.GetAction<ArrowVolleyAction>().GetAbilityHitChance();
-                    break;
-                case "Stun":
-                    getHitChance = selectedUnit.GetAction<StunBolt>().GetAbilityHitChance();
-                    break;
-                case "Murder":
-                    getHitChance = selectedUnit.GetAction<MurderAction>().GetAbilityHitChance();
-                    break;
-                case "Root":
-                    getHitChance = selectedUnit.GetAction<BrakeALegAction>().GetAbilityHitChance();
-                    break;
-                case "Puncture":
-                    getHitChance = selectedUnit.GetAction<PunctureAction>().GetAbilityHitChance();
-                    break;
-                case "PommelStrike":
-                    getHitChance = selectedUnit.GetAction<PommelStrike>().GetAbilityHitChance();
-                    break;
-            }
+            getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
+            #region Old Switch
+            //switch (checkIfBaseAbility.GetActionName())
+            //{
+            //    case "Shoot":
+            //        getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
+            //        break;   
+            //    case "Basic":
+            //        getHitChance = selectedUnit.GetAction<ShootAction>().GetAbilityHitChance();
+            //        break;
+            //    case "AoE":
+            //        getHitChance = selectedUnit.GetAction<AOEAction>().GetAbilityHitChance();
+            //        break;
+            //    case "Melee":
+            //        getHitChance = selectedUnit.GetAction<MeleeAction>().GetAbilityHitChance();
+            //        break;
+            //    case "Volley":
+            //        getHitChance = selectedUnit.GetAction<ArrowVolleyAction>().GetAbilityHitChance();
+            //        break;
+            //    case "Stun":
+            //        getHitChance = selectedUnit.GetAction<StunBolt>().GetAbilityHitChance();
+            //        break;
+            //    case "Murder":
+            //        getHitChance = selectedUnit.GetAction<MurderAction>().GetAbilityHitChance();
+            //        break;
+            //    case "Root":
+            //        getHitChance = selectedUnit.GetAction<BrakeALegAction>().GetAbilityHitChance();
+            //        break;
+            //    case "Puncture":
+            //        getHitChance = selectedUnit.GetAction<PunctureAction>().GetAbilityHitChance();
+            //        break;
+            //    case "PommelStrike":
+            //        getHitChance = selectedUnit.GetAction<PommelStrike>().GetAbilityHitChance();
+            //        break;
+            //}
+            #endregion
             hitChanceText.gameObject.SetActive(true);
             if (unitStats.GetPosture() <= 0)
                 hitChanceText.text = $"hitChance = [{100}]%";
