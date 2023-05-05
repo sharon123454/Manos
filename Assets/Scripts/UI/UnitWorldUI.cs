@@ -19,15 +19,26 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI hitChanceText;
     [SerializeField] private TextMeshProUGUI healthVisual;
     [SerializeField] private GameObject VisualParent;
-
+    private string thisUnitName;
     private void Start()
     {
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
         unitStats.OnDamaged += HealthSystem_OnDamaged;
         unitStats.OnCriticalHit += UnitStats_OnCriticalHit;
-
+        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+        thisUnitName = unit.name;
         UpdateActionPointsText();
         UpdateHealthBar();
+    }
+
+    private void Instance_OnSelectedUnitChanged(object sender, EventArgs e)
+    {
+        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
+        {
+            VisualParent.SetActive(true);
+        }
+        else { VisualParent.SetActive(false); }
+
     }
 
     private void UnitStats_OnCriticalHit(object sender, EventArgs e)
@@ -118,7 +129,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 switch (unit.GetGridPosition().ReturnRangeType())
                 {
                     case Effectiveness.Effective:
-                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
+                        hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
                         break;
                     case Effectiveness.Inaccurate:
                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 30, 0, 100)}]%";
@@ -131,13 +142,17 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                         break;
 
                 }
-               
+
             }
 
         }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        VisualParent.SetActive(false);
+        if (UnitActionSystem.Instance.GetSelectedUnit().name != thisUnitName)
+        {
+            VisualParent.SetActive(false);
+        }
+
     }
 }
