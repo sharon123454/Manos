@@ -195,7 +195,14 @@ public class Unit : MonoBehaviour
         else
             return false;
     }
-
+    public bool UsedAllPoints()
+    {
+        if (usedAction && usedBonusAction)
+        {
+            return true;
+        }
+        else return false;
+    }
     public bool IsEnemy() { return isEnemy; }
 
     public float GetHealthNormalized()
@@ -208,9 +215,9 @@ public class Unit : MonoBehaviour
         return unitStats.GetPostureNormalized();
     }
 
-    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect abilityEffect,List<AbilityProperties> AP, int AbilityhitChance, int Duration)
+    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect,AP, AbilityhitChance, Duration);
+        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration);
     }
 
     public void Heal(float healValue)

@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
+    public event EventHandler OnActionCompleted;
 
     [SerializeField] private LayerMask unitsLayerMask;
 
@@ -22,14 +24,50 @@ public class UnitActionSystem : MonoBehaviour
     private Unit selectedUnit;
     private bool isBusy;
 
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(gameObject);
 
         Instance = this;
+
+        OnActionCompleted += UnitActionSystem_OnActionCompleted;
     }
 
+    private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
+    {
+        if (!selectedUnit.IsEnemy())
+        {
+            if (selectedUnit.UsedAllPoints())
+            {
+                print("UNIT USED ALL ABILITES");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (!UnitManager.Instance.ReturnFreindlyUnits()[i].UsedAllPoints())
+                    {
+                        SetSelectedUnit(UnitManager.Instance.ReturnFreindlyUnits()[i]);
+                        break;
+                    }
+                }
+                if (UnitManager.Instance.ReturnFreindlyUnits()[0].UsedAllPoints()
+                    && UnitManager.Instance.ReturnFreindlyUnits()[1].UsedAllPoints()
+                    && UnitManager.Instance.ReturnFreindlyUnits()[2].UsedAllPoints()
+                    )
+                {
+                    TurnSystem.Instance.NextTurn();
+                }
+            }
+        }
+
+
+    }
+
+    public void InvokeAbilityFinished()
+    {
+        OnActionCompleted?.Invoke(this, EventArgs.Empty);
+    }
     private void SignToNumerics()
     {
         ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;

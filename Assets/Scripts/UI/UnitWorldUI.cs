@@ -19,16 +19,45 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI hitChanceText;
     [SerializeField] private TextMeshProUGUI healthVisual;
     [SerializeField] private GameObject VisualParent;
+
+    private Color actionBarDefualtColor;
+    private Color BonusactionBarDefualtColor;
     private string thisUnitName;
     private void Start()
     {
+        actionBarDefualtColor = actionBarImage.color;
+        BonusactionBarDefualtColor = bonusActionBarImage.color;
         Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
         unitStats.OnDamaged += HealthSystem_OnDamaged;
         unitStats.OnCriticalHit += UnitStats_OnCriticalHit;
         UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
         thisUnitName = unit.name;
         UpdateActionPointsText();
         UpdateHealthBar();
+    }
+
+    private void Instance_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
+        {
+            if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
+            {
+                bonusActionBarImage.color = Color.green;
+                actionBarImage.color = actionBarDefualtColor;
+            }
+            else
+            {
+                actionBarImage.color = Color.green;
+                bonusActionBarImage.color = BonusactionBarDefualtColor;
+            }
+        }
+        else
+        {
+            actionBarImage.color = actionBarDefualtColor;
+            bonusActionBarImage.color = BonusactionBarDefualtColor;
+        }
+
     }
 
     private void Instance_OnSelectedUnitChanged(object sender, EventArgs e)

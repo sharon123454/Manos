@@ -26,7 +26,7 @@ public class UnitManager : MonoBehaviour
         enemyUnitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
     }
-
+    public List<Unit> ReturnFreindlyUnits() { return friendlyUnitList; }
     private void Start()
     {
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
