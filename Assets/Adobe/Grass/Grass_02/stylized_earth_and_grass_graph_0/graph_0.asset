@@ -65,7 +65,7 @@ MonoBehaviour:
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
-    AlphaChannel: basecolor
+    AlphaChannel: 
     InvertAssignedAlpha: 1
     Flags: 0
   - Index: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
       Type: 8
       Channel: baseColor
     OutputTexture: {fileID: 2800000, guid: ecd9c49e765d9994fb738330d7661a2e, type: 3}
-    sRGB: 0
+    sRGB: 1
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
@@ -113,8 +113,8 @@ MonoBehaviour:
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
-    AlphaChannel: 
-    InvertAssignedAlpha: 0
+    AlphaChannel: roughness
+    InvertAssignedAlpha: 1
     Flags: 0
   - Index: 4
     VirtualOutputIndex: 13
@@ -161,8 +161,8 @@ MonoBehaviour:
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
-    AlphaChannel: 
-    InvertAssignedAlpha: 0
+    AlphaChannel: roughness
+    InvertAssignedAlpha: 1
     Flags: 0
   - Index: 7
     VirtualOutputIndex: 16
@@ -203,17 +203,17 @@ MonoBehaviour:
   HasThumbnail: 1
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://stylized_earth_and_grass\" label=\"\"
     >\n  <presetinput identifier=\"$outputsize\" uid=\"3368699925\" type=\"8\" value=\"11,11\"
-    />\n  <presetinput identifier=\"$randomseed\" uid=\"2679660103\" type=\"4\" value=\"3\"
-    />\n  <presetinput identifier=\"mounds_shape_variation\" uid=\"2716056516\" type=\"0\"
-    value=\"0.829\" />\n  <presetinput identifier=\"grass_patch_density\" uid=\"2716041678\"
-    type=\"0\" value=\"0.786\" />\n  <presetinput identifier=\"grass_color\" uid=\"2716053063\"
-    type=\"2\" value=\"0.299948,0.329412,0.219608\" />\n  <presetinput identifier=\"grass_patch_fullness\"
-    uid=\"2716043657\" type=\"0\" value=\"0.282\" />\n  <presetinput identifier=\"grass_orientation_random\"
-    uid=\"2716039472\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"grass_orientation\"
-    uid=\"2716037492\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"channel_diffuse\"
-    uid=\"3120648331\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"channel_metallic\"
-    uid=\"3031197871\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"channel_ambientocclusion\"
-    uid=\"3209635788\" type=\"4\" value=\"0\" />\n </sbspreset>\n"
+    />\n  <presetinput identifier=\"$randomseed\" uid=\"2679660103\" type=\"4\" value=\"420\"
+    />\n  <presetinput identifier=\"dirt_color\" uid=\"2716045313\" type=\"2\" value=\"0.317647,0.240834,0.148659\"
+    />\n  <presetinput identifier=\"dirt_roughness\" uid=\"2716030690\" type=\"0\"
+    value=\"0.75\" />\n  <presetinput identifier=\"mounds_shape_variation\" uid=\"2716056516\"
+    type=\"0\" value=\"1\" />\n  <presetinput identifier=\"grass_patch_density\"
+    uid=\"2716041678\" type=\"0\" value=\"0.319\" />\n  <presetinput identifier=\"grass_color\"
+    uid=\"2716053063\" type=\"2\" value=\"0.299948,0.329412,0.219608\" />\n  <presetinput
+    identifier=\"grass_patch_fullness\" uid=\"2716043657\" type=\"0\" value=\"0.282\"
+    />\n  <presetinput identifier=\"grass_orientation_random\" uid=\"2716039472\"
+    type=\"0\" value=\"1\" />\n  <presetinput identifier=\"grass_orientation\" uid=\"2716037492\"
+    type=\"0\" value=\"0\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 0
-        Data: 3
+        Data: 420
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.317647, y: 0.278431, z: 0.231373}
+        Data: {x: 0.31764707, y: 0.24083425, z: 0.14865883}
         NumericalDescription:
           DefaultValue: {x: 0.317647, y: 0.278431, z: 0.231373}
           MinValue: {x: 0, y: 0, z: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.75
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.829
+        Data: 1
         NumericalDescription:
           DefaultValue: 0.47
           MinValue: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.786
+        Data: 0.319
         NumericalDescription:
           DefaultValue: 0.36
           MinValue: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 2
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.23
           MinValue: 0
@@ -481,7 +481,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -613,7 +613,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 0
+        Data: 1
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -657,7 +657,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 0
+        Data: 1
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0

@@ -412,11 +412,21 @@ MonoBehaviour:
   HasThumbnail: 1
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://Infected_Dirty_Ground\" label=\"\"
     >\n  <presetinput identifier=\"$outputsize\" uid=\"3213415937\" type=\"8\" value=\"11,11\"
+    />\n  <presetinput identifier=\"$randomseed\" uid=\"3908747347\" type=\"4\" value=\"488\"
     />\n  <presetinput identifier=\"roughness_amount\" uid=\"3530412713\" type=\"0\"
     value=\"0.968\" />\n  <presetinput identifier=\"water_level\" uid=\"3523379464\"
-    type=\"0\" value=\"0.323\" />\n  <presetinput identifier=\"outputcolor_01\" uid=\"3526900041\"
-    type=\"3\" value=\"0.490196,0.44675,0.145098,1\" />\n  <presetinput identifier=\"outputcolor_02\"
-    uid=\"3526893087\" type=\"3\" value=\"0.283019,0.211115,0.148184,1\" />\n  <presetinput
+    type=\"0\" value=\"0.229\" />\n  <presetinput identifier=\"ss\" uid=\"3523379466\"
+    type=\"0\" value=\"0.593\" />\n  <presetinput identifier=\"edges_wetness\" uid=\"3523379468\"
+    type=\"0\" value=\"0.625\" />\n  <presetinput identifier=\"edges_wetness_distance\"
+    uid=\"3523379470\" type=\"0\" value=\"0.111\" />\n  <presetinput identifier=\"sludge_color\"
+    uid=\"3523379476\" type=\"2\" value=\"0.431373,0.392286,0.301961\" />\n  <presetinput
+    identifier=\"sludge_depth\" uid=\"3523379478\" type=\"0\" value=\"0.588\" />\n 
+    <presetinput identifier=\"sludge_opacity\" uid=\"3523379480\" type=\"0\" value=\"0.796\"
+    />\n  <presetinput identifier=\"frost_intensity\" uid=\"3523379484\" type=\"0\"
+    value=\"1\" />\n  <presetinput identifier=\"frost_cracks\" uid=\"3523379486\"
+    type=\"0\" value=\"0.92\" />\n  <presetinput identifier=\"outputcolor_01\" uid=\"3526900041\"
+    type=\"3\" value=\"0.292453,0.266236,0.153124,1\" />\n  <presetinput identifier=\"outputcolor_02\"
+    uid=\"3526893087\" type=\"3\" value=\"0.358491,0.328925,0.194464,1\" />\n  <presetinput
     identifier=\"Twig_01shape_scaleTwig_01\" uid=\"3537344448\" type=\"0\" value=\"5\"
     />\n  <presetinput identifier=\"Twig_01shape_scale_randomTwig_01\" uid=\"3537344450\"
     type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Twig_01position_randomTwig_01\"
@@ -425,13 +435,18 @@ MonoBehaviour:
     uid=\"3537271080\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Twig_02position_randomTwig_02\"
     uid=\"3537271092\" type=\"0\" value=\"2\" />\n  <presetinput identifier=\"Twig_02shape_rotation_randomTwig_02\"
     uid=\"3537270980\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Twig_02shape_rotation_from_background_slopeTwig_02\"
-    uid=\"3537270982\" type=\"0\" value=\"0.521\" />\n  <presetinput identifier=\"Large_Stonesshape_scaleLarge_Stones\"
-    uid=\"3537259365\" type=\"0\" value=\"0.75\" />\n  <presetinput identifier=\"Large_Stonesmask_randomLarge_Stones\"
+    uid=\"3537270982\" type=\"0\" value=\"0.521\" />\n  <presetinput identifier=\"Large_Stonesx_amountLarge_Stones\"
+    uid=\"3537259351\" type=\"4\" value=\"24\" />\n  <presetinput identifier=\"Large_Stonesy_amountLarge_Stones\"
+    uid=\"3537259353\" type=\"4\" value=\"24\" />\n  <presetinput identifier=\"Large_Stonespattern_input_numberLarge_Stones\"
+    uid=\"3537259355\" type=\"4\" value=\"2\" />\n  <presetinput identifier=\"Large_Stonesshape_scaleLarge_Stones\"
+    uid=\"3537259365\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Large_Stonesmask_randomLarge_Stones\"
     uid=\"3537259301\" type=\"0\" value=\"0.75\" />\n  <presetinput identifier=\"Small_Stonesx_amountSmall_Stones\"
-    uid=\"3537263962\" type=\"4\" value=\"64\" />\n  <presetinput identifier=\"Small_Stonesy_amountSmall_Stones\"
-    uid=\"3537263964\" type=\"4\" value=\"64\" />\n  <presetinput identifier=\"Small_Stonesshape_scaleSmall_Stones\"
+    uid=\"3537263962\" type=\"4\" value=\"33\" />\n  <presetinput identifier=\"Small_Stonesy_amountSmall_Stones\"
+    uid=\"3537263964\" type=\"4\" value=\"32\" />\n  <presetinput identifier=\"Small_Stonesshape_scaleSmall_Stones\"
     uid=\"3537263976\" type=\"0\" value=\"1.08\" />\n  <presetinput identifier=\"Small_Stonesshape_scale_randomSmall_Stones\"
-    uid=\"3537263978\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Medium_Stonesheight_offsetMedium_Stones\"
+    uid=\"3537263978\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Medium_Stonesx_amountMedium_Stones\"
+    uid=\"3537252140\" type=\"4\" value=\"13\" />\n  <presetinput identifier=\"Medium_Stonesy_amountMedium_Stones\"
+    uid=\"3537252142\" type=\"4\" value=\"10\" />\n  <presetinput identifier=\"Medium_Stonesheight_offsetMedium_Stones\"
     uid=\"3537252067\" type=\"0\" value=\"-1\" />\n  <presetinput identifier=\"Medium_Stonesmask_randomMedium_Stones\"
     uid=\"3537252091\" type=\"0\" value=\"0.5\" />\n  <presetinput identifier=\"Dirt_Shapesx_amountDirt_Shapes\"
     uid=\"3537248444\" type=\"4\" value=\"64\" />\n  <presetinput identifier=\"Dirt_Shapesy_amountDirt_Shapes\"
@@ -479,7 +494,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 0
-        Data: 0
+        Data: 488
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -581,7 +596,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.323
+        Data: 0.229
         NumericalDescription:
           DefaultValue: 0.3
           MinValue: 0
@@ -601,7 +616,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.5
+        Data: 0.593
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -621,7 +636,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.75
+        Data: 0.625
         NumericalDescription:
           DefaultValue: 0.75
           MinValue: 0
@@ -641,7 +656,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.1
+        Data: 0.111
         NumericalDescription:
           DefaultValue: 0.1
           MinValue: 0
@@ -701,7 +716,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.513726, y: 0.48603, z: 0.402914}
+        Data: {x: 0.43137255, y: 0.39228562, z: 0.3019608}
         NumericalDescription:
           DefaultValue: {x: 0.513726, y: 0.48603, z: 0.402914}
           MinValue: {x: 0, y: 0, z: 0}
@@ -721,7 +736,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.5
+        Data: 0.588
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -741,7 +756,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.5
+        Data: 0.796
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -781,7 +796,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.5
+        Data: 1
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -801,7 +816,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.25
+        Data: 0.92
         NumericalDescription:
           DefaultValue: 0.25
           MinValue: 0
@@ -843,7 +858,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 3
           WidgetType: 3
-        Data: {x: 0.49019608, y: 0.44674993, z: 0.14509808, w: 1}
+        Data: {x: 0.2924528, y: 0.26623625, z: 0.15312387, w: 1}
         NumericalDescription:
           DefaultValue: {x: 0.615686, y: 0.572549, z: 0.435294, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}
@@ -863,7 +878,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 3
           WidgetType: 3
-        Data: {x: 0.2830189, y: 0.21111545, z: 0.14818442, w: 1}
+        Data: {x: 0.3584906, y: 0.32892463, z: 0.19446424, w: 1}
         NumericalDescription:
           DefaultValue: {x: 0, y: 0, z: 0, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}
@@ -2751,7 +2766,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 25
+        Data: 24
         NumericalDescription:
           DefaultValue: 25
           MinValue: 1
@@ -2773,7 +2788,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 25
+        Data: 24
         NumericalDescription:
           DefaultValue: 25
           MinValue: 1
@@ -2795,7 +2810,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 3
+        Data: 2
         NumericalDescription:
           DefaultValue: 3
           MinValue: 1
@@ -2918,7 +2933,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.75
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -3645,7 +3660,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 64
+        Data: 33
         NumericalDescription:
           DefaultValue: 75
           MinValue: 1
@@ -3667,7 +3682,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 64
+        Data: 32
         NumericalDescription:
           DefaultValue: 75
           MinValue: 1
@@ -4539,7 +4554,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 17
+        Data: 13
         NumericalDescription:
           DefaultValue: 17
           MinValue: 1
@@ -4561,7 +4576,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 1
-        Data: 17
+        Data: 10
         NumericalDescription:
           DefaultValue: 17
           MinValue: 1

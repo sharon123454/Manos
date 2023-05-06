@@ -205,12 +205,16 @@ MonoBehaviour:
     label=\"\" >\n  <presetinput identifier=\"$outputsize\" uid=\"1121684949\" type=\"8\"
     value=\"11,11\" />\n  <presetinput identifier=\"$randomseed\" uid=\"363436935\"
     type=\"4\" value=\"1281\" />\n  <presetinput identifier=\"rock_color\" uid=\"714533406\"
-    type=\"2\" value=\"0.377358,0.337527,0.250623\" />\n  <presetinput identifier=\"rock_roughness\"
+    type=\"2\" value=\"0.34,0.305362,0.22916\" />\n  <presetinput identifier=\"rock_roughness\"
     uid=\"713285225\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"moss_amount\"
     uid=\"712895311\" type=\"0\" value=\"0.532\" />\n  <presetinput identifier=\"moss_color\"
     uid=\"714533436\" type=\"2\" value=\"0.40566,0.294612,0.112896\" />\n  <presetinput
     identifier=\"streaking_color\" uid=\"716348851\" type=\"2\" value=\"0.215411,0.264151,0.115878\"
-    />\n </sbspreset>\n"
+    />\n  <presetinput identifier=\"sea_level\" uid=\"712440367\" type=\"0\" value=\"0.324\"
+    />\n  <presetinput identifier=\"sea_level_roughness\" uid=\"714891257\" type=\"0\"
+    value=\"0.685\" />\n  <presetinput identifier=\"slime_color\" uid=\"714533442\"
+    type=\"2\" value=\"0.45098,0.333091,0.141176\" />\n  <presetinput identifier=\"algae_color\"
+    uid=\"714533456\" type=\"2\" value=\"0.518868,0.270903,0.115032\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -276,7 +280,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.3773585, y: 0.33752733, z: 0.250623}
+        Data: {x: 0.34, y: 0.3053625, z: 0.22916001}
         NumericalDescription:
           DefaultValue: {x: 0.55, y: 0.514412, z: 0.433529}
           MinValue: {x: 0, y: 0, z: 0}
@@ -396,7 +400,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0
+        Data: 0.324
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -416,7 +420,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.54
+        Data: 0.685
         NumericalDescription:
           DefaultValue: 0.54
           MinValue: 0
@@ -436,7 +440,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.45098, y: 0.372549, z: 0.141176}
+        Data: {x: 0.4509804, y: 0.3330913, z: 0.14117649}
         NumericalDescription:
           DefaultValue: {x: 0.45098, y: 0.372549, z: 0.141176}
           MinValue: {x: 0, y: 0, z: 0}
@@ -456,7 +460,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 2
           WidgetType: 3
-        Data: {x: 0.45098, y: 0.418931, z: 0.141176}
+        Data: {x: 0.5188679, y: 0.27090338, z: 0.11503203}
         NumericalDescription:
           DefaultValue: {x: 0.45098, y: 0.418931, z: 0.141176}
           MinValue: {x: 0, y: 0, z: 0}
