@@ -7,7 +7,7 @@ public class MouseWorld : MonoBehaviour
     private static MouseWorld instance;
     [SerializeField] private LayerMask mousePlaneLayerMask;
     [SerializeField] private List<LayerMask> Unit;
-    string[] layerNames = { "mousePlaneLayerMask", "Unit" };
+    string[] layerNames = { "MousePlane", "Unit",};
     private void Awake()
     {
         if (instance != null && instance != this)
