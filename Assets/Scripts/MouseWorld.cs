@@ -7,6 +7,7 @@ public class MouseWorld : MonoBehaviour
     private static MouseWorld instance;
     [SerializeField] private LayerMask mousePlaneLayerMask;
     [SerializeField] private List<LayerMask> Unit;
+    string[] layerNames = { "mousePlaneLayerMask", "Unit" };
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -19,17 +20,8 @@ public class MouseWorld : MonoBehaviour
     {
         Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
 
-        Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, instance.mousePlaneLayerMask);
+        Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask(instance.layerNames));
         return _rayCastHit.point;
-        //if (_rayCastHit.transform.gameObject.layer == instance.Unit[1])
-        //{
-        //    return _rayCastHit.point;
-        //}
-        //else
-        //{
-        //    Physics.Raycast(_ray, out RaycastHit rayCastHit, float.MaxValue, instance.Unit[1]);
-        //    return rayCastHit.point;
-        //}
     }
 
 }
