@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MouseWorld : MonoBehaviour
 {
     private static MouseWorld instance;
     [SerializeField] private LayerMask mousePlaneLayerMask;
-    [SerializeField] private LayerMask Unit;
-
+    [SerializeField] private List<LayerMask> Unit;
+    string[] layerNames = { "MousePlane", "Unit",};
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -17,7 +19,8 @@ public class MouseWorld : MonoBehaviour
     public static Vector3 GetPosition()
     {
         Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
-        Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, instance.Unit);
+
+        Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask(instance.layerNames));
         return _rayCastHit.point;
     }
 
