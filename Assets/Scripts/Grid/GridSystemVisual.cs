@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GridSystemVisual : MonoBehaviour
     public enum GridVisualType { White, Red, RedSoft, Blue, Green, Yellow, Transparent }
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
+    [SerializeField] private Transform GridParent, adjacentParent, closeParent, farParent, veryFarParent;
     [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
     [SerializeField] private int _adjacent = 1;
     [SerializeField] private int _close = 4;
@@ -51,7 +53,7 @@ public class GridSystemVisual : MonoBehaviour
                 else if (Physics.Raycast(myWorldPos + new Vector3(transform.position.x, 0, transform.position.z) + Vector3.up * 10, Vector3.down, out ray, 20000, PathFinding.Instance.floorGridLayer))
                 {
                     Transform gridSystemVisualSingleTransform =
-                        Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z), Quaternion.identity);
+                        Instantiate(GridSystemVisualSinglePrefab, new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z), Quaternion.identity, GridParent);
 
                     gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
                 }
@@ -220,6 +222,32 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
+        switch (range)
+        {
+            case 1://_adjacent
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                break;
+            case 4://_close
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+                break;
+            case 6://_far
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+                break;
+            case 9://_veryFar
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+                break;
+            default:
+                break;
+        }
+
         ShowGridPositionList(gridPosList, gridVisualType, type);
     }
     private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
@@ -237,6 +265,32 @@ public class GridSystemVisual : MonoBehaviour
 
                 gridPosList.Add(testGridPosition);
             }
+        }
+
+        switch (range)
+        {
+            case 1://_adjacent
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                break;
+            case 4://_close
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+                break;
+            case 6://_far
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+                break;
+            case 9://_veryFar
+                foreach (var position in gridPosList)
+                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+                break;
+            default:
+                break;
         }
 
         ShowGridPositionList(gridPosList, gridVisualType, type);
@@ -322,21 +376,21 @@ public class GridSystemVisual : MonoBehaviour
                 InaccurateAtAllRanges(selectedUnit, _veryFar);
                 break;
             case AbilityRange.ResetGrid:
-                ResetGreed(selectedUnit);
+                ResetGrid(selectedUnit);
                 break;
         }
     }
 
     private void MeleeRange(Unit selectedUnit, int adjacent, int veryFar)
     {
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryFar, GridVisualType.White, Effectiveness.Inaccurate);
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective);
     }
 
     private void CloseRange(Unit selectedUnit, int close, int far)
     {
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Miss);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green, Effectiveness.Miss);
     }
@@ -344,7 +398,7 @@ public class GridSystemVisual : MonoBehaviour
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
 
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Inaccurate);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Red, Effectiveness.Miss);
@@ -353,23 +407,23 @@ public class GridSystemVisual : MonoBehaviour
 
     private void LongRange(Unit selectedUnit, int close, int veryFar)
     {
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
         HideGridPositionRange(selectedUnit.GetGridPosition(), close);
     }
 
     private void EffectiveAtAllRanges(Unit selectedUnit, int veryFar)
     {
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
     }
 
     private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
     {
-        ResetGreed(selectedUnit);
+        ResetGrid(selectedUnit);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss);
     }
-    private void ResetGreed(Unit selectedUnit)
+    private void ResetGrid(Unit selectedUnit)
     {
         ShowGridPositionRange(selectedUnit.GetGridPosition(), 50, GridVisualType.Transparent, Effectiveness.Miss);
     }
