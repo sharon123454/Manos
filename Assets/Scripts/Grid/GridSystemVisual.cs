@@ -9,24 +9,31 @@ public class GridSystemVisual : MonoBehaviour
     public static GridSystemVisual Instance { get; private set; }
 
     [Serializable]
-    public struct GridVisualTypeMaterail
+    public struct GridVisualTypeMaterial
     {
         public GridVisualType gridVidualType;
         public Material material;
+
     }
 
     public enum GridVisualType { White, Red, RedSoft, Blue, Green, Yellow, Transparent }
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
     [SerializeField] private Transform GridParent, adjacentParent, closeParent, farParent, veryFarParent;
-    [SerializeField] private List<GridVisualTypeMaterail> gridVisualTypeMaterialList;
+    [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
     [SerializeField] private int _adjacent = 1;
     [SerializeField] private int _close = 4;
     [SerializeField] private int _far = 6;
     [SerializeField] private int _veryFar = 9;
 
+    [SerializeField] private Color _adjacentColor = Color.white;
+    [SerializeField] private Color _closeColor = Color.white;
+    [SerializeField] private Color _farColor = Color.white;
+    [SerializeField] private Color _veryFarColor = Color.white;
+
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -200,7 +207,7 @@ public class GridSystemVisual : MonoBehaviour
         HideGridPositionList(gridPosList);
     }
 
-    private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
+    private void ShowGridPositionRange(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type, Color color)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
@@ -227,30 +234,44 @@ public class GridSystemVisual : MonoBehaviour
             case 1://_adjacent
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                    }
                 break;
             case 4://_close
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+                    }
                 break;
             case 6://_far
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+                    }
                 break;
             case 9://_veryFar
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+                    }
                 break;
             default:
                 break;
         }
 
+
+
         ShowGridPositionList(gridPosList, gridVisualType, type);
     }
-    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type)
+    private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type, Color color)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
@@ -272,26 +293,39 @@ public class GridSystemVisual : MonoBehaviour
             case 1://_adjacent
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                    }
                 break;
             case 4://_close
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+                    }
                 break;
             case 6://_far
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+                    }
                 break;
             case 9://_veryFar
                 foreach (var position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                    {
+                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
                         gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+                    }
                 break;
             default:
                 break;
         }
+
 
         ShowGridPositionList(gridPosList, gridVisualType, type);
     }
@@ -343,7 +377,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
-        foreach (GridVisualTypeMaterail gridVisualTypeMaterial in gridVisualTypeMaterialList)
+        foreach (GridVisualTypeMaterial gridVisualTypeMaterial in gridVisualTypeMaterialList)
         {
             if (gridVisualTypeMaterial.gridVidualType == gridVisualType)
                 return gridVisualTypeMaterial.material;
@@ -384,48 +418,48 @@ public class GridSystemVisual : MonoBehaviour
     private void MeleeRange(Unit selectedUnit, int adjacent, int veryFar)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryFar, GridVisualType.White, Effectiveness.Inaccurate);
-        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective);
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryFar, GridVisualType.White, Effectiveness.Inaccurate,Color.white);
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective,Color.white);
     }
 
     private void CloseRange(Unit selectedUnit, int close, int far)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Miss);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Miss,Color.yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Green, Effectiveness.Miss,Color.green);
     }
 
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
 
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Inaccurate);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Red, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective,Color.green);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, GridVisualType.Yellow, Effectiveness.Inaccurate, Color.yellow);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, GridVisualType.Red, Effectiveness.Miss, Color.red);
         HideGridPositionRange(selectedUnit.GetGridPosition(), adjacent);
     }
 
     private void LongRange(Unit selectedUnit, int close, int veryFar)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective, Color.green);
         HideGridPositionRange(selectedUnit.GetGridPosition(), close);
     }
 
     private void EffectiveAtAllRanges(Unit selectedUnit, int veryFar)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Green, Effectiveness.Effective, Color.green);
     }
 
     private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss, Color.yellow);
     }
     private void ResetGrid(Unit selectedUnit)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), 50, GridVisualType.Transparent, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), 0, GridVisualType.Transparent, Effectiveness.Miss, Color.yellow);
     }
     private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e) { UpdateGridVisual(); }
 
