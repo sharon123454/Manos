@@ -2,38 +2,35 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.UIElements;
+
+public enum GridVisualType { White, Red, Green, Yellow, Transparent }
+
+[Serializable]
+public struct GridVisualTypeMaterial
+{
+    public GridVisualType gridVisualType;
+    public Material material;
+}
 
 public class GridSystemVisual : MonoBehaviour
 {
     public static GridSystemVisual Instance { get; private set; }
 
-    [Serializable]
-    public struct GridVisualTypeMaterial
-    {
-        public GridVisualType gridVidualType;
-        public Material material;
-
-    }
-
-    public enum GridVisualType { White, Red, RedSoft, Blue, Green, Yellow, Transparent }
-
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
     [SerializeField] private Transform GridParent, adjacentParent, closeParent, farParent, veryFarParent;
     [SerializeField] private List<GridVisualTypeMaterial> gridVisualTypeMaterialList;
-    [SerializeField] private int _adjacent = 1;
-    [SerializeField] private int _close = 4;
-    [SerializeField] private int _far = 6;
-    [SerializeField] private int _veryFar = 9;
+    [SerializeField] private int _Adjacent = 1;
+    [SerializeField] private int _Close = 4;
+    [SerializeField] private int _Far = 6;
+    [SerializeField] private int _VeryFar = 9;
 
-    [SerializeField] private Color _transparent = new Color(1, 1, 1, 0.05f);
+    [SerializeField] private Color _transparent = new Color(0f, 0f, 0f, 0f);
     [SerializeField] private Color _adjacentColor = Color.white;
     [SerializeField] private Color _closeColor = Color.white;
     [SerializeField] private Color _farColor = Color.white;
     [SerializeField] private Color _veryFarColor = Color.white;
 
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
-
 
     private void Awake()
     {
@@ -65,7 +62,6 @@ public class GridSystemVisual : MonoBehaviour
 
                     gridSystemVisualSingleArray[x, z] = gridSystemVisualSingleTransform.GetComponent<GridSystemVisualSingle>();
                 }
-
             }
         }
 
@@ -75,9 +71,9 @@ public class GridSystemVisual : MonoBehaviour
 
     private void UpdateGridVisual()
     {
-
         Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+
         if (selectedAction.GetCooldown() > 0)
             return;
         else
@@ -228,7 +224,6 @@ public class GridSystemVisual : MonoBehaviour
                     continue;
 
                 gridPosList.Add(testGridPosition);
-
             }
         }
 
@@ -269,8 +264,6 @@ public class GridSystemVisual : MonoBehaviour
             default:
                 break;
         }
-
-
 
         ShowGridPositionList(gridPosList, gridVisualType, type);
     }
@@ -329,7 +322,6 @@ public class GridSystemVisual : MonoBehaviour
                 break;
         }
 
-
         ShowGridPositionList(gridPosList, gridVisualType, type);
     }
 
@@ -375,14 +367,13 @@ public class GridSystemVisual : MonoBehaviour
                 gridSystemVisualSingleArray[position._x, position._z].Show(GetGridVisualMaterial(gridVisualType));
             }
         }
-
     }
 
     private Material GetGridVisualMaterial(GridVisualType gridVisualType)
     {
         foreach (GridVisualTypeMaterial gridVisualTypeMaterial in gridVisualTypeMaterialList)
         {
-            if (gridVisualTypeMaterial.gridVidualType == gridVisualType)
+            if (gridVisualTypeMaterial.gridVisualType == gridVisualType)
                 return gridVisualTypeMaterial.material;
         }
 
@@ -398,25 +389,28 @@ public class GridSystemVisual : MonoBehaviour
                 //MoveRange(selectedUnit, );
                 break;
             case AbilityRange.Melee:
-                MeleeRange(selectedUnit, _adjacent, _veryFar);
+                MeleeRange(selectedUnit, _Adjacent, _VeryFar);
                 break;
             case AbilityRange.Close:
-                CloseRange(selectedUnit, _close, _far);
+                CloseRange(selectedUnit, _Close, _Far);
                 break;
             case AbilityRange.Medium:
-                MediumRange(selectedUnit, _adjacent, _close, _far, _veryFar);
+                MediumRange(selectedUnit, _Adjacent, _Close, _Far, _VeryFar);
                 break;
             case AbilityRange.Long:
-                LongRange(selectedUnit, _close, _veryFar);
+                LongRange(selectedUnit, _Close, _VeryFar);
                 break;
             case AbilityRange.EffectiveAtAll:
-                EffectiveAtAllRanges(selectedUnit, _veryFar);
+                EffectiveAtAllRanges(selectedUnit, _VeryFar);
                 break;
             case AbilityRange.InaccurateAtAll:
-                InaccurateAtAllRanges(selectedUnit, _veryFar);
+                InaccurateAtAllRanges(selectedUnit, _VeryFar);
                 break;
             case AbilityRange.ResetGrid:
                 ResetGrid(selectedUnit);
+                break;
+            default:
+                print("huh?");
                 break;
         }
     }
@@ -472,6 +466,7 @@ public class GridSystemVisual : MonoBehaviour
     {
         ShowGridPositionRange(selectedUnit.GetGridPosition(), 50, GridVisualType.Transparent, Effectiveness.Miss, Color.red);
     }
+
     private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e) { UpdateGridVisual(); }
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e) { UpdateGridVisual(); }
