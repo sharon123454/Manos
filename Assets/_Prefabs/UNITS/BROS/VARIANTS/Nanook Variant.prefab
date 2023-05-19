@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3550288611218106955
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1273577928665831047, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: invert
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.965926
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.2588186
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041477, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433791431500041482, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+      propertyPath: m_Name
+      value: Nanook
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+--- !u!1 &1189997891431049025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2433791431500041482, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
+  m_PrefabInstance: {fileID: 3550288611218106955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1194505540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189997891431049025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  isSpell: 1
+  healValue: 10
