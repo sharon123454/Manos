@@ -11,8 +11,8 @@ public class GridSystemVisualSingle : MonoBehaviour
     {
         _MyVisual.SetIsActivate(true);
 
-        if (outLine != null)
-            outLine.enabled = true;
+        //if (outLine != null)
+        //    outLine.enabled = true;
     }
 
     public void Hide()
@@ -20,13 +20,17 @@ public class GridSystemVisualSingle : MonoBehaviour
         _MyVisual.SetIsActivate(false);
 
         if (outLine != null)
-            outLine.enabled = false;
+            outLine.OutlineColor = new Color(0, 0, 0, 0);
     }
 
     public void SetGridOutLineColor(Color Color)
     {
         if (outLine != null)
+        {
             outLine.ChangeOutLineColor(Color);
+            print(Color);
+        }
+        
     }
 
 }

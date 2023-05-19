@@ -21,6 +21,7 @@ public class UnitActionSystem : MonoBehaviour
     internal BaseAction selectedAction;
     internal BaseAction savedAction;
     internal BaseAbility selectedBaseAbility;
+    internal MoveAction selectedMoveAction;
     private Unit selectedUnit;
     private bool isBusy;
 
@@ -110,14 +111,24 @@ public class UnitActionSystem : MonoBehaviour
         selectedAction = baseAction;
         if (baseAction is BaseAbility)
         {
+            selectedMoveAction = null;
             selectedBaseAbility = (BaseAbility)baseAction;
         }
+        else if (baseAction is MoveAction)
+        {
+            selectedBaseAbility = null;
+            selectedMoveAction = (MoveAction)baseAction;
+        }
         else
-        { selectedBaseAbility = null; }
+        {
+            selectedBaseAbility = null;
+            selectedMoveAction = null;
+        }
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public BaseAction GetSelectedAction() { return selectedAction; }
+    public MoveAction GetSelectedMoveAction() { return selectedMoveAction; }
     public BaseAbility GetSelectedBaseAbility() { return selectedBaseAbility; }
     public BaseAction GetBaseAbility() { return selectedAction; }
     public BaseAction GetSavedAction() { return savedAction; }
