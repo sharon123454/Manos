@@ -10,7 +10,8 @@ public class GridVisual : MonoBehaviour
 
     private DecalProjector _decalProjector;
     private bool _isActive;
-
+    public Outline Outline;
+    private Color _transparant = new(0, 0, 0, 0);
     private void Awake()
     {
         _decalProjector = GetComponent<DecalProjector>();
@@ -18,7 +19,7 @@ public class GridVisual : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Mouse") && IsActive)
+        if (other.CompareTag("Mouse") && Outline.OutlineColor != _transparant)
             _decalProjector.enabled = true;
     }
     private void OnTriggerStay(Collider other)
