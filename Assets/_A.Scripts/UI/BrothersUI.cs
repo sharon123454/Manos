@@ -42,7 +42,7 @@ public class BrothersUI : MonoBehaviour
             {
                 if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
                 {
-                    if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
+                    if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
                     {
                         bonusActionImage.color = Color.green;
                         actionImage.color = actionBarDefualtColor;

@@ -18,10 +18,10 @@ public class UnitActionSystem : MonoBehaviour
 
     [SerializeField] private LayerMask unitsLayerMask;
 
-    internal BaseAction selectedAction;
     internal BaseAction savedAction;
-    internal BaseAbility selectedBaseAbility;
-    internal MoveAction selectedMoveAction;
+    private BaseAction selectedAction;
+    private BaseAbility selectedBaseAbility;
+    private MoveAction selectedMoveAction;
     private Unit selectedUnit;
     private bool isBusy;
 

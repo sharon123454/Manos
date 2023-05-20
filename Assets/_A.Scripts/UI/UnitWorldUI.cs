@@ -41,7 +41,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
         {
-            if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
+            if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
             {
                 bonusActionBarImage.color = Color.green;
                 actionBarImage.color = actionBarDefualtColor;
