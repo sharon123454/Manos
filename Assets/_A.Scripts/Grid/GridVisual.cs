@@ -6,12 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(DecalProjector))]
 public class GridVisual : MonoBehaviour
 {
-    public bool IsActive { get { return _isActive; } private set { _isActive = value; } }
+    [SerializeField] private Outline _Outline;
 
     private DecalProjector _decalProjector;
-    private bool _isActive;
-    public Outline Outline;
     private Color _transparant = new(0, 0, 0, 0);
+
     private void Awake()
     {
         _decalProjector = GetComponent<DecalProjector>();
@@ -19,8 +18,23 @@ public class GridVisual : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Mouse") && Outline.OutlineColor != _transparant)
+        if (other.CompareTag("Mouse") && _Outline.OutlineColor != _transparant)//checking transperancy is troll need real fix but works
+        {
             _decalProjector.enabled = true;
+
+            if (UnitActionSystem.Instance.GetSelectedMoveAction())
+            {
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+                if (LevelGrid.Instance.IsValidGridPosition(mouseGridPosition))
+                {
+                    //find and draw path to mouse grid position
+                    FollowMouse.Instance.DrawLineOnPath(
+                        PathFinding.Instance.FindPath(UnitActionSystem.Instance.GetSelectedUnit().GetGridPosition(),
+                        mouseGridPosition, out int pathLength));
+                }
+            }
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -32,7 +46,5 @@ public class GridVisual : MonoBehaviour
         if (other.CompareTag("Mouse"))
             _decalProjector.enabled = false;
     }
-
-    public void SetIsActivate(bool active) { IsActive = active; }
 
 }
