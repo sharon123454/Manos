@@ -84,9 +84,9 @@ public class GridSystemVisual : MonoBehaviour
         switch (selectedAction.ReturnRange())
         {
             case AbilityRange.Move:
-                gridVisualType = GridVisualType.White;
-                FilterByRange(AbilityRange.ResetGrid, selectedUnit);
-                ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
+                // gridVisualType = GridVisualType.White;
+                FilterByRange(AbilityRange.Move, selectedUnit);
+                //  ShowGridPositionList(selectedAction.GetValidActionGridPositionList(), gridVisualType);
                 break;
             case AbilityRange.Melee:
                 FilterByRange(AbilityRange.Melee, selectedUnit);
@@ -385,8 +385,13 @@ public class GridSystemVisual : MonoBehaviour
     {
         switch (AbilityRange)
         {
+
             case AbilityRange.Move:
-                //MoveRange(selectedUnit, );
+                MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
+                if (_move != null)
+                {
+                    MoveRange(selectedUnit, _move.GetMoveValue());
+                }
                 break;
             case AbilityRange.Melee:
                 MeleeRange(selectedUnit, _Adjacent, _VeryFar);
@@ -417,8 +422,9 @@ public class GridSystemVisual : MonoBehaviour
 
     private void MoveRange(Unit selectedUnit, int playerMovement)
     {
-        ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, GridVisualType.Yellow, Effectiveness.Miss, Color.white);
+        //  ResetGrid(selectedUnit);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar + 1, GridVisualType.Transparent, Effectiveness.Miss, _transparent);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, GridVisualType.White, Effectiveness.Miss, Color.white);
     }
 
     private void MeleeRange(Unit selectedUnit, int adjacent, int veryFar)
@@ -460,11 +466,11 @@ public class GridSystemVisual : MonoBehaviour
     private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
     {
         ResetGrid(selectedUnit);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss, _transparent);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, GridVisualType.Yellow, Effectiveness.Miss, Color.red);
     }
     private void ResetGrid(Unit selectedUnit)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), 50, GridVisualType.Transparent, Effectiveness.Miss, Color.red);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar + 2, GridVisualType.Transparent, Effectiveness.Miss, Color.magenta);
     }
 
     private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e) { UpdateGridVisual(); }

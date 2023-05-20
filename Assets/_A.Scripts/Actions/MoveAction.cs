@@ -8,7 +8,8 @@ public class MoveAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private float moveSpeed = 4, rotateSpeed = 7.5f;
+    [SerializeField] private int moveSpeed = 4;
+    [SerializeField] private float rotateSpeed = 7.5f;
     [SerializeField] private int maxMoveDistance = 3;
 
     private int pathfindingDistanceMultiplier = 10;
@@ -115,5 +116,7 @@ public class MoveAction : BaseAction
     }
 
     public override string GetActionName() { return "Move"; }
+
+    public int GetMoveValue() { return moveSpeed; }
 
 }
