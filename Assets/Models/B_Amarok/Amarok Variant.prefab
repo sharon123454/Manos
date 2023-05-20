@@ -1,5 +1,81 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1841569958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841569959}
+  - component: {fileID: 1841569961}
+  - component: {fileID: 1841569960}
+  m_Layer: 5
+  m_Name: Crit! (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1841569959
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841569958}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029504295}
+  m_LocalPosition: {x: 0, y: 0, z: 10.41}
+  m_LocalScale: {x: 0.012426731, y: 0.012426731, z: 0.012426731}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5205363328410944165}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -2.119999, y: -1.39}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1841569961
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841569958}
+  m_CullTransparentMesh: 1
+--- !u!114 &1841569960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841569958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 73a8b9ae5a7f3294fb0f5441438b5ae8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &907149716189223063
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +943,14 @@ PrefabInstance:
       propertyPath: _isBonusAction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 908666217, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416568833263840845, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: critImage
+      value: 
+      objectReference: {fileID: 1841569960}
     - target: {fileID: 4385532987445365409, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: damage
       value: 30
@@ -1011,11 +1095,30 @@ PrefabInstance:
       propertyPath: shootPointTransform
       value: 
       objectReference: {fileID: 3428436075894011442}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: Armor
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: evasion
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxHealth
+      value: 140
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 386841850, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
     - {fileID: 1156274679, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
     - {fileID: 2896592683690593462, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    - {fileID: 456196801, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    - {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!224 &5205363328410944165 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5319344417233960354, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 139384875645435655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5932099766744026806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -1043,8 +1146,8 @@ MonoBehaviour:
   cooldown: 0
   addCooldown: 5
   favorCost: 200
-  range: 0
-  _AbilityProperties: 
+  range: 1
+  _AbilityProperties: 03000000
   isSpell: 1
   damage: 80
   postureDamage: 10
@@ -1052,7 +1155,7 @@ MonoBehaviour:
   critChance: 25
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 2
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -1096,6 +1199,142 @@ MonoBehaviour:
   favorCost: 0
   range: 0
   _AbilityProperties: 
+--- !u!114 &493833487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932099766744026809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 0
+  range: 0
+  _AbilityProperties: 
+  isSpell: 1
+  damage: 30
+  postureDamage: 5
+  hitChance: 100
+  critChance: 25
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &493833501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932099766744026809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29232ec3e71644f4d8cf2c03cb598ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 4
+  favorCost: 100
+  range: 3
+  _AbilityProperties: 
+  isSpell: 1
+  damage: 45
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 50
+  statusEffectDuration: 1
+  _abilityEffect: 1
+  _skillEffect: 1
+  maxShootDistance: 15
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &493833515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932099766744026809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c144828feb438854aa130fd871e83875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 4
+  favorCost: 100
+  range: 1
+  _AbilityProperties: 01000000
+  isSpell: 1
+  damage: 45
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &493833516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932099766744026809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f9a01e6ac887840b33a99b3bf73271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 3
+  _AbilityProperties: 
+  isSpell: 0
+  damage: 45
+  postureDamage: 45
+  hitChance: 100
+  critChance: 15
+  statusEffectChance: 100
+  statusEffectDuration: 2
+  _abilityEffect: 10
+  _skillEffect: 10
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &4619858852979021246
 PrefabInstance:
   m_ObjectHideFlags: 0

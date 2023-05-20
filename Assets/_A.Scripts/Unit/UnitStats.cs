@@ -134,6 +134,13 @@ public class UnitStats : MonoBehaviour
                 if (health <= maxHealth / 2) damageToRecieve *= 2;
             SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
+
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBrake))
+        {
+            damageToRecieve = rawDamage;
+            if (AP.Contains(AbilityProperties.Finisher))
+                if (health <= maxHealth / 2) damageToRecieve *= 2;
+        }
         else
         {
             damageToRecieve = rawDamage - (Armor * armorMultiplayer);

@@ -26,7 +26,7 @@ public enum StatusEffect
     None,//Default State
     Stun,//Miss X Turns
     Silence,//While affected the target cant use abilities
-    IgnoreArmor,//Ignore Armor
+    ArmorBrake,//Ignore Armor
     Root,//Cant Move,but can use Abilities 
     CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
     Nullify,

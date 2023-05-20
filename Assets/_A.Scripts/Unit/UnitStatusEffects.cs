@@ -19,7 +19,7 @@ public class UnitStatusEffects : MonoBehaviour
     [Space]
 
     [SerializeField] private int stunDuration;
-    [SerializeField] private int ignoreArmorDuration;
+    [SerializeField] private int armorBrakeDuration;
     [SerializeField] private int rootDuration;
     [SerializeField] private int cowardPlagueDuration;
     [SerializeField] private int nullifyDuration;
@@ -51,7 +51,7 @@ public class UnitStatusEffects : MonoBehaviour
     public void ReduceCooldowns()
     {
         stunDuration--;
-        ignoreArmorDuration--;
+        armorBrakeDuration--;
         rootDuration--;
         cowardPlagueDuration--;
         nullifyDuration--;
@@ -90,9 +90,9 @@ public class UnitStatusEffects : MonoBehaviour
                                 _unit.ChangeStunStatus(false);
                             }
                             break;
-                        case StatusEffect.IgnoreArmor:
-                            ignoreArmorDuration--;
-                            if (ignoreArmorDuration == 0)
+                        case StatusEffect.ArmorBrake:
+                            armorBrakeDuration--;
+                            if (armorBrakeDuration == 0)
                             {
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
@@ -205,9 +205,9 @@ public class UnitStatusEffects : MonoBehaviour
                                 _unit.ChangeStunStatus(false);
                             }
                             break;
-                        case StatusEffect.IgnoreArmor:
-                            ignoreArmorDuration--;
-                            if (ignoreArmorDuration == 0)
+                        case StatusEffect.ArmorBrake:
+                            armorBrakeDuration--;
+                            if (armorBrakeDuration == 0)
                             {
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
@@ -315,8 +315,8 @@ public class UnitStatusEffects : MonoBehaviour
             case StatusEffect.Stun:
                 stunDuration += duration;
                 break;
-            case StatusEffect.IgnoreArmor:
-                ignoreArmorDuration += duration;
+            case StatusEffect.ArmorBrake:
+                armorBrakeDuration += duration;
                 break;
             case StatusEffect.Root:
                 rootDuration += duration;

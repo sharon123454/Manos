@@ -1,5 +1,81 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &908666216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908666217}
+  - component: {fileID: 908666219}
+  - component: {fileID: 908666218}
+  m_Layer: 5
+  m_Name: Crit! (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &908666217
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908666216}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029504295}
+  m_LocalPosition: {x: 0, y: 0, z: 10.41}
+  m_LocalScale: {x: 0.012426731, y: 0.012426731, z: 0.012426731}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5319344417233960354}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.8800011, y: -1.39}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &908666219
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908666216}
+  m_CullTransparentMesh: 1
+--- !u!114 &908666218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908666216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 73a8b9ae5a7f3294fb0f5441438b5ae8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &83813139438901213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1081,7 @@ GameObject:
   - component: {fileID: 456196801}
   - component: {fileID: 456196803}
   - component: {fileID: 456196802}
+  - component: {fileID: 37171138}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
@@ -1075,11 +1152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091616d43cb73942bd2df3c8e0982b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 130
-  maxPosture: 80
-  evasion: 30
+  maxHealth: 120
+  maxPosture: 70
+  evasion: 20
   health: 0
-  Armor: 2
+  Armor: 0
 --- !u!114 &3834886061997412093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,7 +1174,7 @@ MonoBehaviour:
   curruptionDMG: 0
   regenerationAmount: 0
   stunDuration: 0
-  ignoreArmorDuration: 0
+  armorBrakeDuration: 0
   rootDuration: 0
   cowardPlagueDuration: 0
   nullifyDuration: 0
@@ -1109,7 +1186,7 @@ MonoBehaviour:
   UndyingDuration: 0
   RegenerationDuration: 0
   CorruptionDuration: 0
-  unitActiveStatusEffects: 
+  unitActiveStatusEffects: 02000000
 --- !u!114 &7237301886958795925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,7 +1205,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 0000000000000000
   moveSpeed: 4
   rotateSpeed: 7.5
   maxMoveDistance: 4
@@ -1150,7 +1227,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
   moveSpeed: 4
   rotateSpeed: 8
   maxMoveDistance: 4
@@ -1171,8 +1248,8 @@ MonoBehaviour:
   cooldown: 0
   addCooldown: 0
   favorCost: 0
-  range: 2
-  _AbilityProperties: 
+  range: 3
+  _AbilityProperties: 00000000
   isSpell: 0
   damage: 20
   postureDamage: 15
@@ -1182,7 +1259,7 @@ MonoBehaviour:
   statusEffectDuration: 0
   _abilityEffect: 0
   _skillEffect: 0
-  maxShootDistance: 9
+  maxShootDistance: 15
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -1220,8 +1297,8 @@ MonoBehaviour:
   amountOfArmorGain: 0
   curruptionDMG: 0
   regenerationAmount: 0
-  stunDuration: 0
-  ignoreArmorDuration: 0
+  stunDuration: 1
+  armorBrakeDuration: 0
   rootDuration: 0
   cowardPlagueDuration: 0
   nullifyDuration: 0
@@ -1233,7 +1310,7 @@ MonoBehaviour:
   UndyingDuration: 0
   RegenerationDuration: 0
   CorruptionDuration: 0
-  unitActiveStatusEffects: 
+  unitActiveStatusEffects: 02000000
 --- !u!114 &1156274679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,11 +1347,11 @@ MonoBehaviour:
   cooldown: 0
   addCooldown: 4
   favorCost: 50
-  range: 2
+  range: 3
   _AbilityProperties: 
   isSpell: 1
   healValue: 25
-  maxMeleeDistance: 1
+  maxMeleeDistance: 15
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
@@ -1297,7 +1374,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
 --- !u!114 &456196802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,7 +1393,21 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
+--- !u!114 &37171138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10639e68a3d941745951cfdb0e88442d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalRootBone: {fileID: 6029328889231687136}
+  ragdollPrefab: {fileID: 6033764124026794417, guid: 35788bf7086f5ce46a9e5b73e0308965, type: 3}
 --- !u!1 &6603048865321195035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2773338514254824272
 Transform:
   m_ObjectHideFlags: 0
@@ -1857,6 +1948,7 @@ RectTransform:
   m_Children:
   - {fileID: 2641001609901226376}
   - {fileID: 2773338514254824272}
+  - {fileID: 908666217}
   m_Father: {fileID: 6033764124026794417}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1882,11 +1974,12 @@ MonoBehaviour:
   postureBarImage: {fileID: 6073771673131533913}
   actionBarImage: {fileID: 1393800484708087435}
   bonusActionBarImage: {fileID: 8649708094019788035}
+  critImage: {fileID: 908666218}
   unitStats: {fileID: 7794121002179147597}
   armorPointsText: {fileID: 6727901948807225756}
   hitChanceText: {fileID: 699626951840713030}
   healthVisual: {fileID: 3897503709042096931}
-  VisualParent: {fileID: 0}
+  VisualParent: {fileID: 6670475032230118251}
 --- !u!114 &7193942445439609395
 MonoBehaviour:
   m_ObjectHideFlags: 0
