@@ -24,12 +24,6 @@ public class GridSystemVisual : MonoBehaviour
     [SerializeField] private int _Far = 6;
     [SerializeField] private int _VeryFar = 9;
 
-    [SerializeField] private Color _transparent = new Color(0f, 0f, 0f, 0f);
-    [SerializeField] private Color _adjacentColor = Color.white;
-    [SerializeField] private Color _closeColor = Color.white;
-    [SerializeField] private Color _farColor = Color.white;
-    [SerializeField] private Color _veryFarColor = Color.white;
-
     private GridSystemVisualSingle[,] gridSystemVisualSingleArray;
 
     private void Awake()
@@ -414,7 +408,7 @@ public class GridSystemVisual : MonoBehaviour
     {
         ResetGrid(selectedUnit);
         ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), veryFar, GridVisualType.White, Effectiveness.Inaccurate, Color.white);
-        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective, Color.white);
+        ShowGridPositionRangeSquare(selectedUnit.GetGridPosition(), adjacent, GridVisualType.Green, Effectiveness.Effective, Color.green);
     }
 
     private void CloseRange(Unit selectedUnit, int close, int far)

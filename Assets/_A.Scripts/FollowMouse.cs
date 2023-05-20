@@ -55,8 +55,10 @@ public class FollowMouse : MonoBehaviour
 
             float rotateAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
 
-            _linePooler[i].transform.position = currentWorldPos;
-            _linePooler[i].transform.rotation = 
+            Vector3 fixedPosition = new Vector3(currentWorldPos.x, 2.25f, currentWorldPos.z);
+
+            _linePooler[i].transform.position = fixedPosition;
+            _linePooler[i].transform.rotation =
                 Quaternion.Euler(_linePooler[i].transform.eulerAngles.x, rotateAngle, _linePooler[i].transform.eulerAngles.z);
         }
     }
