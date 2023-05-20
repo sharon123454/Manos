@@ -6,10 +6,12 @@ public class FollowMouse : MonoBehaviour
 {
     public static FollowMouse Instance;
 
-    [SerializeField] private LayerMask _GroundMask;
+    [SerializeField] private GameObject _DiagLinePrefab;
     [SerializeField] private GameObject _LinePrefab;
+    [SerializeField] private LayerMask _GroundMask;
     [SerializeField] private Transform _LineParent;
 
+    private List<GameObject> _diagLinePooler = new List<GameObject>();
     private List<GameObject> _linePooler = new List<GameObject>();
 
     private void Awake()
@@ -24,7 +26,9 @@ public class FollowMouse : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
+            GameObject diagLine = Instantiate(_DiagLinePrefab, _LineParent);
             GameObject line = Instantiate(_LinePrefab, _LineParent);
+            _diagLinePooler.Add(diagLine);
             _linePooler.Add(line);
         }
     }
@@ -42,8 +46,11 @@ public class FollowMouse : MonoBehaviour
 
     public void DrawLineOnPath(List<GridPosition> _pathGridPositionList)
     {
-        foreach (GameObject line in _linePooler)
-            line.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        for (int i = 0; i < _diagLinePooler.Count - 1; i++)
+        {
+            _diagLinePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _linePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
 
         for (int i = 0; i < _pathGridPositionList.Count - 1; i++)
         {
@@ -57,9 +64,18 @@ public class FollowMouse : MonoBehaviour
 
             Vector3 fixedPosition = new Vector3(currentWorldPos.x, 2.25f, currentWorldPos.z);
 
-            _linePooler[i].transform.position = fixedPosition;
-            _linePooler[i].transform.rotation =
-                Quaternion.Euler(_linePooler[i].transform.eulerAngles.x, rotateAngle, _linePooler[i].transform.eulerAngles.z);
+            if (Vector3.Distance(currentWorldPos, nextWorldPos) > 2f)
+            {
+                _diagLinePooler[i].transform.position = fixedPosition;
+                _diagLinePooler[i].transform.rotation =
+                    Quaternion.Euler(_diagLinePooler[i].transform.eulerAngles.x, rotateAngle, _diagLinePooler[i].transform.eulerAngles.z);
+            }
+            else
+            {
+                _linePooler[i].transform.position = fixedPosition;
+                _linePooler[i].transform.rotation =
+                    Quaternion.Euler(_linePooler[i].transform.eulerAngles.x, rotateAngle, _linePooler[i].transform.eulerAngles.z);
+            }
         }
     }
 
