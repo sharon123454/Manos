@@ -33,7 +33,6 @@ public class PathFinding : MonoBehaviour
         if (createDebug)
             gridSystem.CreateDebugObjects(PathFindingDebugObject);
 
-        // x to check for obstacles, going through grid
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < length; z++)
@@ -49,12 +48,12 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    public bool IsWalkableGridPosition(GridPosition gridPosition) 
+    public bool IsWalkableGridPosition(GridPosition gridPosition)
     {
         return gridSystem.GetGridObject(gridPosition).IsWalkable();
     }
-    
-    public void SetWalkableGridPosition(GridPosition gridPosition, bool isWalkable) 
+
+    public void SetWalkableGridPosition(GridPosition gridPosition, bool isWalkable)
     {
         gridSystem.GetGridObject(gridPosition).SetIsWalkable(isWalkable);
     }
@@ -247,8 +246,7 @@ public class PathFinding : MonoBehaviour
     private List<GridPosition> CalculatePath(PathNode endNode)
     {
         //create path node list and start and the end
-        List<PathNode> pathNodeList = new List<PathNode>();
-        pathNodeList.Add(endNode);
+        List<PathNode> pathNodeList = new List<PathNode> { endNode };
         PathNode currentNode = endNode;
 
         //does it have a node it came from?
