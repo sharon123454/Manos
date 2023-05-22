@@ -48,6 +48,23 @@ public class UnitAnimator : MonoBehaviour
         {
             disengageAction.OnDisengage += DisengageAction_OnDisengage;
         }
+
+        if (TryGetComponent<MurderAction>(out MurderAction murderAction))
+        {
+            murderAction.OnMeleeActionStarted += MeleeAction_OnMeleeActionStarted;
+            murderAction.OnMeleeActionCompleted += MeleeAction_OnMeleeActionCompleted;
+        }
+
+        if (TryGetComponent<PunctureAction>(out PunctureAction punctureAction))
+        {
+            punctureAction.OnMeleeActionStarted += MeleeAction_OnMeleeActionStarted;
+            punctureAction.OnMeleeActionCompleted += MeleeAction_OnMeleeActionCompleted;
+        }
+
+        if (TryGetComponent<BlindingBolt>(out BlindingBolt boltAction))
+        {
+            boltAction.OnShoot += BoltAction_OnShoot;
+        }
     }
 
     private void Start()
@@ -65,7 +82,7 @@ public class UnitAnimator : MonoBehaviour
 
     private void DodgeAction_OnDodgeAction(object sender, EventArgs e)
     {
-
+        animator.SetTrigger("Dodge");
     }
 
     private void BlockAction_OnBlockAction(object sender, EventArgs e)
@@ -89,6 +106,19 @@ public class UnitAnimator : MonoBehaviour
     }
 
     private void ShootAction_OnShoot(object sender, ShootAction.OnSHootEventArgs e)
+    {
+        animator.SetTrigger("Shoot");
+
+        Transform bulletProjectileTransform =  Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
+
+        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        targetUnitShootAtPosition.y = shootPointTransform.position.y;
+
+        bulletProjectile.SetUp(targetUnitShootAtPosition);
+    }
+    
+    private void BoltAction_OnShoot(object sender, BlindingBolt.OnSHootEventArgs e)
     {
         animator.SetTrigger("Shoot");
 

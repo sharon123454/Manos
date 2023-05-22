@@ -19,7 +19,7 @@ public class UnitStats : MonoBehaviour
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float evasion = 20;
 
-    public float health;
+    [HideInInspector] public float health;
     public float Armor = 0;
     private float currentPosture;
     private int armorMultiplayer = 1;

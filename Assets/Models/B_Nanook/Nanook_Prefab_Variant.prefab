@@ -1,81 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &89907414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 89907415}
-  - component: {fileID: 89907417}
-  - component: {fileID: 89907416}
-  m_Layer: 5
-  m_Name: Crit! (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &89907415
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89907414}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029504295}
-  m_LocalPosition: {x: 0, y: 0, z: 8.41}
-  m_LocalScale: {x: 0.012426731, y: 0.012426731, z: 0.012426731}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6951331853963406200}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.11999893, y: -1.659}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &89907417
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89907414}
-  m_CullTransparentMesh: 1
---- !u!114 &89907416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89907414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 73a8b9ae5a7f3294fb0f5441438b5ae8, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &989221325527515174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5227,29 +5151,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2416568833263840845, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: critImage
-      value: 
-      objectReference: {fileID: 89907416}
-    - target: {fileID: 2416568833263840845, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: VisualParent
-      value: 
-      objectReference: {fileID: 8446577373566408113}
     - target: {fileID: 3438019536766426537, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_Size.x
-      value: 0.8057004
-      objectReference: {fileID: 0}
-    - target: {fileID: 3438019536766426537, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_Center.x
-      value: 0.057310924
-      objectReference: {fileID: 0}
-    - target: {fileID: 3438019536766426537, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_Center.z
-      value: -5.1724625e-10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5319344417233960354, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2.319
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5814306370280244239, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: moveSpeed
@@ -5311,33 +5215,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nanook Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 6670475032230118251, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6733050355325518720, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: favorCost
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: moveSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: addCooldown
-      value: 0
+      propertyPath: rotateSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxMoveDistance
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: actionDescription
-      value: Description...
       objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
@@ -5364,26 +5252,36 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-    - {fileID: 1156274679, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-    - {fileID: 456196801, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-    - {fileID: 7065314422380150051, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
---- !u!224 &6951331853963406200 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5319344417233960354, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-  m_PrefabInstance: {fileID: 3002226316670359258}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8446577373566408113 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6670475032230118251, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-  m_PrefabInstance: {fileID: 3002226316670359258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8797272167150233444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 3002226316670359258}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &478126645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797272167150233444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 6
+  favorCost: 100
+  range: 0
+  _AbilityProperties: 0200000005000000
+  isSpell: 1
+  healValue: 80
 --- !u!114 &732080133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5403,7 +5301,7 @@ MonoBehaviour:
   addCooldown: 3
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 03000000
   isSpell: 0
   damage: 15
   postureDamage: 40
@@ -5434,7 +5332,7 @@ MonoBehaviour:
   addCooldown: 2
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
   isSpell: 0
   damage: 30
   postureDamage: 0
@@ -5442,24 +5340,11 @@ MonoBehaviour:
   critChance: 15
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 0
+  _abilityEffect: 5
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
---- !u!114 &732080137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797272167150233444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MeleeVFX: {fileID: 2433791431723270766, guid: 5b62fc1183387dc4c893f56c3f9eeca8, type: 3}
 --- !u!114 &732080145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5478,7 +5363,7 @@ MonoBehaviour:
   addCooldown: 0
   favorCost: 0
   range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
   isSpell: 0
   damage: 15
   postureDamage: 25
@@ -5491,7 +5376,7 @@ MonoBehaviour:
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
---- !u!114 &478126645
+--- !u!114 &953676725626038863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5500,18 +5385,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797272167150233444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 6
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 
-  isSpell: 1
-  healValue: 80
+  MeleeVFX: {fileID: 5171726026842415124}
 --- !u!4 &8797272167150233451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -5650,3 +5527,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
+--- !u!1 &5171726026842415124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2848857895844214047, guid: 8a0af45012892f7429fabad9f07abd22, type: 3}
+  m_PrefabInstance: {fileID: 6939066545692333323}
+  m_PrefabAsset: {fileID: 0}
