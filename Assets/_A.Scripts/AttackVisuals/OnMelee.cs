@@ -1,16 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class OnMelee : MonoBehaviour
 {
-
-    public GameObject MeleeVFX;
-
-    public IEnumerator PlaySlashAnim()
+    [SerializeField] private ParticleSystem _SlashVFX;
+    [SerializeField] private ParticleSystem[] _HealVFX;
+    
+    public void PlayHealAnim()
     {
-        MeleeVFX.SetActive(true);
-        yield return new WaitForSeconds(2);
-        MeleeVFX.SetActive(false);
+        foreach (ParticleSystem subVFX in _HealVFX)
+            { subVFX.Play(); }
     }
+
+    public void PlaySlashAnim()
+    {
+        _SlashVFX.Play();
+    }
+
 }

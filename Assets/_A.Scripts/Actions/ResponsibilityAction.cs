@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
+using System;
 
 public class ResponsibilityAction : BaseHeal
 {
-    public static event EventHandler OnDivineActive;
+    public event EventHandler OnDivineActive;
+
     private void Update()
     {
         if (!_isActive) { return; }
@@ -16,6 +16,7 @@ public class ResponsibilityAction : BaseHeal
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
+        OnDivineActive?.Invoke(this, EventArgs.Empty);
         unit.GetUnitStats().Heal(healValue);
         ActionStart(actionComplete);
         unit.GetUnitStats().InvokeHPChange();

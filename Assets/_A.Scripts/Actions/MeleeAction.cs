@@ -6,23 +6,17 @@ using System;
 public class MeleeAction : BaseAbility
 {
     public static event EventHandler OnAnyMeleeHit;
-
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
-    private OnMelee melee;
+    
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
-    private Unit targetUnit;
-
     private enum State { SwingBeforeHit, SwingAfterHit, }
     private float stateTimer;
+    private Unit targetUnit;
     private State state;
 
-    void Start()
-    {
-        melee = GetComponent<OnMelee>();
-    }
     private void Update()
     {
         if (!_isActive)
@@ -77,11 +71,6 @@ public class MeleeAction : BaseAbility
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);
-        if (melee != null)
-        {
-            StartCoroutine(melee.PlaySlashAnim());
-
-        }
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

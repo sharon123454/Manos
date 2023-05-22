@@ -65,6 +65,11 @@ public class UnitAnimator : MonoBehaviour
         {
             boltAction.OnShoot += BoltAction_OnShoot;
         }
+
+        if (TryGetComponent<ResponsibilityAction>(out ResponsibilityAction resposiblityAction))
+        {
+            resposiblityAction.OnDivineActive += ResposiblityAction_OnDivineActive;
+        }
     }
 
     private void Start()
@@ -129,6 +134,12 @@ public class UnitAnimator : MonoBehaviour
         targetUnitShootAtPosition.y = shootPointTransform.position.y;
 
         bulletProjectile.SetUp(targetUnitShootAtPosition);
+    }
+    
+    private void ResposiblityAction_OnDivineActive(object sender, EventArgs e)
+    {
+        animator.SetFloat("CastBlend",0);
+        animator.SetTrigger("Shoot");
     }
 
     private void MoveAction_OnStartMoving(object sender, EventArgs e)

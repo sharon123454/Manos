@@ -9,7 +9,6 @@ public class PommelStrike : BaseAbility
 
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
-    private OnMelee melee;
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
@@ -19,10 +18,6 @@ public class PommelStrike : BaseAbility
     private float stateTimer;
     private State state;
 
-    void Start()
-    {
-        melee = GetComponent<OnMelee>();
-    }
     private void Update()
     {
         if (!_isActive)
@@ -77,7 +72,6 @@ public class PommelStrike : BaseAbility
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);
-        StartCoroutine(melee.PlaySlashAnim());
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
