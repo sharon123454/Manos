@@ -80,7 +80,9 @@ public class Unit : MonoBehaviour
 
         #region Move Or Dash
 
-        if (baseAction.GetActionName() == "Move" || baseAction.GetActionName() == "Dash")
+        string actionName = baseAction.GetActionName();
+
+        if (actionName == "Move" || actionName == "Dash")
         {
             Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
             if (selectedunit.unitStatusEffects.ContainsEffect(StatusEffect.Root))

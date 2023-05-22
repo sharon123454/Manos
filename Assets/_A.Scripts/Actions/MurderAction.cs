@@ -116,6 +116,4 @@ public class MurderAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Murder"; }
-
 }

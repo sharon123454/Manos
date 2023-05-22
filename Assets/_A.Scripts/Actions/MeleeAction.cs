@@ -120,6 +120,4 @@ public class MeleeAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Melee"; }
-
 }

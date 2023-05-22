@@ -37,6 +37,4 @@ public class SpinAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName() { return "Spin"; }
-
 }

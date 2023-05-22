@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_Name
-      value: Raynard Variant
+      value: Raynard_Prefab_Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6856433945450308575, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: range
@@ -91,5 +91,215 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!1 &1403111208976152028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2778180436232608870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3be2fa24a9e864eb415bcdfc4d47c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Mend
+  actionDescription: Description...
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  _AbilityProperties: 02000000
+  isSpell: 1
+  healValue: 10
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &9082067475656215039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Ensnarement
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  _AbilityProperties: 05000000
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 13
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &186706266914650329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Sacrificial Purification
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 5
+  _AbilityProperties: 02000000
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 13
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &8028825653965060920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Eruption
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 0
+  _AbilityProperties: 05000000
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  _skillEffect: 0
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7373954477767320176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Holy Hush
+  actionDescription: Description...
+  _isBonusAction: 1
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 4
+  _AbilityProperties: 00000000
+  isSpell: 0
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 2
+  _skillEffect: 0
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7238626904488941387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403111208976152028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Sacred Radiance
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 4
+  _AbilityProperties: 05000000
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 9
+  _skillEffect: 10
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0

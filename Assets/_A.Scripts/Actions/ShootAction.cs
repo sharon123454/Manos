@@ -156,9 +156,6 @@ public class ShootAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Basic"; }
-   // public override int GetCooldown() { return cooldown; }
-
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });

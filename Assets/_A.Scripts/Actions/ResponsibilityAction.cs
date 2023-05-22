@@ -32,5 +32,4 @@ public class ResponsibilityAction : BaseHeal
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName() { return "Heal"; }
 }

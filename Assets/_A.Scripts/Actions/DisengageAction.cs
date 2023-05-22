@@ -32,6 +32,4 @@ public class DisengageAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName() { return "Disengage"; }
-
 }

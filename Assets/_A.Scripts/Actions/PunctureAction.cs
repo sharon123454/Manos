@@ -119,6 +119,4 @@ public class PunctureAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Puncture"; }
-
 }

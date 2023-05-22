@@ -116,6 +116,4 @@ public class PommelStrike : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "PommelStrike"; }
-
 }

@@ -116,6 +116,4 @@ public class BrakeALegAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Root"; }
-
 }

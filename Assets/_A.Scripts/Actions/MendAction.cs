@@ -109,6 +109,4 @@ public class MendAction : BaseHeal
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Heal"; }
-
 }

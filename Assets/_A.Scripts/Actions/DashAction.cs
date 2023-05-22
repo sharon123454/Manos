@@ -114,6 +114,4 @@ public class DashAction : BaseAction
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Dash"; }
-
 }

@@ -31,8 +31,6 @@ public class BaseHeal : BaseAction
         throw new NotImplementedException();
     }
 
-    public override string GetActionName() { return "Heal"; }
-
     protected virtual void CastSpell()
     {
         OnAnySpellCast?.Invoke(this, GetFavorCost());

@@ -37,5 +37,4 @@ public class DeafeningScreechAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName() { return "DeafeningScreech"; }
 }

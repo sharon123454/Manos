@@ -32,6 +32,4 @@ public class BlockAction : BaseAction
         return new List<GridPosition> { _unitGridPosition };
     }
 
-    public override string GetActionName(){ return "Block"; }
-
 }

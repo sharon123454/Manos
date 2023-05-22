@@ -39,7 +39,7 @@ public class MoveAction : BaseAction
 
             if (currentPositionIndex >= positionList.Count)
             {
-                OnStopMoving.Invoke(this, EventArgs.Empty);
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
             }
         }
@@ -114,8 +114,6 @@ public class MoveAction : BaseAction
 
         return _validGridPositionList;
     }
-
-    public override string GetActionName() { return "Move"; }
 
     public int GetMoveValue() { return moveSpeed; }
 

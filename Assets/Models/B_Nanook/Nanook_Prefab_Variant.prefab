@@ -5213,7 +5213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_Name
-      value: Nanook Variant
+      value: Nanook_Prefab_Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: moveSpeed
@@ -5255,6 +5255,7 @@ PrefabInstance:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1 &8797272167150233444 stripped
 GameObject:
@@ -5273,12 +5274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83820d447fb5b03459c18ee8166d3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: Description...
+  _actionName: The Eldest Duty
+  actionDescription: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 6
+  addCooldown: 1
   favorCost: 100
-  range: 0
+  range: 4
   _AbilityProperties: 0200000005000000
   isSpell: 1
   healValue: 80
@@ -5294,14 +5296,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a83a0aa490b0534c993697727206bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: 'Attack an enemy with a chance to root them in place.While affected
-    by root a unit cant use the actions move & dash '
+  _actionName: The King's Roar
+  actionDescription: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 3
+  addCooldown: 1
   favorCost: 0
-  range: 0
-  _AbilityProperties: 03000000
+  range: 1
+  _AbilityProperties: 00000000
   isSpell: 0
   damage: 15
   postureDamage: 40
@@ -5309,7 +5311,7 @@ MonoBehaviour:
   critChance: 25
   statusEffectChance: 30
   statusEffectDuration: 1
-  _abilityEffect: 3
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -5326,12 +5328,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7e3cfa7788ac4468200d1d95766fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _actionName: Pommel Strike
   actionDescription: Description...
   _isBonusAction: 1
   cooldown: 0
   addCooldown: 2
   favorCost: 0
-  range: 0
+  range: 1
   _AbilityProperties: 00000000
   isSpell: 0
   damage: 30
@@ -5357,13 +5360,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDescription: Description...
+  _actionName: Cleave
+  actionDescription: 
   _isBonusAction: 0
   cooldown: 0
-  addCooldown: 0
+  addCooldown: 1
   favorCost: 0
-  range: 0
-  _AbilityProperties: 00000000
+  range: 1
+  _AbilityProperties: 05000000
   isSpell: 0
   damage: 15
   postureDamage: 25

@@ -100,7 +100,7 @@ public class UnitAnimator : MonoBehaviour
 
     }
 
-    private void MeleeAction_OnMeleeActionStarted(object sender, EventArgs e) 
+    private void MeleeAction_OnMeleeActionStarted(object sender, EventArgs e)
     {
         animator.SetTrigger("MeleeAttack");
     }
@@ -109,7 +109,7 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetTrigger("Shoot");
 
-        Transform bulletProjectileTransform =  Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        Transform bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
@@ -117,12 +117,12 @@ public class UnitAnimator : MonoBehaviour
 
         bulletProjectile.SetUp(targetUnitShootAtPosition);
     }
-    
+
     private void BoltAction_OnShoot(object sender, BlindingBolt.OnSHootEventArgs e)
     {
         animator.SetTrigger("Shoot");
 
-        Transform bulletProjectileTransform =  Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
+        Transform bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
         Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();

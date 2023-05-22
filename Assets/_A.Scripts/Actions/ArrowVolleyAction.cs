@@ -57,8 +57,6 @@ public class ArrowVolleyAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Volley"; }
-
     private void OnAOEBehaviourComplete() { ActionComplete(); }
 
 }

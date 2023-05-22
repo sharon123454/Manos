@@ -57,8 +57,6 @@ public class AOEAction : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "AoE"; }
-
     private void OnAOEBehaviourComplete() { ActionComplete(); }
 
 }

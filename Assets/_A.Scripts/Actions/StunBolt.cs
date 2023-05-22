@@ -156,9 +156,6 @@ public class StunBolt : BaseAbility
         return _validGridPositionList;
     }
 
-    public override string GetActionName() { return "Stun"; }
-   // public override int GetCooldown() { return cooldown; }
-
     private void Shoot(float damage)
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });

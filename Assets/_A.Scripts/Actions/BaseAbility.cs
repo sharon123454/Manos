@@ -90,8 +90,6 @@ public class BaseAbility : BaseAction
         throw new NotImplementedException();
     }
 
-    public override string GetActionName() { return "Ability"; }
-
     protected virtual void CastSpell()
     {
         OnAnySpellCast?.Invoke(this, GetFavorCost());

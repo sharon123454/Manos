@@ -8,6 +8,7 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
 
+    [SerializeField] protected string _actionName = "Empty";
     [SerializeField] protected string actionDescription = "Description...";
     [SerializeField] protected bool _isBonusAction;
     [SerializeField] protected int cooldown, addCooldown;
@@ -36,6 +37,8 @@ public abstract class BaseAction : MonoBehaviour
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
         DivineFavorAction.OnDivineActive += BaseAction_OnDivineActive;
     }
+
+    public string GetActionName() { return _actionName; }
 
     public AbilityRange ReturnRange() { return range; }
     private void BaseAction_OnDivineActive(object sender, EventArgs e)
@@ -74,7 +77,6 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
-
         cooldown += addCooldown;
         _isActive = true;
         this.onActionComplete = onActionComple;
@@ -86,8 +88,6 @@ public abstract class BaseAction : MonoBehaviour
     public virtual bool GetIsBonusAction() { return _isBonusAction; }
     public virtual int GetCooldown() { return cooldown; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
-
-    public abstract string GetActionName();
 
     public abstract List<GridPosition> GetValidActionGridPositionList();
 
