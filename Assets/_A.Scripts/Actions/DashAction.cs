@@ -38,7 +38,7 @@ public class DashAction : BaseAction
 
             if (currentPositionIndex >= positionList.Count)
             {
-                OnStopMoving.Invoke(this, EventArgs.Empty);
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
             }
         }
