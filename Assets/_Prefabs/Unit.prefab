@@ -1074,7 +1074,6 @@ GameObject:
   - component: {fileID: 3834886061997412093}
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 5814306370280244239}
-  - component: {fileID: 6856433945450308575}
   - component: {fileID: 3438019536766426537}
   - component: {fileID: 7065314422380150051}
   - component: {fileID: 1156274679}
@@ -1231,43 +1230,6 @@ MonoBehaviour:
   moveSpeed: 4
   rotateSpeed: 8
   maxMoveDistance: 4
---- !u!114 &6856433945450308575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 0
-  range: 3
-  _AbilityProperties: 00000000
-  isSpell: 0
-  damage: 20
-  postureDamage: 15
-  hitChance: 90
-  critChance: 5
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  _skillEffect: 0
-  maxShootDistance: 15
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0
