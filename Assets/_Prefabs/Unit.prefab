@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 908666219}
   - component: {fileID: 908666218}
   m_Layer: 5
-  m_Name: Crit! (2)
+  m_Name: CritUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 7794121002179147597}
   - component: {fileID: 3834886061997412093}
   - component: {fileID: 7237301886958795925}
-  - component: {fileID: 7077772387177686149}
+  - component: {fileID: 506225832036056718}
   - component: {fileID: 5710939152623976360}
   - component: {fileID: 7240871499249384572}
   - component: {fileID: 9153245906922689867}
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   moveSpeed: 4
   rotateSpeed: 7.5
   maxMoveDistance: 4
---- !u!114 &7077772387177686149
+--- !u!114 &506225832036056718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1216,11 +1216,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6033764124026794430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b5620d7c15cb324b962df54c2bbb697, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Dash
-  actionDescription: Description...
+  actionDescription: 
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0

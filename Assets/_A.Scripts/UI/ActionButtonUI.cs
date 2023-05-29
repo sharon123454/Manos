@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEditorInternal;
+using System.Net;
 
 public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -48,10 +50,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-            UpdateSelectedVisual();
-        if (TurnSystem.Instance.IsPlayerTurn())
-        {
-        }
+        UpdateSelectedVisual();
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -68,15 +67,15 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateSelectedVisual()
     {
-        if (TurnSystem.Instance.IsPlayerTurn() && gameObject.name != "EnemyAI")
+        if (TurnSystem.Instance.IsPlayerTurn())
         {
             BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
             Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
-            if (baseAction.GetIsBonusAction())
+            if (bonusActionSelected && baseAction.GetIsBonusAction())
                 bonusActionSelected.SetActive(selectedBaseAction == baseAction);
-            else
+            else if (actionSelected)
                 actionSelected.SetActive(selectedBaseAction == baseAction);
 
             if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
@@ -104,7 +103,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 OnCooldown.SetActive(false);
             }
         }
-        
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

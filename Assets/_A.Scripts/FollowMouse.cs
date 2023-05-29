@@ -46,10 +46,6 @@ public class FollowMouse : MonoBehaviour
 
     public void DrawLineOnPath(List<GridPosition> _pathGridPositionList)
     {
-        if (!TurnSystem.Instance.IsPlayerTurn())
-        {
-            return;
-        }
         for (int i = 0; i < _diagLinePooler.Count - 1; i++)
         {
             _diagLinePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);

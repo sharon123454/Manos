@@ -155,114 +155,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &917842950254405763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Shadow Strike
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  _skillEffect: 0
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &1146658219619221098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c144828feb438854aa130fd871e83875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Murder
-  actionDescription: Description...
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 4
-  favorCost: 100
-  range: 1
-  _AbilityProperties: 01000000
-  isSpell: 1
-  damage: 45
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &1813003133876698878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f9a01e6ac887840b33a99b3bf73271, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Blinding Blot
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 3
-  _AbilityProperties: 00000000
-  isSpell: 0
-  damage: 45
-  postureDamage: 45
-  hitChance: 100
-  critChance: 15
-  statusEffectChance: 100
-  statusEffectDuration: 2
-  _abilityEffect: 10
-  _skillEffect: 10
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &3906072383988323181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,70 +173,6 @@ MonoBehaviour:
   cooldown: 0
   addCooldown: 0
   favorCost: 100
-  range: 0
-  _AbilityProperties: 
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &8253569224495597736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a094196e56195484a9cf1b707a808888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Puncture
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 5
-  favorCost: 200
-  range: 1
-  _AbilityProperties: 03000000
-  isSpell: 1
-  damage: 80
-  postureDamage: 10
-  hitChance: 90
-  critChance: 25
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &8495725604475153949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29232ec3e71644f4d8cf2c03cb598ce9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Stun Bolt
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 4
-  favorCost: 100
   range: 1
   _AbilityProperties: 00000000
   isSpell: 1
@@ -354,9 +182,41 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 1
-  _skillEffect: 1
-  maxShootDistance: 15
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &5519389455470923982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Shadow Strike
+  actionDescription: Description...
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 4
+  _AbilityProperties: 00000000
+  isSpell: 1
+  damage: 10
+  postureDamage: 0
+  hitChance: 100
+  critChance: 0
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  _skillEffect: 0
+  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -364,7 +224,7 @@ MonoBehaviour:
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
 --- !u!4 &6689285964459791149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}

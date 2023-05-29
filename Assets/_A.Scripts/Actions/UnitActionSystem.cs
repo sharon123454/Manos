@@ -38,7 +38,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
     {
-        if (!selectedUnit.IsEnemy())
+        if (TurnSystem.Instance.IsPlayerTurn())
         {
             if (selectedUnit.UsedAllPoints())
             {
