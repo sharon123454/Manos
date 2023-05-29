@@ -86,12 +86,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
                 /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
             {
-                OnCooldown.SetActive(true);
+                if (OnCooldown)
+                    OnCooldown.SetActive(true);
+
                 if (baseAction.GetCooldown() == 0)
                     cooldownVisualProUgui.text = "";
                 else
                     cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
-
             }
             else if (baseAction.GetCooldown() > 0)
             {
@@ -100,10 +101,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
             else
             {
-                OnCooldown.SetActive(false);
+                if (OnCooldown)
+                    OnCooldown.SetActive(false);
             }
         }
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -133,4 +134,5 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
     }
+
 }
