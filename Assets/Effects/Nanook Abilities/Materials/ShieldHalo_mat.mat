@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -22,6 +22,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ShieldHalo_mat
   m_Shader: {fileID: -6465566751694194690, guid: 34b709597aaaf2c489c1e854a6cba67f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -30,6 +32,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -59,6 +62,8 @@ Material:
     - Vector1_7c60e4ba22a0484db0fb3a836cf64232: 1
     - Vector1_d0cdbad446b044078673bd0e4827d05f: 50
     - Vector1_d28a0bf438c04b63b21a45bb5079d835: 0.1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_e656d999bfb641829488e728a4420906: {r: 4.237095, g: 3.8840036, b: 2.1185474, a: 0}
     - Color_e656d999bfb641829488e728a4420906_1: {r: 0.75, g: 0.075, b: 0, a: 0}
