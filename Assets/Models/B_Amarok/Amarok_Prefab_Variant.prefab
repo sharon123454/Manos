@@ -82,6 +82,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: originalRootBone
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -168,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
-  actionDescription: Description...
+  actionDescription: Melee Attack
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
@@ -200,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Strike
-  actionDescription: Description...
+  actionDescription: Ranged Attack
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
@@ -208,10 +216,10 @@ MonoBehaviour:
   range: 4
   _AbilityProperties: 00000000
   isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
+  damage: 63
+  postureDamage: 23
+  hitChance: 120
+  critChance: 18
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0

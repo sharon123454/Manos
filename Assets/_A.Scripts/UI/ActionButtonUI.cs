@@ -4,8 +4,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using UnityEditorInternal;
-using System.Net;
 
 public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {

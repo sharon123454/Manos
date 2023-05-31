@@ -105,6 +105,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: originalRootBone
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3438019536766426537, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_Size.x
       value: 0.8
@@ -229,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: The Eldest Duty
-  actionDescription: 
+  actionDescription: Self Heal
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 1
@@ -251,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Cleave
-  actionDescription: 
+  actionDescription: Melee Attack
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 1
@@ -259,10 +267,10 @@ MonoBehaviour:
   range: 1
   _AbilityProperties: 05000000
   isSpell: 0
-  damage: 15
-  postureDamage: 25
-  hitChance: 200
-  critChance: 100
+  damage: 54
+  postureDamage: 12
+  hitChance: 105
+  critChance: 15
   statusEffectChance: 0
   statusEffectDuration: 0
   _abilityEffect: 0

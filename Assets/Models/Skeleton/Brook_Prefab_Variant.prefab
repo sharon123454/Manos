@@ -124,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_Name
-      value: Brook Variant
+      value: Brook_Prefab_Variant
       objectReference: {fileID: 0}
     - target: {fileID: 833279336532750031, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_IsActive
@@ -169,6 +169,14 @@ PrefabInstance:
     - target: {fileID: 6269624858564118733, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269624859436925542, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269624859436925542, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: originalRootBone
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8332950617364419628, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_SizeDelta.x
@@ -237,9 +245,9 @@ MonoBehaviour:
   range: 1
   _AbilityProperties: 00000000
   isSpell: 1
-  damage: 10
-  postureDamage: 40
-  hitChance: 90
+  damage: 29
+  postureDamage: 1
+  hitChance: 35
   critChance: 10
   statusEffectChance: 0
   statusEffectDuration: 0
