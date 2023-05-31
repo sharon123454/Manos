@@ -48,9 +48,9 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
+            UpdateSelectedVisual();
         if (TurnSystem.Instance.IsPlayerTurn())
         {
-            UpdateSelectedVisual();
         }
     }
 
@@ -68,7 +68,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateSelectedVisual()
     {
-        if (TurnSystem.Instance.IsPlayerTurn())
+        if (TurnSystem.Instance.IsPlayerTurn() && gameObject.name != "EnemyAI")
         {
             BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
