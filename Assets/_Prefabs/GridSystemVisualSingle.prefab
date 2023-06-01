@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4330554000439319916}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -60,7 +60,8 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 2100000, guid: 7fa3aaa80a3b67a418244bea9adf9753, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 8470234128428567523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4330554001003832270}
@@ -266,13 +267,21 @@ PrefabInstance:
       propertyPath: _Outline
       value: 
       objectReference: {fileID: 5996915372917570724}
+    - target: {fileID: 5504498944505987258, guid: 1cee7608886d3c54a9f699b3bac3bb7d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504498944505987258, guid: 1cee7608886d3c54a9f699b3bac3bb7d, type: 3}
+      propertyPath: m_DecalLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5504498944505987259, guid: 1cee7608886d3c54a9f699b3bac3bb7d, type: 3}
       propertyPath: m_Name
       value: Decal_Cube_Grid
       objectReference: {fileID: 0}
     - target: {fileID: 5504498944505987259, guid: 1cee7608886d3c54a9f699b3bac3bb7d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5504498944505987262, guid: 1cee7608886d3c54a9f699b3bac3bb7d, type: 3}
       propertyPath: m_RootOrder
