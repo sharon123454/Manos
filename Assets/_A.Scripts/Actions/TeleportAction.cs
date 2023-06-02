@@ -3,14 +3,14 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class MoveAction : BaseAction
+public class TeleportAction : BaseAction
 {
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private int moveSpeed = 4;
-    [SerializeField] private float rotateSpeed = 7.5f;
-    [SerializeField] private int maxMoveDistance = 3;
+   // [SerializeField] private int moveSpeed = 4;
+   // [SerializeField] private float rotateSpeed = 7.5f;
+    [SerializeField] private int maxTeleportDistance = 3;
 
     private int pathfindingDistanceMultiplier = 10;
     private float stoppingDistance = .1f;
@@ -21,17 +21,17 @@ public class MoveAction : BaseAction
     {
         if (!_isActive) { return; }
 
-        Vector3 targetPosition = positionList[currentPositionIndex];
-        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+        Vector3 targetPosition = positionList[^1];
+       // Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+       transform.position = targetPosition;
 
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
-                transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
-            else
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            //if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+            //    transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+            //else
+            //    transform.position += moveDirection * moveSpeed * Time.deltaTime;
         }
         else
         {
@@ -83,9 +83,9 @@ public class MoveAction : BaseAction
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
         GridPosition _unitGridPosition = unit.GetGridPosition();
 
-        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
+        for (int x = -maxTeleportDistance; x <= maxTeleportDistance; x++)
         {
-            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
+            for (int z = -maxTeleportDistance; z <= maxTeleportDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = _unitGridPosition + offsetGridPosition;
@@ -105,7 +105,7 @@ public class MoveAction : BaseAction
                 if (!PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If grid position is Unreachable
                     continue;
 
-                if (PathFinding.Instance.GetPathLength(_unitGridPosition, testGridPosition) > maxMoveDistance * pathfindingDistanceMultiplier) // If path length is too Long (blocking other side of wall grid positions)
+                if (PathFinding.Instance.GetPathLength(_unitGridPosition, testGridPosition) > maxTeleportDistance * pathfindingDistanceMultiplier) // If path length is too Long (blocking other side of wall grid positions)
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);
@@ -115,6 +115,6 @@ public class MoveAction : BaseAction
         return _validGridPositionList;
     }
 
-    public int GetMoveValue() { return maxMoveDistance; }
+    public int GetTeleportValue() { return maxTeleportDistance; }
 
 }

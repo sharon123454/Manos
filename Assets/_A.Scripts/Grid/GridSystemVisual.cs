@@ -208,45 +208,58 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        switch (range)
+        if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction || UnitActionSystem.Instance.GetSelectedAction() is TeleportAction)
         {
-            case 1://_adjacent
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
-                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
-                    }
-                break;
-            case 4://_close
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
-                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
-                    }
-                break;
-            case 6://_far
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
-                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
-                    }
-                break;
-            case 9://_veryFar
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
-                        gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
-                    }
-                break;
-            default:
-                break;
+            foreach (var position in gridPosList)
+                if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                {
+                    gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                    gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                }
+            ShowGridPositionList(gridPosList, gridVisualType, type);
+        }
+        else
+        {
+            switch (range)
+            {
+                case 1://_adjacent
+                    foreach (var position in gridPosList)
+                        if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        {
+                            gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+                            gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                        }
+                    break;
+                case 4://_close
+                    foreach (var position in gridPosList)
+                        if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        {
+                            gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                            gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+                        }
+                    break;
+                case 6://_far
+                    foreach (var position in gridPosList)
+                        if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        {
+                            gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                            gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+                        }
+                    break;
+                case 9://_veryFar
+                    foreach (var position in gridPosList)
+                        if (gridSystemVisualSingleArray[position._x, position._z] != null)
+                        {
+                            gridSystemVisualSingleArray[position._x, position._z].SetGridOutLineColor(color);
+                            gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+                        }
+                    break;
+                default:
+                    break;
+            }
+            ShowGridPositionList(gridPosList, gridVisualType, type);
         }
 
-        ShowGridPositionList(gridPosList, gridVisualType, type);
     }
     private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, GridVisualType gridVisualType, Effectiveness type, Color color)
     {
@@ -367,9 +380,18 @@ public class GridSystemVisual : MonoBehaviour
         switch (AbilityRange)
         {
             case AbilityRange.Move:
-                MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
-                if (_move)
+
+                if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
+                {
+                    MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
                     MoveRange(selectedUnit, _move.GetMoveValue());
+                }
+                else if (UnitActionSystem.Instance.GetSelectedAction() is TeleportAction)
+                {
+                    print("INSINDEEEEEEEE");
+                    TeleportAction _teleport = (TeleportAction)UnitActionSystem.Instance.GetSelectedAction();
+                    MoveRange(selectedUnit, _teleport.GetTeleportValue());
+                }
                 break;
             case AbilityRange.Melee:
                 MeleeRange(selectedUnit, _Adjacent, _VeryFar);
@@ -401,6 +423,7 @@ public class GridSystemVisual : MonoBehaviour
     private void MoveRange(Unit selectedUnit, int playerMovement)
     {
         ResetGrid(selectedUnit);
+
         ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, GridVisualType.White, Effectiveness.Miss, Color.white);
     }
 
