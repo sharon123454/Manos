@@ -52,7 +52,7 @@ public class FollowMouse : MonoBehaviour
             _linePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
 
-        for (int i = 0; i < _pathGridPositionList.Count; i++)
+        for (int i = 0; i < _pathGridPositionList.Count - 1; i++)
         {
             GridPosition currentGrid = new GridPosition(_pathGridPositionList[i]._x, _pathGridPositionList[i]._z);
             GridPosition nextGrid = new GridPosition(_pathGridPositionList[i + 1]._x, _pathGridPositionList[i + 1]._z);
