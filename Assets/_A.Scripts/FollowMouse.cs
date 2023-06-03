@@ -46,13 +46,13 @@ public class FollowMouse : MonoBehaviour
 
     public void DrawLineOnPath(List<GridPosition> _pathGridPositionList)
     {
-        for (int i = 0; i < _diagLinePooler.Count - 1; i++)
+        for (int i = 0; i < _diagLinePooler.Count; i++)
         {
             _diagLinePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             _linePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
 
-        for (int i = 0; i < _pathGridPositionList.Count - 1; i++)
+        for (int i = 0; i < _pathGridPositionList.Count; i++)
         {
             GridPosition currentGrid = new GridPosition(_pathGridPositionList[i]._x, _pathGridPositionList[i]._z);
             GridPosition nextGrid = new GridPosition(_pathGridPositionList[i + 1]._x, _pathGridPositionList[i + 1]._z);
