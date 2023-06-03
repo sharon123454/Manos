@@ -1,17 +1,19 @@
+using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(DecalProjector))]
 public class UnitSelectedVisual : MonoBehaviour
 {
     [SerializeField] private Unit unit;
 
-    private MeshRenderer meshRenderer;
+    private DecalProjector decalProjector;
 
     private void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        decalProjector = GetComponent<DecalProjector>();
     }
 
     private void Start()
@@ -34,9 +36,9 @@ public class UnitSelectedVisual : MonoBehaviour
     private void UpdateVisual()
     {
         if (UnitActionSystem.Instance.GetSelectedUnit() == unit)
-            meshRenderer.enabled = true;
+            decalProjector.enabled = true;
         else
-            meshRenderer.enabled = false;
+            decalProjector.enabled = false;
     }
 
 }
