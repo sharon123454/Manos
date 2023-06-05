@@ -19,7 +19,7 @@ public class UnitStats : MonoBehaviour
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float evasion = 20;
 
-    [HideInInspector] public float health;
+    /*[HideInInspector]*/ public float health;
     public float Armor = 0;
     private float currentPosture;
     private int armorMultiplayer = 1;
@@ -123,6 +123,11 @@ public class UnitStats : MonoBehaviour
         #endregion
         #region Damage To Recieve Types
         float damageToRecieve;
+        if (AP.Contains(AbilityProperties.Heal))
+        {
+            Heal(rawDamage);
+            return;
+        }
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
         {
             hitChance /= 2;
