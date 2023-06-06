@@ -115,6 +115,6 @@ public class MoveAction : BaseAction
         return _validGridPositionList;
     }
 
-    public int GetMoveValue() { return moveSpeed; }
+    public int GetMoveValue() { return maxMoveDistance; }
 
 }

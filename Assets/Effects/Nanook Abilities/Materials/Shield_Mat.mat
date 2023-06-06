@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -22,6 +22,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Shield_Mat
   m_Shader: {fileID: -6465566751694194690, guid: 9acb88ec3fada87439d9fa097a101cf4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -30,6 +32,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -54,12 +57,14 @@ Material:
     - Vector1_061d6baa6ab4457fa9862be883fe4f82: 15
     - Vector1_1873d473d2b04702b3e730c113ba7e05: 0
     - Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb: 1
-    - Vector1_5312ce21989a442484fe9fd97e887b92: 0
-    - Vector1_661e2725df0c4f9ab83bb3082e39f3f8: -0.25
-    - Vector1_7c60e4ba22a0484db0fb3a836cf64232: 1
-    - Vector1_d0cdbad446b044078673bd0e4827d05f: 75
+    - Vector1_5312ce21989a442484fe9fd97e887b92: 0.2
+    - Vector1_661e2725df0c4f9ab83bb3082e39f3f8: -0.35
+    - Vector1_7c60e4ba22a0484db0fb3a836cf64232: -0.5
+    - Vector1_d0cdbad446b044078673bd0e4827d05f: 10
     - Vector1_d28a0bf438c04b63b21a45bb5079d835: 0.12
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
-    - Color_e656d999bfb641829488e728a4420906: {r: 1.4980392, g: 1.0901961, b: 0.63529414, a: 0}
-    - Color_e656d999bfb641829488e728a4420906_1: {r: 2.9960785, g: 0.28235295, b: 0, a: 0}
+    - Color_e656d999bfb641829488e728a4420906: {r: 0.3773585, g: 0.262841, b: 0.13705945, a: 1}
+    - Color_e656d999bfb641829488e728a4420906_1: {r: 2, g: 0.18848166, b: 0, a: 0}
   m_BuildTextureStacks: []

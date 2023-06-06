@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 6689285964459791149}
     m_Modifications:
     - target: {fileID: 1413584555336163347, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
@@ -64,7 +65,15 @@ PrefabInstance:
       value: 0.102869965
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+--- !u!4 &1390155840202112614 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1413584555336163347, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+  m_PrefabInstance: {fileID: 59915648165486197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4141933727920432936 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: -5066613141030553251, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
@@ -80,15 +89,24 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 37171138, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: originalRootBone
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -147,122 +165,33 @@ PrefabInstance:
       propertyPath: shootPointTransform
       value: 
       objectReference: {fileID: 7017373684755793326}
+    - target: {fileID: 9054519562359764872, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_DecalLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1390155840202112614}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8512009158752907042}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3906072383988323181}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5519389455470923982}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!1 &6689285964459791138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &917842950254405763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Shadow Strike
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  _skillEffect: 0
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &1146658219619221098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c144828feb438854aa130fd871e83875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Murder
-  actionDescription: Description...
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 4
-  favorCost: 100
-  range: 1
-  _AbilityProperties: 01000000
-  isSpell: 1
-  damage: 45
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &1813003133876698878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f9a01e6ac887840b33a99b3bf73271, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Blinding Blot
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 3
-  _AbilityProperties: 00000000
-  isSpell: 0
-  damage: 45
-  postureDamage: 45
-  hitChance: 100
-  critChance: 15
-  statusEffectChance: 100
-  statusEffectDuration: 2
-  _abilityEffect: 10
-  _skillEffect: 10
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &3906072383988323181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,74 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
-  actionDescription: Description...
+  actionDescription: Melee Attack
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &8253569224495597736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a094196e56195484a9cf1b707a808888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Puncture
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 5
-  favorCost: 200
-  range: 1
-  _AbilityProperties: 03000000
-  isSpell: 1
-  damage: 80
-  postureDamage: 10
-  hitChance: 90
-  critChance: 25
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &8495725604475153949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29232ec3e71644f4d8cf2c03cb598ce9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Stun Bolt
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 4
   favorCost: 100
   range: 1
   _AbilityProperties: 00000000
@@ -354,9 +219,41 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 1
-  _skillEffect: 1
-  maxShootDistance: 15
+  _abilityEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  afterHitStateTime: 0.5
+  rotateToTargetSpeed: 10
+--- !u!114 &5519389455470923982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Shadow Strike
+  actionDescription: Ranged Attack
+  _isBonusAction: 0
+  cooldown: 0
+  addCooldown: 0
+  favorCost: 100
+  range: 4
+  _AbilityProperties: 00000000
+  isSpell: 1
+  damage: 63
+  postureDamage: 23
+  hitChance: 120
+  critChance: 18
+  statusEffectChance: 0
+  statusEffectDuration: 0
+  _abilityEffect: 0
+  _skillEffect: 0
+  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -364,9 +261,79 @@ MonoBehaviour:
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
 --- !u!4 &6689285964459791149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2081974429006526638
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6689285964459791149}
+    m_Modifications:
+    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_Name
+      value: Nanook_Heal_Friendly
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+--- !u!4 &8512009158752907042 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+  m_PrefabInstance: {fileID: 2081974429006526638}
   m_PrefabAsset: {fileID: 0}

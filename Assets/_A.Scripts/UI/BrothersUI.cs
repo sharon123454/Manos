@@ -13,11 +13,12 @@ public class BrothersUI : MonoBehaviour
     [SerializeField] private Image healthBar, postureBar;
     [SerializeField] private Image actionImage, bonusActionImage;
     [SerializeField] private int brotherIndex;
+
     private Color actionBarDefualtColor;
     private Color BonusactionBarDefualtColor;
-
     private Unit specificBro;
     private string thisUnitName;
+
     void Start()
     {
         actionBarDefualtColor = actionImage.color;
@@ -31,11 +32,10 @@ public class BrothersUI : MonoBehaviour
         unit = UnitManager.Instance.GetFriendlyUnitList();
         specificBro = unit[brotherIndex];
         thisUnitName = specificBro.name;
-
     }
+
     void Update()
     {
-
         if (specificBro != null)
         {
             if (specificBro.GetUnitStats().health >= 0)

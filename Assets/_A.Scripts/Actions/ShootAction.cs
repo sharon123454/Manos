@@ -15,7 +15,7 @@ public class ShootAction : BaseAbility
         public Unit shootingUnit;
     }
 
-    [SerializeField] private StatusEffect _skillEffect;
+    //[SerializeField] private StatusEffect _skillEffect;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
@@ -139,7 +139,7 @@ public class ShootAction : BaseAbility
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
-                if (targetUnit.IsEnemy() == unit.IsEnemy())// Both units on the same team
+                if (targetUnit.IsEnemy() == unit.IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
                     continue;
 
                 Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);

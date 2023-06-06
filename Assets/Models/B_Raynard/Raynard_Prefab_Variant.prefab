@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 456196801, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -21,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91,72 +92,35 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9054519562359764872, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_DecalLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1954906679810133789}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 186706266914650329}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7238626904488941387}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!4 &1403111208976152019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1403111208976152028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 4667108780007785570}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2778180436232608870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403111208976152028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3be2fa24a9e864eb415bcdfc4d47c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Mend
-  actionDescription: Description...
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 02000000
-  isSpell: 1
-  healValue: 10
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
---- !u!114 &9082067475656215039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403111208976152028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Ensnarement
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 0
-  _AbilityProperties: 05000000
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 13
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
 --- !u!114 &186706266914650329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,26 +134,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacrificial Purification
-  actionDescription: Description...
+  actionDescription: Melee
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
   favorCost: 100
-  range: 5
-  _AbilityProperties: 02000000
+  range: 1
+  _AbilityProperties: 00000000
   isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
+  damage: 45
+  postureDamage: 89
+  hitChance: 110
+  critChance: 25
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 13
+  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
---- !u!114 &8028825653965060920
+--- !u!114 &7238626904488941387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,17 +165,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Eruption
-  actionDescription: Description...
+  _actionName: Sacred Radiance
+  actionDescription: Ranged Attack
   _isBonusAction: 0
   cooldown: 0
   addCooldown: 0
   favorCost: 100
-  range: 0
+  range: 4
   _AbilityProperties: 05000000
   isSpell: 1
-  damage: 10
-  postureDamage: 0
+  damage: 41
+  postureDamage: 58
   hitChance: 100
   critChance: 0
   statusEffectChance: 0
@@ -227,79 +191,73 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &7373954477767320176
-MonoBehaviour:
+--- !u!1001 &8207012942272059537
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1403111208976152019}
+    m_Modifications:
+    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_Name
+      value: Nanook_Heal_Friendly
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+--- !u!4 &1954906679810133789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
+  m_PrefabInstance: {fileID: 8207012942272059537}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403111208976152028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Holy Hush
-  actionDescription: Description...
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 4
-  _AbilityProperties: 00000000
-  isSpell: 0
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 2
-  _skillEffect: 0
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &7238626904488941387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403111208976152028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Sacred Radiance
-  actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
-  range: 4
-  _AbilityProperties: 05000000
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  _abilityEffect: 9
-  _skillEffect: 10
-  maxShootDistance: 5
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
-  unitShoulderHeight: 1.7
-  obstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 0

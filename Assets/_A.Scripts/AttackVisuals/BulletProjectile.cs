@@ -24,7 +24,8 @@ public class BulletProjectile : MonoBehaviour
         {
             transform.position = targetPos;
 
-            //trailRenderer.transform.parent = null;
+            if (trailRenderer)
+                trailRenderer.transform.parent = null;
 
             Destroy(gameObject);
 

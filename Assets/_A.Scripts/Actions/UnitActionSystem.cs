@@ -38,7 +38,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
     {
-        if (!selectedUnit.IsEnemy())
+        if (TurnSystem.Instance.IsPlayerTurn())
         {
             if (selectedUnit.UsedAllPoints())
             {
@@ -148,10 +148,10 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (ManosInputController.Instance.Click.IsPressed())
         {
-            if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
-            {
-                return false;
-            }
+            //if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
+            //{
+            //    return false;
+            //}
             Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
 
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))

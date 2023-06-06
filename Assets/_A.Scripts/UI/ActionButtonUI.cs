@@ -48,10 +48,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-            UpdateSelectedVisual();
-        if (TurnSystem.Instance.IsPlayerTurn())
-        {
-        }
+        UpdateSelectedVisual();
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -68,15 +65,15 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateSelectedVisual()
     {
-        if (TurnSystem.Instance.IsPlayerTurn() && gameObject.name != "EnemyAI")
+        if (TurnSystem.Instance.IsPlayerTurn())
         {
             BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
             Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
 
-            if (baseAction.GetIsBonusAction())
+            if (bonusActionSelected && baseAction.GetIsBonusAction())
                 bonusActionSelected.SetActive(selectedBaseAction == baseAction);
-            else
+            else if (actionSelected)
                 actionSelected.SetActive(selectedBaseAction == baseAction);
 
             if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
@@ -87,12 +84,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
                 /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
             {
-                OnCooldown.SetActive(true);
+                if (OnCooldown)
+                    OnCooldown.SetActive(true);
+
                 if (baseAction.GetCooldown() == 0)
                     cooldownVisualProUgui.text = "";
                 else
                     cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
-
             }
             else if (baseAction.GetCooldown() > 0)
             {
@@ -101,10 +99,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
             else
             {
-                OnCooldown.SetActive(false);
+                if (OnCooldown)
+                    OnCooldown.SetActive(false);
             }
         }
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -134,4 +132,5 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
     }
+
 }

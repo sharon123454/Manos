@@ -20,6 +20,9 @@ public class GridVisual : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!TurnSystem.Instance.IsPlayerTurn() && !UnitActionSystem.Instance.GetSelectedUnit())
+            return;
+
         if (other.CompareTag("Mouse") && _Outline.OutlineColor != _transparant)//checking transperancy is troll need real fix but works
         {
             if (_lastActiveGridDecal)
@@ -27,19 +30,25 @@ public class GridVisual : MonoBehaviour
 
             _decalProjector.enabled = true;
             _lastActiveGridDecal = _decalProjector;
-            //
+            
             Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
-
-            Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("MousePlane"));
-
-            //
-            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);//change to floor only (not unit)
-            if (UnitActionSystem.Instance.GetSelectedMoveAction() && LevelGrid.Instance.IsValidGridPosition(mouseGridPosition))
+            if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("MousePlane")))
             {
-                //find and draw path to mouse grid position
-                FollowMouse.Instance.DrawLineOnPath(
-                    PathFinding.Instance.FindPath(UnitActionSystem.Instance.GetSelectedUnit().GetGridPosition(),
-                    mouseGridPosition, out int pathLength));
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);//change to floor only (not unit)
+
+                if (UnitActionSystem.Instance.GetSelectedMoveAction() && LevelGrid.Instance.IsValidGridPosition(mouseGridPosition))
+                {
+                    //find and draw path to mouse grid position
+                    FollowMouse.Instance.DrawLineOnPath(
+                        PathFinding.Instance.FindPath(UnitActionSystem.Instance.GetSelectedUnit().GetGridPosition(),
+                        mouseGridPosition, out int pathLength));
+                }
+                else
+                {
+                    List<GridPosition> MousePosList = new List<GridPosition>() { mouseGridPosition};
+                    FollowMouse.Instance.DrawLineOnPath(MousePosList);
+                    //other abilities are selected exc clear.
+                }
             }
         }
     }

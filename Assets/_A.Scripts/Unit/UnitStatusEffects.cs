@@ -68,7 +68,7 @@ public class UnitStatusEffects : MonoBehaviour
         {
             _unit.GetUnitStats().health -= regenerationAmount;
         }
-      //  GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
+        GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
 
         #region EnemyStatusEffects
         if (_unit.IsEnemy())

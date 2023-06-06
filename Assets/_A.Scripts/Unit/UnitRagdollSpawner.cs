@@ -14,16 +14,18 @@ public class UnitRagdollSpawner : MonoBehaviour
     {
         unitStats = GetComponent<UnitStats>();
 
-        unitStats.OnDeath += HealthSystem_OnDeath;
+        //unitStats.OnDeath += HealthSystem_OnDeath;
     }
 
     private void HealthSystem_OnDeath(object sender, EventArgs e)
     {
-        originalRootBone.gameObject.SetActive(false);
-        Transform ragdollTransform = Instantiate(ragdollPrefab, transform.position, transform.rotation);
-        UnitRagdoll unitRagdoll = ragdollTransform.GetComponent<UnitRagdoll>();
-        unitRagdoll.Setup(originalRootBone);
-
+        if (ragdollPrefab)
+        {
+            originalRootBone.gameObject.SetActive(false);
+            Transform ragdollTransform = Instantiate(ragdollPrefab, transform.position, transform.rotation);
+            UnitRagdoll unitRagdoll = ragdollTransform.GetComponent<UnitRagdoll>();
+            unitRagdoll.Setup(originalRootBone);
+        }
     }
 
 }
