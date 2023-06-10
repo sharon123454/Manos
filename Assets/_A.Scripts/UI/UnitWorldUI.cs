@@ -155,7 +155,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 hitChanceText.text = $"hitChance = [{100}]%";
             else
             {
-                switch (unit.GetGridPosition().ReturnRangeType())
+                switch (unit.GetGridPosition().GetEffectiveRange())
                 {
                     case Effectiveness.Effective:
                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";

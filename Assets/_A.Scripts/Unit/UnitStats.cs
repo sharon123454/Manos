@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System;
 //using UnityEditor.PackageManager;
-using TMPro;
-using Random = System.Random;
 
 public class UnitStats : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class UnitStats : MonoBehaviour
     private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
 
-    private Effectiveness GetEffectiveness => _unit.GetGridEffectivness();
+    private Effectiveness GetEffectiveness => LevelGrid.Instance.GetGridPosition(transform.position).GetEffectiveRange();
     private int CurrentEffectiveness
     {
         get

@@ -3,55 +3,53 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(DecalProjector))]
 public class GridVisual : MonoBehaviour
 {
-    [SerializeField] private Outline _Outline;
-
     private static DecalProjector _lastActiveGridDecal;
+    private static MeshRenderer _lastActiveGridMesh;
 
     private DecalProjector _decalProjector;
-    private Color _transparant = new(0, 0, 0, 0);
+    private MeshRenderer _gridVisual;
 
     private void Awake()
     {
         _decalProjector = GetComponent<DecalProjector>();
+        _gridVisual = GetComponent<MeshRenderer>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!TurnSystem.Instance.IsPlayerTurn() && !UnitActionSystem.Instance.GetSelectedUnit())
-            return;
+        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        MoveAction selectedMoveAction = UnitActionSystem.Instance.GetSelectedMoveAction();
 
-        if (other.CompareTag("Mouse") && _Outline.OutlineColor != _transparant)//checking transperancy is troll need real fix but works
+        if (!TurnSystem.Instance.IsPlayerTurn() || !selectedUnit
+            || !selectedMoveAction || !other.CompareTag("Mouse"))
+        { FollowMouse.Instance.TryResetLines(); return; }
+
+        Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
+
+        if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("MousePlane")))
         {
-            if (_lastActiveGridDecal)
-                _lastActiveGridDecal.enabled = false;
+            if (_rayCastHit.point == null) { return; }
 
-            _decalProjector.enabled = true;
-            _lastActiveGridDecal = _decalProjector;
-            
-            Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
-            if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("MousePlane")))
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);//change to floor only (not unit)
+            if (mouseGridPosition == selectedUnit.GetGridPosition()) { return; }
+
+            if (LevelGrid.Instance.IsValidGridPosition(mouseGridPosition))
             {
-                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);//change to floor only (not unit)
+                List<GridPosition> path = PathFinding.Instance.FindPath(selectedUnit.GetGridPosition(), mouseGridPosition, out int pathLength);
 
-                if (UnitActionSystem.Instance.GetSelectedMoveAction() && LevelGrid.Instance.IsValidGridPosition(mouseGridPosition))
-                {
-                    //find and draw path to mouse grid position
-                    FollowMouse.Instance.DrawLineOnPath(
-                        PathFinding.Instance.FindPath(UnitActionSystem.Instance.GetSelectedUnit().GetGridPosition(),
-                        mouseGridPosition, out int pathLength));
-                }
-                else
-                {
-                    List<GridPosition> MousePosList = new List<GridPosition>() { mouseGridPosition};
-                    FollowMouse.Instance.DrawLineOnPath(MousePosList);
-                    //other abilities are selected exc clear.
-                }
+                if (path == null || path.Count > selectedMoveAction.GetMoveValue()) { return; }
+
+                FollowMouse.Instance.DrawLineOnPath(path);
             }
+            else
+                return;
+
+            SingleActivationGridLogic();
         }
     }
+
     private void OnTriggerStay(Collider other)
     {
         //if (other.CompareTag("Mouse"))
@@ -61,6 +59,42 @@ public class GridVisual : MonoBehaviour
     {
         //if (other.CompareTag("Mouse"))
         //Debug.Log("on stay");
+    }
+
+    public void ShowGridVisual()
+    {
+        if (_gridVisual)
+            _gridVisual.enabled = true;
+    }
+    public void UpdateVisualGridColor(Color color)
+    {
+        if (_gridVisual)
+            _gridVisual.material.color = color;
+    }
+    public void HideGridVisual()
+    {
+        if (_gridVisual)
+            _gridVisual.enabled = false;
+    }
+
+    private void SingleActivationGridLogic()
+    {
+        if (_decalProjector)
+        {
+            if (_lastActiveGridDecal)
+                _lastActiveGridDecal.enabled = false;
+
+            _decalProjector.enabled = true;
+            _lastActiveGridDecal = _decalProjector;
+        }
+        if (_gridVisual)
+        {
+            if (_lastActiveGridMesh)
+                _lastActiveGridMesh.enabled = false;
+
+            ShowGridVisual();
+            _lastActiveGridMesh = _gridVisual;
+        }
     }
 
 }

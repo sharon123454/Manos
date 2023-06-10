@@ -13,6 +13,7 @@ public class FollowMouse : MonoBehaviour
 
     private List<GameObject> _diagLinePooler = new List<GameObject>();
     private List<GameObject> _linePooler = new List<GameObject>();
+    private bool _linesAreOut;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class FollowMouse : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             GameObject diagLine = Instantiate(_DiagLinePrefab, _LineParent);
             GameObject line = Instantiate(_LinePrefab, _LineParent);
@@ -46,14 +47,10 @@ public class FollowMouse : MonoBehaviour
 
     public void DrawLineOnPath(List<GridPosition> _pathGridPositionList)
     {
-        if (_pathGridPositionList != null && _pathGridPositionList.Count <= 1)
+        if (_pathGridPositionList == null)
             return;
 
-        for (int i = 0; i < _diagLinePooler.Count; i++)
-        {
-            _diagLinePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            _linePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        }
+        TryResetLines();
 
         for (int i = 0; i < _pathGridPositionList.Count - 1; i++)
         {
@@ -82,6 +79,22 @@ public class FollowMouse : MonoBehaviour
                         Quaternion.Euler(_linePooler[i].transform.eulerAngles.x, rotateAngle, _linePooler[i].transform.eulerAngles.z);
                 }
             }
+
+            _linesAreOut = true;
+        }
+    }
+
+    public void TryResetLines()
+    {
+        if (_linesAreOut)
+        {
+            for (int i = 0; i < _diagLinePooler.Count; i++)
+            {
+                _diagLinePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                _linePooler[i].transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            }
+
+            _linesAreOut = false;
         }
     }
 
