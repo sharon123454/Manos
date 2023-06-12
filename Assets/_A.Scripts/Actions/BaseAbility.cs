@@ -14,12 +14,6 @@ public enum AbilityRange
     InaccurateAtAll/* 0-15 */,
     ResetGrid
 }
-public enum Effectiveness
-{
-    Effective/* 0 - 1 */,
-    Inaccurate/* 0 - 4, 5-9 */,
-    Miss/* 2-4, 5 - 9, 10-15 */,
-}
 
 public enum StatusEffect
 {

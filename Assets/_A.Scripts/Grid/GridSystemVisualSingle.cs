@@ -7,26 +7,34 @@ public class GridSystemVisualSingle : MonoBehaviour
     [SerializeField] private GridVisual _MyVisual;
     [SerializeField] private Outline _Outline;
 
-    public void Show(Material material)
+    public void Show(Color color)
     {
-        //if (outLine != null)
-        //    outLine.enabled = true;
+        if (_MyVisual)
+        {
+            _MyVisual.UpdateVisualGridColor(color);
+            _MyVisual.ShowGridVisual();
+        }
+
+        if (_Outline)
+            _Outline.OutlineColor = color;
+    }
+
+    public void UpdateGridVisualSingle(Color color)
+    {
+        if (_MyVisual)
+            _MyVisual.UpdateVisualGridColor(color);
+
+        if (_Outline)
+            _Outline.OutlineColor = color;
     }
 
     public void Hide()
     {
-        if (_Outline != null)
-            _Outline.OutlineColor = new Color(0, 0, 0, 0);
-    }
+        if (_MyVisual)
+            _MyVisual.HideGridVisual();
 
-    public void SetGridOutLineColor(Color Color)
-    {
-        if (_Outline != null)
-        {
-            _Outline.ChangeOutLineColor(Color);
-            //print(Color);
-        }
-        
+        if (_Outline)
+            _Outline.OutlineColor = new(0, 0, 0, 0);
     }
 
 }
