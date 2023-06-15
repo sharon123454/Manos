@@ -152,6 +152,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowAllHUD"",
+                    ""type"": ""Button"",
+                    ""id"": ""381e73cd-d628-4704-9e8f-d5c6cd451611"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -528,6 +537,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73be661c-4447-4320-b936-e03828d9418e"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ShowAllHUD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -578,6 +598,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerCamera_SwitchSelectedPlayer = m_PlayerCamera.FindAction("SwitchSelectedPlayer", throwIfNotFound: true);
         m_PlayerCamera_SelectActionWithNumbers = m_PlayerCamera.FindAction("SelectActionWithNumbers", throwIfNotFound: true);
         m_PlayerCamera_Interact = m_PlayerCamera.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerCamera_ShowAllHUD = m_PlayerCamera.FindAction("ShowAllHUD", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -653,6 +674,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerCamera_SwitchSelectedPlayer;
     private readonly InputAction m_PlayerCamera_SelectActionWithNumbers;
     private readonly InputAction m_PlayerCamera_Interact;
+    private readonly InputAction m_PlayerCamera_ShowAllHUD;
     public struct PlayerCameraActions
     {
         private @PlayerActions m_Wrapper;
@@ -671,6 +693,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @SwitchSelectedPlayer => m_Wrapper.m_PlayerCamera_SwitchSelectedPlayer;
         public InputAction @SelectActionWithNumbers => m_Wrapper.m_PlayerCamera_SelectActionWithNumbers;
         public InputAction @Interact => m_Wrapper.m_PlayerCamera_Interact;
+        public InputAction @ShowAllHUD => m_Wrapper.m_PlayerCamera_ShowAllHUD;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -722,6 +745,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @ShowAllHUD.started += instance.OnShowAllHUD;
+            @ShowAllHUD.performed += instance.OnShowAllHUD;
+            @ShowAllHUD.canceled += instance.OnShowAllHUD;
         }
 
         private void UnregisterCallbacks(IPlayerCameraActions instance)
@@ -768,6 +794,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @ShowAllHUD.started -= instance.OnShowAllHUD;
+            @ShowAllHUD.performed -= instance.OnShowAllHUD;
+            @ShowAllHUD.canceled -= instance.OnShowAllHUD;
         }
 
         public void RemoveCallbacks(IPlayerCameraActions instance)
@@ -819,5 +848,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnSwitchSelectedPlayer(InputAction.CallbackContext context);
         void OnSelectActionWithNumbers(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnShowAllHUD(InputAction.CallbackContext context);
     }
 }
