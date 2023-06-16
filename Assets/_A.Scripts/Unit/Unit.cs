@@ -124,6 +124,32 @@ public class Unit : MonoBehaviour
 
         #endregion
 
+        #region Action And Bonus Action
+        if (baseAction.ActionUsingBoth() && !usedBonusAction && !usedAction)
+        {
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !isStunned)
+            {
+                if (TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
+                if (!TurnSystem.Instance.IsPlayerTurn())
+                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                    {
+                        return false;
+                    }
+
+                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
+                SpendActionPoints(0);
+                // baseAction._usedAction = true;
+                return true;
+            }
+            else
+                return false;
+        }
+        #endregion
 
         #region Bonus Action
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
@@ -143,7 +169,7 @@ public class Unit : MonoBehaviour
                     }
 
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(true);
+                SpendActionPoints(1);
                 // baseAction._usedAction = true;
                 return true;
             }
@@ -153,7 +179,6 @@ public class Unit : MonoBehaviour
 
 
         #endregion
-
 
         #region Action
         else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
@@ -175,7 +200,7 @@ public class Unit : MonoBehaviour
 
 
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(false);
+                SpendActionPoints(2);
                 //baseAction._usedAction = true;
                 return true;
             }
@@ -204,12 +229,11 @@ public class Unit : MonoBehaviour
     public StatusEffect GetGridStatusEffect() { return gridPosition._currentEffect; }
     public StatusEffect SetGridStatusEffect(StatusEffect currenEffect) { return gridPosition._currentEffect = currenEffect; }
 
-    private void SpendActionPoints(bool isBonusAction)
+    private void SpendActionPoints(int type)
     {
-        if (isBonusAction)
-            usedBonusAction = true;
-        else
-            usedAction = true;
+        if (type == 0) { usedAction = true; }
+        if (type == 1) { usedBonusAction = true; }
+        if (type == 2) { usedAction = true; usedBonusAction = true; }
 
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }

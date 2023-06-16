@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.Assertions.Must;
 
 public abstract class BaseAction : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public abstract class BaseAction : MonoBehaviour
 
     [SerializeField] protected string _actionName = "Empty";
     [SerializeField] protected string actionDescription = "Description...";
-    [SerializeField] protected bool _isBonusAction;
+    [Tooltip("0 = Action, 1 = Bonus Action, 2 = Both")]
+    [SerializeField] protected int typeOfAction;
     [SerializeField] protected int cooldown, addCooldown;
     [SerializeField] protected int favorCost = 100;
     [SerializeField] protected AbilityRange range;
@@ -25,6 +27,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected virtual void Awake()
     {
+
         unit = GetComponent<Unit>();
         if (this is BaseAbility)
         {
@@ -85,7 +88,9 @@ public abstract class BaseAction : MonoBehaviour
 
     public Unit GetUnit() { return unit; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
-    public virtual bool GetIsBonusAction() { return _isBonusAction; }
+    public virtual bool GetIsBonusAction() { if (typeOfAction == 1) { return true; } else return false; }
+    public virtual bool ActionUsingBoth() { if (typeOfAction == 2) { return true; } else return false; }
+
     public virtual int GetCooldown() { return cooldown; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
 
