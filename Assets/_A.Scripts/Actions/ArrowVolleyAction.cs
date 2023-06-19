@@ -17,7 +17,7 @@ public class ArrowVolleyAction : BaseAbility
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         base.TakeAction(gridPosition, actionComplete);
-        Transform aOEProjectileTransform = Instantiate(aOEProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
+        Transform aOEProjectileTransform = Instantiate(aOEProjectilePrefab, GetUnit().GetWorldPosition(), Quaternion.identity);
         AOEProjectile aOEProjectile = aOEProjectileTransform.GetComponent<AOEProjectile>();
         aOEProjectile.Setup(gridPosition, OnAOEBehaviourComplete, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
 
@@ -33,7 +33,7 @@ public class ArrowVolleyAction : BaseAbility
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
 
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = GetUnit().GetGridPosition();
 
         for (int x = -maxThrowDistance; x <= maxThrowDistance; x++)
         {

@@ -9,7 +9,6 @@ public class MendAction : BaseHeal
 
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
-    private OnMelee melee;
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
@@ -19,10 +18,6 @@ public class MendAction : BaseHeal
     private float stateTimer;
     private State state;
 
-    void Start()
-    {
-        melee = GetComponent<OnMelee>();
-    }
     private void Update()
     {
         if (!_isActive)
@@ -33,7 +28,7 @@ public class MendAction : BaseHeal
         switch (state)
         {
             case State.RotateToHeal:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
                 break;
             case State.HealComplete:
@@ -86,7 +81,7 @@ public class MendAction : BaseHeal
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
 
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = GetUnit().GetGridPosition();
 
         for (int x = -maxMeleeDistance; x <= maxMeleeDistance; x++)
         {

@@ -28,7 +28,7 @@ public class MoveAction : BaseAction
 
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+            if (GetUnit().unitStatusEffects.ContainsEffect(StatusEffect.Haste))
                 transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
             else
                 transform.position += moveDirection * moveSpeed * Time.deltaTime;
@@ -48,7 +48,7 @@ public class MoveAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         //find path to action grid position
-        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
+        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(GetUnit().GetGridPosition(), gridPosition, out int pathLength);
 
         //reset current position index, and new position list
         currentPositionIndex = 0;
@@ -81,7 +81,7 @@ public class MoveAction : BaseAction
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
 
         for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
         {

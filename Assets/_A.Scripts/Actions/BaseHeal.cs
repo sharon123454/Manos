@@ -4,21 +4,15 @@ using UnityEngine;
 using System;
 
 
-public class BaseHeal : BaseAction
+public class BaseHeal : BaseAbility
 {
-    public static event EventHandler<int> OnAnySpellCast;
-
-    [SerializeField] protected bool isSpell = true;
-
     [Range(1f, 600f)] [SerializeField] protected float healValue = 10;
 
-
     public float GetHealValue() { return healValue; }
-    public AbilityRange GetRange() { return range; }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        OnAnySpellCast?.Invoke(this, GetFavorCost());
+        base.TakeAction(gridPosition, actionComplete);
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -29,11 +23,6 @@ public class BaseHeal : BaseAction
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         throw new NotImplementedException();
-    }
-
-    protected virtual void CastSpell()
-    {
-        OnAnySpellCast?.Invoke(this, GetFavorCost());
     }
 
 }

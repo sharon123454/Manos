@@ -54,34 +54,29 @@ public class BaseAbility : BaseAction
     [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
     [SerializeField] protected StatusEffect _abilityEffect;
 
-    //status effect? what is it?
-
     public float GetDamage() { return damage; }
-    public AbilityRange GetRange() { return range; }
     public int GetCritChance() { return critChance; }
-    public int GetStatusChance() { return statusEffectChance; }
-    public StatusEffect GetStatusEffect() { return _abilityEffect; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
+    public int GetStatusChance() { return statusEffectChance; }
+    public StatusEffect GetStatusEffect() { return _abilityEffect; }
 
     // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         // cooldown += addCooldown;
-        OnAnySpellCast?.Invoke(this, GetFavorCost());
+        CastSpell();
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
     }
-
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        throw new NotImplementedException();
+        return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
-
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        throw new NotImplementedException();
+        return new List<GridPosition> { GetUnit().GetGridPosition() };
     }
 
     protected virtual void CastSpell()

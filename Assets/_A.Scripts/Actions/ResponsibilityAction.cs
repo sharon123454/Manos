@@ -17,9 +17,9 @@ public class ResponsibilityAction : BaseHeal
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         OnDivineActive?.Invoke(this, EventArgs.Empty);
-        unit.GetUnitStats().Heal(healValue);
+        GetUnit().GetUnitStats().Heal(healValue);
         ActionStart(actionComplete);
-        unit.GetUnitStats().InvokeHPChange();
+        GetUnit().GetUnitStats().InvokeHPChange();
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -29,7 +29,7 @@ public class ResponsibilityAction : BaseHeal
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         return new List<GridPosition> { _unitGridPosition };
     }
 

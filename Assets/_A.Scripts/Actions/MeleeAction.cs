@@ -27,7 +27,7 @@ public class MeleeAction : BaseAbility
         switch (state)
         {
             case State.SwingBeforeHit:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
                 break;
             case State.SwingAfterHit:
@@ -82,7 +82,7 @@ public class MeleeAction : BaseAbility
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
 
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        GridPosition unitGridPosition = GetUnit().GetGridPosition();
 
         for (int x = -maxMeleeDistance; x <= maxMeleeDistance; x++)
         {
@@ -99,7 +99,7 @@ public class MeleeAction : BaseAbility
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
-                if (targetUnit.IsEnemy() == unit.IsEnemy())// Both units on the same team
+                if (targetUnit.IsEnemy() == GetUnit().IsEnemy())// Both units on the same team
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);

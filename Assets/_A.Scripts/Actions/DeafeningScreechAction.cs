@@ -33,7 +33,7 @@ public class DeafeningScreechAction : BaseAction
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         return new List<GridPosition> { _unitGridPosition };
     }
 

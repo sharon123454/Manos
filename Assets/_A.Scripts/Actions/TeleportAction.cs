@@ -48,7 +48,7 @@ public class TeleportAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
         //find path to action grid position
-        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(unit.GetGridPosition(), gridPosition, out int pathLength);
+        List<GridPosition> pathGridPositionList = PathFinding.Instance.FindPath(GetUnit().GetGridPosition(), gridPosition, out int pathLength);
 
         //reset current position index, and new position list
         currentPositionIndex = 0;
@@ -81,7 +81,7 @@ public class TeleportAction : BaseAction
     public override List<GridPosition> GetValidActionGridPositionList()
     {
         List<GridPosition> _validGridPositionList = new List<GridPosition>();
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
 
         for (int x = -maxTeleportDistance; x <= maxTeleportDistance; x++)
         {

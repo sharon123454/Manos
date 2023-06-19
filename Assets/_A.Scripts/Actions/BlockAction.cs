@@ -16,7 +16,7 @@ public class BlockAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        unit.Block();
+        GetUnit().Block();
         OnBlockAction?.Invoke(this, EventArgs.Empty);
         ActionStart(actionComplete);
     }
@@ -28,7 +28,7 @@ public class BlockAction : BaseAction
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         return new List<GridPosition> { _unitGridPosition };
     }
 

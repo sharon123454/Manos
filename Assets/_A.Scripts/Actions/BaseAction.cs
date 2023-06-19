@@ -15,22 +15,24 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected int typeOfAction;
     [SerializeField] protected int cooldown, addCooldown;
     [SerializeField] protected int favorCost = 100;
-    [SerializeField] protected AbilityRange range;
     [SerializeField] protected List<AbilityProperties> _AbilityProperties;
+    [SerializeField] private AbilityRange range;
 
     protected Action onActionComplete;
-    protected Unit unit;
     protected bool _isActive;
     protected bool _usedAction;
+
+    private Unit unit;
 
     BaseAbility baseAbility;
 
     protected virtual void Awake()
     {
-
         unit = GetComponent<Unit>();
+
         if (this is BaseAbility)
         {
+            print("This is base ability?");
             baseAbility = GetComponent<BaseAbility>();
         }
     }
@@ -38,74 +40,12 @@ public abstract class BaseAction : MonoBehaviour
     protected virtual void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
-        DivineFavorAction.OnDivineActive += BaseAction_OnDivineActive;
-    }
-
-    public string GetActionName() { return _actionName; }
-
-    public AbilityRange ReturnRange() { return range; }
-    private void BaseAction_OnDivineActive(object sender, EventArgs e)
-    {
-        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-        if (unit == selectedunit)
-            if (cooldown > 0)
-                cooldown--;
-    }
-
-    private void Instance_OnTurnChange(object sender, EventArgs e)
-    {
-        if (unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
-        {
-            if (cooldown > 0)
-                cooldown--;
-        }
-
-        if (!unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
-        {
-            if (cooldown > 0)
-                cooldown--;
-        }
-    }
-
-    public virtual string GetActionDescription() { return actionDescription; }
-    public virtual int GetFavorCost() { return favorCost; }
-
-    protected void ActionComplete()
-    {
-        _isActive = false;
-        onActionComplete();
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
-        UnitActionSystem.Instance.InvokeAbilityFinished();
-    }
-
-    protected void ActionStart(Action onActionComple)
-    {
-        cooldown += addCooldown;
-        _isActive = true;
-        this.onActionComplete = onActionComple;
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
     }
 
     public Unit GetUnit() { return unit; }
-    public virtual bool GetIfUsedAction() { return _usedAction; }
-    public virtual bool GetIsBonusAction() { if (typeOfAction == 1) { return true; } else return false; }
-    public virtual bool ActionUsingBoth() { if (typeOfAction == 2) { return true; } else return false; }
-
-    public virtual int GetCooldown() { return cooldown; }
+    public AbilityRange GetRange() { return range; }
+    public string GetActionName() { return _actionName; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
-
-    public abstract List<GridPosition> GetValidActionGridPositionList();
-
-    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
-
-    public virtual bool IsValidActionGridPosition(GridPosition gridPosition)
-    {
-        List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
-        return validGridPositionList.Contains(gridPosition);
-    }
-
-    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
-
     public EnemyAIAction GetBestEnemyAIAction()
     {
         List<EnemyAIAction> _enemyAIActionList = new List<EnemyAIAction>();
@@ -125,6 +65,59 @@ public abstract class BaseAction : MonoBehaviour
         }
         else
             return null; // No Possible AI Actions
+    }
+    
+    public virtual int GetCooldown() { return cooldown; }
+    public virtual int GetFavorCost() { return favorCost; }
+    public virtual string GetActionDescription() { return actionDescription; }
+    public virtual bool GetIfUsedAction() { return _usedAction; }
+    public virtual bool GetIsBonusAction() { if (typeOfAction == 1) { return true; } else return false; }
+    public virtual bool ActionUsingBoth() { if (typeOfAction == 2) { return true; } else return false; }
+    public virtual bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
+        return validGridPositionList.Contains(gridPosition);
+    }
+
+    protected void ActionStart(Action onActionComple)
+    {
+        cooldown += addCooldown;
+        _isActive = true;
+        this.onActionComplete = onActionComple;
+        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+    }
+    protected void ActionComplete()
+    {
+        _isActive = false;
+        onActionComplete();
+        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
+        UnitActionSystem.Instance.InvokeAbilityFinished();
+    }
+
+    public abstract List<GridPosition> GetValidActionGridPositionList();
+    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
+    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
+
+    private void Instance_OnTurnChange(object sender, EventArgs e)
+    {
+        if (unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (cooldown > 0)
+                cooldown--;
+        }
+
+        if (!unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (cooldown > 0)
+                cooldown--;
+        }
+    }
+    private void BaseAction_OnDivineActive(object sender, EventArgs e)
+    {
+        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (unit == selectedunit)
+            if (cooldown > 0)
+                cooldown--;
     }
 
 }

@@ -39,7 +39,7 @@ public class ShootAction : BaseAbility
         switch (state)
         {
             case State.Aiming:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
                 break;
             case State.Shooting:
@@ -87,7 +87,7 @@ public class ShootAction : BaseAbility
 
     public override List<GridPosition> GetValidActionGridPositionList()
     {
-        GridPosition _unitGridPosition = unit.GetGridPosition();
+        GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         return GetValidActionGridPositionList(_unitGridPosition);
     }
 
@@ -139,7 +139,7 @@ public class ShootAction : BaseAbility
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
-                if (targetUnit.IsEnemy() == unit.IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
+                if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
                     continue;
 
                 Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
@@ -158,8 +158,8 @@ public class ShootAction : BaseAbility
 
     private void Shoot(float damage)
     {
-        OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
-        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
+        OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
+        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
         targetUnit.Damage(damage,postureDamage, hitChance, critChance, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
     }
 

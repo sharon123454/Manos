@@ -60,7 +60,7 @@ public class GridSystemVisual : MonoBehaviour
 
         if (selectedAction.GetCooldown() > 0) { return; }
 
-        switch (selectedAction.ReturnRange())
+        switch (selectedAction.GetRange())
         {
             case AbilityRange.Move:
             case AbilityRange.Melee:
@@ -69,7 +69,7 @@ public class GridSystemVisual : MonoBehaviour
             case AbilityRange.Long:
             case AbilityRange.EffectiveAtAll:
             case AbilityRange.InaccurateAtAll:
-                FilterByRange(selectedAction.ReturnRange(), selectedUnit);
+                FilterByRange(selectedAction.GetRange(), selectedUnit);
                 break;
             case AbilityRange.ResetGrid:
                 HideAllVisual();
