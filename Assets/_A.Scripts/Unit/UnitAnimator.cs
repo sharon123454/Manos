@@ -49,10 +49,10 @@ public class UnitAnimator : MonoBehaviour
             disengageAction.OnDisengage += DisengageAction_OnDisengage;
         }
 
-        if (TryGetComponent<ResponsibilityAction>(out ResponsibilityAction resposiblityAction))
-        {
-            resposiblityAction.OnDivineActive += ResposiblityAction_OnDivineActive;
-        }
+        //if (TryGetComponent<ResponsibilityAction>(out ResponsibilityAction resposiblityAction))
+        //{
+        //    resposiblityAction.OnDivineActive += ResposiblityAction_OnDivineActive;
+        //}
     }
 
     private void Start()

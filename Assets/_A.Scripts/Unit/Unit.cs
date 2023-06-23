@@ -142,7 +142,7 @@ public class Unit : MonoBehaviour
                     }
 
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(0);
+                SpendActionPoints(2);
                 // baseAction._usedAction = true;
                 return true;
             }
@@ -181,10 +181,11 @@ public class Unit : MonoBehaviour
         #endregion
 
         #region Action
-        else if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
+        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
+
                 if (TurnSystem.Instance.IsPlayerTurn())
                     if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
                     {
@@ -200,7 +201,7 @@ public class Unit : MonoBehaviour
 
 
                 SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(2);
+                SpendActionPoints(0);
                 //baseAction._usedAction = true;
                 return true;
             }

@@ -81,17 +81,10 @@ public class GridSystemVisual : MonoBehaviour
         switch (AbilityRange)
         {
             case AbilityRange.Move:
-
                 if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
                 {
                     MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
                     MoveRange(selectedUnit, _move.GetMoveValue());
-                }
-                else if (UnitActionSystem.Instance.GetSelectedAction() is TeleportAction)
-                {
-                    print("INSINDEEEEEEEE");
-                    TeleportAction _teleport = (TeleportAction)UnitActionSystem.Instance.GetSelectedAction();
-                    MoveRange(selectedUnit, _teleport.GetTeleportValue());
                 }
                 break;
             case AbilityRange.Melee:
@@ -156,7 +149,7 @@ public class GridSystemVisual : MonoBehaviour
 
 
         if (gridPosList.Count > 0)
-            if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction || UnitActionSystem.Instance.GetSelectedAction() is TeleportAction)
+            if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
             {
                 foreach (GridPosition position in gridPosList)
                     if (gridSystemVisualSingleArray[position._x, position._z] != null)

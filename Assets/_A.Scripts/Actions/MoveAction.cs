@@ -16,33 +16,64 @@ public class MoveAction : BaseAction
     private float stoppingDistance = .1f;
     private List<Vector3> positionList;
     private int currentPositionIndex;
-
+    public bool isTeleport = false;
     private void Update()
     {
-        if (!_isActive) { return; }
-
-        Vector3 targetPosition = positionList[currentPositionIndex];
-        Vector3 moveDirection = (targetPosition - transform.position).normalized;
-
-        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
-
-        if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
+        if (isTeleport)
         {
-            if (GetUnit().unitStatusEffects.ContainsEffect(StatusEffect.Haste))
-                transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
-            else
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        }
-        else
-        {
-            currentPositionIndex++;
+            if (!_isActive) { return; }
 
-            if (currentPositionIndex >= positionList.Count)
+            Vector3 targetPosition = positionList[^1];
+            // Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+            transform.position = targetPosition;
+
+            if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
-                OnStopMoving?.Invoke(this, EventArgs.Empty);
-                ActionComplete();
+                //if (unit.unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+                //    transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+                //else
+                //    transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            }
+            else
+            {
+                currentPositionIndex++;
+
+                if (currentPositionIndex >= positionList.Count)
+                {
+                    OnStopMoving?.Invoke(this, EventArgs.Empty);
+                    ActionComplete();
+                }
             }
         }
+        else 
+        {
+            if (!_isActive) { return; }
+
+            Vector3 targetPosition = positionList[currentPositionIndex];
+            Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+
+            if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
+            {
+                if (GetUnit().unitStatusEffects.ContainsEffect(StatusEffect.Haste))
+                    transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+                else
+                    transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            }
+            else
+            {
+                currentPositionIndex++;
+
+                if (currentPositionIndex >= positionList.Count)
+                {
+                    OnStopMoving?.Invoke(this, EventArgs.Empty);
+                    ActionComplete();
+                }
+            }
+        }
+        
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)

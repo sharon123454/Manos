@@ -47,6 +47,17 @@ public class MeleeAction : BaseAbility
                 stateTimer = afterHitStateTime;
 
                 OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
+                if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+                {
+                    foreach (var unit in AOEManager.Instance.DetectAttack())
+                    {
+                        if (unit.IsEnemy())
+                        {
+                            unit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                        }
+                    }
+                    return;
+                }
                 targetUnit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 break;
 

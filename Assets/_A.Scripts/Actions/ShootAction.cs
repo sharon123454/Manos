@@ -160,6 +160,18 @@ public class ShootAction : BaseAbility
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
+        
+        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+        {
+            foreach (var unit in AOEManager.Instance.DetectAttack())
+            {
+                if (unit.IsEnemy())
+                {
+                    unit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                }
+            }
+            return;
+        }
         targetUnit.Damage(damage,postureDamage, hitChance, critChance, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
     }
 
