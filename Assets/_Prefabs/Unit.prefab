@@ -854,7 +854,7 @@ MonoBehaviour:
   m_EndAngleFade: 180
   m_UVScale: {x: 1, y: 1}
   m_UVBias: {x: 0, y: 0}
-  m_DecalLayerMask: 1
+  m_DecalLayerMask: 2
   m_ScaleMode: 0
   m_Offset: {x: 0, y: 0, z: 0.5}
   m_Size: {x: 1.5, y: 1.5, z: 1}
@@ -1047,9 +1047,9 @@ GameObject:
   - component: {fileID: 3834886061997412093}
   - component: {fileID: 7237301886958795925}
   - component: {fileID: 506225832036056718}
-  - component: {fileID: 5710939152623976360}
   - component: {fileID: 7240871499249384572}
   - component: {fileID: 9153245906922689867}
+  - component: {fileID: 5710939152623976360}
   - component: {fileID: 3438019536766426537}
   - component: {fileID: 37171138}
   m_Layer: 6
@@ -1077,7 +1077,7 @@ Transform:
   - {fileID: 138246277607561963}
   - {fileID: 7133889664545816167}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1357164184
 MonoBehaviour:
@@ -1124,11 +1124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091616d43cb73942bd2df3c8e0982b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 120
-  maxPosture: 70
-  evasion: 20
+  maxHealth: 130
+  maxPosture: 100
+  evasion: 10
   health: 0
-  Armor: 0
+  Armor: 20
 --- !u!114 &3834886061997412093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,15 +1173,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Move
   actionDescription: 
-  _isBonusAction: 1
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 1
+  cooldownPostUse: 1
   favorCost: 0
-  range: 0
   _AbilityProperties: 00000000
-  moveSpeed: 4
-  rotateSpeed: 7.5
-  maxMoveDistance: 4
+  range: 0
+  maxMoveDistance: 5
+  visualRotationSpeed: 7.5
+  visualMovementSpeed: 4
+  isTeleport: 0
 --- !u!114 &506225832036056718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,35 +1196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Dash
   actionDescription: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 0
-  range: 0
   _AbilityProperties: 00000000
-  moveSpeed: 6
-  rotateSpeed: 9
-  maxMoveDistance: 6
---- !u!114 &5710939152623976360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6033764124026794430}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314eefd6392ef124383d87bf248bbad9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Disengage
-  actionDescription: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
-  favorCost: 100
   range: 0
-  _AbilityProperties: 
+  maxMoveDistance: 6
+  visualRotationSpeed: 7.5
+  visualMovementSpeed: 4
+  isTeleport: 0
 --- !u!114 &7240871499249384572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,13 +1218,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Block
-  actionDescription: 
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionDescription: Double your armor and reduce incoming posture damage by 50%
+    until the start of your next turn
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 0
   _AbilityProperties: 00000000
+  range: 1
 --- !u!114 &9153245906922689867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,12 +1239,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Dodge
   actionDescription: Description...
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 0
-  _AbilityProperties: 
+  _AbilityProperties: 00000000
+  range: 1
+--- !u!114 &5710939152623976360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033764124026794430}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314eefd6392ef124383d87bf248bbad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Disengage
+  actionDescription: 
+  actionCost: 0
+  cooldownPostUse: 1
+  favorCost: 100
+  _AbilityProperties: 00000000
+  range: 1
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0

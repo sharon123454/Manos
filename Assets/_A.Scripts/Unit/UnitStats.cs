@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-//using UnityEditor.PackageManager;
 
 public class UnitStats : MonoBehaviour
 {
     public static event EventHandler<string> SendConsoleMessage;
 
     public event EventHandler OnDeath;
+    public event EventHandler OnHealed;
     public event EventHandler OnDamaged;
     public event EventHandler OnCriticalHit;
     private Unit _unit;
@@ -17,7 +17,7 @@ public class UnitStats : MonoBehaviour
     [SerializeField] private float maxPosture = 100;
     [SerializeField] private float evasion = 20;
 
-    /*[HideInInspector]*/ public float health;
+    [HideInInspector] public float health;
     public float Armor = 0;
     private float currentPosture;
     private int armorMultiplayer = 1;
@@ -204,6 +204,7 @@ public class UnitStats : MonoBehaviour
         {
             health = maxHealth;
         }
+        OnHealed?.Invoke(this, EventArgs.Empty);
     }
     public void TryToTakeStatusEffect()
     {
@@ -218,12 +219,12 @@ public class UnitStats : MonoBehaviour
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying))
         {
-            OnDamaged?.Invoke(this, EventArgs.Empty);
+            InvokeHPChange();
             return;
         }
         if (health < 0) health = 0;
 
-        OnDamaged?.Invoke(this, EventArgs.Empty);
+        InvokeHPChange();
 
         if (health == 0) Die();
     }

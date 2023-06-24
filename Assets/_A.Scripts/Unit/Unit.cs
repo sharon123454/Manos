@@ -19,6 +19,9 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
+    public static event EventHandler OnAnyUnitDamaged;
+    public static event EventHandler OnAnyUnitHealed;
+    public static event EventHandler OnAnyUnitCriticallyHit;
 
     [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
@@ -40,6 +43,9 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
 
         unitStats.OnDeath += HealthSystem_OnDeath;
+        unitStats.OnHealed += HealthSystem_OnHealed;
+        unitStats.OnDamaged += HealthSystem_OnDamaged;
+        unitStats.OnCriticalHit += HealthSystem_OnCriticallyHit;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -308,6 +314,18 @@ public class Unit : MonoBehaviour
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+    private void HealthSystem_OnDamaged(object sender, EventArgs e)
+    {
+        OnAnyUnitDamaged?.Invoke(this, EventArgs.Empty);
+    }
+    private void HealthSystem_OnCriticallyHit(object sender, EventArgs e)
+    {
+        OnAnyUnitCriticallyHit?.Invoke(this, EventArgs.Empty);
+    }
+    private void HealthSystem_OnHealed(object sender, EventArgs e)
+    {
+        //Activate nanook friendly heal?
     }
 
 }

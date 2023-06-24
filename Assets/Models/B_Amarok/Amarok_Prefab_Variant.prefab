@@ -56,14 +56,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Visual
       objectReference: {fileID: 0}
-    - target: {fileID: 7291872583205962078, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.032058615
-      objectReference: {fileID: 0}
-    - target: {fileID: 7291872583205962078, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.102869965
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79,9 +71,9 @@ Animator:
   m_CorrespondingSourceObject: {fileID: -5066613141030553251, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
   m_PrefabInstance: {fileID: 59915648165486197}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7017373684755793326 stripped
+--- !u!4 &8844708669092567237 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7040925951239068635, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8820980857510594224, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
   m_PrefabInstance: {fileID: 59915648165486197}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1110456871291789980
@@ -106,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -152,11 +144,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Prefab_Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 7240871499249384572, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: actionDescription
-      value: Double your armor and reduce incoming posture damage by 50% until the
-        start of your next turn
-      objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
@@ -164,10 +151,22 @@ PrefabInstance:
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: shootPointTransform
       value: 
-      objectReference: {fileID: 7017373684755793326}
-    - target: {fileID: 9054519562359764872, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_DecalLayerMask
-      value: 2
+      objectReference: {fileID: 8844708669092567237}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: Armor
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: evasion
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxHealth
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxPosture
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -206,20 +205,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
   actionDescription: Melee Attack
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 1
   _AbilityProperties: 00000000
+  range: 1
   isSpell: 1
   damage: 10
   postureDamage: 0
   hitChance: 100
   critChance: 0
+  _statusEffect: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -238,21 +236,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Shadow Strike
   actionDescription: Ranged Attack
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 4
   _AbilityProperties: 00000000
+  range: 4
   isSpell: 1
   damage: 63
   postureDamage: 23
   hitChance: 120
   critChance: 18
+  _statusEffect: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 0
-  _skillEffect: 0
   maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1

@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.Assertions.Must;
 
+public enum TypeOfAction { Action, BonusAction, Both}
 public abstract class BaseAction : MonoBehaviour
 {
     public static event EventHandler OnAnyActionStarted;
@@ -12,9 +12,9 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected string _actionName = "Empty";
     [SerializeField] protected string actionDescription = "Description...";
     [Tooltip("0 = Action, 1 = Bonus Action, 2 = Both")]
-    [SerializeField] protected int typeOfAction;
-    [SerializeField] protected int cooldown, addCooldown;
-    [SerializeField] protected int favorCost = 100;
+    [SerializeField] protected TypeOfAction actionCost;
+    [SerializeField] protected int cooldownPostUse = 1;
+    [SerializeField] protected int favorCost = 0;
     [SerializeField] protected List<AbilityProperties> _AbilityProperties;
     [SerializeField] private AbilityRange range;
 
@@ -23,6 +23,7 @@ public abstract class BaseAction : MonoBehaviour
     protected bool _usedAction;
 
     private Unit unit;
+    private int cooldown;
 
     BaseAbility baseAbility;
 
@@ -71,8 +72,8 @@ public abstract class BaseAction : MonoBehaviour
     public virtual int GetFavorCost() { return favorCost; }
     public virtual string GetActionDescription() { return actionDescription; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
-    public virtual bool GetIsBonusAction() { if (typeOfAction == 1) { return true; } else return false; }
-    public virtual bool ActionUsingBoth() { if (typeOfAction == 2) { return true; } else return false; }
+    public virtual bool GetIsBonusAction() { if ((int)actionCost == 1) { return true; } else return false; }
+    public virtual bool ActionUsingBoth() { if ((int)actionCost == 2) { return true; } else return false; }
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition)
     {
         List<GridPosition> validGridPositionList = GetValidActionGridPositionList();
@@ -81,7 +82,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
-        cooldown += addCooldown;
+        cooldown += cooldownPostUse;
         _isActive = true;
         this.onActionComplete = onActionComple;
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
@@ -111,13 +112,6 @@ public abstract class BaseAction : MonoBehaviour
             if (cooldown > 0)
                 cooldown--;
         }
-    }
-    private void BaseAction_OnDivineActive(object sender, EventArgs e)
-    {
-        Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-        if (unit == selectedunit)
-            if (cooldown > 0)
-                cooldown--;
     }
 
 }

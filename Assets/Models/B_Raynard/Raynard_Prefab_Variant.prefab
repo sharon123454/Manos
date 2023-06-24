@@ -92,9 +92,13 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 9054519562359764872, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_DecalLayerMask
-      value: 2
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: evasion
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -135,20 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Sacrificial Purification
   actionDescription: Melee
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 1
   _AbilityProperties: 00000000
+  range: 1
   isSpell: 1
   damage: 45
   postureDamage: 89
   hitChance: 110
   critChance: 25
+  _statusEffect: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -167,20 +170,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionName: Sacred Radiance
   actionDescription: Ranged Attack
-  _isBonusAction: 0
-  cooldown: 0
-  addCooldown: 0
+  actionCost: 0
+  cooldownPostUse: 1
   favorCost: 100
-  range: 4
   _AbilityProperties: 05000000
+  range: 4
   isSpell: 1
   damage: 41
   postureDamage: 58
   hitChance: 100
   critChance: 0
+  _statusEffect: 0
   statusEffectChance: 0
   statusEffectDuration: 0
-  _abilityEffect: 0
   maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1

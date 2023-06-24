@@ -8,15 +8,16 @@ public class MoveAction : BaseAction
     public event EventHandler OnStartMoving;
     public event EventHandler OnStopMoving;
 
-    [SerializeField] private int moveSpeed = 4;
-    [SerializeField] private float rotateSpeed = 7.5f;
     [SerializeField] private int maxMoveDistance = 3;
+    [SerializeField] private float visualRotationSpeed = 7.5f;
+    [SerializeField] private int visualMovementSpeed = 4;
 
     private int pathfindingDistanceMultiplier = 10;
     private float stoppingDistance = .1f;
     private List<Vector3> positionList;
     private int currentPositionIndex;
     public bool isTeleport = false;
+
     private void Update()
     {
         if (isTeleport)
@@ -53,14 +54,14 @@ public class MoveAction : BaseAction
             Vector3 targetPosition = positionList[currentPositionIndex];
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
+            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * visualRotationSpeed);
 
             if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
             {
                 if (GetUnit().unitStatusEffects.ContainsEffect(StatusEffect.Haste))
-                    transform.position += moveDirection * (moveSpeed * 2) * Time.deltaTime;
+                    transform.position += moveDirection * (visualMovementSpeed * 2) * Time.deltaTime;
                 else
-                    transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                    transform.position += moveDirection * visualMovementSpeed * Time.deltaTime;
             }
             else
             {

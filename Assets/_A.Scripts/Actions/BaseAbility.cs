@@ -6,6 +6,7 @@ using System;
 public enum AbilityRange
 {
     Move,
+    Self,
     Melee/* 0 - 1 */,
     Close/* 0 - 4, 5-9 */,
     Medium/* 2-4, 5 - 9, 10-15 */,
@@ -51,15 +52,17 @@ public class BaseAbility : BaseAction
     [Range(1f, 600f)]
     [SerializeField] protected float damage = 10, postureDamage = 0;
     [Range(0, 200)]
-    [SerializeField] protected int hitChance = 100, critChance, statusEffectChance, statusEffectDuration;
-    [SerializeField] protected StatusEffect _abilityEffect;
+    [SerializeField] protected int hitChance = 100, critChance = 0;
+    [SerializeField] protected StatusEffect _statusEffect;
+    [Range(0, 200)]
+    [SerializeField] protected int statusEffectChance = 0, statusEffectDuration = 1;
 
     public float GetDamage() { return damage; }
     public int GetCritChance() { return critChance; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
     public int GetStatusChance() { return statusEffectChance; }
-    public StatusEffect GetStatusEffect() { return _abilityEffect; }
+    public StatusEffect GetStatusEffect() { return _statusEffect; }
 
     // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 

@@ -63,6 +63,7 @@ public class GridSystemVisual : MonoBehaviour
         switch (selectedAction.GetRange())
         {
             case AbilityRange.Move:
+            case AbilityRange.Self:
             case AbilityRange.Melee:
             case AbilityRange.Close:
             case AbilityRange.Medium:
@@ -74,6 +75,9 @@ public class GridSystemVisual : MonoBehaviour
             case AbilityRange.ResetGrid:
                 HideAllVisual();
                 break;
+            default:
+                Debug.Log("Case not Implamented");
+                return;
         }
     }
     private void FilterByRange(AbilityRange AbilityRange, Unit selectedUnit)
@@ -86,6 +90,9 @@ public class GridSystemVisual : MonoBehaviour
                     MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
                     MoveRange(selectedUnit, _move.GetMoveValue());
                 }
+                break;
+            case AbilityRange.Self:
+                SelfRange(selectedUnit);
                 break;
             case AbilityRange.Melee:
                 MeleeRange(selectedUnit, _Adjacent, _VeryFar);
@@ -109,7 +116,7 @@ public class GridSystemVisual : MonoBehaviour
                 HideAllVisual();
                 break;
             default:
-                print("huh?");
+                Debug.Log("Case not Implamented");
                 break;
         }
     }
@@ -311,6 +318,11 @@ public class GridSystemVisual : MonoBehaviour
     {
         ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar, Color.white, Effectiveness.Miss);
         HideAllVisual();
+    }
+    private void SelfRange(Unit selectedUnit)
+    {
+        HideAllVisual();
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), 0, Color.green, Effectiveness.Effective);
     }
     private void MeleeRange(Unit selectedUnit, int adjacent, int veryFar)
     {

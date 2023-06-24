@@ -5,21 +5,21 @@ using System;
 
 public class BaseHeal : BaseAbility
 {
+    public static event EventHandler OnAnyHealHit;
 
-    public static event EventHandler OnAnyMeleeHit;
-
-    public event EventHandler OnMeleeActionStarted;
-    public event EventHandler OnMeleeActionCompleted;
-    [Range(1f, 600f)][SerializeField] protected float healValue = 10;
+    public event EventHandler OnHealActionStarted;
+    public event EventHandler OnHealActionCompleted;
 
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
-    private Unit targetUnit;
+    [Range(1f, 600f)]
+    [SerializeField] protected float healValue = 10;
 
     private enum State { RotateToHeal, HealComplete, }
+    private Unit targetUnit;
     private float stateTimer;
     private State state;
-    public float GetHealValue() { return healValue; }
+
     private void Update()
     {
         if (!_isActive)
@@ -41,6 +41,8 @@ public class BaseHeal : BaseAbility
             NextState();
     }
 
+    public float GetHealValue() { return healValue; }
+
     private void NextState()
     {
         switch (state)
@@ -49,7 +51,7 @@ public class BaseHeal : BaseAbility
                 state = State.HealComplete;
                 stateTimer = afterHitStateTime;
 
-                OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
+                OnAnyHealHit?.Invoke(this, EventArgs.Empty);
                 if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
                 {
                     foreach (var unit in AOEManager.Instance.DetectAttack())
@@ -66,7 +68,7 @@ public class BaseHeal : BaseAbility
                 break;
 
             case State.HealComplete:
-                OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);
+                OnHealActionCompleted?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
                 break;
         }
@@ -81,7 +83,7 @@ public class BaseHeal : BaseAbility
         state = State.RotateToHeal;
         stateTimer = beforeHitStateTime;
         targetUnit.Heal(healValue);
-        OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
+        OnHealActionStarted?.Invoke(this, EventArgs.Empty);
         targetUnit.GetUnitStats().InvokeHPChange();
         ActionStart(actionComplete);
     }

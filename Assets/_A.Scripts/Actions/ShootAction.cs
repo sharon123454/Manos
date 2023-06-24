@@ -28,8 +28,6 @@ public class ShootAction : BaseAbility
     private float stateTimer;
     private State state;
 
-    public int ReturnFuckingCoolDown() { return cooldown;}
-
     void Update()
     {
         if (!_isActive)
@@ -45,7 +43,6 @@ public class ShootAction : BaseAbility
             case State.Shooting:
                 if (canShootBullt)
                 {
-                    //feed damage through weapon or smtn later on
                     Shoot(damage);
                     canShootBullt = false;
                 }
@@ -167,12 +164,12 @@ public class ShootAction : BaseAbility
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, _abilityEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 }
             }
             return;
         }
-        targetUnit.Damage(damage,postureDamage, hitChance, critChance, _abilityEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
+        targetUnit.Damage(damage,postureDamage, hitChance, critChance, _statusEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
     }
 
 }

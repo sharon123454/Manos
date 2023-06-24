@@ -42,8 +42,10 @@ public class PathFinding : MonoBehaviour
 
                 //if true the position has an obstacle
                 if (Physics.Raycast(worldPosition + Vector3.down * rayCastOffsetDistance, Vector3.up, rayCastOffsetDistance * 2, obstacleLayerMask))
-                    GetNode(x, z).SetIsWalkable(false);
-
+                {
+                    SetWalkableGridPosition(gridPosition, false);
+                    //check for more loop wholes like was here
+                }
             }
         }
     }
