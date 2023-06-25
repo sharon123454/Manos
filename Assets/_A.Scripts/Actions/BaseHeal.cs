@@ -54,12 +54,12 @@ public class BaseHeal : BaseAbility
                 OnAnyHealHit?.Invoke(this, EventArgs.Empty);
                 if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
                 {
-                    foreach (var unit in AOEManager.Instance.DetectAttack())
+                    foreach (var unit in AOEManager.Instance.GetUnitsInRange())
                     {
                         if (!unit.IsEnemy())
                         {
                             unit.Heal(healValue);
-                            print(unit.name);
+                            print(unit.name + "was healed");
                         }
                     }
                     return;
