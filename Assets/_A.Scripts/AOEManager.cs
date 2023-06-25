@@ -12,20 +12,13 @@ public class AOEManager : MonoBehaviour
     public static event EventHandler<Unit> OnAnyUnitEnteredAOE; //connect for visual changes on the units
     public static event EventHandler<Unit> OnAnyUnitExitedAOE;
 
-    public MeshShape shapeOnClickTEST = MeshShape.Cube;
+    //public MeshShape shapeOnClickTEST = MeshShape.Cube;
     [SerializeField] private AOE_MeshType[] meshArrayType;
 
     private List<Unit> _inRangeUnits;
     private MeshCollider _collider;
     private MeshFilter _meshVisual;
-
-    private void Update()//testing
-    {
-        //if (ManosInputController.Instance.Click.IsPressed())
-        //{
-        //    SetAOE(shapeOnClickTEST);
-        //}
-    }
+    private bool isAOEActive;
 
     private void Awake()
     {
@@ -36,6 +29,28 @@ public class AOEManager : MonoBehaviour
         _inRangeUnits = new List<Unit>();
         _collider = GetComponent<MeshCollider>();
         _meshVisual = GetComponent<MeshFilter>();
+    }
+
+    private void Update()
+    {
+        ////testing
+        //if (ManosInputController.Instance.Click.IsPressed())
+        //{
+        //    SetAOE(shapeOnClickTEST);
+        //    isAOEActive = !isAOEActive;
+        //}
+
+        if (isAOEActive)
+        {
+            transform.position = MouseWorld.GetPosition();
+        }
+        else
+        {
+            if (transform.position != Vector3.zero)
+            {
+                transform.position = Vector3.zero;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,12 +78,21 @@ public class AOEManager : MonoBehaviour
 
     public void SetAOE(MeshShape typeOfShape)
     {
-        foreach (var shape in meshArrayType)
+        if (meshArrayType.Length > 0)
         {
-            if (typeOfShape == shape.ShapeType)
+            foreach (var shape in meshArrayType)
             {
-                _meshVisual.mesh = shape.Mesh;
-                _collider.sharedMesh = shape.Mesh;
+                if (typeOfShape == shape.ShapeType)
+                {
+                    if (!shape.Mesh)
+                    {
+                        Debug.Log($"{name}: {typeOfShape} Mesh reference is missing");
+                        return;
+                    }
+
+                    _meshVisual.mesh = shape.Mesh;
+                    _collider.sharedMesh = shape.Mesh;
+                }
             }
         }
     }
