@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public enum MeshShape { Sphere, Cube }
+public enum MeshShape { None, Sphere, Cube }
 [Serializable]
 public struct AOE_MeshType { public MeshShape ShapeType; public Mesh Mesh; }
 public class AOEManager : MonoBehaviour
@@ -33,13 +33,6 @@ public class AOEManager : MonoBehaviour
 
     private void Update()
     {
-        ////testing
-        //if (ManosInputController.Instance.Click.IsPressed())
-        //{
-        //    SetAOE(shapeOnClickTEST);
-        //    isAOEActive = !isAOEActive;
-        //}
-
         if (isAOEActive)
         {
             transform.position = MouseWorld.GetPosition();
@@ -74,9 +67,17 @@ public class AOEManager : MonoBehaviour
             }
     }
 
+    public void SetIsAOEActive(bool isActive, MeshShape AOEMeshType, float rangeMultiplicator)
+    {
+        if (!isActive || AOEMeshType == MeshShape.None) { transform.localScale = Vector3.one; isAOEActive = false; return; }
+
+        InitAOE(AOEMeshType, rangeMultiplicator);
+    }
+    public void DisableAOE() { isAOEActive = false; }
+
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
 
-    public void SetAOE(MeshShape typeOfShape)
+    private void InitAOE(MeshShape typeOfShape, float rangeMultiplicator)
     {
         if (meshArrayType.Length > 0)
         {
@@ -92,9 +93,12 @@ public class AOEManager : MonoBehaviour
 
                     _meshVisual.mesh = shape.Mesh;
                     _collider.sharedMesh = shape.Mesh;
+                    transform.localScale = Vector3.one * LevelGrid.Instance.GetCellSize() * rangeMultiplicator;
                 }
             }
         }
+
+        isAOEActive = true;
     }
 
 }

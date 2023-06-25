@@ -16,7 +16,11 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected int cooldownPostUse = 1;
     [SerializeField] protected int favorCost = 0;
     [SerializeField] protected List<AbilityProperties> _AbilityProperties;
-    [SerializeField] private AbilityRange range;
+    [SerializeField] protected AbilityRange range;
+    [Tooltip("Relevant if AOE")]
+    [SerializeField] protected MeshShape actionMeshShape;
+    [Tooltip("Relevant if AOE")]
+    [SerializeField] protected float meshShapeScaleMultiplicator = 1;
 
     protected Action onActionComplete;
     protected bool _isActive;
@@ -46,6 +50,8 @@ public abstract class BaseAction : MonoBehaviour
     public Unit GetUnit() { return unit; }
     public AbilityRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
+    public MeshShape GetActionMeshShape() { return actionMeshShape; }
+    public float GetMeshScaleMultiplicator() { return meshShapeScaleMultiplicator; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
     public EnemyAIAction GetBestEnemyAIAction()
     {

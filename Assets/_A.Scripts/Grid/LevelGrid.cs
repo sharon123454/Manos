@@ -32,8 +32,8 @@ public class LevelGrid : MonoBehaviour
         PathFinding.Instance.SetUp(_width, _length, _cellSize);
     }
 
+    public float GetCellSize() { return _cellSize; }
     public int GetWidth() { return gridSystem.GetWidth(); }
-
     public int GetLength() { return gridSystem.GetLength(); }
 
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
