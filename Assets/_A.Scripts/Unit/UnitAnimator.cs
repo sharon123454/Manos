@@ -120,6 +120,7 @@ public class UnitAnimator : MonoBehaviour
 
     private void ShootAction_OnShoot(object sender, ShootAction.OnSHootEventArgs e)
     {
+        animator.SetFloat("CastBlend", 0);
         animator.SetTrigger("Shoot");
 
         Transform bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
@@ -151,7 +152,7 @@ public class UnitAnimator : MonoBehaviour
 
     private void BaseHeal_OnHealActionStarted(object sender, EventArgs e)
     {
-        animator.SetFloat("CastBlend", 0);
+        animator.SetFloat("CastBlend", 1);
         animator.SetTrigger("Shoot");
     }
     private void BaseHeal_OnHealActionCompleted(object sender, EventArgs e)

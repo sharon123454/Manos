@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.UIElements;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -124,6 +123,10 @@ public class UnitActionSystem : MonoBehaviour
             selectedBaseAbility = null;
             selectedMoveAction = null;
         }
+
+        AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
+            baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator());
+
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 

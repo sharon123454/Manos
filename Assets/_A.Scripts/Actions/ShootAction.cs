@@ -160,7 +160,7 @@ public class ShootAction : BaseAbility
         
         if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
         {
-            foreach (var unit in AOEManager.Instance.DetectAttack())
+            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
             {
                 if (unit.IsEnemy())
                 {
