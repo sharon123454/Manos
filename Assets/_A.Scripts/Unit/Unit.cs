@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
     [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
+    private Outline unitOutline;
     private UnitStats unitStats;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class Unit : MonoBehaviour
         unitStats = GetComponent<UnitStats>();
         baseActionArray = GetComponents<BaseAction>();
         unitStatusEffects = GetComponent<UnitStatusEffects>();
+        unitOutline = GetComponentInChildren<Outline>();
     }
 
     private void Start()
@@ -313,6 +315,7 @@ public class Unit : MonoBehaviour
     private void HealthSystem_OnDeath(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        unitOutline.enabled = false;
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
     private void HealthSystem_OnDamaged(object sender, EventArgs e)
