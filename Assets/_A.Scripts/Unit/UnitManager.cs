@@ -8,11 +8,12 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
     public static event EventHandler GameLost;
+    public static event EventHandler GameWon;
 
     private List<Unit> unitList;
     private List<Unit> enemyUnitList;
     private List<Unit> friendlyUnitList;
-    private bool partyWipped = false;
+    private bool partyWipped = false, partyWin = false;
     private int friendlyID = 0;
 
     private void Awake()
@@ -26,7 +27,7 @@ public class UnitManager : MonoBehaviour
         enemyUnitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
     }
-    public List<Unit> ReturnFreindlyUnits() { return friendlyUnitList; }
+
     private void Start()
     {
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
@@ -46,30 +47,14 @@ public class UnitManager : MonoBehaviour
     }
 
     public List<Unit> GetUnitList() { return unitList; }
-
     public List<Unit> GetEnemyUnitList() { return enemyUnitList; }
-
     public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
 
-    public void SelectFriendlyUnitWithUI(int brotherID)
+    public void SelectFriendlyUnitWithUI(string brotherName)
     {
-        switch (brotherID)
-        {
-            case 0:
-                friendlyID = 0;
-                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[0]);
-                break;
-            case 1:
-                friendlyID = 1;
-                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[1]);
-                break;
-            case 2:
-                friendlyID = 2;
-                UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[2]);
-                break;
-            default:
-                break;
-        }
+        foreach (Unit unit in friendlyUnitList)
+            if (brotherName == unit.name)
+                UnitActionSystem.Instance.SetSelectedUnit(unit);
     }
 
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
@@ -85,6 +70,9 @@ public class UnitManager : MonoBehaviour
 
         if (friendlyUnitList.Count <= 0)
             partyWipped = true;
+
+        if (enemyUnitList.Count <= 0)
+            partyWin = true;
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -121,6 +109,8 @@ public class UnitManager : MonoBehaviour
     {
         if (partyWipped)
             GameLost?.Invoke(this, EventArgs.Empty);
+        if (partyWin)
+            GameWon?.Invoke(this, EventArgs.Empty);
     }
 
 }

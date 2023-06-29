@@ -6,11 +6,13 @@ using System;
 
 public class UnitManagerUI : MonoBehaviour
 {
-    [SerializeField] private GameObject LosePanel;
+    [SerializeField] private GameObject _LosePanel;
+    [SerializeField] private GameObject _WinPanel;
 
     private void Start()
     {
         UnitManager.GameLost += UnitManager_GameLost;
+        UnitManager.GameWon += UnitManager_GameWon;
     }
 
     /// <summary>
@@ -22,14 +24,18 @@ public class UnitManagerUI : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void OnBrotherUIPressed(int brotherID)
+    public void OnBrotherUIPressed(string brotherName)
     {
-        UnitManager.Instance.SelectFriendlyUnitWithUI(brotherID);
+        UnitManager.Instance.SelectFriendlyUnitWithUI(brotherName);
     }
 
     private void UnitManager_GameLost(object sender, EventArgs e)
     {
-        LosePanel.SetActive(true);
+        _LosePanel.SetActive(true);
+    }
+    private void UnitManager_GameWon(object sender, EventArgs e)
+    {
+        _WinPanel.SetActive(true);
     }
 
 }
