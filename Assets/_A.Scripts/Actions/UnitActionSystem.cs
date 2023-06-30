@@ -125,8 +125,8 @@ public class UnitActionSystem : MonoBehaviour
         }
 
         AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
-            baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator());
-
+            selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
+        
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 

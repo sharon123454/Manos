@@ -312,21 +312,16 @@ public class GridSystemVisual : MonoBehaviour
                     targetUnit.SetGridEffectiveness(Effectiveness.Miss);
             }
     }
-    private void HideAllVisual()
+    private void HideAllVisual()//fix removing effectiveness
     {
-        //Unit targetUnit;
-
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
                 if (gridSystemVisualSingleArray[x, z] != null)
-                {
-                    //targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
-
-                    //if (targetUnit && targetUnit.IsEnemy())
-                    //    targetUnit.SetGridEffectiveness(Effectiveness.Miss);
-
                     gridSystemVisualSingleArray[x, z].Hide();
-                }
+
+        //List<Unit> unitList = UnitManager.Instance.GetEnemyUnitList();
+        //foreach (Unit unit in unitList)
+        //    unit.SetGridEffectiveness(Effectiveness.Miss);
     }
 
     #region  Filter By Range methods
@@ -349,8 +344,8 @@ public class GridSystemVisual : MonoBehaviour
     private void CloseRange(Unit selectedUnit, int close, int far)
     {
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Miss);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.green, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Inaccurate);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.green, Effectiveness.Effective);
     }
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
