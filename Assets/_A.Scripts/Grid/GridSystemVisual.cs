@@ -316,8 +316,8 @@ public class GridSystemVisual : MonoBehaviour
     #region  Filter By Range methods
     private void MoveRange(Unit selectedUnit, int playerMovement)
     {
-        HideAllVisual();
         ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, Color.white, Effectiveness.Miss);
+        HideAllVisual();
     }
     private void SelfRange(Unit selectedUnit)
     {
