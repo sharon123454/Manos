@@ -127,8 +127,12 @@ public class GridSystemVisual : MonoBehaviour
         foreach (GridPosition position in gridPositions)
             if (gridSystemVisualSingleArray[position._x, position._z] != null)
             {
-                position.SetEffectiveRange(effectiveness);
                 gridSystemVisualSingleArray[position._x, position._z].Show(gridVisualColor);
+
+                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+
+                if (targetUnit && targetUnit.IsEnemy())
+                    targetUnit.SetGridEffectiveness(effectiveness);
             }
     }
 
@@ -295,20 +299,32 @@ public class GridSystemVisual : MonoBehaviour
     //Filtering
     private void HideGridPositionList(List<GridPosition> gridPositions)
     {
+        Unit targetUnit;
+
         foreach (GridPosition position in gridPositions)
             if (gridSystemVisualSingleArray[position._x, position._z] != null)
             {
-                position.SetEffectiveRange(Effectiveness.Miss);
                 gridSystemVisualSingleArray[position._x, position._z].Hide();
+
+                targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+
+                if (targetUnit && targetUnit.IsEnemy())
+                    targetUnit.SetGridEffectiveness(Effectiveness.Miss);
             }
     }
     private void HideAllVisual()
     {
+        //Unit targetUnit;
+
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
                 if (gridSystemVisualSingleArray[x, z] != null)
                 {
-                    LevelGrid.Instance.GetGridPosition(gridSystemVisualSingleArray[x, z].transform.position).SetEffectiveRange(Effectiveness.Miss);
+                    //targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
+
+                    //if (targetUnit && targetUnit.IsEnemy())
+                    //    targetUnit.SetGridEffectiveness(Effectiveness.Miss);
+
                     gridSystemVisualSingleArray[x, z].Hide();
                 }
     }

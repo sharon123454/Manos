@@ -74,6 +74,7 @@ public class Unit : MonoBehaviour
     }
     public bool IsEnemy() { return isEnemy; }
     public UnitStats GetUnitStats() { return unitStats; }
+    public void SetGridEffectiveness(Effectiveness _effectiveness) { gridPosition.SetEffectiveRange(_effectiveness); }
     public GridPosition GetGridPosition() { return gridPosition; }
     public Vector3 GetWorldPosition() { return transform.position; }
 

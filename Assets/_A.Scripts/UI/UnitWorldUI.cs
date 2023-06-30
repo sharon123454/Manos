@@ -17,12 +17,13 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private UnitStats unitStats;
     [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
-    [SerializeField] private TextMeshProUGUI healthVisual;
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private GameObject VisualParent;
 
     private Color actionBarDefualtColor;
     private Color BonusactionBarDefualtColor;
     private string thisUnitName;
+
     private void Start()
     {
         actionBarDefualtColor = actionBarImage.color;
@@ -71,8 +72,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             VisualParent.SetActive(true);
         }
-        else { VisualParent.SetActive(false); }
-
+        else
+        {
+            VisualParent.SetActive(false);
+        }
     }
 
     private void UnitStats_OnCriticalHit(object sender, EventArgs e)
@@ -111,15 +114,13 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         //HitChance == Evaition - Ability HitChance
         //Posture = 100 AbilityHitChance + Evaiton = 0
 
-        var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
-        float getHitChance = 0;
         VisualParent.SetActive(true);
-        healthVisual.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
+        healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
-            getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
+            float getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
             #region Old Switch
             //switch (checkIfBaseAbility.GetActionName())
             //{
