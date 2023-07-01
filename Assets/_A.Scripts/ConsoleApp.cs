@@ -16,7 +16,6 @@ public class ConsoleApp : MonoBehaviour
     {
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
-        //UnitStatusEffects.SendConsoleMessage += EventPrint;
         ManosInputController.Instance.OpenSettings.performed += InputController_Pause;
     }
 

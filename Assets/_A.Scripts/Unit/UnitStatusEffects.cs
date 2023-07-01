@@ -5,8 +5,6 @@ using System;
 
 public class UnitStatusEffects : MonoBehaviour
 {
-    public static event EventHandler<string> SendConsoleMessage;
-
     [SerializeField] private int healValue;
     [SerializeField] private int amountOfArmorGain;
     [SerializeField] private int curruptionDMG;
@@ -349,8 +347,6 @@ public class UnitStatusEffects : MonoBehaviour
                 Debug.Log($"{abilityEffect} effect isn't Implamented");
                 break;
         }
-
-        SendConsoleMessage?.Invoke(this, this.name + " Recived " + abilityEffect);
     }
 
     public bool ContainsEffect(StatusEffect effect) { if (unitActiveStatusEffects.Contains(effect)) return true; else return false; }
