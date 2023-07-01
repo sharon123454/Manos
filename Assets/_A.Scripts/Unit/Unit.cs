@@ -115,6 +115,7 @@ public class Unit : MonoBehaviour
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun))
         {
+            SendConsoleMessage?.Invoke(this, $"{transform.name} is Stunned, Can't use action.");
             return false;
         }
 

@@ -1,29 +1,22 @@
-using System;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-
-using static UnityEngine.UI.CanvasScaler;
+using System;
 
 public class UnitStatusEffects : MonoBehaviour
 {
-
+    public static event EventHandler<string> SendConsoleMessage;
 
     [SerializeField] private int healValue;
     [SerializeField] private int amountOfArmorGain;
     [SerializeField] private int curruptionDMG;
     [SerializeField] private int regenerationAmount;
     [Space]
-    [Space]
-    [Space]
-
     [SerializeField] private int stunDuration;
     [SerializeField] private int armorBrakeDuration;
     [SerializeField] private int rootDuration;
     [SerializeField] private int cowardPlagueDuration;
     [SerializeField] private int nullifyDuration;
-    [SerializeField] private int healDuration;
     [SerializeField] private int gainArmorDuration;
     [SerializeField] private int SilenceDuration;
     [SerializeField] private int HasteDuration;
@@ -31,16 +24,13 @@ public class UnitStatusEffects : MonoBehaviour
     [SerializeField] private int UndyingDuration;
     [SerializeField] private int RegenerationDuration;
     [SerializeField] private int CorruptionDuration;
+    [SerializeField] private int unusedDuration;
 
-
-
-
+    public List<StatusEffect> unitActiveStatusEffects;
 
     private Unit _unit;
     private UnitStats _stats;
 
-
-    public List<StatusEffect> unitActiveStatusEffects;
     private void Start()
     {
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChanged;
@@ -55,8 +45,14 @@ public class UnitStatusEffects : MonoBehaviour
         rootDuration--;
         cowardPlagueDuration--;
         nullifyDuration--;
-        healDuration--;
+        unusedDuration--;
         gainArmorDuration--;
+        SilenceDuration--;
+        HasteDuration--;
+        BlindDuration--;
+        UndyingDuration--;
+        RegenerationDuration--;
+        CorruptionDuration--;
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
@@ -66,7 +62,7 @@ public class UnitStatusEffects : MonoBehaviour
         }
         if (ContainsEffect(StatusEffect.Regeneration))
         {
-            _unit.GetUnitStats().health -= regenerationAmount;
+            _unit.GetUnitStats().health += regenerationAmount;
         }
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
 
@@ -114,14 +110,6 @@ public class UnitStatusEffects : MonoBehaviour
                         case StatusEffect.Nullify:
                             nullifyDuration--;
                             if (nullifyDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Heal:
-                            healDuration--;
-                            _stats.health += healValue;
-                            if (healDuration == 0)
                             {
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
@@ -176,8 +164,10 @@ public class UnitStatusEffects : MonoBehaviour
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
                             break;
+                        case StatusEffect.Unused:
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
+                            break;
                     }
                 }
             }
@@ -233,14 +223,6 @@ public class UnitStatusEffects : MonoBehaviour
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
                             break;
-                        case StatusEffect.Heal:
-                            healDuration--;
-                            _stats.health += healValue;
-                            if (healDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
                         case StatusEffect.GainArmor:
                             gainArmorDuration--;
                             _stats.Armor += amountOfArmorGain;
@@ -291,8 +273,10 @@ public class UnitStatusEffects : MonoBehaviour
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
                             break;
+                        case StatusEffect.Unused:
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
+                            break;
                     }
                 }
             }
@@ -305,8 +289,6 @@ public class UnitStatusEffects : MonoBehaviour
     public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)
     {
         unitActiveStatusEffects.Add(abilityEffect);
-        //if (!unitActiveStatusEffects.Contains(abilityEffect))
-
 
         switch (abilityEffect)
         {
@@ -314,6 +296,9 @@ public class UnitStatusEffects : MonoBehaviour
                 break;
             case StatusEffect.Stun:
                 stunDuration += duration;
+                break;
+            case StatusEffect.Silence:
+                SilenceDuration += duration;
                 break;
             case StatusEffect.ArmorBrake:
                 armorBrakeDuration += duration;
@@ -327,15 +312,31 @@ public class UnitStatusEffects : MonoBehaviour
             case StatusEffect.Nullify:
                 nullifyDuration += duration;
                 break;
-            case StatusEffect.Heal:
-                healDuration += duration;
-                break;
             case StatusEffect.GainArmor:
                 gainArmorDuration += duration;
                 break;
+            case StatusEffect.Haste:
+                HasteDuration += duration;
+                break;
+            case StatusEffect.Blind:
+                BlindDuration += duration;
+                break;
+            case StatusEffect.Undying:
+                UndyingDuration += duration;
+                break;
+            case StatusEffect.Regeneration:
+                RegenerationDuration += duration;
+                break;
+            case StatusEffect.Corruption:
+                CorruptionDuration += duration;
+                break;
+            case StatusEffect.Unused:
             default:
-                throw new ArgumentOutOfRangeException(nameof(abilityEffect), abilityEffect, null);
+                Debug.Log($"{abilityEffect} effect isn't Implamented");
+                break;
         }
+
+        SendConsoleMessage?.Invoke(this, this.name + " Recived " + abilityEffect);
     }
 
     public bool ContainsEffect(StatusEffect effect) { if (unitActiveStatusEffects.Contains(effect)) return true; else return false; }

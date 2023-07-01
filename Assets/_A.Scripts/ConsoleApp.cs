@@ -16,24 +16,13 @@ public class ConsoleApp : MonoBehaviour
     {
         Unit.SendConsoleMessage += EventPrint;
         UnitStats.SendConsoleMessage += EventPrint;
+        //UnitStatusEffects.SendConsoleMessage += EventPrint;
         ManosInputController.Instance.OpenSettings.performed += InputController_Pause;
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
 
     private void OnDisable()
     {
         ManosInputController.Instance.OpenSettings.performed -= InputController_Pause;
-    }
-
-    private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
-    {
-        Unit.SendConsoleMessage += EventPrint;
-        UnitStats.SendConsoleMessage += EventPrint;
-    }
-
-    public void EventPrint(object sender, string name)
-    {
-        CreateLine(name);
     }
 
     public void CloseGame()
@@ -46,7 +35,7 @@ public class ConsoleApp : MonoBehaviour
 #endif
     }
 
-    private void CreateLine(string textToPrint)
+    private void EventPrint(object sender, string name)
     {
         if (textContainer != null)
         {
@@ -55,9 +44,8 @@ public class ConsoleApp : MonoBehaviour
 
             GameObject newConsoleLine = Instantiate(consoleLinePrefab.gameObject, textContainer);
             TextMeshProUGUI newTextLine = newConsoleLine.GetComponentInChildren<TextMeshProUGUI>();
-            newTextLine.text = textToPrint;
+            newTextLine.text = name;
         }
-
     }
 
     private void InputController_Pause(InputAction.CallbackContext context)
