@@ -202,13 +202,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 732080145}
+      addedObject: {fileID: 3063940787928449576}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8151093324885506371}
-    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3063940787928449576}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6228276346786477837}
@@ -227,7 +224,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 3002226316670359258}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &732080145
+--- !u!114 &3063940787928449576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,26 +237,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: Melee basic attack
+  actionDescription: ...
   actionCost: 0
-  cooldownPostUse: 0
+  cooldownAfterUse: 1
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
-  actionMeshShape: 0
-  meshShapeScaleMultiplicator: 1
-  isSpell: 0
-  damage: 54
-  postureDamage: 12
+  isFollowingMouse: 0
+  actionMeshShape: 2
+  meshShapeScaleMultiplicator: 2
+  damage: 10
+  postureDamage: 5
   hitChance: 200
-  critChance: 68
-  _statusEffect: 0
-  statusEffectChance: 0
+  critChance: 5
+  statusEffectChance: 200
   statusEffectDuration: 0
+  _statusEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
 --- !u!114 &8151093324885506371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,63 +270,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Pommel Strike
-  actionDescription: Single target melee attack
+  actionDescription: Breaks targets armor
   actionCost: 1
-  cooldownPostUse: 2
+  cooldownAfterUse: 1
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
+  isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  isSpell: 0
-  damage: 10
+  damage: 15
   postureDamage: 0
   hitChance: 200
-  critChance: 0
-  _statusEffect: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
+  critChance: 5
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  _statusEffect: 4
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
---- !u!114 &3063940787928449576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797272167150233444}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionName: Cleave
-  actionDescription: Melee attack , can only be used to target adjacent squares that
-    are directly next to the player character, not diagonal. Once activated, the
-    ability will deal damage to the square that was targeted by the player and the
-    two adjacent squares that are next to it. creating a line or a row of damage
-    depending on the targeted square
-  actionCost: 0
-  cooldownPostUse: 3
-  favorCost: 0
-  _AbilityProperties: 05000000
-  range: 2
-  actionMeshShape: 2
-  meshShapeScaleMultiplicator: 2
-  isSpell: 0
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  _statusEffect: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
-  maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
 --- !u!114 &6228276346786477837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,32 +297,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8797272167150233444}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Stand behind me
-  actionDescription: 
+  _actionName: Cleave
+  actionDescription: Melee AOE
   actionCost: 0
-  cooldownPostUse: 5
-  favorCost: 45
-  _AbilityProperties: 06000000
-  range: 4
-  actionMeshShape: 0
-  meshShapeScaleMultiplicator: 1
-  isSpell: 0
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  _statusEffect: 0
-  statusEffectChance: 0
+  cooldownAfterUse: 3
+  favorCost: 0
+  _AbilityProperties: 0000000005000000
+  range: 2
+  isFollowingMouse: 0
+  actionMeshShape: 2
+  meshShapeScaleMultiplicator: 2
+  damage: 15
+  postureDamage: 10
+  hitChance: 200
+  critChance: 5
+  statusEffectChance: 200
   statusEffectDuration: 0
+  _statusEffect: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
 --- !u!114 &7228533198458110622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8797272167150233444}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
@@ -379,24 +339,24 @@ MonoBehaviour:
   actionDescription: Single target melee attack that applies the Taunt status effect
     on the target
   actionCost: 1
-  cooldownPostUse: 3
+  cooldownAfterUse: 3
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
+  isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  isSpell: 0
-  damage: 10
-  postureDamage: 0
-  hitChance: 100
-  critChance: 0
-  _statusEffect: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
+  damage: 5
+  postureDamage: 30
+  hitChance: 200
+  critChance: 10
+  statusEffectChance: 200
+  statusEffectDuration: 2
+  _statusEffect: 13
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
 --- !u!114 &7100069914371206148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,27 +370,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Eldest's Duty
-  actionDescription: 
+  actionDescription: AOE heal
   actionCost: 0
-  cooldownPostUse: 1
+  cooldownAfterUse: 8
   favorCost: 150
   _AbilityProperties: 0500000002000000
-  range: 2
+  range: 1
+  isFollowingMouse: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3.5
-  isSpell: 1
-  damage: 10
+  damage: 0
   postureDamage: 0
   hitChance: 200
   critChance: 0
-  _statusEffect: 12
   statusEffectChance: 200
-  statusEffectDuration: 0
+  statusEffectDuration: 1
+  _statusEffect: 9
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
-  healValue: 10
+  healValue: 1
 --- !u!114 &122268559870979310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,22 +404,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Absolute Devotion
-  actionDescription: Description...
+  actionDescription: 
   actionCost: 2
-  cooldownPostUse: 2
+  cooldownAfterUse: 4
   favorCost: 50
-  _AbilityProperties: 00000000
-  range: 4
-  actionMeshShape: 0
-  meshShapeScaleMultiplicator: 1
-  isSpell: 1
-  damage: 10
+  _AbilityProperties: 0000000005000000
+  range: 6
+  isFollowingMouse: 1
+  actionMeshShape: 1
+  meshShapeScaleMultiplicator: 3
+  damage: 0
   postureDamage: 0
   hitChance: 200
   critChance: 0
-  _statusEffect: 0
-  statusEffectChance: 29
+  statusEffectChance: 200
   statusEffectDuration: 1
+  _statusEffect: 6
   maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1

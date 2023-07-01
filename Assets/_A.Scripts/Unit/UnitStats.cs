@@ -139,7 +139,7 @@ public class UnitStats : MonoBehaviour
             SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
 
-        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBrake))
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBreak))
         {
             damageToRecieve = rawDamage;
             if (AP.Contains(AbilityProperties.Finisher))

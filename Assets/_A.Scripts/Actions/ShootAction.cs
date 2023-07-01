@@ -15,6 +15,7 @@ public class ShootAction : BaseAbility
         public Unit shootingUnit;
     }
 
+    [Header("Shoot")]
     //[SerializeField] private StatusEffect _skillEffect;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public enum MeshShape { None, Sphere, Cube }
+public enum MeshShape { None, Sphere, Cube, Triangle }
 [Serializable]
 public struct AOE_MeshType { public MeshShape ShapeType; public Mesh Mesh; }
 public class AOEManager : MonoBehaviour
@@ -37,8 +37,11 @@ public class AOEManager : MonoBehaviour
     {
         if (_isAOEActive)
         {
+            //if (isFollowingMouse(in baseAction))
             _mousePos = MouseWorld.GetPosition();
             transform.position = transform.parent.position + Vector3.ClampMagnitude(_mousePos - transform.parent.position, _clampRange);
+            //else 
+            //show on player position
         }
         else
         {

@@ -9,6 +9,7 @@ public class MeleeAction : BaseAbility
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
 
+    [Header("Melee")]
     [SerializeField] private int maxMeleeDistance = 1;
     [Header("Dev Tool:")]
     [SerializeField] private float beforeHitStateTime = 0.7f;
