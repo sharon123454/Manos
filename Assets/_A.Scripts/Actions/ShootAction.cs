@@ -17,7 +17,7 @@ public class ShootAction : BaseAbility
 
     [Header("Shoot")]
     //[SerializeField] private StatusEffect _skillEffect;
-    [SerializeField] private int maxShootDistance = 5;
+    private int maxShootDistance = 9;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
     [Tooltip("Relevant for raycasting when this Unit shoots")]
     [SerializeField] private float unitShoulderHeight = 1.7f;
