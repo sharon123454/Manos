@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: _AbilityProperties.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -92,6 +96,14 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 872971790911514558}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: shootPointTransform
+      value: 
+      objectReference: {fileID: 5391332409113617397}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: evasion
       value: 20
@@ -104,6 +116,9 @@ PrefabInstance:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 3691354638567946646}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1954906679810133789}
@@ -169,7 +184,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 0
   _statusEffect: 0
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -241,7 +255,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 2
   _statusEffect: 10
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -313,7 +326,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 1
   _statusEffect: 0
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -351,7 +363,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 1
   _statusEffect: 2
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -389,7 +400,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 1
   _statusEffect: 7
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -398,6 +408,82 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!1001 &7133107590373419437
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1403111208976152019}
+    m_Modifications:
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_Name
+      value: Raynard_Visual
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+--- !u!95 &872971790911514558 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7989536064906595859, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3691354638567946646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5391332409113617397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2894758812132903512, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8207012942272059537
 PrefabInstance:
   m_ObjectHideFlags: 0
