@@ -349,6 +349,6 @@ public class UnitStatusEffects : MonoBehaviour
         }
     }
 
-    public bool ContainsEffect(StatusEffect effect) { if (unitActiveStatusEffects.Contains(effect)) return true; else return false; }
+    public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
 
 }

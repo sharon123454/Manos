@@ -8,8 +8,8 @@ public class UnitStats : MonoBehaviour
     public static event EventHandler<string> SendConsoleMessage;
 
     public event EventHandler OnDeath;
-    public event EventHandler OnDodged;
-    public event EventHandler OnHealed;
+    public event EventHandler OnDodge;
+    public event EventHandler OnHeal;
     public event EventHandler OnDamaged;
     public event EventHandler OnCriticalHit;
     private Unit _unit;
@@ -181,7 +181,7 @@ public class UnitStats : MonoBehaviour
             else
             {
                 SendConsoleMessage?.Invoke(this, "Attack Missed");
-                OnDodged?.Invoke(this, EventArgs.Empty);
+                OnDodge?.Invoke(this, EventArgs.Empty);
             }
             return;
 
@@ -207,7 +207,7 @@ public class UnitStats : MonoBehaviour
         {
             health = maxHealth;
         }
-        OnHealed?.Invoke(this, EventArgs.Empty);
+        OnHeal?.Invoke(this, EventArgs.Empty);
     }
     public void TryToTakeStatusEffect()
     {

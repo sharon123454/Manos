@@ -5,7 +5,7 @@ using System;
 
 public class DodgeAction : BaseAction
 {
-    public event EventHandler OnDodgeAction;
+    public event EventHandler OnDodgeActivate;
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class DodgeAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         GetUnit().Dodge();
-        OnDodgeAction?.Invoke(this, EventArgs.Empty);
+        OnDodgeActivate?.Invoke(this, EventArgs.Empty);
         ActionStart(actionComplete);
     }
 

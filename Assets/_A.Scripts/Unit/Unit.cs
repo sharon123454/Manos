@@ -13,25 +13,25 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool usedAction;
     [SerializeField] private bool isStunned;
     //[SerializeField] private bool isInCombat;
-    [SerializeField] private bool canMakeAttackOfOpportunity = true;
+    /*[SerializeField] */
+    private bool canMakeAttackOfOpportunity = true;
 
     public static event EventHandler<string> SendConsoleMessage;
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
     public static event EventHandler OnAnyUnitDead;
-    public static event EventHandler OnAnyUnitDamaged;
-    public static event EventHandler OnAnyUnitHealed;
-    public static event EventHandler OnAnyUnitCriticallyHit;
 
     [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
+    private UnitAnimator animator;
     private Outline unitOutline;
-    private UnitStats unitStats;
+    private UnitStats statSheet;
 
     private void Awake()
     {
-        unitStats = GetComponent<UnitStats>();
+        statSheet = GetComponent<UnitStats>();
+        animator = GetComponent<UnitAnimator>();
         baseActionArray = GetComponents<BaseAction>();
         unitStatusEffects = GetComponent<UnitStatusEffects>();
         unitOutline = GetComponentInChildren<Outline>();
@@ -44,10 +44,11 @@ public class Unit : MonoBehaviour
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
 
-        unitStats.OnDeath += HealthSystem_OnDeath;
-        unitStats.OnHealed += HealthSystem_OnHealed;
-        unitStats.OnDamaged += HealthSystem_OnDamaged;
-        unitStats.OnCriticalHit += HealthSystem_OnCriticallyHit;
+        statSheet.OnDeath += HealthSystem_OnDeath;
+        statSheet.OnDodge += HealthSystem_OnDodge;
+        statSheet.OnHeal += HealthSystem_OnHealed;
+        statSheet.OnDamaged += HealthSystem_OnDamaged;
+        statSheet.OnCriticalHit += HealthSystem_OnCriticallyHit;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -66,16 +67,16 @@ public class Unit : MonoBehaviour
 
     public float GetHealthNormalized()
     {
-        return unitStats.GetHealthNormalized();
+        return statSheet.GetHealthNormalized();
     }
     public float GetPostureNormalized()
     {
-        return unitStats.GetPostureNormalized();
+        return statSheet.GetPostureNormalized();
     }
     public bool IsEnemy() { return isEnemy; }
-    public UnitStats GetUnitStats() { return unitStats; }
+    public UnitStats GetUnitStats() { return statSheet; }
     public void SetGridEffectiveness(Effectiveness _effectiveness) { gridPosition.SetEffectiveRange(_effectiveness); }
-    public Effectiveness GetGridEffectiveness() {return gridPosition.GetEffectiveRange(); }
+    public Effectiveness GetGridEffectiveness() { return gridPosition.GetEffectiveRange(); }
     public GridPosition GetGridPosition() { return gridPosition; }
     public Vector3 GetWorldPosition() { return transform.position; }
 
@@ -121,7 +122,6 @@ public class Unit : MonoBehaviour
         }
 
         #region Move Or Dash
-
         string actionName = baseAction.GetActionName();
 
         if (actionName == "Move" || actionName == "Dash")
@@ -132,7 +132,6 @@ public class Unit : MonoBehaviour
                 return false;
             }
         }
-
         #endregion
 
         #region Action And Bonus Action
@@ -187,8 +186,6 @@ public class Unit : MonoBehaviour
             else
                 return false;
         }
-
-
         #endregion
 
         #region Action
@@ -221,7 +218,6 @@ public class Unit : MonoBehaviour
         }
         else
             return false;
-
         #endregion
 
     }
@@ -231,7 +227,7 @@ public class Unit : MonoBehaviour
     }
 
     public bool GetStunStatus() { return isStunned; }
-    public bool ChangeStunStatus(bool newStatus) { return isStunned = newStatus; }
+    public bool ChangeStunStatus(bool newStatus) { animator.OnStatusEffectRecieved(StatusEffect.Stun, newStatus); return isStunned = newStatus; }
 
     public bool ReturnSkillActionType(BaseAction baseAction)
     {
@@ -252,13 +248,13 @@ public class Unit : MonoBehaviour
 
     public void Heal(float healValue)
     {
-        unitStats.Heal(healValue);
+        statSheet.Heal(healValue);
     }
-    public void Block() { unitStats.Block(); }
-    public void Dodge() { unitStats.Dodge(); }
+    public void Block() { statSheet.Block(); }
+    public void Dodge() { statSheet.Dodge(); }
     public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration)
     {
-        unitStats.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration);
+        statSheet.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration);
     }
 
     #region Attack of Oppertunity
@@ -311,7 +307,7 @@ public class Unit : MonoBehaviour
             usedBonusAction = false;
             usedAction = false;
             canMakeAttackOfOpportunity = true;
-            unitStats.ResetUnitStats();
+            statSheet.ResetUnitStats();
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -319,19 +315,25 @@ public class Unit : MonoBehaviour
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
         unitOutline.enabled = false;
+        animator.OnDead();
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
+
     private void HealthSystem_OnDamaged(object sender, EventArgs e)
     {
-        OnAnyUnitDamaged?.Invoke(this, EventArgs.Empty);
+        animator.OnDamaged();
     }
     private void HealthSystem_OnCriticallyHit(object sender, EventArgs e)
     {
-        OnAnyUnitCriticallyHit?.Invoke(this, EventArgs.Empty);
+        animator.OnCriticallyHit();
+    }
+    private void HealthSystem_OnDodge(object sender, EventArgs e)
+    {
+        animator.OnDodge();
     }
     private void HealthSystem_OnHealed(object sender, EventArgs e)
     {
-        //Activate nanook friendly heal?
+        //animator.
     }
 
 }

@@ -9,11 +9,11 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Transform bulletProjectilePrefab;
     [SerializeField] private Transform shootPointTransform;
 
-    private OnMelee vfxLibrary;
+    private VFXLibrary vfxLibrary;
 
     private void Awake()
     {
-        vfxLibrary = animator.gameObject.GetComponent<OnMelee>();
+        vfxLibrary = animator.gameObject.GetComponent<VFXLibrary>();
 
         BaseHeal[] _healActions = GetComponents<BaseHeal>();
         MoveAction[] _moveActions = GetComponents<MoveAction>();
@@ -55,59 +55,46 @@ public class UnitAnimator : MonoBehaviour
 
         if (TryGetComponent<DodgeAction>(out DodgeAction dodgeAction))
         {
-            dodgeAction.OnDodgeAction += DodgeAction_OnDodgeAction;
+            dodgeAction.OnDodgeActivate += DodgeAction_OnDodgeAction;
         }
 
         if (TryGetComponent<BlockAction>(out BlockAction blockAction))
         {
-            blockAction.OnBlockAction += BlockAction_OnBlockAction;
+            blockAction.OnBlockActivate += BlockAction_OnBlockAction;
         }
 
         if (TryGetComponent<DisengageAction>(out DisengageAction disengageAction))
         {
-            disengageAction.OnDisengage += DisengageAction_OnDisengage;
+            disengageAction.OnDisengageActivate += DisengageAction_OnDisengage;
         }
 
     }
 
-    private void Start()
+    public void OnStatusEffectRecieved(StatusEffect statusEffect, bool isActive)
     {
-        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
-        Unit.OnAnyUnitDamaged += Unit_OnAnyUnitDamaged;
-        Unit.OnAnyUnitCriticallyHit += Unit_OnAnyUnitCriticallyHit;
+        vfxLibrary.OnStatusEffectRecieved(statusEffect, isActive);
     }
-
-    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    public void OnDamaged()
     {
-        Unit unit = sender as Unit;
-
-        if (transform.GetComponent<Unit>() == unit)
-            animator.SetBool("IsDead", true);
+        animator.SetFloat("GetHitBlend", 0);
+        animator.SetTrigger("Hit");
     }
-    private void Unit_OnAnyUnitDamaged(object sender, EventArgs e)
+    public void OnCriticallyHit()
     {
-        Unit unit = sender as Unit;
-
-        if (transform.GetComponent<Unit>() == unit)
-        {
-            animator.SetFloat("GetHitBlend", 0);
-            animator.SetTrigger("Hit");
-        }
+        animator.SetFloat("GetHitBlend", 1);
+        animator.SetTrigger("Hit");
     }
-    private void Unit_OnAnyUnitCriticallyHit(object sender, EventArgs e)
+    public void OnDead()
     {
-        Unit unit = sender as Unit;
-
-        if (transform.GetComponent<Unit>() == unit)
-        {
-            animator.SetFloat("GetHitBlend", 1);
-            animator.SetTrigger("Hit");
-        }
-    } 
+        animator.SetBool("IsDead", true);
+    }
+    public void OnDodge()
+    {
+        animator.SetTrigger("Dodge");
+    }
 
     private void DodgeAction_OnDodgeAction(object sender, EventArgs e)
     {
-        animator.SetTrigger("Dodge");
     }
     private void BlockAction_OnBlockAction(object sender, EventArgs e)
     {

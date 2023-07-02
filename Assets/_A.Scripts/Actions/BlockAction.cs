@@ -5,7 +5,7 @@ using System;
 
 public class BlockAction : BaseAction
 {
-    public event EventHandler OnBlockAction;
+    public event EventHandler OnBlockActivate;
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class BlockAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         GetUnit().Block();
-        OnBlockAction?.Invoke(this, EventArgs.Empty);
+        OnBlockActivate?.Invoke(this, EventArgs.Empty);
         ActionStart(actionComplete);
     }
 

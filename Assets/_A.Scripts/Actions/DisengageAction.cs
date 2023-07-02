@@ -5,7 +5,7 @@ using System;
 
 public class DisengageAction : BaseAction
 {
-    public event EventHandler OnDisengage;
+    public event EventHandler OnDisengageActivate;
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class DisengageAction : BaseAction
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         GetUnit().Disengage();
-        OnDisengage?.Invoke(this, EventArgs.Empty);
+        OnDisengageActivate?.Invoke(this, EventArgs.Empty);
         ActionStart(actionComplete);
     }
 
