@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 9133371482401312959}
   - component: {fileID: 6355645871403069133}
   m_Layer: 5
-  m_Name: HpBar
+  m_Name: HealthBarVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1143,14 +1143,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healValue: 0
   amountOfArmorGain: 0
-  curruptionDMG: 0
-  regenerationAmount: 0
+  curruptionDMG: 10
+  regenerationAmount: 10
   stunDuration: 0
   armorBrakeDuration: 0
   rootDuration: 0
   cowardPlagueDuration: 0
   nullifyDuration: 0
-  healDuration: 0
   gainArmorDuration: 0
   SilenceDuration: 0
   HasteDuration: 0
@@ -1158,6 +1157,7 @@ MonoBehaviour:
   UndyingDuration: 0
   RegenerationDuration: 0
   CorruptionDuration: 0
+  unusedDuration: 0
   unitActiveStatusEffects: 
 --- !u!114 &7237301886958795925
 MonoBehaviour:
@@ -1174,10 +1174,13 @@ MonoBehaviour:
   _actionName: Move
   actionDescription: 
   actionCost: 1
-  cooldownPostUse: 1
+  cooldownAfterUse: 1
   favorCost: 0
   _AbilityProperties: 00000000
   range: 0
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
   maxMoveDistance: 5
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -1197,10 +1200,13 @@ MonoBehaviour:
   _actionName: Dash
   actionDescription: 
   actionCost: 0
-  cooldownPostUse: 1
+  cooldownAfterUse: 1
   favorCost: 0
   _AbilityProperties: 00000000
   range: 0
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
   maxMoveDistance: 6
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -1221,10 +1227,13 @@ MonoBehaviour:
   actionDescription: Double your armor and reduce incoming posture damage by 50%
     until the start of your next turn
   actionCost: 0
-  cooldownPostUse: 1
+  cooldownAfterUse: 1
   favorCost: 100
   _AbilityProperties: 00000000
   range: 1
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
 --- !u!114 &9153245906922689867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,10 +1249,13 @@ MonoBehaviour:
   _actionName: Dodge
   actionDescription: Description...
   actionCost: 0
-  cooldownPostUse: 1
+  cooldownAfterUse: 1
   favorCost: 100
   _AbilityProperties: 00000000
   range: 1
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
 --- !u!114 &5710939152623976360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,10 +1271,13 @@ MonoBehaviour:
   _actionName: Disengage
   actionDescription: 
   actionCost: 0
-  cooldownPostUse: 1
+  cooldownAfterUse: 1
   favorCost: 100
   _AbilityProperties: 00000000
   range: 1
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
 --- !u!65 &3438019536766426537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1422,12 +1437,12 @@ GameObject:
   - component: {fileID: 4204235777799312418}
   - component: {fileID: 3897503709042096931}
   m_Layer: 5
-  m_Name: Heal Visual
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4415652893688701859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1837,7 +1852,7 @@ MonoBehaviour:
   unitStats: {fileID: 7794121002179147597}
   armorPointsText: {fileID: 6727901948807225756}
   hitChanceText: {fileID: 699626951840713030}
-  healthVisual: {fileID: 3897503709042096931}
+  healthText: {fileID: 3897503709042096931}
   VisualParent: {fileID: 6670475032230118251}
 --- !u!114 &7193942445439609395
 MonoBehaviour:
@@ -1928,7 +1943,7 @@ GameObject:
   - component: {fileID: 5270782144980476557}
   - component: {fileID: 7448583773484745514}
   m_Layer: 5
-  m_Name: Background
+  m_Name: HealthBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,6 +15,7 @@ public class ShootAction : BaseAbility
         public Unit shootingUnit;
     }
 
+    [Header("Shoot")]
     //[SerializeField] private StatusEffect _skillEffect;
     [SerializeField] private int maxShootDistance = 5;
     [SerializeField] private float aimingStateTime = 1f, shootingStateTime = 0.1f, coolOffStateTime = 0.1f, rotateToTargetSpeed = 10f;
@@ -157,7 +158,7 @@ public class ShootAction : BaseAbility
     {
         OnShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { targetUnit = targetUnit, shootingUnit = GetUnit() });
-        
+
         if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
         {
             foreach (var unit in AOEManager.Instance.GetUnitsInRange())
@@ -169,7 +170,8 @@ public class ShootAction : BaseAbility
             }
             return;
         }
-        targetUnit.Damage(damage,postureDamage, hitChance, critChance, _statusEffect,_AbilityProperties, statusEffectChance, statusEffectDuration);
+        else
+            targetUnit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
     }
 
 }

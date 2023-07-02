@@ -8,6 +8,7 @@ public class UnitStats : MonoBehaviour
     public static event EventHandler<string> SendConsoleMessage;
 
     public event EventHandler OnDeath;
+    public event EventHandler OnDodged;
     public event EventHandler OnHealed;
     public event EventHandler OnDamaged;
     public event EventHandler OnCriticalHit;
@@ -97,12 +98,10 @@ public class UnitStats : MonoBehaviour
     public float GetArmor() { return Armor; }
     public void ResetUnitStats()
     {
-        float addPosture = maxPosture * 0.2f;
-
         if (currentPosture <= 0)
             currentPosture = maxPosture;
         else
-            currentPosture += addPosture;
+            currentPosture += maxPosture * 0.2f;
 
         armorMultiplayer = 1;
         evasionMultiplayer = 1;
@@ -119,8 +118,10 @@ public class UnitStats : MonoBehaviour
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
+
         #region Damage To Recieve Types
         float damageToRecieve;
+
         if (AP.Contains(AbilityProperties.Heal))
         {
             Heal(rawDamage);
@@ -138,7 +139,7 @@ public class UnitStats : MonoBehaviour
             SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
 
-        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBrake))
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBreak))
         {
             damageToRecieve = rawDamage;
             if (AP.Contains(AbilityProperties.Finisher))
@@ -154,18 +155,17 @@ public class UnitStats : MonoBehaviour
         if (damageToRecieve <= 0)
             return;
         #endregion
+
         #region Normal Calculation
         if (currentPosture > 0)
         {
-
-
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
                 if (critDiceRoll <= abilityCritChance)
                 {
                     TakeDamage(damageToRecieve * 2, postureDamage * 2);
                     SendConsoleMessage?.Invoke(this, "Ability CRIT!");
-                    OnCriticalHit.Invoke(this, EventArgs.Empty);
+                    OnCriticalHit?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
@@ -176,16 +176,19 @@ public class UnitStats : MonoBehaviour
                 if (UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
                 {
                     _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
-                    SendConsoleMessage?.Invoke(this, this.name + " Recived " + currentEffect);
                 }
             }
             else
+            {
                 SendConsoleMessage?.Invoke(this, "Attack Missed");
+                OnDodged?.Invoke(this, EventArgs.Empty);
+            }
             return;
 
 
         }
         #endregion
+
         #region PostureBrake
         else
         {

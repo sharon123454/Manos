@@ -8,10 +8,13 @@ public class MeleeAction : BaseAbility
     public static event EventHandler OnAnyMeleeHit;
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
-    
-    [SerializeField] private int maxMeleeDistance = 1;
-    [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
 
+    [Header("Melee")]
+    [SerializeField] private int maxMeleeDistance = 1;
+    [Header("Dev Tool:")]
+    [SerializeField] private float beforeHitStateTime = 0.7f;
+    [SerializeField] private float rotateToTargetSpeed = 10f;
+    [SerializeField] private float afterHitStateTime = 0.5f;
     private enum State { SwingBeforeHit, SwingAfterHit, }
     private float stateTimer;
     private Unit targetUnit;

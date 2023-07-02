@@ -10,10 +10,11 @@ public class BaseHeal : BaseAbility
     public event EventHandler OnHealActionStarted;
     public event EventHandler OnHealActionCompleted;
 
+    [Header("Heal")]
     [SerializeField] private int maxMeleeDistance = 1;
     [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
     [Range(1f, 600f)]
-    [SerializeField] protected float healValue = 10;
+    [SerializeField] private float healValue = 10;
 
     private enum State { RotateToHeal, HealComplete, }
     private Unit targetUnit;
@@ -58,13 +59,13 @@ public class BaseHeal : BaseAbility
                     {
                         if (!unit.IsEnemy())
                         {
-                            unit.Heal(healValue);
+                            unit.Heal(GetHealValue());
                             print(unit.name + "was healed");
                         }
                     }
                     return;
                 }
-                targetUnit.Heal(healValue);
+                targetUnit.Heal(GetHealValue());
                 break;
 
             case State.HealComplete:
@@ -82,7 +83,7 @@ public class BaseHeal : BaseAbility
 
         state = State.RotateToHeal;
         stateTimer = beforeHitStateTime;
-        targetUnit.Heal(healValue);
+        targetUnit.Heal(GetHealValue());
         OnHealActionStarted?.Invoke(this, EventArgs.Empty);
         targetUnit.GetUnitStats().InvokeHPChange();
         ActionStart(actionComplete);

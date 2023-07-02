@@ -6,32 +6,41 @@ using TMPro;
 
 public class BrothersUI : MonoBehaviour
 {
-    [SerializeField] private List<Unit> unit;
     [SerializeField] private GameObject actionGrayedOut;
     [SerializeField] private GameObject bonusActionGrayedOut;
     [SerializeField] private TextMeshProUGUI shieldAmountText;
     [SerializeField] private Image healthBar, postureBar;
     [SerializeField] private Image actionImage, bonusActionImage;
-    [SerializeField] private int brotherIndex;
+
+    [Header("Dev Data:")]
+    [SerializeField] private float delayInitTime = 0.5f;
 
     private Color actionBarDefualtColor;
     private Color BonusactionBarDefualtColor;
-    private Unit specificBro;
-    private string thisUnitName;
+    private WaitForSeconds initDelay;
+    [SerializeField] private Unit specificBro;
 
     void Start()
     {
-        actionBarDefualtColor = actionImage.color;
+        initDelay = new WaitForSeconds(delayInitTime);
         BonusactionBarDefualtColor = bonusActionImage.color;
-        StartCoroutine(delayIni());
+        actionBarDefualtColor = actionImage.color;
+        StartCoroutine(InitBrotherUI());
     }
 
-    IEnumerator delayIni()
+    IEnumerator InitBrotherUI()
     {
-        yield return new WaitForSeconds(0.5f);
-        unit = UnitManager.Instance.GetFriendlyUnitList();
-        specificBro = unit[brotherIndex];
-        thisUnitName = specificBro.name;
+        yield return initDelay;
+
+        List<Unit> unitLlist = UnitManager.Instance.GetFriendlyUnitList();
+
+        string fixedName = "";
+        for (int i = 0; i < name.Length - 2; i++)
+            fixedName += name[i];
+
+        foreach (Unit singleUnit in unitLlist)
+            if (fixedName == singleUnit.name)
+                specificBro = singleUnit;
     }
 
     void Update()
@@ -40,7 +49,7 @@ public class BrothersUI : MonoBehaviour
         {
             if (specificBro.GetUnitStats().health >= 0)
             {
-                if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
+                if (UnitActionSystem.Instance.GetSelectedUnit() == specificBro)
                 {
                     if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
                     {
@@ -75,9 +84,9 @@ public class BrothersUI : MonoBehaviour
                 else
                     bonusActionGrayedOut.SetActive(false);
 
-                healthBar.fillAmount = unit[brotherIndex].GetHealthNormalized();
-                postureBar.fillAmount = unit[brotherIndex].GetPostureNormalized();
-                shieldAmountText.text = unit[brotherIndex].GetUnitStats().GetArmor().ToString();
+                healthBar.fillAmount = specificBro.GetHealthNormalized();
+                postureBar.fillAmount = specificBro.GetPostureNormalized();
+                shieldAmountText.text = specificBro.GetUnitStats().GetArmor().ToString();
             }
             else
             {

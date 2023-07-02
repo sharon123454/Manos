@@ -45,15 +45,15 @@ public class UnitActionSystem : MonoBehaviour
 
                 for (int i = 0; i < 3; i++)
                 {
-                    if (!UnitManager.Instance.ReturnFreindlyUnits()[i].UsedAllPoints())
+                    if (!UnitManager.Instance.GetFriendlyUnitList()[i].UsedAllPoints())
                     {
-                        SetSelectedUnit(UnitManager.Instance.ReturnFreindlyUnits()[i]);
+                        SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[i]);
                         break;
                     }
                 }
-                if (UnitManager.Instance.ReturnFreindlyUnits()[0].UsedAllPoints()
-                    && UnitManager.Instance.ReturnFreindlyUnits()[1].UsedAllPoints()
-                    && UnitManager.Instance.ReturnFreindlyUnits()[2].UsedAllPoints()
+                if (UnitManager.Instance.GetFriendlyUnitList()[0].UsedAllPoints()
+                    && UnitManager.Instance.GetFriendlyUnitList()[1].UsedAllPoints()
+                    && UnitManager.Instance.GetFriendlyUnitList()[2].UsedAllPoints()
                     )
                 {
                     TurnSystem.Instance.NextTurn();
@@ -125,8 +125,8 @@ public class UnitActionSystem : MonoBehaviour
         }
 
         AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
-            baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator());
-
+            selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
+        
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 

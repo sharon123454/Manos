@@ -181,7 +181,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3906072383988323181}
+      addedObject: {fileID: 6875222826916834941}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5602378655156786812}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2032839130430321204}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5223131735639328162}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5731917650349299490}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5519389455470923982}
@@ -191,7 +203,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3906072383988323181
+--- !u!114 &6875222826916834941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,27 +215,157 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Shadow Veil
-  actionDescription: Melee Attack
+  _actionName: Basic Attack
+  actionDescription: Description...
   actionCost: 0
-  cooldownPostUse: 1
-  favorCost: 100
+  cooldownAfterUse: 1
+  favorCost: 0
   _AbilityProperties: 00000000
   range: 2
+  isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  isSpell: 1
-  damage: 10
-  postureDamage: 0
+  damage: 5
+  postureDamage: 20
   hitChance: 200
-  critChance: 0
+  critChance: 10
+  statusEffectChance: 200
+  statusEffectDuration: 1
   _statusEffect: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
   rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
+--- !u!114 &5602378655156786812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Murder
+  actionDescription: Description...
+  actionCost: 1
+  cooldownAfterUse: 3
+  favorCost: 0
+  _AbilityProperties: 0000000001000000
+  range: 2
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  damage: 15
+  postureDamage: 10
+  hitChance: 200
+  critChance: 10
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  _statusEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
+--- !u!114 &2032839130430321204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Blinding Bolt
+  actionDescription: Description...
+  actionCost: 1
+  cooldownAfterUse: 2
+  favorCost: 0
+  _AbilityProperties: 00000000
+  range: 5
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  damage: 5
+  postureDamage: 20
+  hitChance: 200
+  critChance: 10
+  statusEffectChance: 200
+  statusEffectDuration: 2
+  _statusEffect: 7
+  maxShootDistance: 5
+  aimingStateTime: 1
+  shootingStateTime: 0.1
+  coolOffStateTime: 0.1
+  rotateToTargetSpeed: 10
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &5223131735639328162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b108d89c327bba645a126006316e50c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Puncture
+  actionDescription: Description...
+  actionCost: 0
+  cooldownAfterUse: 3
+  favorCost: 0
+  _AbilityProperties: 0000000003000000
+  range: 2
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  damage: 10
+  postureDamage: 20
+  hitChance: 200
+  critChance: 5
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  _statusEffect: 0
+  maxMeleeDistance: 1
+  beforeHitStateTime: 0.7
+  rotateToTargetSpeed: 10
+  afterHitStateTime: 0.5
+--- !u!114 &5731917650349299490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Shadow Veil
+  actionDescription: Description...
+  actionCost: 2
+  cooldownAfterUse: 3
+  favorCost: 50
+  _AbilityProperties: 0000000006000000
+  range: 4
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  maxMoveDistance: 3
+  visualRotationSpeed: 7.5
+  visualMovementSpeed: 4
+  isTeleport: 1
 --- !u!114 &5519389455470923982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,23 +378,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Shadow Strike
+  _actionName: Stun Bolt
   actionDescription: Ranged Attack
   actionCost: 0
-  cooldownPostUse: 1
-  favorCost: 100
+  cooldownAfterUse: 4
+  favorCost: 25
   _AbilityProperties: 00000000
-  range: 5
+  range: 4
+  isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  isSpell: 1
-  damage: 63
-  postureDamage: 23
+  damage: 10
+  postureDamage: 40
   hitChance: 200
-  critChance: 18
-  _statusEffect: 0
-  statusEffectChance: 0
-  statusEffectDuration: 0
+  critChance: 10
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  _statusEffect: 1
   maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1

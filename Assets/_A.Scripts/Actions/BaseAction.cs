@@ -3,23 +3,24 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public enum TypeOfAction { Action, BonusAction, Both}
+public enum TypeOfAction { Action, BonusAction, Both }
 public abstract class BaseAction : MonoBehaviour
 {
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
 
+    [Header("Base Action")]
     [SerializeField] protected string _actionName = "Empty";
     [SerializeField] protected string actionDescription = "Description...";
     [Tooltip("0 = Action, 1 = Bonus Action, 2 = Both")]
     [SerializeField] protected TypeOfAction actionCost;
-    [SerializeField] protected int cooldownPostUse = 1;
+    [SerializeField] protected int cooldownAfterUse = 1;
     [SerializeField] protected int favorCost = 0;
-    [SerializeField] protected List<AbilityProperties> _AbilityProperties;
+    [SerializeField] protected List<AbilityProperties> _AbilityProperties = new() { AbilityProperties.Basic };
     [SerializeField] protected AbilityRange range;
-    [Tooltip("Relevant if AOE")]
+    [Header("AoE")]
+    [SerializeField] protected bool isFollowingMouse;
     [SerializeField] protected MeshShape actionMeshShape;
-    [Tooltip("Relevant if AOE")]
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
 
     protected Action onActionComplete;
@@ -73,7 +74,7 @@ public abstract class BaseAction : MonoBehaviour
         else
             return null; // No Possible AI Actions
     }
-    
+
     public virtual int GetCooldown() { return cooldown; }
     public virtual int GetFavorCost() { return favorCost; }
     public virtual string GetActionDescription() { return actionDescription; }
@@ -88,7 +89,7 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
-        cooldown += cooldownPostUse;
+        cooldown += cooldownAfterUse;
         _isActive = true;
         this.onActionComplete = onActionComple;
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);

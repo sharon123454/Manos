@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
     [HideInInspector] public UnitStatusEffects unitStatusEffects;
     private BaseAction[] baseActionArray;
     private GridPosition gridPosition;
+    private Outline unitOutline;
     private UnitStats unitStats;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class Unit : MonoBehaviour
         unitStats = GetComponent<UnitStats>();
         baseActionArray = GetComponents<BaseAction>();
         unitStatusEffects = GetComponent<UnitStatusEffects>();
+        unitOutline = GetComponentInChildren<Outline>();
     }
 
     private void Start()
@@ -72,6 +74,7 @@ public class Unit : MonoBehaviour
     }
     public bool IsEnemy() { return isEnemy; }
     public UnitStats GetUnitStats() { return unitStats; }
+    public void SetGridEffectiveness(Effectiveness _effectiveness) { gridPosition.SetEffectiveRange(_effectiveness); }
     public GridPosition GetGridPosition() { return gridPosition; }
     public Vector3 GetWorldPosition() { return transform.position; }
 
@@ -112,6 +115,7 @@ public class Unit : MonoBehaviour
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun))
         {
+            SendConsoleMessage?.Invoke(this, $"{transform.name} is Stunned, Can't use action.");
             return false;
         }
 
@@ -313,6 +317,7 @@ public class Unit : MonoBehaviour
     private void HealthSystem_OnDeath(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
+        unitOutline.enabled = false;
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
     private void HealthSystem_OnDamaged(object sender, EventArgs e)

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public enum MeshShape { None, Sphere, Cube }
+public enum MeshShape { None, Sphere, Cube, Triangle }
 [Serializable]
 public struct AOE_MeshType { public MeshShape ShapeType; public Mesh Mesh; }
 public class AOEManager : MonoBehaviour
@@ -18,7 +18,9 @@ public class AOEManager : MonoBehaviour
     private List<Unit> _inRangeUnits;
     private MeshCollider _collider;
     private MeshFilter _meshVisual;
-    private bool isAOEActive;
+    private float _clampRange = 3f;
+    private bool _isAOEActive;
+    private Vector3 _mousePos;
 
     private void Awake()
     {
@@ -33,9 +35,13 @@ public class AOEManager : MonoBehaviour
 
     private void Update()
     {
-        if (isAOEActive)
+        if (_isAOEActive)
         {
-            transform.position = MouseWorld.GetPosition();
+            //if (isFollowingMouse(in baseAction))
+            _mousePos = MouseWorld.GetPosition();
+            transform.position = transform.parent.position + Vector3.ClampMagnitude(_mousePos - transform.parent.position, _clampRange);
+            //else 
+            //show on player position
         }
         else
         {
@@ -67,17 +73,15 @@ public class AOEManager : MonoBehaviour
             }
     }
 
-    public void SetIsAOEActive(bool isActive, MeshShape AOEMeshType, float rangeMultiplicator)
-    {
-        if (!isActive || AOEMeshType == MeshShape.None) { transform.localScale = Vector3.one; isAOEActive = false; return; }
-
-        InitAOE(AOEMeshType, rangeMultiplicator);
-    }
-    public void DisableAOE() { isAOEActive = false; }
-
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
+    public void SetIsAOEActive(bool isActive, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, AbilityRange abilityRange)
+    {
+        if (!isActive || AOEMeshType == MeshShape.None) { DisableAOE(); return; }
 
-    private void InitAOE(MeshShape typeOfShape, float rangeMultiplicator)
+        InitAOE(centerZonePosition, AOEMeshType, rangeMultiplicator, abilityRange);
+    }
+
+    private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, AbilityRange abilityRange)//make use of range for range clamp and not range multiplicator
     {
         if (meshArrayType.Length > 0)
         {
@@ -91,14 +95,23 @@ public class AOEManager : MonoBehaviour
                         return;
                     }
 
-                    _meshVisual.mesh = shape.Mesh;
-                    _collider.sharedMesh = shape.Mesh;
                     transform.localScale = Vector3.one * LevelGrid.Instance.GetCellSize() * rangeMultiplicator;
+                    transform.parent.position = aOEPositiion;
+                    _clampRange = rangeMultiplicator;
+                    _collider.sharedMesh = shape.Mesh;
+                    _meshVisual.mesh = shape.Mesh;
                 }
             }
         }
 
-        isAOEActive = true;
+        _isAOEActive = true;
+    }
+    private void DisableAOE()
+    {
+        transform.parent.position = Vector3.zero;
+        transform.localScale = Vector3.one;
+        _isAOEActive = false;
+        _clampRange = 1f;
     }
 
 }

@@ -21,17 +21,17 @@ public enum StatusEffect
     None,//Default State
     Stun,//Miss X Turns
     Silence,//While affected the target cant use abilities
-    ArmorBrake,//Ignore Armor
     Root,//Cant Move,but can use Abilities 
-    CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
-    Nullify,
-    Heal,//Heal X HP
+    ArmorBreak,//Ignore Armor
     GainArmor,//Gain Armor
     Haste,//Double the move Speed
     Blind,//Halves the unit's chance to hit attacks  ((Affect on posture broken units?))
     Undying,//Affected unit's hp Cant go below 1 HP for x turns
     Regeneration,//Affected unit regains a set amount of HP at the end of the unit's turn
     Corruption,//Affected unit suffers damage at the beginning of their turn
+    CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
+    Nullify,//??
+    ToBeTauntUnused,//
 }
 
 public enum AbilityProperties
@@ -48,14 +48,12 @@ public class BaseAbility : BaseAction
 {
     public static event EventHandler<int> OnAnySpellCast;
 
-    [SerializeField] protected bool isSpell = true;
-    [Range(1f, 600f)]
-    [SerializeField] protected float damage = 10, postureDamage = 0;
-    [Range(0, 200)]
-    [SerializeField] protected int hitChance = 100, critChance = 0;
+    [Header("Ability")]
+    [SerializeField] protected float damage = 10f;
+    [SerializeField] protected float postureDamage = 0f;
+    [SerializeField] protected int hitChance = 100, critChance = 25;
+    [SerializeField] protected int statusEffectChance = 100, statusEffectDuration = 1;
     [SerializeField] protected StatusEffect _statusEffect;
-    [Range(0, 200)]
-    [SerializeField] protected int statusEffectChance = 0, statusEffectDuration = 1;
 
     public float GetDamage() { return damage; }
     public int GetCritChance() { return critChance; }
