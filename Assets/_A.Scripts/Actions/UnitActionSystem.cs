@@ -31,8 +31,12 @@ public class UnitActionSystem : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-
         OnActionCompleted += UnitActionSystem_OnActionCompleted;
+    }
+
+    private void Start()
+    {
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
