@@ -182,7 +182,7 @@ public class UnitActionSystem : MonoBehaviour
         if (ManosInputController.Instance.RightClick.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-
+            if (selectedAction.GetIfUsedAction()) { return; }
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
             if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
