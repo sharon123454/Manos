@@ -126,7 +126,7 @@ public class UnitActionSystem : MonoBehaviour
 
         AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
-        
+
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -184,6 +184,7 @@ public class UnitActionSystem : MonoBehaviour
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
+            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
 
             SetBusy();

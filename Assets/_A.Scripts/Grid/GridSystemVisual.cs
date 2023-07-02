@@ -333,7 +333,7 @@ public class GridSystemVisual : MonoBehaviour
     private void SelfRange(Unit selectedUnit)
     {
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), 0, Color.green, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), 0, Color.cyan, Effectiveness.Effective);
     }
     private void MeleeRange(Unit selectedUnit, int adjacent, int veryFar)
     {
@@ -352,8 +352,8 @@ public class GridSystemVisual : MonoBehaviour
         HideAllVisual();
         ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.green, Effectiveness.Effective);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Inaccurate);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.red, Effectiveness.Miss);
-        HideGridPositionRange(selectedUnit.GetGridPosition(), adjacent);
+        //ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.red, Effectiveness.Miss);
+        HideGridPositionRange(selectedUnit.GetGridPosition(), close);
     }
     private void LongRange(Unit selectedUnit, int close, int veryFar)
     {
@@ -369,7 +369,7 @@ public class GridSystemVisual : MonoBehaviour
     private void InaccurateAtAllRanges(Unit selectedUnit, int veryFar)
     {
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.red, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.yellow, Effectiveness.Inaccurate);
     }
     #endregion
 

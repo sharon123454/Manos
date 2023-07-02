@@ -26,7 +26,7 @@ public class UnitStats : MonoBehaviour
     private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
 
-    private Effectiveness GetEffectiveness => LevelGrid.Instance.GetGridPosition(transform.position).GetEffectiveRange();
+    private Effectiveness GetEffectiveness => _unit.GetGridEffectiveness();
     private int CurrentEffectiveness
     {
         get
@@ -40,7 +40,7 @@ public class UnitStats : MonoBehaviour
                     _Effectivness = 30;
                     break;
                 case Effectiveness.Miss:
-                    _Effectivness = 100;
+                    _Effectivness = 200;
                     break;
                 default:
                     _Effectivness = 50;
@@ -64,7 +64,7 @@ public class UnitStats : MonoBehaviour
 
     private void Update()
     {
-        //   print(_unit.GetGridStatusEffect() + ""+ _unit.name);
+        //   print(GetEffectiveness + " "+ _unit.name);
     }
 
     public float GetHealthNormalized() { return health / maxHealth; }
