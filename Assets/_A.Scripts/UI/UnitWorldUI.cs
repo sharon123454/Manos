@@ -97,6 +97,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         healthBarImage.fillAmount = unitStats.GetHealthNormalized();
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();
         armorPointsText.text = unitStats.GetArmor().ToString();
+        healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
     }
 
     IEnumerator ShowCriticalHitVisual()

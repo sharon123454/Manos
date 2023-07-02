@@ -67,6 +67,7 @@ public class UnitActionSystem : MonoBehaviour
     public void InvokeAbilityFinished()
     {
         OnActionCompleted?.Invoke(this, EventArgs.Empty);
+        OnSelectedActionChanged.Invoke(this, EventArgs.Empty);
     }
     private void SignToNumerics()
     {
