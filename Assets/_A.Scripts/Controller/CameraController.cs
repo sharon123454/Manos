@@ -130,7 +130,7 @@ public class CameraController : MonoBehaviour
 
     private IEnumerator LerpToUnit(Vector3 unitPos)
     {
-        while (Vector3.Distance(transform.position, unitPos) > lerpDistanceFromUnit)
+        while (MathF.Abs(Vector3.Distance(transform.position, unitPos)) > lerpDistanceFromUnit)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(unitPos.x, transform.position.y, unitPos.z), lerpSpeed * Time.deltaTime);
             yield return null;
