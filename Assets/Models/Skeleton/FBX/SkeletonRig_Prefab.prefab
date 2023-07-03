@@ -214,6 +214,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3038049942394320639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 0.43697482, b: 0.43697482, a: 1}
-  outlineWidth: 3
+  outlineWidth: 1.99
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -6219,6 +6220,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1742449302505810121}
     m_Modifications:
     - target: {fileID: 3880702689588468994, guid: 51353680156a8784f815396ba568016a, type: 3}
@@ -6270,6 +6272,9 @@ PrefabInstance:
       value: Skeleton_Cage_Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51353680156a8784f815396ba568016a, type: 3}
 --- !u!4 &1718840133039407839 stripped
 Transform:
