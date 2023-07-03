@@ -41,6 +41,11 @@ public class UnitActionSystem : MonoBehaviour
 
     private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
     {
+        CheckActionUse();
+    }
+
+    private void CheckActionUse()
+    {
         if (TurnSystem.Instance.IsPlayerTurn())
         {
             if (selectedUnit.UsedAllPoints())
@@ -64,8 +69,6 @@ public class UnitActionSystem : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public void InvokeAbilityFinished()
@@ -91,10 +94,14 @@ public class UnitActionSystem : MonoBehaviour
         //canceles current action
         if (ManosInputController.Instance.Space.IsPressed())
         {
-
-            if (selectedAction is MoveAction) { }
+            if (selectedAction is MoveAction)
+                { }
+            //else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction())
+            //    SetSelectedAction(selectedUnit.GetBaseActionArray()[1]);
+        //    else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction() /*&& used bonus action*/)
+        //CheckActionUse();
             else
-                SetSelectedAction(selectedUnit.GetAction<MoveAction>());
+                SetSelectedAction(selectedUnit.GetAction<MoveAction>());//SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
         }
        // if (EventSystem.current.IsPointerOverGameObject()) { return; }
         if (TryHandleUnitSelection()) { return; }
