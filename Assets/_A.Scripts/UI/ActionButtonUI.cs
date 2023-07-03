@@ -108,6 +108,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (baseAction is MoveAction) { return; }
+
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
         if (baseAction is BaseAbility)
         {
@@ -129,6 +131,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (baseAction is MoveAction) { return; }
+
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
