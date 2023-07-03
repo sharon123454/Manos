@@ -87,8 +87,9 @@ public class GridSystemVisual : MonoBehaviour
             case AbilityRange.Move:
                 if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
                 {
-                    MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
-                    MoveRange(selectedUnit, _move.GetMoveValue());
+                    //was used for getting move distance as range, but is unused for now as we just color
+                    //MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
+                    MoveRange(selectedUnit/*, _move.GetMoveValue()*/);
                 }
                 break;
             case AbilityRange.Self:
@@ -171,7 +172,7 @@ public class GridSystemVisual : MonoBehaviour
             }
             else
             {
-                switch (range)
+                switch (range)//parenting for outline purposes
                 {
                     case 1://_adjacent
                         foreach (GridPosition position in gridPosList)
@@ -325,9 +326,9 @@ public class GridSystemVisual : MonoBehaviour
     }
 
     #region  Filter By Range methods
-    private void MoveRange(Unit selectedUnit, int playerMovement)
+    private void MoveRange(Unit selectedUnit/*, int playerMovement*/)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, Color.white, Effectiveness.Miss);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar, Color.white, Effectiveness.Miss);
         HideAllVisual();
     }
     private void SelfRange(Unit selectedUnit)
