@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: originalRootBone
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: 'unit movment '
+      objectReference: {fileID: 0}
     - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1.1039
@@ -160,6 +164,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Prefab_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: 'unit movment '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240871499249384572, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: Double your armor & reduce incoming posture damage by 50% until the
+        start of your next turn
+      objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
@@ -183,6 +196,10 @@ PrefabInstance:
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxPosture
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: Doubles Evasion
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -232,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: Description...
+  actionDescription: Melee basic attack
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
@@ -243,7 +260,7 @@ MonoBehaviour:
   meshShapeScaleMultiplicator: 1
   damage: 30
   postureDamage: 20
-  hitChance: 200
+  hitChance: 110
   critChance: 10
   statusEffectChance: 200
   statusEffectDuration: 1
@@ -265,7 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Murder
-  actionDescription: Description...
+  actionDescription: melee attack that deals more damage if the target has less then
+    50%
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
@@ -298,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Blinding Bolt
-  actionDescription: Description...
+  actionDescription: ranged attack that applies blind
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 0
@@ -309,9 +327,9 @@ MonoBehaviour:
   meshShapeScaleMultiplicator: 1
   damage: 20
   postureDamage: 20
-  hitChance: 200
+  hitChance: 105
   critChance: 10
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 2
   _statusEffect: 7
   aimingStateTime: 1
@@ -335,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Puncture
-  actionDescription: Description...
+  actionDescription: Melee attack that ignores armor
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
@@ -344,9 +362,9 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 35
+  damage: 25
   postureDamage: 10
-  hitChance: 200
+  hitChance: 120
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 1
@@ -368,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
-  actionDescription: Description...
+  actionDescription: teleport yourself
   actionCost: 2
   cooldownAfterUse: 3
   favorCost: 50
@@ -394,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Stun Bolt
-  actionDescription: Ranged Attack
+  actionDescription: Ranged Attack that apllies stun
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 25
@@ -405,9 +423,9 @@ MonoBehaviour:
   meshShapeScaleMultiplicator: 1
   damage: 25
   postureDamage: 40
-  hitChance: 200
+  hitChance: 90
   critChance: 10
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
   _statusEffect: 1
   aimingStateTime: 1
