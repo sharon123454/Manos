@@ -44,6 +44,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             bonusActionOutline.SetActive(false);
             actionOutline.SetActive(true);
         }
+        UpdateSelectedVisual();
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)

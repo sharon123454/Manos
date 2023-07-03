@@ -96,8 +96,7 @@ public class UnitActionSystem : MonoBehaviour
             else
                 SetSelectedAction(selectedUnit.GetAction<MoveAction>());
         }
-
-        if (EventSystem.current.IsPointerOverGameObject()) { return; }
+       // if (EventSystem.current.IsPointerOverGameObject()) { return; }
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
