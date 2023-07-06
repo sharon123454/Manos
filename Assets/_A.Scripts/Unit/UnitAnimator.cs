@@ -17,7 +17,7 @@ public class UnitAnimator : MonoBehaviour
 
         BaseHeal[] _healActions = GetComponents<BaseHeal>();
         MoveAction[] _moveActions = GetComponents<MoveAction>();
-        ShootAction[] _shootActions = GetComponents<ShootAction>();
+        RangedAction[] _shootActions = GetComponents<RangedAction>();
         MeleeAction[] _meleeActions = GetComponents<MeleeAction>();
 
         if (_moveActions.Length > 0)
@@ -31,7 +31,7 @@ public class UnitAnimator : MonoBehaviour
             }
 
         if (_shootActions.Length > 0)
-            foreach (ShootAction shootAction in _shootActions)
+            foreach (RangedAction shootAction in _shootActions)
                 if (shootAction)
                 {
                     shootAction.OnShoot += ShootAction_OnShoot;
@@ -105,7 +105,7 @@ public class UnitAnimator : MonoBehaviour
 
     }
 
-    private void ShootAction_OnShoot(object sender, ShootAction.OnSHootEventArgs e)
+    private void ShootAction_OnShoot(object sender, RangedAction.OnSHootEventArgs e)
     {
         animator.SetFloat("CastBlend", 0);
         animator.SetTrigger("Shoot");

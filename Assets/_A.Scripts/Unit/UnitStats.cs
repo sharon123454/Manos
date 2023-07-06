@@ -112,7 +112,7 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture -= postureDamage;
     }
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, StatusEffect currentEffect, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
     {
         #region Dice Rools
         int DiceRoll = UnityEngine.Random.Range(0, 101);
@@ -173,9 +173,9 @@ public class UnitStats : MonoBehaviour
                     SendConsoleMessage?.Invoke(this, "Ability HIT!");
                 }
 
-                if (UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
+                if (currentEffects.Count > 0 && UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
                 {
-                    _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
+                    _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
                 }
             }
             else
@@ -193,7 +193,9 @@ public class UnitStats : MonoBehaviour
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
-            _unitStatusEffect.AddStatusEffectToUnit(currentEffect, effectDuration);
+            if(currentEffects.Count > 0)
+            _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
         }
         #endregion

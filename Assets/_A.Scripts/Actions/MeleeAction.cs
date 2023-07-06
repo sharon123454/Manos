@@ -56,12 +56,12 @@ public class MeleeAction : BaseAbility
                     {
                         if (unit.IsEnemy())
                         {
-                            unit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                            unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                         }
                     }
                     return;
                 }
-                targetUnit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 break;
 
             case State.SwingAfterHit:

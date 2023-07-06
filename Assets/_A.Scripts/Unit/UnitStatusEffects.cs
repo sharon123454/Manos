@@ -298,57 +298,111 @@ public class UnitStatusEffects : MonoBehaviour
         }
     }
 
-    public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)
+    public void AddStatusEffectToUnit(List<StatusEffect> abilityEffect, int duration)
     {
-        unitActiveStatusEffects.Add(abilityEffect);
-
-        switch (abilityEffect)
+        foreach (var item in abilityEffect)
         {
-            case StatusEffect.None:
-                break;
-            case StatusEffect.Stun:
-                stunDuration += duration;
-                break;
-            case StatusEffect.Silence:
-                SilenceDuration += duration;
-                break;
-            case StatusEffect.ArmorBreak:
-                armorBrakeDuration += duration;
-                break;
-            case StatusEffect.Root:
-                rootDuration += duration;
-                break;
-            case StatusEffect.CowardPlague:
-                cowardPlagueDuration += duration;
-                break;
-            case StatusEffect.Nullify:
-                nullifyDuration += duration;
-                break;
-            case StatusEffect.GainArmor:
-                gainArmorDuration += duration;
-                break;
-            case StatusEffect.Haste:
-                HasteDuration += duration;
-                break;
-            case StatusEffect.Blind:
-                BlindDuration += duration;
-                break;
-            case StatusEffect.Undying:
-                UndyingDuration += duration;
-                break;
-            case StatusEffect.Regeneration:
-                RegenerationDuration += duration;
-                break;
-            case StatusEffect.Corruption:
-                CorruptionDuration += duration;
-                break;
-            case StatusEffect.ToBeTauntUnused:
-            default:
-                Debug.Log($"{abilityEffect} effect isn't Implamented");
-                break;
+            unitActiveStatusEffects.Add(item);
+            switch (item)
+            {
+                case StatusEffect.None:
+                    break;
+                case StatusEffect.Stun:
+                    stunDuration += duration;
+                    break;
+                case StatusEffect.Silence:
+                    SilenceDuration += duration;
+                    break;
+                case StatusEffect.ArmorBreak:
+                    armorBrakeDuration += duration;
+                    break;
+                case StatusEffect.Root:
+                    rootDuration += duration;
+                    break;
+                case StatusEffect.CowardPlague:
+                    cowardPlagueDuration += duration;
+                    break;
+                case StatusEffect.Nullify:
+                    nullifyDuration += duration;
+                    break;
+                case StatusEffect.GainArmor:
+                    gainArmorDuration += duration;
+                    break;
+                case StatusEffect.Haste:
+                    HasteDuration += duration;
+                    break;
+                case StatusEffect.Blind:
+                    BlindDuration += duration;
+                    break;
+                case StatusEffect.Undying:
+                    UndyingDuration += duration;
+                    break;
+                case StatusEffect.Regeneration:
+                    RegenerationDuration += duration;
+                    break;
+                case StatusEffect.Corruption:
+                    CorruptionDuration += duration;
+                    break;
+                case StatusEffect.ToBeTauntUnused:
+                default:
+                    Debug.Log($"{abilityEffect} effect isn't Implamented");
+                    break;
+            }
+
+
         }
     }
 
+    public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)
+    {
+
+            unitActiveStatusEffects.Add(abilityEffect);
+            switch (abilityEffect)
+            {
+                case StatusEffect.None:
+                    break;
+                case StatusEffect.Stun:
+                    stunDuration += duration;
+                    break;
+                case StatusEffect.Silence:
+                    SilenceDuration += duration;
+                    break;
+                case StatusEffect.ArmorBreak:
+                    armorBrakeDuration += duration;
+                    break;
+                case StatusEffect.Root:
+                    rootDuration += duration;
+                    break;
+                case StatusEffect.CowardPlague:
+                    cowardPlagueDuration += duration;
+                    break;
+                case StatusEffect.Nullify:
+                    nullifyDuration += duration;
+                    break;
+                case StatusEffect.GainArmor:
+                    gainArmorDuration += duration;
+                    break;
+                case StatusEffect.Haste:
+                    HasteDuration += duration;
+                    break;
+                case StatusEffect.Blind:
+                    BlindDuration += duration;
+                    break;
+                case StatusEffect.Undying:
+                    UndyingDuration += duration;
+                    break;
+                case StatusEffect.Regeneration:
+                    RegenerationDuration += duration;
+                    break;
+                case StatusEffect.Corruption:
+                    CorruptionDuration += duration;
+                    break;
+                case StatusEffect.ToBeTauntUnused:
+                default:
+                    Debug.Log($"{abilityEffect} effect isn't Implamented");
+                    break;
+            }      
+    }
     public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
 
 }

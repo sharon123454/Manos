@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class ShootAction : BaseAbility
+public class RangedAction : BaseAbility
 {
     public static event EventHandler<OnSHootEventArgs> OnAnyShoot;
 
@@ -165,13 +165,13 @@ public class ShootAction : BaseAbility
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 }
             }
             return;
         }
         else
-            targetUnit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+            targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
     }
 
 }
