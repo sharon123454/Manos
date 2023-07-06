@@ -108,6 +108,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        UnitActionSystem.Instance.IsHoveringOnUI(true);
         if (baseAction is MoveAction) { return; }
 
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
@@ -131,6 +132,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        UnitActionSystem.Instance.IsHoveringOnUI(false);
         if (baseAction is MoveAction) { return; }
 
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);

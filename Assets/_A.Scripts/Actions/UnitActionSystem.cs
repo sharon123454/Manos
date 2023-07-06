@@ -23,6 +23,7 @@ public class UnitActionSystem : MonoBehaviour
     private MoveAction selectedMoveAction;
     private Unit selectedUnit;
     private bool isBusy;
+    private bool hoveringUI = false;
 
 
     private void Awake()
@@ -103,7 +104,7 @@ public class UnitActionSystem : MonoBehaviour
             else
                 SetSelectedAction(selectedUnit.GetAction<MoveAction>());//SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
         }
-       // if (EventSystem.current.IsPointerOverGameObject()) { return; }
+        if (EventSystem.current.IsPointerOverGameObject() && hoveringUI) { return; }
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
@@ -232,5 +233,9 @@ public class UnitActionSystem : MonoBehaviour
 
         SetSelectedAction(availableUnitActions[passedInput]);
     }
-
+    
+    public void IsHoveringOnUI(bool ui)
+    {
+        hoveringUI = ui;
+    }
 }
