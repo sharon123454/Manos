@@ -140,6 +140,9 @@ public class RangedAction : BaseAbility
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
                     continue;
 
+                if (!targetUnit.IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
+                    continue;
+
                 Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
                 Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
                 float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());

@@ -116,6 +116,9 @@ public class MeleeAction : BaseAbility
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy())// Both units on the same team
                     continue;
 
+                if (!targetUnit.IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))
+                    continue;
+
                 _validGridPositionList.Add(testGridPosition);
             }
         }

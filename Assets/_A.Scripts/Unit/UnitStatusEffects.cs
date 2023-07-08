@@ -22,6 +22,7 @@ public class UnitStatusEffects : MonoBehaviour
     [SerializeField] private int UndyingDuration;
     [SerializeField] private int RegenerationDuration;
     [SerializeField] private int CorruptionDuration;
+    [SerializeField] private int InvisibilityDuration;
     [SerializeField] private int unusedDuration;
 
     public List<StatusEffect> unitActiveStatusEffects;
@@ -163,6 +164,11 @@ public class UnitStatusEffects : MonoBehaviour
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
                             break;
+                        case StatusEffect.Invisibility:
+                            InvisibilityDuration--;
+                            if (InvisibilityDuration <= 0)
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            break;
                         case StatusEffect.ToBeTauntUnused:
                         default:
                             Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
@@ -291,6 +297,11 @@ public class UnitStatusEffects : MonoBehaviour
                 if (cowardPlagueDuration <= 0)
                     unitActiveStatusEffects.Remove(effect);
                 break;
+            case StatusEffect.Invisibility:
+                InvisibilityDuration--;
+                if (InvisibilityDuration <= 0)
+                    unitActiveStatusEffects.Remove(effect);
+                break;
             case StatusEffect.ToBeTauntUnused:
             default:
                 Debug.Log($"{effect} effect isn't Implamented");
@@ -342,6 +353,9 @@ public class UnitStatusEffects : MonoBehaviour
                     break;
                 case StatusEffect.Corruption:
                     CorruptionDuration += duration;
+                    break;
+                case StatusEffect.Invisibility:
+                    InvisibilityDuration += duration;
                     break;
                 case StatusEffect.ToBeTauntUnused:
                 default:
