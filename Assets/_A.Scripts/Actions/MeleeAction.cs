@@ -113,6 +113,12 @@ public class MeleeAction : BaseAbility
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
+                if (GetUnit().IsEnemy() && targetUnit.GetUnitStats().getUnitStatusEffects().unitActiveStatusEffects.Contains(StatusEffect.Taunt))
+                {
+                    _validGridPositionList.Clear();
+                    _validGridPositionList.Add(testGridPosition);
+                    break;
+                }
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy())// Both units on the same team
                     continue;
 

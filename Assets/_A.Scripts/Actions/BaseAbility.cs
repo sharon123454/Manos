@@ -32,6 +32,7 @@ public enum StatusEffect
     CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
     Nullify,//??
     Invisibility,//
+    Taunt,//
     ToBeTauntUnused,//
 }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class RangedAction : BaseAbility
 {
@@ -136,6 +137,13 @@ public class RangedAction : BaseAbility
                     continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+
+                if (GetUnit().IsEnemy() && targetUnit.GetUnitStats().getUnitStatusEffects().unitActiveStatusEffects.Contains(StatusEffect.Taunt))
+                {
+                    _validGridPositionList.Clear();
+                    _validGridPositionList.Add(testGridPosition);
+                    break;
+                }
 
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
                     continue;
