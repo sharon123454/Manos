@@ -40,7 +40,18 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPoints(); }
 
-    private void TurnSystem_OnTurnChange(object sender, EventArgs e) { UpdateActionPoints(); }
+    private void TurnSystem_OnTurnChange(object sender, EventArgs e)
+    {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            actionButtonContainerTransform.gameObject.SetActive(true);
+            UpdateActionPoints();
+        }
+        else
+        {
+            actionButtonContainerTransform.gameObject.SetActive(false);
+        }
+    }
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
