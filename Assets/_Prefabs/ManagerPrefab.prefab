@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1726795479
 Transform:
   m_ObjectHideFlags: 0
@@ -634,6 +634,10 @@ MonoBehaviour:
   cinemachineVirtualCamera: {fileID: 0}
   camMoveSpeed: 10
   camRotationSpeed: 100
+  MinX: -5
+  MaxX: 30
+  MinZ: -5
+  MaxZ: 50
   camOrbitSpeed: 1
   MIN_ZOOM: -4
   MAX_ZOOM: 5
@@ -925,7 +929,7 @@ Transform:
   - {fileID: 1497313297890745319}
   - {fileID: 2860465443814421811}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5137477953706573887
 GameObject:
