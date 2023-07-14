@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private float camMoveSpeed = 10f, camRotationSpeed = 100f;
+    [SerializeField] protected float MinX = -5f, MaxX = 30f, MinZ = -5f, MaxZ = 50f;
     [Range(1, 10)]
     [SerializeField] private float camOrbitSpeed = 1f;
     [SerializeField] private float MIN_ZOOM = -4f, MAX_ZOOM = 5f;
@@ -71,7 +72,11 @@ public class CameraController : MonoBehaviour
         if (moveVector == Vector3.zero)
             return;
 
-        transform.position += camMoveSpeed * Time.deltaTime * moveVector;
+        StopAllCoroutines();
+
+        Vector3 newPosition = transform.position + (camMoveSpeed * Time.deltaTime * moveVector);
+        if (newPosition.x > MinX && newPosition.x < MaxX && newPosition.z > MinZ && newPosition.z < MaxZ)
+            transform.position = newPosition;
     }
 
     private void UpdateMovement()
@@ -82,7 +87,10 @@ public class CameraController : MonoBehaviour
             return;
 
         StopAllCoroutines();
-        transform.position += camMoveSpeed * Time.deltaTime * moveVector;
+
+        Vector3 newPosition = transform.position + (camMoveSpeed * Time.deltaTime * moveVector);
+        if (newPosition.x > MinX && newPosition.x < MaxX && newPosition.z > MinZ && newPosition.z < MaxZ)
+            transform.position = newPosition;
     }
 
     private void UpdateRotation()
