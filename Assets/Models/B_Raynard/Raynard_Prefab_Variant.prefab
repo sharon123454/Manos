@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -150,6 +150,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1954906679810133789}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7162368075245764267}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
@@ -211,7 +214,9 @@ MonoBehaviour:
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 0
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -248,7 +253,9 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -282,7 +289,9 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 2
-  _statusEffect: 10
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -319,7 +328,9 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   maxMeleeDistance: 1
   beforeHitStateTime: 0.7
   afterHitStateTime: 0.5
@@ -353,7 +364,9 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 30
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -390,7 +403,9 @@ MonoBehaviour:
   critChance: 5
   statusEffectChance: 30
   statusEffectDuration: 1
-  _statusEffect: 2
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -427,7 +442,9 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 7
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -436,6 +453,72 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!1001 &6563764753127721018
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1403111208976152019}
+    m_Modifications:
+    - target: {fileID: 370456422473541585, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_Name
+      value: Raynard_Visual (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+--- !u!4 &7162368075245764267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+  m_PrefabInstance: {fileID: 6563764753127721018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7133107590373419437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -491,6 +574,10 @@ PrefabInstance:
     - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
       propertyPath: m_Name
       value: Raynard_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
