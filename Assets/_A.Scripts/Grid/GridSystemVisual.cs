@@ -58,6 +58,7 @@ public class GridSystemVisual : MonoBehaviour
         BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
         HideAllVisual();
 
+        if (selectedAction == null) { return; }
         if (selectedAction.GetCooldown() > 0) { return; }
 
         switch (selectedAction.GetRange())
@@ -351,10 +352,11 @@ public class GridSystemVisual : MonoBehaviour
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.green, Effectiveness.Effective);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Inaccurate);
-        //ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.red, Effectiveness.Miss);
-        HideGridPositionRange(selectedUnit.GetGridPosition(), close);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.green, Effectiveness.Inaccurate);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.yellow, Effectiveness.Inaccurate);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), adjacent, Color.red, Effectiveness.Miss);
+        HideGridPositionRange(selectedUnit.GetGridPosition(), adjacent);
     }
     private void LongRange(Unit selectedUnit, int close, int veryFar)
     {

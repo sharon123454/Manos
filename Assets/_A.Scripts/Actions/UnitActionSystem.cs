@@ -33,6 +33,12 @@ public class UnitActionSystem : MonoBehaviour
 
         Instance = this;
         OnActionCompleted += UnitActionSystem_OnActionCompleted;
+        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    {
+        savedAction = null;
     }
 
     private void Start()
@@ -96,11 +102,11 @@ public class UnitActionSystem : MonoBehaviour
         if (ManosInputController.Instance.Space.IsPressed())
         {
             if (selectedAction is MoveAction)
-                { }
+            { }
             //else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction())
             //    SetSelectedAction(selectedUnit.GetBaseActionArray()[1]);
-        //    else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction() /*&& used bonus action*/)
-        //CheckActionUse();
+            //    else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction() /*&& used bonus action*/)
+            //CheckActionUse();
             else
                 SetSelectedAction(selectedUnit.GetAction<MoveAction>());//SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
         }
@@ -136,9 +142,11 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
+        if (savedAction != null)
+        {
+            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
-
+        }
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -194,6 +202,7 @@ public class UnitActionSystem : MonoBehaviour
         if (ManosInputController.Instance.Click.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            if (selectedAction == null) { return; }
             if (selectedAction.GetIfUsedAction()) { return; }
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
             if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
@@ -233,7 +242,7 @@ public class UnitActionSystem : MonoBehaviour
 
         SetSelectedAction(availableUnitActions[passedInput]);
     }
-    
+
     public void IsHoveringOnUI(bool ui)
     {
         hoveringUI = ui;

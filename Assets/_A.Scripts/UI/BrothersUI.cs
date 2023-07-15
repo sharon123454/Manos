@@ -51,20 +51,23 @@ public class BrothersUI : MonoBehaviour
             {
                 if (UnitActionSystem.Instance.GetSelectedUnit() == specificBro)
                 {
-                    if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                    if (UnitActionSystem.Instance.GetSelectedAction() != null)
                     {
-                        bonusActionImage.color = Color.green;
-                        actionImage.color = Color.green;
-                    }
-                    else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
-                    {
-                        bonusActionImage.color = Color.green;
-                        actionImage.color = actionBarDefualtColor;
-                    }
-                    else
-                    {
-                        actionImage.color = Color.green;
-                        bonusActionImage.color = BonusactionBarDefualtColor;
+                        if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                        {
+                            bonusActionImage.color = Color.green;
+                            actionImage.color = Color.green;
+                        }
+                        else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
+                        {
+                            bonusActionImage.color = Color.green;
+                            actionImage.color = actionBarDefualtColor;
+                        }
+                        else
+                        {
+                            actionImage.color = Color.green;
+                            bonusActionImage.color = BonusactionBarDefualtColor;
+                        }
                     }
                 }
                 else
