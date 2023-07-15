@@ -352,8 +352,8 @@ public class GridSystemVisual : MonoBehaviour
     private void MediumRange(Unit selectedUnit, int adjacent, int close, int far, int veryFar)
     {
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.green, Effectiveness.Inaccurate);
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.yellow, Effectiveness.Effective);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), veryFar, Color.yellow, Effectiveness.Inaccurate);
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), far, Color.green, Effectiveness.Effective);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), close, Color.yellow, Effectiveness.Inaccurate);
         ShowGridPositionRange(selectedUnit.GetGridPosition(), adjacent, Color.red, Effectiveness.Miss);
         HideGridPositionRange(selectedUnit.GetGridPosition(), adjacent);
