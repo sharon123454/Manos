@@ -22,7 +22,7 @@ public class AOEProjectile : MonoBehaviour
     [SerializeField] private AnimationCurve arcYAnimationCurve;
 
     private int _statusEffectChance, _statusEffectDuration;
-    private StatusEffect currentEffect;
+    private List<StatusEffect> currentEffect;
     private List<AbilityProperties> abilityProperties;
     private Vector3 targetPosition;
     private Action onAOEBehaviourComplete;
@@ -67,7 +67,7 @@ public class AOEProjectile : MonoBehaviour
         }
     }
 
-    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete, StatusEffect effect, List<AbilityProperties> AP, int statusEffectChance, int statusEffectDuration)
+    public void Setup(GridPosition targetGridPosition, Action onAOEBehaviourComplete, List<StatusEffect> effect, List<AbilityProperties> AP, int statusEffectChance, int statusEffectDuration)
     {
         this.onAOEBehaviourComplete = onAOEBehaviourComplete;
         targetPosition = LevelGrid.Instance.GetWorldPosition(targetGridPosition);

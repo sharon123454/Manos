@@ -44,6 +44,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             bonusActionOutline.SetActive(false);
             actionOutline.SetActive(true);
         }
+        UpdateSelectedVisual();
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
@@ -107,14 +108,21 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UnitActionSystem.Instance.SetSelectedAction(baseAction);
+        UnitActionSystem.Instance.IsHoveringOnUI(true);
+
+        actionInfo.SetActive(true);
+
         if (baseAction is BaseAbility)
         {
-            actionInfo.SetActive(true);
             //   cooldownProUgui.gameObject.SetActive(true);
             if (!isBaseAbility)
             {
                 isBaseAbility = (BaseAbility)baseAction;
+                favorProUgui.gameObject.SetActive(true);
+                damageProUgui.gameObject.SetActive(true);
+                postureProUgui.gameObject.SetActive(true);
+                critHitChanceProUgui.gameObject.SetActive(true);
+                statusHitChanceProUgui.gameObject.SetActive(true);
                 damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
                 postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
                 favorProUgui.text = $"Favor Cost: {isBaseAbility.GetFavorCost()}";
@@ -124,13 +132,30 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 //cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
             }
         }
+        else
+        {
+            descriptionUgui.text = $"{baseAction.GetActionDescription()}";
+            favorProUgui.gameObject.SetActive(false);
+            damageProUgui.gameObject.SetActive(false);
+            postureProUgui.gameObject.SetActive(false);
+            critHitChanceProUgui.gameObject.SetActive(false);
+            statusHitChanceProUgui.gameObject.SetActive(false);
+        }
+
+        if (baseAction is MoveAction) { return; }
+
+        UnitActionSystem.Instance.SetSelectedAction(baseAction);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
+        UnitActionSystem.Instance.IsHoveringOnUI(false);
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
+
+        if (baseAction is MoveAction) { return; }
+
+        UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
     }
 
 }

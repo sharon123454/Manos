@@ -31,6 +31,8 @@ public enum StatusEffect
     Corruption,//Affected unit suffers damage at the beginning of their turn
     CowardPlague,//If the affected enemy unit exits status inflicter's melee range they receive the ability's damage and posture damage again
     Nullify,//??
+    Invisibility,//
+    Taunt,//
     ToBeTauntUnused,//
 }
 
@@ -53,14 +55,18 @@ public class BaseAbility : BaseAction
     [SerializeField] protected float postureDamage = 0f;
     [SerializeField] protected int hitChance = 100, critChance = 25;
     [SerializeField] protected int statusEffectChance = 100, statusEffectDuration = 1;
-    [SerializeField] protected StatusEffect _statusEffect;
+    [SerializeField] protected List<StatusEffect> EnemyStatusEffects;
+    [Header("Self Casting")]
+    [Space]
+    [SerializeField] protected int selfBuffDuration = 1;
+    [SerializeField] protected List<StatusEffect> selfBuffs;
 
     public float GetDamage() { return damage; }
     public int GetCritChance() { return critChance; }
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
     public int GetStatusChance() { return statusEffectChance; }
-    public StatusEffect GetStatusEffect() { return _statusEffect; }
+    public List<StatusEffect> GetStatusEffect() { return EnemyStatusEffects; }
 
     // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 
@@ -68,6 +74,9 @@ public class BaseAbility : BaseAction
     {
         // cooldown += addCooldown;
         CastSpell();
+        if (selfBuffs.Count > 0)
+            SetSelfBuff();
+
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
     }
@@ -84,5 +93,8 @@ public class BaseAbility : BaseAction
     {
         OnAnySpellCast?.Invoke(this, GetFavorCost());
     }
-
+    public virtual void SetSelfBuff()
+    {
+        UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.AddStatusEffectToUnit(selfBuffs, selfBuffDuration);
+    }
 }

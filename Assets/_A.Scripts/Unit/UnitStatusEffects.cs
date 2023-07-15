@@ -22,6 +22,8 @@ public class UnitStatusEffects : MonoBehaviour
     [SerializeField] private int UndyingDuration;
     [SerializeField] private int RegenerationDuration;
     [SerializeField] private int CorruptionDuration;
+    [SerializeField] private int InvisibilityDuration;
+    [SerializeField] private int TauntDuration;
     [SerializeField] private int unusedDuration;
 
     public List<StatusEffect> unitActiveStatusEffects;
@@ -51,6 +53,8 @@ public class UnitStatusEffects : MonoBehaviour
         UndyingDuration--;
         RegenerationDuration--;
         CorruptionDuration--;
+        InvisibilityDuration--;
+        TauntDuration--;
     }
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
@@ -163,6 +167,16 @@ public class UnitStatusEffects : MonoBehaviour
                                 unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
                             }
                             break;
+                        case StatusEffect.Invisibility:
+                            InvisibilityDuration--;
+                            if (InvisibilityDuration <= 0)
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            break;
+                        case StatusEffect.Taunt:
+                            TauntDuration--;
+                            if (TauntDuration <= 0)
+                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
+                            break;
                         case StatusEffect.ToBeTauntUnused:
                         default:
                             Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
@@ -208,6 +222,8 @@ public class UnitStatusEffects : MonoBehaviour
                         case StatusEffect.Regeneration:
                             break;
                         case StatusEffect.Corruption:
+                            break;
+                        case StatusEffect.Taunt:
                             break;
                         case StatusEffect.ToBeTauntUnused:
                         default:
@@ -291,6 +307,16 @@ public class UnitStatusEffects : MonoBehaviour
                 if (cowardPlagueDuration <= 0)
                     unitActiveStatusEffects.Remove(effect);
                 break;
+            case StatusEffect.Invisibility:
+                InvisibilityDuration--;
+                if (InvisibilityDuration <= 0)
+                    unitActiveStatusEffects.Remove(effect);
+                break;
+            case StatusEffect.Taunt:
+                TauntDuration--;
+                if (TauntDuration <= 0)
+                    unitActiveStatusEffects.Remove(effect);
+                break;
             case StatusEffect.ToBeTauntUnused:
             default:
                 Debug.Log($"{effect} effect isn't Implamented");
@@ -298,10 +324,71 @@ public class UnitStatusEffects : MonoBehaviour
         }
     }
 
+    public void AddStatusEffectToUnit(List<StatusEffect> abilityEffect, int duration)
+    {
+        foreach (var item in abilityEffect)
+        {
+            unitActiveStatusEffects.Add(item);
+            switch (item)
+            {
+                case StatusEffect.None:
+                    break;
+                case StatusEffect.Stun:
+                    stunDuration += duration;
+                    break;
+                case StatusEffect.Silence:
+                    SilenceDuration += duration;
+                    break;
+                case StatusEffect.ArmorBreak:
+                    armorBrakeDuration += duration;
+                    break;
+                case StatusEffect.Root:
+                    rootDuration += duration;
+                    break;
+                case StatusEffect.CowardPlague:
+                    cowardPlagueDuration += duration;
+                    break;
+                case StatusEffect.Nullify:
+                    nullifyDuration += duration;
+                    break;
+                case StatusEffect.GainArmor:
+                    gainArmorDuration += duration;
+                    break;
+                case StatusEffect.Haste:
+                    HasteDuration += duration;
+                    break;
+                case StatusEffect.Blind:
+                    BlindDuration += duration;
+                    break;
+                case StatusEffect.Undying:
+                    UndyingDuration += duration;
+                    break;
+                case StatusEffect.Regeneration:
+                    RegenerationDuration += duration;
+                    break;
+                case StatusEffect.Corruption:
+                    CorruptionDuration += duration;
+                    break;
+                case StatusEffect.Invisibility:
+                    InvisibilityDuration += duration;
+                    break;
+                case StatusEffect.Taunt:
+                    TauntDuration += duration;
+                    break;
+                case StatusEffect.ToBeTauntUnused:
+                default:
+                    Debug.Log($"{abilityEffect} effect isn't Implamented");
+                    break;
+            }
+
+
+        }
+    }
+
     public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)
     {
-        unitActiveStatusEffects.Add(abilityEffect);
 
+        unitActiveStatusEffects.Add(abilityEffect);
         switch (abilityEffect)
         {
             case StatusEffect.None:
@@ -348,7 +435,6 @@ public class UnitStatusEffects : MonoBehaviour
                 break;
         }
     }
-
     public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
 
 }

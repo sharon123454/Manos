@@ -57,7 +57,7 @@ public class CameraManager : MonoBehaviour
     {
         switch (sender)
         {
-            case ShootAction shootAction:
+            case RangedAction shootAction:
                 HideActionCamera();
                 break;
         }

@@ -42,20 +42,23 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
         {
-            if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+            if (UnitActionSystem.Instance.GetSelectedAction() != null)
             {
-                bonusActionBarImage.color = Color.green;
-                actionBarImage.color = Color.green;
-            }
-            else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
-            {
-                bonusActionBarImage.color = Color.green;
-                actionBarImage.color = actionBarDefualtColor;
-            }
-            else
-            {
-                actionBarImage.color = Color.green;
-                bonusActionBarImage.color = BonusactionBarDefualtColor;
+                if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                {
+                    bonusActionBarImage.color = Color.green;
+                    actionBarImage.color = Color.green;
+                }
+                else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
+                {
+                    bonusActionBarImage.color = Color.green;
+                    actionBarImage.color = actionBarDefualtColor;
+                }
+                else
+                {
+                    actionBarImage.color = Color.green;
+                    bonusActionBarImage.color = BonusactionBarDefualtColor;
+                }
             }
         }
         else
@@ -97,6 +100,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         healthBarImage.fillAmount = unitStats.GetHealthNormalized();
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();
         armorPointsText.text = unitStats.GetArmor().ToString();
+        healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
     }
 
     IEnumerator ShowCriticalHitVisual()

@@ -132,6 +132,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: unit movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2.6066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.8821
+      objectReference: {fileID: 0}
     - target: {fileID: 3438019536766426537, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_Size.x
       value: 0.8
@@ -154,15 +170,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19
+      value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalRotation.w
@@ -196,6 +212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nanook_Prefab_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: unit movement
+      objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
@@ -204,6 +224,10 @@ PrefabInstance:
       propertyPath: shootPointTransform
       value: 
       objectReference: {fileID: 5894029087579720668}
+    - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: Double evasion until next turn
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -271,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: ...
+  actionDescription: Melee basic attack
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
@@ -280,9 +304,9 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 2
   meshShapeScaleMultiplicator: 2
-  damage: 10
+  damage: 38
   postureDamage: 5
-  hitChance: 200
+  hitChance: 110
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 0
@@ -304,20 +328,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Pommel Strike
-  actionDescription: Breaks targets armor
+  actionDescription: Melee attack that Breaks targets armor
   actionCost: 1
   cooldownAfterUse: 1
   favorCost: 0
-  _AbilityProperties: 00000000
+  _AbilityProperties: 
   range: 2
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 15
+  damage: 30
   postureDamage: 0
-  hitChance: 200
+  hitChance: 100
   critChance: 5
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
   _statusEffect: 4
   maxMeleeDistance: 1
@@ -341,14 +365,14 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
-  _AbilityProperties: 0000000005000000
+  _AbilityProperties: 05000000
   range: 2
   isFollowingMouse: 0
   actionMeshShape: 2
   meshShapeScaleMultiplicator: 2
-  damage: 15
+  damage: 30
   postureDamage: 10
-  hitChance: 200
+  hitChance: 90
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 0
@@ -370,21 +394,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: The King's Roar
-  actionDescription: Single target melee attack that applies the Taunt status effect
-    on the target
+  actionDescription: single target melee attack
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
-  _AbilityProperties: 00000000
+  _AbilityProperties: 
   range: 2
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 5
+  damage: 20
   postureDamage: 30
-  hitChance: 200
+  hitChance: 110
   critChance: 10
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 2
   _statusEffect: 13
   maxMeleeDistance: 1
@@ -438,11 +461,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Absolute Devotion
-  actionDescription: 
+  actionDescription: AOE that grants allies Haste
   actionCost: 2
   cooldownAfterUse: 4
   favorCost: 50
-  _AbilityProperties: 0000000005000000
+  _AbilityProperties: 05000000
   range: 6
   isFollowingMouse: 1
   actionMeshShape: 1
@@ -454,7 +477,6 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 1
   _statusEffect: 6
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1

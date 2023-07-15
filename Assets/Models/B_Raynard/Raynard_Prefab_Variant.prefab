@@ -20,6 +20,30 @@ PrefabInstance:
       propertyPath: _AbilityProperties.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: unit movment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.1226
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2.1291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0096
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.1975
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -92,6 +116,18 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: unit movment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 872971790911514558}
+    - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: shootPointTransform
+      value: 
+      objectReference: {fileID: 5391332409113617397}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: evasion
       value: 20
@@ -100,10 +136,17 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: actionDescription
+      value: Doubles evasion
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 3691354638567946646}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1954906679810133789}
@@ -153,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: Ranged Attack
+  actionDescription: Ranged basic Attack
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
@@ -162,14 +205,13 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 10
+  damage: 25
   postureDamage: 10
-  hitChance: 200
+  hitChance: 110
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 0
   _statusEffect: 0
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -191,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Mend
-  actionDescription: Description...
+  actionDescription: Heal an ally
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 50
@@ -200,7 +242,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 40
+  damage: 55
   postureDamage: 0
   hitChance: 200
   critChance: 0
@@ -224,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Ensnare
-  actionDescription: Description...
+  _actionName: Ensnarement
+  actionDescription: AOE that applies corruption to enemies
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 100
@@ -236,12 +278,11 @@ MonoBehaviour:
   meshShapeScaleMultiplicator: 3
   damage: 0
   postureDamage: 0
-  hitChance: 200
+  hitChance: 100
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 2
   _statusEffect: 10
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -263,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacreficial Purification
-  actionDescription: Description...
+  actionDescription: AOE heal
   actionCost: 0
   cooldownAfterUse: 5
   favorCost: 0
@@ -272,7 +313,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 100
-  damage: 20
+  damage: 50
   postureDamage: 0
   hitChance: 200
   critChance: 0
@@ -297,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Eruption
-  actionDescription: Description...
+  actionDescription: AOE attack
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 200
@@ -306,14 +347,13 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 3
   meshShapeScaleMultiplicator: 3
-  damage: 15
+  damage: 45
   postureDamage: 5
-  hitChance: 200
+  hitChance: 110
   critChance: 10
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
   _statusEffect: 0
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -335,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Holy Hush
-  actionDescription: Description...
+  actionDescription: Single target attack that applies Silence
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
@@ -344,14 +384,13 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 15
+  damage: 45
   postureDamage: 10
-  hitChance: 200
+  hitChance: 110
   critChance: 5
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
   _statusEffect: 2
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -373,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacred Radiance
-  actionDescription: Description...
+  actionDescription: AOE that Blinds enemies
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 75
@@ -384,12 +423,11 @@ MonoBehaviour:
   meshShapeScaleMultiplicator: 3
   damage: 0
   postureDamage: 0
-  hitChance: 200
+  hitChance: 110
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
   _statusEffect: 7
-  maxShootDistance: 5
   aimingStateTime: 1
   shootingStateTime: 0.1
   coolOffStateTime: 0.1
@@ -398,6 +436,82 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!1001 &7133107590373419437
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1403111208976152019}
+    m_Modifications:
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+      propertyPath: m_Name
+      value: Raynard_Visual
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+--- !u!95 &872971790911514558 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7989536064906595859, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3691354638567946646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5391332409113617397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2894758812132903512, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
+  m_PrefabInstance: {fileID: 7133107590373419437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8207012942272059537
 PrefabInstance:
   m_ObjectHideFlags: 0

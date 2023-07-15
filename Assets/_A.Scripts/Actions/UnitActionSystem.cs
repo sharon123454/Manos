@@ -23,6 +23,7 @@ public class UnitActionSystem : MonoBehaviour
     private MoveAction selectedMoveAction;
     private Unit selectedUnit;
     private bool isBusy;
+    private bool hoveringUI = false;
 
 
     private void Awake()
@@ -31,11 +32,26 @@ public class UnitActionSystem : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-
         OnActionCompleted += UnitActionSystem_OnActionCompleted;
+        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    {
+        savedAction = null;
+    }
+
+    private void Start()
+    {
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
+    {
+        CheckActionUse();
+    }
+
+    private void CheckActionUse()
     {
         if (TurnSystem.Instance.IsPlayerTurn())
         {
@@ -60,13 +76,12 @@ public class UnitActionSystem : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public void InvokeAbilityFinished()
     {
         OnActionCompleted?.Invoke(this, EventArgs.Empty);
+        OnSelectedActionChanged.Invoke(this, EventArgs.Empty);
     }
     private void SignToNumerics()
     {
@@ -86,13 +101,16 @@ public class UnitActionSystem : MonoBehaviour
         //canceles current action
         if (ManosInputController.Instance.Space.IsPressed())
         {
-
-            if (selectedAction is MoveAction) { }
+            if (selectedAction is MoveAction)
+            { }
+            //else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction())
+            //    SetSelectedAction(selectedUnit.GetBaseActionArray()[1]);
+            //    else if (selectedAction is not MoveAction && selectedAction.GetIfUsedAction() /*&& used bonus action*/)
+            //CheckActionUse();
             else
-                SetSelectedAction(selectedUnit.GetAction<MoveAction>());
+                SetSelectedAction(selectedUnit.GetAction<MoveAction>());//SetSelectedAction(selectedUnit.GetBaseActionArray()[0]);
         }
-
-        if (EventSystem.current.IsPointerOverGameObject()) { return; }
+        if (EventSystem.current.IsPointerOverGameObject() && hoveringUI) { return; }
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
@@ -124,9 +142,11 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
+        if (savedAction != null)
+        {
+            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
-
+        }
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -179,10 +199,11 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        if (ManosInputController.Instance.RightClick.IsPressed())
+        if (ManosInputController.Instance.Click.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-
+            if (selectedAction == null) { return; }
+            if (selectedAction.GetIfUsedAction()) { return; }
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
             if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
@@ -222,4 +243,8 @@ public class UnitActionSystem : MonoBehaviour
         SetSelectedAction(availableUnitActions[passedInput]);
     }
 
+    public void IsHoveringOnUI(bool ui)
+    {
+        hoveringUI = ui;
+    }
 }

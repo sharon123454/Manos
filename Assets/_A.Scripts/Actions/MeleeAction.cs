@@ -56,12 +56,12 @@ public class MeleeAction : BaseAbility
                     {
                         if (unit.IsEnemy())
                         {
-                            unit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                            unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                         }
                     }
                     return;
                 }
-                targetUnit.Damage(damage, postureDamage, hitChance, critChance, _statusEffect, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 break;
 
             case State.SwingAfterHit:
@@ -113,7 +113,16 @@ public class MeleeAction : BaseAbility
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
 
+                if (GetUnit().IsEnemy() && targetUnit.GetUnitStats().getUnitStatusEffects().unitActiveStatusEffects.Contains(StatusEffect.Taunt))
+                {
+                    _validGridPositionList.Clear();
+                    _validGridPositionList.Add(testGridPosition);
+                    break;
+                }
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy())// Both units on the same team
+                    continue;
+
+                if (!targetUnit.IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))
                     continue;
 
                 _validGridPositionList.Add(testGridPosition);

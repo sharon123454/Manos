@@ -13,10 +13,10 @@ public class ScreenShakeActions : MonoBehaviour
     {
         AOEProjectile.OnAnyAOEHit += AOEProjectile_OnAnyAOEHit;
         MeleeAction.OnAnyMeleeHit += MeleeAction_OnAnyMeleeHit;
-        ShootAction.OnAnyShoot += ShootAction_OnAnyShoot;
+        RangedAction.OnAnyShoot += ShootAction_OnAnyShoot;
     }
 
-    private void ShootAction_OnAnyShoot(object sender, ShootAction.OnSHootEventArgs e)
+    private void ShootAction_OnAnyShoot(object sender, RangedAction.OnSHootEventArgs e)
     {
         ScreenShake.Instance.Shake(shootShakeIntensity);
     }

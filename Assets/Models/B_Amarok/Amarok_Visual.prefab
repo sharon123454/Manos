@@ -757,6 +757,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1413584555336163347}
+  - component: {fileID: 8510549598777970172}
   - component: {fileID: -5066613141030553251}
   - component: {fileID: -424269793040863187}
   m_Layer: 0
@@ -804,6 +805,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8510549598777970172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789581641572301481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SlashVFX: {fileID: 0}
+  _HealVFX: []
+  _StunVFX: []
 --- !u!95 &-5066613141030553251
 Animator:
   serializedVersion: 5
@@ -839,7 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 0.4867257, g: 0.66371685, b: 1, a: 1}
-  outlineWidth: 5
+  outlineWidth: 1.99
   precomputeOutline: 1
   bakeKeys:
   - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
