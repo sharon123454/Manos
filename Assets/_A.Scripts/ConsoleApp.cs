@@ -19,6 +19,12 @@ public class ConsoleApp : MonoBehaviour
         ManosInputController.Instance.OpenSettings.performed += InputController_Pause;
     }
 
+    private void Update()
+    {
+        if (textContainer.childCount > 6)
+            Destroy(textContainer.GetChild(0).gameObject);
+    }
+
     private void OnDisable()
     {
         ManosInputController.Instance.OpenSettings.performed -= InputController_Pause;
@@ -38,9 +44,6 @@ public class ConsoleApp : MonoBehaviour
     {
         if (textContainer != null)
         {
-            if (textContainer.childCount > 4)
-                Destroy(textContainer.GetChild(0).gameObject);
-
             GameObject newConsoleLine = Instantiate(consoleLinePrefab.gameObject, textContainer);
             TextMeshProUGUI newTextLine = newConsoleLine.GetComponentInChildren<TextMeshProUGUI>();
             newTextLine.text = name;
