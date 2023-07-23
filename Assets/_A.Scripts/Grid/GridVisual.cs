@@ -59,7 +59,7 @@ public class GridVisual : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //if (other.CompareTag("Mouse"))
-        //Debug.Log("on stay");
+        //Debug.Log("on Exit");
     }
 
     public void ShowGridVisual()
@@ -88,14 +88,14 @@ public class GridVisual : MonoBehaviour
             _decalProjector.enabled = true;
             _lastActiveGridDecal = _decalProjector;
         }
-        //if (_gridVisual)
-        //{
-        //    if (_lastActiveGridMesh)
-        //        _lastActiveGridMesh.enabled = false;
+        if (_gridVisual)
+        {
+            if (_lastActiveGridMesh)
+                _lastActiveGridMesh.enabled = false;
 
-        //    ShowGridVisual();
-        //    _lastActiveGridMesh = _gridVisual;
-        //}
+            ShowGridVisual();
+            _lastActiveGridMesh = _gridVisual;
+        }
     }
 
 }

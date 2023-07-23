@@ -74,14 +74,14 @@ public class AOEManager : MonoBehaviour
     }
 
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
-    public void SetIsAOEActive(bool isActive, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, AbilityRange abilityRange)
+    public void SetIsAOEActive(bool isActive, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, ActionRange abilityRange)
     {
         if (!isActive || AOEMeshType == MeshShape.None) { DisableAOE(); return; }
 
         InitAOE(centerZonePosition, AOEMeshType, rangeMultiplicator, abilityRange);
     }
 
-    private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, AbilityRange abilityRange)//make use of range for range clamp and not range multiplicator
+    private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, ActionRange abilityRange)//make use of range for range clamp and not range multiplicator
     {
         if (meshArrayType.Length > 0)
         {

@@ -69,16 +69,12 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     }
 
-    private void Instance_OnSelectedUnitChanged(object sender, EventArgs e)
+    private void Instance_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
-        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
-        {
+        if (newlySelectedUnit.name == thisUnitName)
             VisualParent.SetActive(true);
-        }
         else
-        {
             VisualParent.SetActive(false);
-        }
     }
 
     private void UnitStats_OnCriticalHit(object sender, EventArgs e)

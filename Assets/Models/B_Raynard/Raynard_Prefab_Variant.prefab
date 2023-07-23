@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -148,11 +148,11 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 3691354638567946646}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1954906679810133789}
+      insertIndex: 2
+      addedObject: {fileID: 7162368075245764267}
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7162368075245764267}
+      addedObject: {fileID: 1954906679810133789}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
@@ -205,6 +205,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 4
+  isAOE: 0
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -217,10 +218,9 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -244,6 +244,7 @@ MonoBehaviour:
   favorCost: 50
   _AbilityProperties: 0000000002000000
   range: 4
+  isAOE: 0
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -256,10 +257,10 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
   healValue: 10
 --- !u!114 &7123398654395497437
 MonoBehaviour:
@@ -280,6 +281,7 @@ MonoBehaviour:
   favorCost: 100
   _AbilityProperties: 0000000005000000
   range: 5
+  isAOE: 0
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
@@ -292,10 +294,9 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -319,6 +320,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 000000000500000002000000
   range: 6
+  isAOE: 0
   isFollowingMouse: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 100
@@ -331,10 +333,10 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  afterHitStateTime: 0.5
-  rotateToTargetSpeed: 10
   healValue: 10
 --- !u!114 &830595967743303543
 MonoBehaviour:
@@ -355,6 +357,7 @@ MonoBehaviour:
   favorCost: 200
   _AbilityProperties: 0000000005000000
   range: 5
+  isAOE: 0
   isFollowingMouse: 1
   actionMeshShape: 3
   meshShapeScaleMultiplicator: 3
@@ -367,10 +370,9 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -394,6 +396,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 5
+  isAOE: 0
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -406,10 +409,9 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -433,6 +435,7 @@ MonoBehaviour:
   favorCost: 75
   _AbilityProperties: 0000000005000000
   range: 4
+  isAOE: 0
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
@@ -445,10 +448,9 @@ MonoBehaviour:
   EnemyStatusEffects: 
   selfBuffDuration: 1
   selfBuffs: 
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -463,7 +465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 370456422473541585, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: m_Name
-      value: Raynard_Visual (1)
+      value: Raynard_Visual
       objectReference: {fileID: 0}
     - target: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: m_RootOrder
@@ -573,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
       propertyPath: m_Name
-      value: Raynard_Visual
+      value: Raynard_Visual_OLD
       objectReference: {fileID: 0}
     - target: {fileID: 7905071717421513874, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
       propertyPath: m_IsActive

@@ -65,6 +65,7 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public UnitAnimator GetUnitAnimator() { return animator; }
     public float GetHealthNormalized()
     {
         return statSheet.GetHealthNormalized();

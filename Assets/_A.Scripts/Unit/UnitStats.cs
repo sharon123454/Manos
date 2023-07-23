@@ -114,7 +114,7 @@ public class UnitStats : MonoBehaviour
     }
     public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
     {
-        #region Dice Rools
+        #region Dice Rolls
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
@@ -153,7 +153,10 @@ public class UnitStats : MonoBehaviour
         }
 
         if (damageToRecieve <= 0)
+        {
+            SendConsoleMessage?.Invoke(this, "Damage was mitigated.");
             return;
+        }
         #endregion
 
         #region Normal Calculation
@@ -176,12 +179,14 @@ public class UnitStats : MonoBehaviour
                 if (currentEffects.Count > 0 && UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
                 {
                     _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+                    foreach (StatusEffect effect in currentEffects)
+                        SendConsoleMessage?.Invoke(this, $"{effect} was applied for {effectDuration} turns.");
                 }
             }
             else
             {
-                SendConsoleMessage?.Invoke(this, "Attack Missed");
                 OnDodge?.Invoke(this, EventArgs.Empty);
+                SendConsoleMessage?.Invoke(this, "Attack Missed");
             }
             return;
 
@@ -193,8 +198,8 @@ public class UnitStats : MonoBehaviour
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
-            if(currentEffects.Count > 0)
-            _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+            if (currentEffects.Count > 0)
+                _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
 
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
         }

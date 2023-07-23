@@ -44,12 +44,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             bonusActionOutline.SetActive(false);
             actionOutline.SetActive(true);
         }
-        UpdateSelectedVisual();
+
+        UpdateButtonVisual();
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        UpdateSelectedVisual();
+        UpdateButtonVisual();
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -64,7 +65,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         });
     }
 
-    public void UpdateSelectedVisual()
+    public void UpdateButtonVisual()
     {
         if (TurnSystem.Instance.IsPlayerTurn())
         {
@@ -79,7 +80,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
             if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
                 || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
-                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.GetRange() == AbilityRange.Move
+                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.GetRange() == ActionRange.Move
                 || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
                 || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
                 || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())

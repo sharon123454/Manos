@@ -32,7 +32,6 @@ public class UnitManager : MonoBehaviour
     {
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         ManosInputController.Instance.SwitchSelectedPlayer.performed += InputController_SwitchSelectedPlayer;
     }
 
@@ -73,6 +72,11 @@ public class UnitManager : MonoBehaviour
 
         if (enemyUnitList.Count <= 0)
             partyWin = true;
+
+        if (partyWipped)
+            GameLost?.Invoke(this, EventArgs.Empty);
+        if (partyWin)
+            GameWon?.Invoke(this, EventArgs.Empty);
     }
 
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
@@ -103,14 +107,6 @@ public class UnitManager : MonoBehaviour
 
             _selectedFriendlyID++;
         }
-    }
-
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
-    {
-        if (partyWipped)
-            GameLost?.Invoke(this, EventArgs.Empty);
-        if (partyWin)
-            GameWon?.Invoke(this, EventArgs.Empty);
     }
 
 }

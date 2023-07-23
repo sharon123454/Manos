@@ -70,6 +70,11 @@ public class UnitAnimator : MonoBehaviour
 
     }
 
+    public void OnActionStarted(string actionName)
+    {
+        animator.Play($"{actionName}_Anim");
+    }
+
     public void OnStatusEffectRecieved(StatusEffect statusEffect, bool isActive)
     {
         vfxLibrary.OnStatusEffectRecieved(statusEffect, isActive);
@@ -113,7 +118,7 @@ public class UnitAnimator : MonoBehaviour
         Transform bulletProjectileTransform = Instantiate(bulletProjectilePrefab, shootPointTransform.position, Quaternion.identity);
         BulletProjectile bulletProjectile = bulletProjectileTransform.GetComponent<BulletProjectile>();
 
-        Vector3 targetUnitShootAtPosition = e.targetUnit.GetWorldPosition();
+        Vector3 targetUnitShootAtPosition = e.TargetUnit.GetWorldPosition();
         targetUnitShootAtPosition.y = shootPointTransform.position.y;
 
         bulletProjectile.SetUp(targetUnitShootAtPosition);

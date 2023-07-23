@@ -7,67 +7,50 @@ using TMPro;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
-    [SerializeField] Transform actionButtonPrefab, actionButtonContainerTransform;
-    //[SerializeField] TextMeshProUGUI actionPointsText;
+    [SerializeField] private Transform actionButtonPrefab, actionButtonContainerTransform;
 
     private List<ActionButtonUI> actionButtonUIList;
 
     private void Awake()
     {
-        actionButtonUIList = new List<ActionButtonUI>();
+        actionButtonUIList = new List<ActionButtonUI>(10);
     }
 
     private void Start()
     {
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
-        UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
-        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange; //this event might trigger before point reset so next line coveres small bug chance
-        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
 
-        CreateUnitActionButton();
-        UpdateSelectedVisual();
-        UpdateActionPoints();
+        CreateUnitActionButtons(UnitActionSystem.Instance.GetSelectedUnit());
+        UpdateActionSystemVisuals();
     }
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
     {
-        UpdateSelectedVisual();
-        UpdateActionPoints();
+        UpdateActionSystemVisuals();
     }
-
-    private void UnitActionSystem_OnActionStarted(object sender, EventArgs e) { UpdateActionPoints(); }
-
-    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPoints(); }
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
-        if (TurnSystem.Instance.IsPlayerTurn())
-        {
-            actionButtonContainerTransform.gameObject.SetActive(true);
-            UpdateActionPoints();
-        }
-        else
-        {
-            actionButtonContainerTransform.gameObject.SetActive(false);
-        }
+        if (actionButtonContainerTransform)
+            actionButtonContainerTransform.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
+
+        UpdateActionSystemVisuals();
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
-        CreateUnitActionButton();
-        UpdateSelectedVisual();
-        UpdateActionPoints();
+        CreateUnitActionButtons(newlySelectedUnit);
+        UpdateActionSystemVisuals();
     }
 
-    private void CreateUnitActionButton()
+    private void CreateUnitActionButtons(Unit selectedUnit)
     {
         foreach (Transform buttonTransform in actionButtonContainerTransform)
             Destroy(buttonTransform.gameObject);
 
         actionButtonUIList.Clear();
-
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
 
         if (selectedUnit)
         {
@@ -85,25 +68,11 @@ public class UnitActionSystemUI : MonoBehaviour
         }
     }
 
-    private void UpdateSelectedVisual()
+    private void UpdateActionSystemVisuals()
     {
         foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
-            actionButtonUI.UpdateSelectedVisual();
-    }
-
-    private void UpdateActionPoints()
-    {
-        var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-
-        if (selectedUnit)
-        {
-            //if (UnitActionSystem.Instance.selectedAction.GetIsBonusAction())
-            //    actionPointsText.text = $"Bonus Action";
-            ////{selectedUnit.GetUsedBonusActionPoints()}
-            //else
-            //    actionPointsText.text = $"Action";
-            // {selectedUnit.GetUsedActionPoints()}
-        }
+            if (actionButtonUI.isActiveAndEnabled)
+                actionButtonUI.UpdateButtonVisual();
     }
 
 }

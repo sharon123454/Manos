@@ -131,9 +131,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, System.EventArgs e)
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
-        StartCoroutine(LerpToUnit(UnitActionSystem.Instance.GetSelectedUnit().transform.position));
+        StartCoroutine(LerpToUnit(newlySelectedUnit.transform.position));
     }
 
     private IEnumerator LerpToUnit(Vector3 unitPos)
