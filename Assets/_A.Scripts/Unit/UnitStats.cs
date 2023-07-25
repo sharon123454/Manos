@@ -68,8 +68,11 @@ public class UnitStats : MonoBehaviour
     }
 
     public float GetHealthNormalized() { return health / maxHealth; }
+    public float GetDamageTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetDamage()) / maxHealth; }
 
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
+    public float GetPostureTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetPostureDamage()) / maxHealth; }
+
 
     public void ReduceStatusEffectCooldowns()
     {

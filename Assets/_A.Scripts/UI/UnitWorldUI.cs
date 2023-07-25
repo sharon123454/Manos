@@ -10,7 +10,9 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] private Unit unit;
     [SerializeField] private Image healthBarImage;
+    [SerializeField] private Image healthTakenBarImage;
     [SerializeField] private Image postureBarImage;
+    [SerializeField] private Image postureTakenBarImage;
     [SerializeField] private Image actionBarImage;
     [SerializeField] private Image bonusActionBarImage;
     [SerializeField] private Image critImage;
@@ -121,6 +123,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
             float getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
+
             #region Old Switch
             //switch (checkIfBaseAbility.GetActionName())
             //{
@@ -161,6 +164,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 hitChanceText.text = $"hitChance = [{100}]%";
             else
             {
+
                 switch (unit.GetGridPosition().GetEffectiveRange())
                 {
                     case Effectiveness.Effective:
@@ -175,10 +179,20 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     default:
                         hitChanceText.text = "Cant find Effectiveness";
                         break;
-
                 }
 
             }
+            if (getHitChance - unitStats.GetEvasion() > 0)
+            {
+                healthTakenBarImage.gameObject.SetActive(true);
+                healthTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetHealthNormalized() - 1, 0, 0);
+                healthTakenBarImage.fillAmount = Math.Abs(unitStats.GetDamageTaken() - 1) + unitStats.GetHealthNormalized() - 1;
+
+                postureTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetPostureNormalized() - 1, 0, 0);
+                postureTakenBarImage.gameObject.SetActive(true);
+                postureTakenBarImage.fillAmount = Math.Abs(unitStats.GetPostureTaken() - 1) + unitStats.GetHealthNormalized() - 1;
+            }
+
 
         }
     }
@@ -188,6 +202,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             VisualParent.SetActive(false);
         }
-
+        postureTakenBarImage.gameObject.SetActive(false);
+        healthTakenBarImage.gameObject.SetActive(false);
     }
 }
