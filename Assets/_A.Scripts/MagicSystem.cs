@@ -15,7 +15,7 @@ public class MagicSystem : MonoBehaviour
 
     private bool visualMatching = false;
     private float critModifier = 0;
-    private float currentFavor = 0;
+    [SerializeField] private float currentFavor = 0;
 
     private void Awake()
     {
