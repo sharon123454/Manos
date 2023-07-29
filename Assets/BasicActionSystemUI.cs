@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasicActionSystemUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<GameObject> basicImageSprites;
+    public void SelectBasicAbility(GameObject currentAbility)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (var sprite in basicImageSprites)
+        {
+            sprite.SetActive(false);
+        }
+        currentAbility.SetActive(true);
     }
 }

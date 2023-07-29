@@ -35,16 +35,16 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
-        if (baseAction.GetIsBonusAction())
-        {
-            bonusActionOutline.SetActive(true);
-            actionOutline.SetActive(false);
-        }
-        else
-        {
-            bonusActionOutline.SetActive(false);
-            actionOutline.SetActive(true);
-        }
+        //if (baseAction.GetIsBonusAction())
+        //{
+        //    bonusActionOutline.SetActive(true);
+        //    actionOutline.SetActive(false);
+        //}
+        //else
+        //{
+        //    bonusActionOutline.SetActive(false);
+        //    actionOutline.SetActive(true);
+        //}
 
         UpdateButtonVisual();
     }
