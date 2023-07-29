@@ -136,6 +136,7 @@ public class BaseAbility : BaseAction
             case ActionRange.Melee:
                 return GetGridPositionListByRange(1);
             case ActionRange.Close:
+                return GetGridPositionListByRange(6);
             case ActionRange.Medium:
             case ActionRange.Long:
             case ActionRange.EffectiveAtAll:
