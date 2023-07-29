@@ -136,14 +136,13 @@ public class BaseAbility : BaseAction
             case ActionRange.Melee:
                 return GetGridPositionListByRange(1);
             case ActionRange.Close:
-                return GetGridPositionListByRange(0);
+                return GetGridPositionListByRange(6);
             case ActionRange.Medium:
-                return GetGridPositionListByRange(0);
             case ActionRange.Long:
-                return GetGridPositionListByRange(0);
             case ActionRange.EffectiveAtAll:
-                return GetGridPositionListByRange(0);
-            case ActionRange.InaccurateAtAll:   
+            case ActionRange.InaccurateAtAll:
+                print(GetRange());
+                return GetGridPositionListByRange(9);
             case ActionRange.ResetGrid:
                 Debug.Log($"Ability {name}: has No Valid Grid");
                 return null;

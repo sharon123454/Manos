@@ -179,11 +179,11 @@ public class UnitActionSystem : MonoBehaviour
         if (ManosInputController.Instance.Click.IsPressed())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-            if (selectedAction == null) { return; }
-            if (selectedAction.GetIfUsedAction()) { return; }
-            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
-            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
-            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
+            if (selectedAction == null) { print("Selected Action is Null Returning"); return; }
+            if (selectedAction.GetIfUsedAction()) { print("Selected action been used Returning"); return; }
+            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { print("Grid Is Not Valid"); return; }
+            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
