@@ -27,6 +27,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 
     [SerializeField] GameObject OnCooldown;
+    [SerializeField] Image abilityImage;
 
     private BaseAbility isBaseAbility;
     private BaseAction baseAction;
@@ -57,6 +58,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         this.baseAction = baseAction;
         textMeshPro.text = baseAction.GetActionName().ToUpper();
+        if (baseAction.GetAbilityImage() != null)
+            abilityImage.sprite = baseAction.GetAbilityImage();
 
         button.onClick.AddListener((/*anonymouseFunction*/) =>
         {
