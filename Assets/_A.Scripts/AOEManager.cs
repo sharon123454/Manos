@@ -108,6 +108,10 @@ public class AOEManager : MonoBehaviour
 
                     switch (abilityRange)
                     {
+                        case ActionRange.Self:
+                            if (transform.position != aOEPositiion)
+                                transform.position = aOEPositiion;
+                            break;
                         case ActionRange.Melee:
                             _clampRange = _meleeRange;
                             break;
@@ -120,7 +124,6 @@ public class AOEManager : MonoBehaviour
                             _clampRange = _longRange;
                             break;
                         case ActionRange.Move:
-                        case ActionRange.Self:
                         case ActionRange.InaccurateAtAll:
                         case ActionRange.ResetGrid:
                         default:

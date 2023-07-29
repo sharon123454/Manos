@@ -21,6 +21,9 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] private ActionRange range;
     [SerializeField] protected bool canOnlyHitEnemy;
     [Header("AoE")]
+    [Tooltip("Leave Empty if AOE is single activation")]
+    [SerializeField] protected AOEActive AOEPrefab;
+    [SerializeField] protected float AOEActiveTurns = 1;
     [SerializeField] protected bool isFollowingMouse;
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
