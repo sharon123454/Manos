@@ -24,7 +24,13 @@ public class MagicSystemUI : MonoBehaviour
     {
         HandleSmoothFavorChange();
         indicator.rectTransform.localPosition = new Vector3(CalculatePosition(MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor()), -15, 0);
-        indicator.fillAmount = MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor() - (MagicSystem.Instance.GetCurrentFavor() - UnitActionSystem.Instance.GetSelectedAction().GetFavorCost()) / MagicSystem.Instance.GetMaxFavor();
+        if (UnitActionSystem.Instance.GetSelectedAction() is BaseAbility)
+        {
+            indicator.gameObject.SetActive(true);
+            indicator.fillAmount = MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor() - (MagicSystem.Instance.GetCurrentFavor() - UnitActionSystem.Instance.GetSelectedAction().GetFavorCost()) / MagicSystem.Instance.GetMaxFavor();
+        }
+        else
+            indicator.gameObject.SetActive(false);
     }
 
     private void HandleSmoothFavorChange()
