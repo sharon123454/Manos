@@ -120,6 +120,12 @@ public class BaseAbility : BaseAction
             SetSelfBuff();
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
+
+        if (AOEPrefab)
+        {
+            AOEActive aOE = Instantiate(AOEPrefab, GetUnit().transform);
+            aOE.Init(GetUnit(), AOEActiveTurns, GetStatusEffect());
+        }
     }
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {

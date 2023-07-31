@@ -22,7 +22,9 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] private ActionRange range;
     [SerializeField] protected bool canOnlyHitEnemy;
     [Header("AoE")]
-    [SerializeField] protected bool isAOE;
+    [Tooltip("Leave Empty if AOE is single activation")]
+    [SerializeField] protected AOEActive AOEPrefab;
+    [SerializeField] protected float AOEActiveTurns = 1;
     [SerializeField] protected bool isFollowingMouse;
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
@@ -82,6 +84,8 @@ public abstract class BaseAction : MonoBehaviour
         else
             return null; // No Possible AI Actions
     }
+
+    public bool GetIsFollowingMouse() { return isFollowingMouse; }
 
     public virtual int GetCooldown() { return cooldown; }
     public virtual int GetFavorCost() { return favorCost; }
