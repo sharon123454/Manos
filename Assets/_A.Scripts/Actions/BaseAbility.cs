@@ -123,8 +123,8 @@ public class BaseAbility : BaseAction
 
         if (AOEPrefab)
         {
-            AOEActive aOE = Instantiate(AOEPrefab, GetUnit().transform);
-            aOE.Init(GetUnit(), AOEActiveTurns, GetStatusEffect());
+            AOEActive aOE = Instantiate(AOEPrefab);
+            aOE.Init(GetUnit(), AOEActiveTurns, GetStatusEffect(), GetMeshScaleMultiplicator());
         }
     }
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
+public enum UnitType { Player, Enemy, Both }
 public class Unit : MonoBehaviour
 {
     [SerializeField] private bool isEnemy;
