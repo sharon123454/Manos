@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -35,62 +35,11 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         unitStats.OnCriticalHit += UnitStats_OnCriticalHit;
         UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
         UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+        AOEManager.OnAnyUnitEnteredAOE += AOEManager_OnAnyUnitEnteredAOE;
+        AOEManager.OnAnyUnitExitedAOE += AOEManager_OnAnyUnitExitedAOE;
         thisUnitName = unit.name;
         UpdateActionPointsText();
         UpdateHealthBar();
-    }
-
-    private void Instance_OnSelectedActionChanged(object sender, EventArgs e)
-    {
-        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
-        {
-            if (UnitActionSystem.Instance.GetSelectedAction() != null)
-            {
-                if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
-                {
-                    bonusActionBarImage.color = Color.green;
-                    actionBarImage.color = Color.green;
-                }
-                else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
-                {
-                    bonusActionBarImage.color = Color.green;
-                    actionBarImage.color = actionBarDefualtColor;
-                }
-                else
-                {
-                    actionBarImage.color = Color.green;
-                    bonusActionBarImage.color = BonusactionBarDefualtColor;
-                }
-            }
-        }
-        else
-        {
-            actionBarImage.color = actionBarDefualtColor;
-            bonusActionBarImage.color = BonusactionBarDefualtColor;
-        }
-
-    }
-
-    private void Instance_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
-    {
-        if (newlySelectedUnit.name == thisUnitName)
-            VisualParent.SetActive(true);
-        else
-            VisualParent.SetActive(false);
-    }
-
-    private void UnitStats_OnCriticalHit(object sender, EventArgs e)
-    {
-        StartCoroutine(ShowCriticalHitVisual());
-    }
-
-    private void UpdateActionPointsText()
-    {
-        if (!unit.GetUsedActionPoints()) actionBarImage.fillAmount = 100;
-        else actionBarImage.fillAmount = 0;
-
-        if (!unit.GetUsedBonusActionPoints()) bonusActionBarImage.fillAmount = 100;
-        else bonusActionBarImage.fillAmount = 0;
     }
 
     public void UpdateHealthBar()
@@ -101,21 +50,16 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
     }
 
-    IEnumerator ShowCriticalHitVisual()
+    private void UpdateActionPointsText()
     {
-        critImage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2);
-        critImage.gameObject.SetActive(false);
+        if (!unit.GetUsedActionPoints()) actionBarImage.fillAmount = 100;
+        else actionBarImage.fillAmount = 0;
+
+        if (!unit.GetUsedBonusActionPoints()) bonusActionBarImage.fillAmount = 100;
+        else bonusActionBarImage.fillAmount = 0;
     }
-    private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
-
-    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPointsText(); }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    private void ActivateWorldUI()
     {
-        //HitChance == Evaition - Ability HitChance
-        //Posture = 100 AbilityHitChance + Evaiton = 0
-
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
         VisualParent.SetActive(true);
         healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
@@ -192,11 +136,9 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 postureTakenBarImage.gameObject.SetActive(true);
                 postureTakenBarImage.fillAmount = Math.Abs(unitStats.GetPostureTaken() - 1) + unitStats.GetHealthNormalized() - 1;
             }
-
-
         }
     }
-    public void OnPointerExit(PointerEventData eventData)
+    private void DeActivateWorldUI()
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().name != thisUnitName)
         {
@@ -205,4 +147,85 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         postureTakenBarImage.gameObject.SetActive(false);
         healthTakenBarImage.gameObject.SetActive(false);
     }
+
+    IEnumerator ShowCriticalHitVisual()
+    {
+        critImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        critImage.gameObject.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+            UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+            return;
+
+        ActivateWorldUI();
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+            UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+            return;
+
+        DeActivateWorldUI();
+    }
+
+    private void AOEManager_OnAnyUnitEnteredAOE(object sender, Unit enteredUnit)
+    {
+        if (unit == enteredUnit)
+            ActivateWorldUI();
+    }
+    private void AOEManager_OnAnyUnitExitedAOE(object sender, Unit exitedUnit)
+    {
+        if (unit == exitedUnit)
+            DeActivateWorldUI();
+    }
+
+    private void Instance_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
+        {
+            if (UnitActionSystem.Instance.GetSelectedAction() != null)
+            {
+                if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                {
+                    bonusActionBarImage.color = Color.green;
+                    actionBarImage.color = Color.green;
+                }
+                else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
+                {
+                    bonusActionBarImage.color = Color.green;
+                    actionBarImage.color = actionBarDefualtColor;
+                }
+                else
+                {
+                    actionBarImage.color = Color.green;
+                    bonusActionBarImage.color = BonusactionBarDefualtColor;
+                }
+            }
+        }
+        else
+        {
+            actionBarImage.color = actionBarDefualtColor;
+            bonusActionBarImage.color = BonusactionBarDefualtColor;
+        }
+    }
+    private void Instance_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
+    {
+        if (newlySelectedUnit.name == thisUnitName)
+            VisualParent.SetActive(true);
+        else
+            VisualParent.SetActive(false);
+    }
+
+    private void UnitStats_OnCriticalHit(object sender, EventArgs e)
+    {
+        StartCoroutine(ShowCriticalHitVisual());
+    }
+    private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
+
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPointsText(); }
+
 }
