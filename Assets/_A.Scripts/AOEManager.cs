@@ -12,7 +12,6 @@ public class AOEManager : MonoBehaviour
     public static event EventHandler<Unit> OnAnyUnitEnteredAOE; //connect for visual changes on the units
     public static event EventHandler<Unit> OnAnyUnitExitedAOE;
 
-    //public MeshShape shapeOnClickTEST = MeshShape.Cube;
     [SerializeField] private AOE_MeshType[] meshArrayType;
     [SerializeField] private float _meleeRange = 3f;
     [SerializeField] private float _closeRange = 9f;

@@ -88,6 +88,9 @@ public class AOEActive : MonoBehaviour
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
         _activeturns--;
+        
+        if (_activeturns <= 0)
+            Destroy(gameObject);
 
         if (_affectedUnitList.Count > 0)
         {
@@ -95,13 +98,10 @@ public class AOEActive : MonoBehaviour
             {
                 foreach (StatusEffect status in _statusEffects)
                 {
-                    //activate effect on Unit
+                    unit.unitStatusEffects.AddStatusEffectToUnit(status, 1);
                 }
             }
         }
-
-        if (_activeturns <= 0)
-            Destroy(gameObject);
     }
 
 }
