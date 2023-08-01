@@ -10,10 +10,16 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private Transform actionButtonPrefab, actionButtonContainerTransform;
     private List<ActionButtonUI> actionButtonUIList;
     [Space]
+    [Header("AbilitiesContainer")]
+    [SerializeField] private RectTransform AbilitiesContainerGameObject;
+    float AbilitiesContainerInisialX;
+
+    [Space]
     [Header("Abilties")]
     [SerializeField] private Image abilitiesOutLine;
     float abilitiesOutLineInitialX;
     float abilitiesOutLineInitialWidth;
+
     [Space]
     [Header("Spells")]
     float spellsOutLineInitialX;
@@ -21,7 +27,7 @@ public class UnitActionSystemUI : MonoBehaviour
     private void Awake()
     {
         actionButtonUIList = new List<ActionButtonUI>(10);
-
+        AbilitiesContainerInisialX = AbilitiesContainerGameObject.anchoredPosition.x;
         abilitiesOutLineInitialX = abilitiesOutLine.rectTransform.anchoredPosition.x;
         abilitiesOutLineInitialWidth = abilitiesOutLine.rectTransform.sizeDelta.x;
     }
@@ -61,8 +67,10 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         foreach (Transform buttonTransform in actionButtonContainerTransform)
             Destroy(buttonTransform.gameObject);
+        float abilityContainerinitialX = AbilitiesContainerInisialX;
         float _initialX = abilitiesOutLineInitialX;
         float _initialWidth = abilitiesOutLineInitialWidth;
+        AbilitiesContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, AbilitiesContainerGameObject.anchoredPosition.y);
         abilitiesOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, abilitiesOutLine.rectTransform.anchoredPosition.y);
         abilitiesOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, abilitiesOutLine.rectTransform.sizeDelta.y);
         actionButtonUIList.Clear();
@@ -73,14 +81,16 @@ public class UnitActionSystemUI : MonoBehaviour
             {
                 if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility())
                 {
+                    AbilitiesContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, AbilitiesContainerGameObject.anchoredPosition.y);
                     abilitiesOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, abilitiesOutLine.rectTransform.anchoredPosition.y);
                     abilitiesOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, abilitiesOutLine.rectTransform.sizeDelta.y);
                     Transform actionButtonTransform = Instantiate(actionButtonPrefab, actionButtonContainerTransform);
                     ActionButtonUI actionbuttonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
                     actionbuttonUI.SetBaseAction(baseAction);
                     actionButtonUIList.Add(actionbuttonUI);
-                    _initialX += 33.5f;
-                    _initialWidth += 33.5f * 2;
+                    _initialX += 33f;
+                    _initialWidth += 33 * 2;
+                    abilityContainerinitialX -= 33f;
                 }
             }
         }
