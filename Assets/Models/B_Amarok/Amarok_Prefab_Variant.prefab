@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 1648239918364287314}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8962202317413635082}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -164,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Prefab_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7133889664545816167, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
       value: 'unit movment '
@@ -228,6 +244,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5519389455470923982}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!198 &1648239918364287314 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6689285964459791138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -341,7 +362,7 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 30
   statusEffectDuration: 2
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 07000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -449,7 +470,7 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 30
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 01000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -462,5 +483,10 @@ MonoBehaviour:
 --- !u!4 &6689285964459791149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8962202317413635082 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8289157834845877910, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}

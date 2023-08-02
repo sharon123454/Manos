@@ -75,9 +75,13 @@ public class UnitAnimator : MonoBehaviour
         animator.Play($"{actionName}_Anim");
     }
 
-    public void OnStatusEffectRecieved(StatusEffect statusEffect, bool isActive)
+    public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
-        vfxLibrary.OnStatusEffectRecieved(statusEffect, isActive);
+        vfxLibrary.OnStatusEffectRecieved(statusEffect);
+    }
+    public void OnStatusEffectRemoved(StatusEffect statusEffect)
+    {
+        vfxLibrary.OnStatusEffectRemoved(statusEffect);
     }
     public void OnDamaged()
     {

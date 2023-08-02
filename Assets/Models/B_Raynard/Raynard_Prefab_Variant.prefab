@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: unitActiveStatusEffects.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7133889664545816167, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
       value: unit movment
@@ -470,6 +474,16 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!198 &3732894303116784372 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8289157834845877910, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6445351903449401260 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6563764753127721018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,6 +540,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _stunVFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _stunVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 6445351903449401260}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _stunVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 3732894303116784372}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

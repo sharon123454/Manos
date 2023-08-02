@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _stunVFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _stunVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 1233074578948505634}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _stunVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8909061472188757370}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -90,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_LocalPosition.x
@@ -139,6 +151,14 @@ PrefabInstance:
     - target: {fileID: 2220332920552984582, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 3.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747703306803221443, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747703306803221443, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4254964426521657081, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: animator
@@ -206,7 +226,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 6350866009510500797}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
@@ -225,6 +245,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5739937172800962605}
   m_SourcePrefab: {fileID: 100100000, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+--- !u!198 &1233074578948505634 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5671357162320866922, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6563545203030061650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
@@ -249,6 +274,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -258,11 +286,13 @@ MonoBehaviour:
   critChance: 20
   statusEffectChance: 0
   statusEffectDuration: 0
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &-9011534961201478778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +313,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 01000000
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -292,11 +325,13 @@ MonoBehaviour:
   critChance: 20
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 4
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &7632042829742866947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +360,9 @@ MonoBehaviour:
   favorCost: 50
   _AbilityProperties: 
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -334,11 +372,13 @@ MonoBehaviour:
   critChance: 20
   statusEffectChance: 200
   statusEffectDuration: 2
-  _statusEffect: 10
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &1363537160152828489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +398,9 @@ MonoBehaviour:
   favorCost: 50
   _AbilityProperties: 06000000
   range: 0
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -384,6 +427,9 @@ MonoBehaviour:
   favorCost: 50
   _AbilityProperties: 
   range: 0
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -393,13 +439,20 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 10
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!4 &6563545203030061661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8909061472188757370 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2597222066535471922, guid: 40880316c0dafb042972ecceca695b63, type: 3}
   m_PrefabInstance: {fileID: 6892890628263964232}
   m_PrefabAsset: {fileID: 0}

@@ -98,7 +98,7 @@ public class AOEActive : MonoBehaviour
             {
                 foreach (StatusEffect status in _statusEffects)
                 {
-                    unit.unitStatusEffects.AddStatusEffectToUnit(status, 1);
+                    unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
                 }
             }
         }

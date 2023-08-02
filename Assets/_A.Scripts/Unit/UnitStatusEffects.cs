@@ -5,6 +5,8 @@ using System;
 
 public class UnitStatusEffects : MonoBehaviour
 {
+    public event EventHandler<StatusEffect> OnStatusRemoved;
+
     [SerializeField] private int healValue;
     [SerializeField] private int amountOfArmorGain;
     [SerializeField] private int curruptionDMG;
@@ -38,403 +40,298 @@ public class UnitStatusEffects : MonoBehaviour
         _stats = GetComponent<UnitStats>();
     }
 
-    public void ReduceCooldowns()
-    {
-        stunDuration--;
-        armorBrakeDuration--;
-        rootDuration--;
-        cowardPlagueDuration--;
-        nullifyDuration--;
-        unusedDuration--;
-        gainArmorDuration--;
-        SilenceDuration--;
-        HasteDuration--;
-        BlindDuration--;
-        UndyingDuration--;
-        RegenerationDuration--;
-        CorruptionDuration--;
-        InvisibilityDuration--;
-        TauntDuration--;
-    }
-
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        if (ContainsEffect(StatusEffect.Corruption))
-        {
-            _unit.GetUnitStats().health -= curruptionDMG;
-        }
-        if (ContainsEffect(StatusEffect.Regeneration))
-        {
-            _unit.GetUnitStats().health += regenerationAmount;
-        }
         GetComponentInChildren<UnitWorldUI>().UpdateHealthBar();
 
-        #region EnemyStatusEffects
-        if (_unit.IsEnemy())
+        #region StatusEffects activations for all type Units at the end of their turn
+        if (_unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn() ||
+        !_unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
         {
-            if (!TurnSystem.Instance.IsPlayerTurn())
+            for (int i = unitActiveStatusEffects.Count - 1; i >= 0; i--)
             {
-                for (int i = unitActiveStatusEffects.Count - 1; i >= 0; i--)
+                switch (unitActiveStatusEffects[i])
                 {
-                    switch (unitActiveStatusEffects[i])
-                    {
-                        case StatusEffect.None:
-                            break;
-                        case StatusEffect.Stun:
-                            _unit.ChangeStunStatus(true);
-                            stunDuration--;
-                            if (stunDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                                _unit.ChangeStunStatus(false);
-                            }
-                            break;
-                        case StatusEffect.ArmorBreak:
-                            armorBrakeDuration--;
-                            if (armorBrakeDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Root:
-                            rootDuration--;
-                            if (rootDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.CowardPlague:
-                            cowardPlagueDuration--;
-                            if (cowardPlagueDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Nullify:
-                            nullifyDuration--;
-                            if (nullifyDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.GainArmor:
-                            gainArmorDuration--;
-                            _stats.Armor += amountOfArmorGain;
-                            if (gainArmorDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Silence:
-                            SilenceDuration--;
-                            if (SilenceDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Haste:
-                            HasteDuration--;
-                            if (HasteDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Blind:
-                            BlindDuration--;
-                            if (BlindDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Undying:
-                            UndyingDuration--;
-                            if (UndyingDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Regeneration:
-                            RegenerationDuration--;
-                            if (RegenerationDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Corruption:
-                            CorruptionDuration--;
-                            if (CorruptionDuration == 0)
-                            {
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            }
-                            break;
-                        case StatusEffect.Invisibility:
-                            InvisibilityDuration--;
-                            if (InvisibilityDuration <= 0)
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            break;
-                        case StatusEffect.Taunt:
-                            TauntDuration--;
-                            if (TauntDuration <= 0)
-                                unitActiveStatusEffects.Remove(unitActiveStatusEffects[i]);
-                            break;
-                        case StatusEffect.ToBeTauntUnused:
-                        default:
-                            Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
-                            break;
-                    }
+                    case StatusEffect.None:
+                        break;
+                    case StatusEffect.Stun:
+                        break;
+                    case StatusEffect.ArmorBreak:
+                        break;
+                    case StatusEffect.Root:
+                        break;
+                    case StatusEffect.CowardPlague:
+                        break;
+                    case StatusEffect.Nullify:
+                        break;
+                    case StatusEffect.GainArmor:
+                        break;
+                    case StatusEffect.Silence:
+                        break;
+                    case StatusEffect.Haste:
+                        break;
+                    case StatusEffect.Blind:
+                        break;
+                    case StatusEffect.Undying:
+                        break;
+                    case StatusEffect.Regeneration:
+                        _unit.GetUnitStats().health += regenerationAmount;
+                        break;
+                    case StatusEffect.Corruption:
+                        _unit.GetUnitStats().health -= curruptionDMG;
+                        break;
+                    case StatusEffect.Invisibility:
+                        break;
+                    case StatusEffect.Taunt:
+                        break;
+                    case StatusEffect.ToBeTauntUnused:
+                    default:
+                        Debug.Log($"{unitActiveStatusEffects[i]} effect isn't Implamented");
+                        break;
                 }
+
+                DecreaseEffectCooldown(unitActiveStatusEffects[i]);
             }
         }
         #endregion
 
-        #region PlayerStatusEffects
-        if (!_unit.IsEnemy())
-        {
-            if (TurnSystem.Instance.IsPlayerTurn())
-            {
-                for (int i = unitActiveStatusEffects.Count - 1; i >= 0; i--)
-                {
-                    switch (unitActiveStatusEffects[i])
-                    {
-                        case StatusEffect.None:
-                            break;
-                        case StatusEffect.Stun:
-                            _unit.ChangeStunStatus(true);
-                            break;
-                        case StatusEffect.ArmorBreak:
-                            break;
-                        case StatusEffect.Root:
-                            break;
-                        case StatusEffect.CowardPlague:
-                            break;
-                        case StatusEffect.Nullify:
-                            break;
-                        case StatusEffect.GainArmor:
-                            break;
-                        case StatusEffect.Silence:
-                            break;
-                        case StatusEffect.Haste:
-                            break;
-                        case StatusEffect.Blind:
-                            break;
-                        case StatusEffect.Undying:
-                            break;
-                        case StatusEffect.Regeneration:
-                            break;
-                        case StatusEffect.Corruption:
-                            break;
-                        case StatusEffect.Taunt:
-                            break;
-                        case StatusEffect.ToBeTauntUnused:
-                        default:
-                            break;
-                    }
-
-                    DecreaseEffectDuration(unitActiveStatusEffects[i]);
-                }
-            }
-        }
-        #endregion
     }
 
-    private void DecreaseEffectDuration(StatusEffect effect)
+    public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
+    public void AddStatusEffectToUnit(StatusEffect statusEffect, int duration)
     {
+        switch (statusEffect)
+        {
+            case StatusEffect.Stun:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) //if effect active don't execute
+                { _unit.SetStunStatus(true); } //function on adding effect
+
+                stunDuration += duration;
+                break;
+            case StatusEffect.Silence:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                SilenceDuration += duration;
+                break;
+            case StatusEffect.ArmorBreak:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                armorBrakeDuration += duration;
+                break;
+            case StatusEffect.Root:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                rootDuration += duration;
+                break;
+            case StatusEffect.CowardPlague:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                cowardPlagueDuration += duration;
+                break;
+            case StatusEffect.Nullify:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                nullifyDuration += duration;
+                break;
+            case StatusEffect.GainArmor:
+                if (!unitActiveStatusEffects.Contains(statusEffect))
+                { _stats.Armor += amountOfArmorGain; }
+
+                gainArmorDuration += duration;
+                break;
+            case StatusEffect.Haste:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                HasteDuration += duration;
+                break;
+            case StatusEffect.Blind:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                BlindDuration += duration;
+                break;
+            case StatusEffect.Undying:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                UndyingDuration += duration;
+                break;
+            case StatusEffect.Regeneration:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                RegenerationDuration += duration;
+                break;
+            case StatusEffect.Corruption:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                CorruptionDuration += duration;
+                break;
+            case StatusEffect.Invisibility:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                InvisibilityDuration += duration;
+                break;
+            case StatusEffect.Taunt:
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+
+                TauntDuration += duration;
+                break;
+            case StatusEffect.ToBeTauntUnused:
+            case StatusEffect.None:
+            default:
+                Debug.Log($"{statusEffect} effect isn't Implamented");
+                break;
+        }
+
+        unitActiveStatusEffects.Add(statusEffect);
+    }
+
+    private void DecreaseEffectCooldown(StatusEffect effect)
+    {
+        List<StatusEffect> effectToRemoveList = new List<StatusEffect>();
+
         switch (effect)
         {
             case StatusEffect.None:
                 break;
             case StatusEffect.Stun:
-                stunDuration--;
+                if (stunDuration > 0)
+                    stunDuration--;
+
                 if (stunDuration <= 0)
                 {
-                    unitActiveStatusEffects.Remove(effect);
-                    _unit.ChangeStunStatus(false);
+                    effectToRemoveList.Add(effect);
+                    _unit.SetStunStatus(false);
                 }
                 break;
             case StatusEffect.Silence:
-                SilenceDuration--;
+                if (SilenceDuration > 0)
+                    SilenceDuration--;
+
                 if (SilenceDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Root:
-                rootDuration--;
+                if (rootDuration > 0)
+                    rootDuration--;
+
                 if (rootDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.ArmorBreak:
-                armorBrakeDuration--;
+                if (armorBrakeDuration > 0)
+                    armorBrakeDuration--;
+
                 if (armorBrakeDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.GainArmor:
-                gainArmorDuration--;
-                _stats.Armor += amountOfArmorGain;
+                if (gainArmorDuration > 0)
+                    gainArmorDuration--;
+
                 if (gainArmorDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    _stats.Armor -= amountOfArmorGain;
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Haste:
-                HasteDuration--;
+                if (HasteDuration > 0)
+                    HasteDuration--;
+
                 if (HasteDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Blind:
-                BlindDuration--;
+                if (BlindDuration > 0)
+                    BlindDuration--;
+
                 if (BlindDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Undying:
-                UndyingDuration--;
+                if (UndyingDuration > 0)
+                    UndyingDuration--;
+
                 if (UndyingDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Regeneration:
-                RegenerationDuration--;
+                if (RegenerationDuration > 0)
+                    RegenerationDuration--;
+
                 if (RegenerationDuration == 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Corruption:
-                CorruptionDuration--;
+                if (CorruptionDuration > 0)
+                    CorruptionDuration--;
+
                 if (CorruptionDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Nullify:
-                nullifyDuration--;
+                if (nullifyDuration > 0)
+                    nullifyDuration--;
+
                 if (nullifyDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.CowardPlague:
-                cowardPlagueDuration--;
+                if (cowardPlagueDuration > 0)
+                    cowardPlagueDuration--;
+
                 if (cowardPlagueDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Invisibility:
-                InvisibilityDuration--;
+                if (InvisibilityDuration > 0)
+                    InvisibilityDuration--;
+
                 if (InvisibilityDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.Taunt:
-                TauntDuration--;
+                if (TauntDuration > 0)
+                    TauntDuration--;
+
                 if (TauntDuration <= 0)
-                    unitActiveStatusEffects.Remove(effect);
+                {
+                    effectToRemoveList.Add(effect);
+                }
                 break;
             case StatusEffect.ToBeTauntUnused:
             default:
                 Debug.Log($"{effect} effect isn't Implamented");
                 break;
         }
-    }
 
-    public void AddStatusEffectToUnit(List<StatusEffect> abilityEffect, int duration)
-    {
-        foreach (var item in abilityEffect)
-        {
-            unitActiveStatusEffects.Add(item);
-            switch (item)
+        if (effectToRemoveList.Count > 0)
+            foreach (StatusEffect _effect in effectToRemoveList)
             {
-                case StatusEffect.None:
-                    break;
-                case StatusEffect.Stun:
-                    stunDuration += duration;
-                    break;
-                case StatusEffect.Silence:
-                    SilenceDuration += duration;
-                    break;
-                case StatusEffect.ArmorBreak:
-                    armorBrakeDuration += duration;
-                    break;
-                case StatusEffect.Root:
-                    rootDuration += duration;
-                    break;
-                case StatusEffect.CowardPlague:
-                    cowardPlagueDuration += duration;
-                    break;
-                case StatusEffect.Nullify:
-                    nullifyDuration += duration;
-                    break;
-                case StatusEffect.GainArmor:
-                    gainArmorDuration += duration;
-                    break;
-                case StatusEffect.Haste:
-                    HasteDuration += duration;
-                    break;
-                case StatusEffect.Blind:
-                    BlindDuration += duration;
-                    break;
-                case StatusEffect.Undying:
-                    UndyingDuration += duration;
-                    break;
-                case StatusEffect.Regeneration:
-                    RegenerationDuration += duration;
-                    break;
-                case StatusEffect.Corruption:
-                    CorruptionDuration += duration;
-                    break;
-                case StatusEffect.Invisibility:
-                    InvisibilityDuration += duration;
-                    break;
-                case StatusEffect.Taunt:
-                    TauntDuration += duration;
-                    break;
-                case StatusEffect.ToBeTauntUnused:
-                default:
-                    Debug.Log($"{abilityEffect} effect isn't Implamented");
-                    break;
+                unitActiveStatusEffects.Remove(_effect);
+                OnStatusRemoved?.Invoke(this, _effect);
             }
-
-
-        }
     }
-
-    public void AddStatusEffectToUnit(StatusEffect abilityEffect, int duration)
-    {
-
-        unitActiveStatusEffects.Add(abilityEffect);
-        switch (abilityEffect)
-        {
-            case StatusEffect.None:
-                break;
-            case StatusEffect.Stun:
-                stunDuration += duration;
-                break;
-            case StatusEffect.Silence:
-                SilenceDuration += duration;
-                break;
-            case StatusEffect.ArmorBreak:
-                armorBrakeDuration += duration;
-                break;
-            case StatusEffect.Root:
-                rootDuration += duration;
-                break;
-            case StatusEffect.CowardPlague:
-                cowardPlagueDuration += duration;
-                break;
-            case StatusEffect.Nullify:
-                nullifyDuration += duration;
-                break;
-            case StatusEffect.GainArmor:
-                gainArmorDuration += duration;
-                break;
-            case StatusEffect.Haste:
-                HasteDuration += duration;
-                break;
-            case StatusEffect.Blind:
-                BlindDuration += duration;
-                break;
-            case StatusEffect.Undying:
-                UndyingDuration += duration;
-                break;
-            case StatusEffect.Regeneration:
-                RegenerationDuration += duration;
-                break;
-            case StatusEffect.Corruption:
-                CorruptionDuration += duration;
-                break;
-            case StatusEffect.ToBeTauntUnused:
-            default:
-                Debug.Log($"{abilityEffect} effect isn't Implamented");
-                break;
-        }
-    }
-    public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
 
 }

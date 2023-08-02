@@ -45,11 +45,13 @@ public class Unit : MonoBehaviour
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
 
-        statSheet.OnDeath += HealthSystem_OnDeath;
-        statSheet.OnDodge += HealthSystem_OnDodge;
-        statSheet.OnHeal += HealthSystem_OnHealed;
-        statSheet.OnDamaged += HealthSystem_OnDamaged;
-        statSheet.OnCriticalHit += HealthSystem_OnCriticallyHit;
+        statSheet.OnDeath += StatSheet_OnDeath;
+        statSheet.OnDodge += StatSheet_OnDodge;
+        statSheet.OnHeal += StatSheet_OnHealed;
+        statSheet.OnDamaged += StatSheet_OnDamaged;
+        statSheet.OnCriticalHit += StatSheet_OnCriticallyHit;
+        statSheet.OnStatusApplied += StatSheet_OnStatusApplied; ;
+        unitStatusEffects.OnStatusRemoved += UnitStatusEffects_OnStatusRemoved;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -117,7 +119,7 @@ public class Unit : MonoBehaviour
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun))
+        if (GetStunStatus())
         {
             SendConsoleMessage?.Invoke(this, $"{transform.name} is Stunned, Can't use action.");
             return false;
@@ -139,7 +141,7 @@ public class Unit : MonoBehaviour
         #region Action And Bonus Action
         if (baseAction.ActionUsingBoth() && !usedBonusAction && !usedAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !isStunned)
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !GetStunStatus())
             {
                 if (TurnSystem.Instance.IsPlayerTurn())
                     if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
@@ -166,7 +168,7 @@ public class Unit : MonoBehaviour
         #region Bonus Action
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !isStunned)
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !GetStunStatus())
             {
                 if (TurnSystem.Instance.IsPlayerTurn())
                     if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
@@ -191,7 +193,7 @@ public class Unit : MonoBehaviour
         #endregion
 
         #region Action
-        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !isStunned)
+        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !GetStunStatus())
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {
@@ -229,7 +231,7 @@ public class Unit : MonoBehaviour
     }
 
     public bool GetStunStatus() { return isStunned; }
-    public bool ChangeStunStatus(bool newStatus) { animator.OnStatusEffectRecieved(StatusEffect.Stun, newStatus); return isStunned = newStatus; }
+    public void SetStunStatus(bool newStatus) { isStunned = newStatus; }
 
     public bool ReturnSkillActionType(BaseAction baseAction)
     {
@@ -313,7 +315,7 @@ public class Unit : MonoBehaviour
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }
     }
-    private void HealthSystem_OnDeath(object sender, EventArgs e)
+    private void StatSheet_OnDeath(object sender, EventArgs e)
     {
         LevelGrid.Instance.RemoveUnitAtGridPosition(gridPosition, this);
         unitOutline.enabled = false;
@@ -321,21 +323,30 @@ public class Unit : MonoBehaviour
         OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
     }
 
-    private void HealthSystem_OnDamaged(object sender, EventArgs e)
+    private void StatSheet_OnDamaged(object sender, EventArgs e)
     {
         animator.OnDamaged();
     }
-    private void HealthSystem_OnCriticallyHit(object sender, EventArgs e)
+    private void StatSheet_OnCriticallyHit(object sender, EventArgs e)
     {
         animator.OnCriticallyHit();
     }
-    private void HealthSystem_OnDodge(object sender, EventArgs e)
+    private void StatSheet_OnDodge(object sender, EventArgs e)
     {
         animator.OnDodge();
     }
-    private void HealthSystem_OnHealed(object sender, EventArgs e)
+    private void StatSheet_OnHealed(object sender, EventArgs e)
     {
         //animator.
+    }
+    private void StatSheet_OnStatusApplied(object sender, List<StatusEffect> activatedEffects)
+    {
+        foreach (StatusEffect effect in activatedEffects)
+            animator.OnStatusEffectRecieved(effect);
+    }
+    private void UnitStatusEffects_OnStatusRemoved(object sender, StatusEffect removedStatus)
+    {
+        animator.OnStatusEffectRemoved(removedStatus);
     }
 
 }

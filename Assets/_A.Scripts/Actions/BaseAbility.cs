@@ -198,7 +198,8 @@ public class BaseAbility : BaseAction
 
     public virtual void SetSelfBuff()
     {
-        UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.AddStatusEffectToUnit(selfBuffs, selfBuffDuration);
+        foreach (StatusEffect effect in selfBuffs)
+            UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.AddStatusEffectToUnit(effect, selfBuffDuration);
     }
 
     protected virtual bool ValidationGridChecks() { return true; }

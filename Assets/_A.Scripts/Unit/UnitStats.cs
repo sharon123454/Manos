@@ -12,6 +12,7 @@ public class UnitStats : MonoBehaviour
     public event EventHandler OnHeal;
     public event EventHandler OnDamaged;
     public event EventHandler OnCriticalHit;
+    public event EventHandler<List<StatusEffect>> OnStatusApplied;
     private Unit _unit;
     private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
@@ -73,17 +74,6 @@ public class UnitStats : MonoBehaviour
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
     public float GetPostureTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetPostureDamage()) / maxHealth; }
 
-
-    public void ReduceStatusEffectCooldowns()
-    {
-        _unitStatusEffect.ReduceCooldowns();
-    }
-
-    public void ReduceAbilityCooldowns()
-    {
-
-    }
-
     public float GetUnitMaxHP() { return maxHealth; }
     public void Block()
     {
@@ -120,6 +110,7 @@ public class UnitStats : MonoBehaviour
         #region Dice Rolls
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
+        int statusDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
 
         #region Damage To Recieve Types
@@ -179,11 +170,14 @@ public class UnitStats : MonoBehaviour
                     SendConsoleMessage?.Invoke(this, "Ability HIT!");
                 }
 
-                if (currentEffects.Count > 0 && UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
+                if (currentEffects.Count > 0 && statusDiceRoll <= chanceToTakeStatusEffect)
                 {
-                    _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
                     foreach (StatusEffect effect in currentEffects)
+                    {
+                        _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
                         SendConsoleMessage?.Invoke(this, $"{effect} was applied for {effectDuration} turns.");
+                    }
+                    OnStatusApplied?.Invoke(this, currentEffects);
                 }
             }
             else
@@ -202,7 +196,8 @@ public class UnitStats : MonoBehaviour
         {
             TakeDamage(damageToRecieve, postureDamage);
             if (currentEffects.Count > 0)
-                _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+                foreach (StatusEffect effect in currentEffects)
+                    _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
 
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
         }
