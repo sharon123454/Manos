@@ -20,7 +20,7 @@ public class UnitSelectedVisual : MonoBehaviour
     {
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
 
-        UpdateVisual();
+        UpdateVisual(UnitActionSystem.Instance.GetSelectedUnit());
     }
 
     private void OnDestroy()
@@ -28,14 +28,14 @@ public class UnitSelectedVisual : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty) 
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit) 
     {
-        UpdateVisual();
+        UpdateVisual(newlySelectedUnit);
     }
 
-    private void UpdateVisual()
+    private void UpdateVisual(Unit newlySelectedUnit)
     {
-        if (UnitActionSystem.Instance.GetSelectedUnit() == unit)
+        if (newlySelectedUnit == unit)
             decalProjector.enabled = true;
         else
             decalProjector.enabled = false;

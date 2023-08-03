@@ -68,18 +68,10 @@ public class UnitStats : MonoBehaviour
     }
 
     public float GetHealthNormalized() { return health / maxHealth; }
+    public float GetDamageTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetDamage()) / maxHealth; }
 
     public float GetPostureNormalized() { return currentPosture / maxPosture; }
-
-    public void ReduceStatusEffectCooldowns()
-    {
-        _unitStatusEffect.ReduceCooldowns();
-    }
-
-    public void ReduceAbilityCooldowns()
-    {
-
-    }
+    public float GetPostureTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetPostureDamage()) / maxHealth; }
 
     public float GetUnitMaxHP() { return maxHealth; }
     public void Block()
@@ -114,9 +106,10 @@ public class UnitStats : MonoBehaviour
     }
     public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
     {
-        #region Dice Rools
+        #region Dice Rolls
         int DiceRoll = UnityEngine.Random.Range(0, 101);
         int critDiceRoll = UnityEngine.Random.Range(0, 101);
+        int statusDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
 
         #region Damage To Recieve Types
@@ -153,7 +146,10 @@ public class UnitStats : MonoBehaviour
         }
 
         if (damageToRecieve <= 0)
+        {
+            SendConsoleMessage?.Invoke(this, "Damage was mitigated.");
             return;
+        }
         #endregion
 
         #region Normal Calculation
@@ -173,15 +169,18 @@ public class UnitStats : MonoBehaviour
                     SendConsoleMessage?.Invoke(this, "Ability HIT!");
                 }
 
-                if (currentEffects.Count > 0 && UnityEngine.Random.Range(0, 99) <= chanceToTakeStatusEffect)
+                if (currentEffects.Count > 0 && statusDiceRoll <= chanceToTakeStatusEffect)
                 {
-                    _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+                    foreach (StatusEffect effect in currentEffects)
+                    {
+                        _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
+                    }
                 }
             }
             else
             {
-                SendConsoleMessage?.Invoke(this, "Attack Missed");
                 OnDodge?.Invoke(this, EventArgs.Empty);
+                SendConsoleMessage?.Invoke(this, "Attack Missed");
             }
             return;
 
@@ -193,8 +192,9 @@ public class UnitStats : MonoBehaviour
         else
         {
             TakeDamage(damageToRecieve, postureDamage);
-            if(currentEffects.Count > 0)
-            _unitStatusEffect.AddStatusEffectToUnit(currentEffects, effectDuration);
+            if (currentEffects.Count > 0)
+                foreach (StatusEffect effect in currentEffects)
+                    _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
 
             SendConsoleMessage?.Invoke(this, "Posture Break Attack!");
         }

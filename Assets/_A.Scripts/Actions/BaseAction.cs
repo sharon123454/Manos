@@ -3,22 +3,27 @@ using System.Collections;
 using UnityEngine;
 using System;
 
+// Decided Costs of an Action
 public enum TypeOfAction { Action, BonusAction, Both }
 public abstract class BaseAction : MonoBehaviour
 {
+    public static event EventHandler<int> OnAnySpellCast;
     public static event EventHandler OnAnyActionStarted;
     public static event EventHandler OnAnyActionCompleted;
 
     [Header("Base Action")]
     [SerializeField] protected string _actionName = "Empty";
     [SerializeField] protected string actionDescription = "Description...";
-    [Tooltip("0 = Action, 1 = Bonus Action, 2 = Both")]
     [SerializeField] protected TypeOfAction actionCost;
     [SerializeField] protected int cooldownAfterUse = 1;
     [SerializeField] protected int favorCost = 0;
     [SerializeField] protected List<AbilityProperties> _AbilityProperties = new() { AbilityProperties.Basic };
-    [SerializeField] protected AbilityRange range;
+    [SerializeField] private ActionRange range;
+    [SerializeField] protected bool canOnlyHitEnemy;
     [Header("AoE")]
+    [Tooltip("Leave Empty if AOE is single activation")]
+    [SerializeField] protected AOEActive AOEPrefab;
+    [SerializeField] protected float AOEActiveTurns = 1;
     [SerializeField] protected bool isFollowingMouse;
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
@@ -49,7 +54,7 @@ public abstract class BaseAction : MonoBehaviour
     }
 
     public Unit GetUnit() { return unit; }
-    public AbilityRange GetRange() { return range; }
+    public ActionRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
     public MeshShape GetActionMeshShape() { return actionMeshShape; }
     public float GetMeshScaleMultiplicator() { return meshShapeScaleMultiplicator; }
@@ -60,11 +65,12 @@ public abstract class BaseAction : MonoBehaviour
 
         List<GridPosition> _validGridPositionList = GetValidActionGridPositionList();
 
-        foreach (GridPosition gridPosition in _validGridPositionList)
-        {
-            EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
-            _enemyAIActionList.Add(enemyAIAction);
-        }
+        if (_validGridPositionList.Count > 0)
+            foreach (GridPosition gridPosition in _validGridPositionList)
+            {
+                EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
+                _enemyAIActionList.Add(enemyAIAction);
+            }
 
         if (_enemyAIActionList.Count > 0)
         {
@@ -74,6 +80,8 @@ public abstract class BaseAction : MonoBehaviour
         else
             return null; // No Possible AI Actions
     }
+
+    public bool GetIsFollowingMouse() { return isFollowingMouse; }
 
     public virtual int GetCooldown() { return cooldown; }
     public virtual int GetFavorCost() { return favorCost; }
@@ -89,7 +97,10 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
+        GetUnit().GetUnitAnimator().OnActionStarted(GetActionName());
         cooldown += cooldownAfterUse;
+        if (baseAbility)
+            OnAnySpellCast?.Invoke(this, GetFavorCost());
         _isActive = true;
         this.onActionComplete = onActionComple;
         OnAnyActionStarted?.Invoke(this, EventArgs.Empty);

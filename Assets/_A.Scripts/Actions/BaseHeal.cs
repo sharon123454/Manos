@@ -12,67 +12,46 @@ public class BaseHeal : BaseAbility
 
     [Header("Heal")]
     [SerializeField] private int maxMeleeDistance = 1;
-    [SerializeField] private float beforeHitStateTime = 0.7f, afterHitStateTime = 0.5f, rotateToTargetSpeed = 10f;
     [Range(1f, 600f)]
     [SerializeField] private float healValue = 10;
 
-    private enum State { RotateToHeal, HealComplete, }
     private Unit targetUnit;
-    private float stateTimer;
-    private State state;
-
-    private void Update()
-    {
-        if (!_isActive)
-            return;
-
-        stateTimer -= Time.deltaTime;
-
-        switch (state)
-        {
-            case State.RotateToHeal:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
-                break;
-            case State.HealComplete:
-                break;
-        }
-
-        if (stateTimer <= 0f)
-            NextState();
-    }
-
     public float GetHealValue() { return healValue; }
 
-    private void NextState()
+    protected override void StartOfActionUpdate()
     {
-        switch (state)
+        base.StartOfActionUpdate();
+
+        Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
+        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+    }
+    protected override void ExecutionOfActionUpdate() { base.ExecutionOfActionUpdate(); }
+    protected override void EndOfActionUpdate() { base.EndOfActionUpdate(); }
+
+    protected override void OnActionStartChange() { base.OnActionStartChange(); }
+    protected override void OnActionExecutionChange()
+    {
+        base.OnActionExecutionChange();
+
+        OnAnyHealHit?.Invoke(this, EventArgs.Empty);
+        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
         {
-            case State.RotateToHeal:
-                state = State.HealComplete;
-                stateTimer = afterHitStateTime;
-
-                OnAnyHealHit?.Invoke(this, EventArgs.Empty);
-                if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
+            {
+                if (!unit.IsEnemy())
                 {
-                    foreach (var unit in AOEManager.Instance.GetUnitsInRange())
-                    {
-                        if (!unit.IsEnemy())
-                        {
-                            unit.Heal(GetHealValue());
-                            print(unit.name + "was healed");
-                        }
-                    }
-                    return;
+                    unit.Heal(GetHealValue());
+                    print(unit.name + "was healed");
                 }
-                targetUnit.Heal(GetHealValue());
-                break;
-
-            case State.HealComplete:
-                OnHealActionCompleted?.Invoke(this, EventArgs.Empty);
-                ActionComplete();
-                break;
+            }
+            return;
         }
+        targetUnit.Heal(GetHealValue());
+    }
+    protected override void OnActionEndChange()
+    {
+        base.OnActionEndChange();
+        OnHealActionCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
@@ -81,8 +60,6 @@ public class BaseHeal : BaseAbility
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        state = State.RotateToHeal;
-        stateTimer = beforeHitStateTime;
         targetUnit.Heal(GetHealValue());
         OnHealActionStarted?.Invoke(this, EventArgs.Empty);
         targetUnit.GetUnitStats().InvokeHPChange();

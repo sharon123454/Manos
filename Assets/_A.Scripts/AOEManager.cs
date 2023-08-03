@@ -12,14 +12,17 @@ public class AOEManager : MonoBehaviour
     public static event EventHandler<Unit> OnAnyUnitEnteredAOE; //connect for visual changes on the units
     public static event EventHandler<Unit> OnAnyUnitExitedAOE;
 
-    //public MeshShape shapeOnClickTEST = MeshShape.Cube;
     [SerializeField] private AOE_MeshType[] meshArrayType;
+    [SerializeField] private float _meleeRange = 3f;
+    [SerializeField] private float _closeRange = 9f;
+    [SerializeField] private float _longRange = 15f;
 
     private List<Unit> _inRangeUnits;
     private MeshCollider _collider;
     private MeshFilter _meshVisual;
     private float _clampRange = 3f;
     private bool _isAOEActive;
+    private bool _isFollowingMouse;
     private Vector3 _mousePos;
 
     private void Awake()
@@ -37,11 +40,11 @@ public class AOEManager : MonoBehaviour
     {
         if (_isAOEActive)
         {
-            //if (isFollowingMouse(in baseAction))
-            _mousePos = MouseWorld.GetPosition();
-            transform.position = transform.parent.position + Vector3.ClampMagnitude(_mousePos - transform.parent.position, _clampRange);
-            //else 
-            //show on player position
+            if (_isFollowingMouse)
+            {
+                _mousePos = MouseWorld.GetPosition();
+                transform.position = transform.parent.position + Vector3.ClampMagnitude(_mousePos - transform.parent.position, _clampRange);
+            }
         }
         else
         {
@@ -74,14 +77,15 @@ public class AOEManager : MonoBehaviour
     }
 
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
-    public void SetIsAOEActive(bool isActive, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, AbilityRange abilityRange)
+    public void SetIsAOEActive(bool isActive, bool isfollowMouse, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, ActionRange abilityRange)
     {
         if (!isActive || AOEMeshType == MeshShape.None) { DisableAOE(); return; }
 
+        _isFollowingMouse = isfollowMouse;
         InitAOE(centerZonePosition, AOEMeshType, rangeMultiplicator, abilityRange);
     }
 
-    private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, AbilityRange abilityRange)//make use of range for range clamp and not range multiplicator
+    private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, ActionRange abilityRange)
     {
         if (meshArrayType.Length > 0)
         {
@@ -97,14 +101,37 @@ public class AOEManager : MonoBehaviour
 
                     transform.localScale = Vector3.one * LevelGrid.Instance.GetCellSize() * rangeMultiplicator;
                     transform.parent.position = aOEPositiion;
-                    _clampRange = rangeMultiplicator;
                     _collider.sharedMesh = shape.Mesh;
                     _meshVisual.mesh = shape.Mesh;
+                    _isAOEActive = true;
+
+                    switch (abilityRange)
+                    {
+                        case ActionRange.Self:
+                            if (transform.position != aOEPositiion)
+                                transform.position = aOEPositiion;
+                            break;
+                        case ActionRange.Melee:
+                            _clampRange = _meleeRange;
+                            break;
+                        case ActionRange.Close:
+                            _clampRange = _closeRange;
+                            break;
+                        case ActionRange.Medium:
+                        case ActionRange.Long:
+                        case ActionRange.EffectiveAtAll:
+                            _clampRange = _longRange;
+                            break;
+                        case ActionRange.Move:
+                        case ActionRange.InaccurateAtAll:
+                        case ActionRange.ResetGrid:
+                        default:
+                            _clampRange = 0;
+                            break;
+                    }
                 }
             }
         }
-
-        _isAOEActive = true;
     }
     private void DisableAOE()
     {

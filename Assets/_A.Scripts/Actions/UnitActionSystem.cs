@@ -10,10 +10,9 @@ public class UnitActionSystem : MonoBehaviour
     public static UnitActionSystem Instance { get; private set; }
 
     public event EventHandler OnSelectedActionChanged;
-    public event EventHandler OnSelectedUnitChanged;
+    public event EventHandler<Unit> OnSelectedUnitChanged;
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
-    public event EventHandler OnActionCompleted;
 
     [SerializeField] private LayerMask unitsLayerMask;
 
@@ -25,20 +24,12 @@ public class UnitActionSystem : MonoBehaviour
     private bool isBusy;
     private bool hoveringUI = false;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(gameObject);
 
         Instance = this;
-        OnActionCompleted += UnitActionSystem_OnActionCompleted;
-        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-    }
-
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
-    {
-        savedAction = null;
     }
 
     private void Start()
@@ -46,51 +37,10 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void UnitActionSystem_OnActionCompleted(object sender, EventArgs e)
-    {
-        CheckActionUse();
-    }
-
-    private void CheckActionUse()
-    {
-        if (TurnSystem.Instance.IsPlayerTurn())
-        {
-            if (selectedUnit.UsedAllPoints())
-            {
-                print("UNIT USED ALL ABILITES");
-
-                for (int i = 0; i < 3; i++)
-                {
-                    if (!UnitManager.Instance.GetFriendlyUnitList()[i].UsedAllPoints())
-                    {
-                        SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[i]);
-                        break;
-                    }
-                }
-                if (UnitManager.Instance.GetFriendlyUnitList()[0].UsedAllPoints()
-                    && UnitManager.Instance.GetFriendlyUnitList()[1].UsedAllPoints()
-                    && UnitManager.Instance.GetFriendlyUnitList()[2].UsedAllPoints()
-                    )
-                {
-                    TurnSystem.Instance.NextTurn();
-                }
-            }
-        }
-    }
-
-    public void InvokeAbilityFinished()
-    {
-        OnActionCompleted?.Invoke(this, EventArgs.Empty);
-        OnSelectedActionChanged.Invoke(this, EventArgs.Empty);
-    }
-    private void SignToNumerics()
+    private void OnEnable() { Invoke("DelayOnEnable", 1); }
+    private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
     {
         ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
-    }//invoked on enable as script loads before ManosInputController
-
-    private void OnEnable()
-    {
-        Invoke("SignToNumerics", 1);
     }
 
     private void Update()
@@ -121,8 +71,14 @@ public class UnitActionSystem : MonoBehaviour
         ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
+    public void InvokeAbilityFinished()
+    {
+        CheckActionUse();
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+        savedAction = null;
+    }
+    public void IsHoveringOnUI(bool ui) { hoveringUI = ui; }
     public Unit GetSelectedUnit() { return selectedUnit; }
-
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
@@ -144,47 +100,69 @@ public class UnitActionSystem : MonoBehaviour
 
         if (savedAction != null)
         {
-            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect),
+            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect), baseAction.GetIsFollowingMouse(),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
+
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
-
+    public BaseAction GetSavedAction() { return savedAction; }
     public BaseAction GetSelectedAction() { return selectedAction; }
     public MoveAction GetSelectedMoveAction() { return selectedMoveAction; }
     public BaseAbility GetSelectedBaseAbility() { return selectedBaseAbility; }
-    public BaseAction GetBaseAbility() { return selectedAction; }
-    public BaseAction GetSavedAction() { return savedAction; }
-
     public void SetSelectedUnit(Unit unit)
     {
-        selectedUnit = unit;
-        SetSelectedAction(unit.GetAction<MoveAction>()); //default unit action
-        if (savedAction == null)
+        if (unit)
         {
-            savedAction = selectedUnit.GetAction<MoveAction>();
+            selectedUnit = unit;
+
+            SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
+
+            if (!savedAction)
+                savedAction = selectedUnit.GetAction<MoveAction>();
+
+            OnSelectedUnitChanged?.Invoke(this, selectedUnit);
         }
-        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void CheckActionUse()
+    {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (selectedUnit.UsedAllPoints())
+            {
+                print("UNIT USED ALL ABILITES");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (!UnitManager.Instance.GetFriendlyUnitList()[i].UsedAllPoints())
+                    {
+                        SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[i]);
+                        break;
+                    }
+                }
+                if (UnitManager.Instance.GetFriendlyUnitList()[0].UsedAllPoints()
+                    && UnitManager.Instance.GetFriendlyUnitList()[1].UsedAllPoints()
+                    && UnitManager.Instance.GetFriendlyUnitList()[2].UsedAllPoints()
+                    )
+                {
+                    TurnSystem.Instance.NextTurn();
+                }
+            }
+        }
     }
 
     private bool TryHandleUnitSelection()
     {
         if (ManosInputController.Instance.Click.IsPressed())
         {
-            //if (GetSelectedAction() is BaseHeal && GetSelectedAction().GetCooldown() == 0)
-            //{
-            //    return false;
-            //}
             Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
 
             if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, unitsLayerMask))
                 if (_rayCastHit.transform.TryGetComponent<Unit>(out Unit _unit))
                 {
-                    if (_unit == selectedUnit)
-                    {
-                        //Unit is already selected
+                    if (_unit == selectedUnit)//Unit is already selected
                         return false;
-                    }
 
                     if (_unit.IsEnemy())
                         return false;
@@ -196,17 +174,16 @@ public class UnitActionSystem : MonoBehaviour
 
         return false;
     }
-
     private void HandleSelectedAction()
     {
-        if (ManosInputController.Instance.Click.IsPressed())
+        if (ManosInputController.Instance.Click.WasReleasedThisFrame())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-            if (selectedAction == null) { return; }
-            if (selectedAction.GetIfUsedAction()) { return; }
-            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
-            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { return; }
-            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { return; }
+            if (selectedAction == null) { print("Selected Action is Null Returning"); return; }
+            if (selectedAction.GetIfUsedAction()) { print("Selected action been used Returning"); return; }
+            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { print("Grid Is Not Valid"); return; }
+            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
@@ -215,15 +192,14 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    private void ClearBusy()
-    {
-        isBusy = false;
-        OnBusyChanged?.Invoke(this, isBusy);
-    }
-
     private void SetBusy()
     {
         isBusy = true;
+        OnBusyChanged?.Invoke(this, isBusy);
+    }
+    private void ClearBusy()
+    {
+        isBusy = false;
         OnBusyChanged?.Invoke(this, isBusy);
     }
 
@@ -243,8 +219,4 @@ public class UnitActionSystem : MonoBehaviour
         SetSelectedAction(availableUnitActions[passedInput]);
     }
 
-    public void IsHoveringOnUI(bool ui)
-    {
-        hoveringUI = ui;
-    }
 }

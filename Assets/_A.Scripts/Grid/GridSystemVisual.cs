@@ -63,17 +63,17 @@ public class GridSystemVisual : MonoBehaviour
 
         switch (selectedAction.GetRange())
         {
-            case AbilityRange.Move:
-            case AbilityRange.Self:
-            case AbilityRange.Melee:
-            case AbilityRange.Close:
-            case AbilityRange.Medium:
-            case AbilityRange.Long:
-            case AbilityRange.EffectiveAtAll:
-            case AbilityRange.InaccurateAtAll:
+            case ActionRange.Move:
+            case ActionRange.Self:
+            case ActionRange.Melee:
+            case ActionRange.Close:
+            case ActionRange.Medium:
+            case ActionRange.Long:
+            case ActionRange.EffectiveAtAll:
+            case ActionRange.InaccurateAtAll:
                 FilterByRange(selectedAction.GetRange(), selectedUnit);
                 break;
-            case AbilityRange.ResetGrid:
+            case ActionRange.ResetGrid:
                 HideAllVisual();
                 break;
             default:
@@ -81,40 +81,40 @@ public class GridSystemVisual : MonoBehaviour
                 return;
         }
     }
-    private void FilterByRange(AbilityRange AbilityRange, Unit selectedUnit)
+    private void FilterByRange(ActionRange AbilityRange, Unit selectedUnit)
     {
         switch (AbilityRange)
         {
-            case AbilityRange.Move:
+            case ActionRange.Move:
                 if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
                 {
                     //was used for getting move distance as range, but is unused for now as we just color
-                    MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
-                    MoveRange(selectedUnit, _move.GetMoveValue());
+                    //MoveAction _move = UnitActionSystem.Instance.GetSelectedMoveAction();
+                    MoveRange(selectedUnit/*, _move.GetMoveValue()*/);
                 }
                 break;
-            case AbilityRange.Self:
+            case ActionRange.Self:
                 SelfRange(selectedUnit);
                 break;
-            case AbilityRange.Melee:
+            case ActionRange.Melee:
                 MeleeRange(selectedUnit, _Adjacent, _VeryFar);
                 break;
-            case AbilityRange.Close:
+            case ActionRange.Close:
                 CloseRange(selectedUnit, _Close, _Far);
                 break;
-            case AbilityRange.Medium:
+            case ActionRange.Medium:
                 MediumRange(selectedUnit, _Adjacent, _Close, _Far, _VeryFar);
                 break;
-            case AbilityRange.Long:
+            case ActionRange.Long:
                 LongRange(selectedUnit, _Close, _VeryFar);
                 break;
-            case AbilityRange.EffectiveAtAll:
+            case ActionRange.EffectiveAtAll:
                 EffectiveAtAllRanges(selectedUnit, _VeryFar);
                 break;
-            case AbilityRange.InaccurateAtAll:
+            case ActionRange.InaccurateAtAll:
                 InaccurateAtAllRanges(selectedUnit, _VeryFar);
                 break;
-            case AbilityRange.ResetGrid:
+            case ActionRange.ResetGrid:
                 HideAllVisual();
                 break;
             default:
@@ -327,10 +327,10 @@ public class GridSystemVisual : MonoBehaviour
     }
 
     #region  Filter By Range methods
-    private void MoveRange(Unit selectedUnit, int playerMovement)
+    private void MoveRange(Unit selectedUnit/*, int playerMovement*/)
     {
+        ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar, Color.white, Effectiveness.Miss);
         HideAllVisual();
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), playerMovement, Color.white, Effectiveness.Miss);
     }
     private void SelfRange(Unit selectedUnit)
     {

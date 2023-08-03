@@ -11,64 +11,41 @@ public class MeleeAction : BaseAbility
 
     [Header("Melee")]
     [SerializeField] private int maxMeleeDistance = 1;
-    [Header("Dev Tool:")]
-    [SerializeField] private float beforeHitStateTime = 0.7f;
-    [SerializeField] private float rotateToTargetSpeed = 10f;
-    [SerializeField] private float afterHitStateTime = 0.5f;
-    private enum State { SwingBeforeHit, SwingAfterHit, }
-    private float stateTimer;
+
     private Unit targetUnit;
-    private State state;
 
-    private void Update()
+    protected override void StartOfActionUpdate()
     {
-        if (!_isActive)
-            return;
+        base.StartOfActionUpdate();
 
-        stateTimer -= Time.deltaTime;
-
-        switch (state)
-        {
-            case State.SwingBeforeHit:
-                Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
-                break;
-            case State.SwingAfterHit:
-                break;
-        }
-
-        if (stateTimer <= 0f)
-            NextState();
+        Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
+        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
     }
+    protected override void ExecutionOfActionUpdate() { base.ExecutionOfActionUpdate(); }
+    protected override void EndOfActionUpdate() { base.EndOfActionUpdate(); }
 
-    private void NextState()
+    protected override void OnActionStartChange() { base.OnActionStartChange(); }
+    protected override void OnActionExecutionChange()
     {
-        switch (state)
+        base.OnActionExecutionChange();
+        OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
+        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
         {
-            case State.SwingBeforeHit:
-                state = State.SwingAfterHit;
-                stateTimer = afterHitStateTime;
-
-                OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-                if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
+            {
+                if (unit.IsEnemy())
                 {
-                    foreach (var unit in AOEManager.Instance.GetUnitsInRange())
-                    {
-                        if (unit.IsEnemy())
-                        {
-                            unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
-                        }
-                    }
-                    return;
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
                 }
-                targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
-                break;
-
-            case State.SwingAfterHit:
-                OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);
-                ActionComplete();
-                break;
+            }
+            return;
         }
+        targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+    }
+    protected override void OnActionEndChange()
+    {
+        base.OnActionEndChange();
+        OnMeleeActionCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetMaxMeleeDistance() { return maxMeleeDistance; }
@@ -78,9 +55,6 @@ public class MeleeAction : BaseAbility
         base.TakeAction(gridPosition, actionComplete);
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-
-        state = State.SwingBeforeHit;
-        stateTimer = beforeHitStateTime;
 
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 

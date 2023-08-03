@@ -15,7 +15,7 @@ public class MagicSystem : MonoBehaviour
 
     private bool visualMatching = false;
     private float critModifier = 0;
-    private float currentFavor = 0;
+    [SerializeField] private float currentFavor = 0;
 
     private void Awake()
     {
@@ -23,8 +23,7 @@ public class MagicSystem : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-        BaseAbility.OnAnySpellCast += BaseAbility_OnAnySpellCast;
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        BaseAction.OnAnySpellCast += BaseAbility_OnAnySpellCast;
     }
 
     private void Start()
@@ -112,10 +111,7 @@ public class MagicSystem : MonoBehaviour
             currentFavor = newFavor;
             visualMatching = false;
         }
-    }
-
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
-    {
+        
         if (!visualMatching)
             UpdateFavorVisual();
     }

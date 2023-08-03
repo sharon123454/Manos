@@ -108,7 +108,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 1112701312
   InitialModule:
     serializedVersion: 3
@@ -132,7 +132,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -147,7 +147,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
@@ -167,7 +167,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -182,7 +182,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
     startColor:
       serializedVersion: 2
       minMaxState: 0
@@ -267,7 +267,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -282,7 +282,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
@@ -302,7 +302,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -317,7 +317,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
       minMaxState: 3
@@ -337,7 +337,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -352,7 +352,7 @@ ParticleSystem:
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
+        m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
@@ -4868,7 +4868,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9656,8 +9656,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2852042629220413224}
+  - component: {fileID: 8232090076302332280}
+  - component: {fileID: 7593810912002549387}
+  - component: {fileID: 5500391786365756056}
   m_Layer: 0
-  m_Name: Nanook_Heal
+  m_Name: Nanook_Heal_AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9671,7 +9674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2852042629220413225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6330005, y: 0.13, z: 1.34}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9680,6 +9683,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8232090076302332280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852042629220413225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a4e5778416dc44285d5732c096856a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectingType: 0
+  affectedLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _particles:
+  - {fileID: 6663874762935318971}
+  - {fileID: 6663874761968192505}
+  - {fileID: 2852042629251011427}
+--- !u!135 &7593810912002549387
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852042629220413225}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5500391786365756056
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852042629220413225}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2852042629251011430
 GameObject:
   m_ObjectHideFlags: 0
@@ -9706,8 +9777,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2852042629251011430}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.17, z: 0.44}
-  m_LocalScale: {x: 1.7, y: 1.5, z: 1.7}
+  m_LocalPosition: {x: 0, y: 0.17, z: 0}
+  m_LocalScale: {x: 0.56666666, y: 0.5, z: 0.5666667}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1188814697290750951}
@@ -9793,7 +9864,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -14680,7 +14751,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -19567,7 +19638,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -24454,7 +24525,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -34197,7 +34268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663874762071093392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.27171898, z: -0.00000056098486}
+  m_LocalPosition: {x: 0.028145721, y: -0.18654567, z: 0.15668805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34219,25 +34290,25 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: 0, y: 0.05, z: 0}
-      - {x: -0.0036558683, y: -0.018527528, z: -0.001221077}
-      - {x: 0.011831287, y: -0.10485244, z: -0.11461796}
-      - {x: 0.16114461, y: -0.09271376, z: -0.12878184}
-      - {x: 0.21227103, y: -0.06876753, z: -0.09569028}
-      - {x: 0.26057106, y: -0.03696103, z: -0.06546357}
-      - {x: 0.25912523, y: -0.007763644, z: 0.02926485}
-      - {x: 0.19852194, y: 0.09080798, z: 0.2534037}
-      - {x: -0.22961879, y: 0.03768367, z: 0.16452004}
-      - {x: -0.21182305, y: 0.04171525, z: -0.026757296}
-      - {x: -0.20824611, y: 0.054611348, z: -0.22294736}
-      - {x: 0.3015918, y: 0.0762663, z: -0.32201135}
-      - {x: 0.311414, y: 0.09145655, z: -0.054401696}
-      - {x: 0.31907958, y: 0.10019549, z: 0.107219435}
-      - {x: 0.20847291, y: 0.106376246, z: 0.31554756}
-      - {x: 0.01043682, y: 0.118203506, z: 0.32212782}
-      - {x: -0.1874538, y: 0.12682983, z: 0.3035451}
-      - {x: -0.27568457, y: 0.13916764, z: 0.22139119}
-      - {x: -0.29302332, y: 0.15064709, z: -0.046967335}
+      - {x: -0.009382098, y: 0.02160893, z: -0.052229747}
+      - {x: -0.013037967, y: -0.0469186, z: -0.053450823}
+      - {x: 0.0024491893, y: -0.1332435, z: -0.1668477}
+      - {x: 0.15176252, y: -0.12110483, z: -0.18101159}
+      - {x: 0.20288894, y: -0.0971586, z: -0.14792003}
+      - {x: 0.25118896, y: -0.0653521, z: -0.11769332}
+      - {x: 0.24974313, y: -0.036154713, z: -0.022964897}
+      - {x: 0.18913984, y: 0.06241691, z: 0.20117395}
+      - {x: -0.23900089, y: 0.009292599, z: 0.11229029}
+      - {x: -0.22120515, y: 0.013324179, z: -0.07898705}
+      - {x: -0.21762821, y: 0.026220277, z: -0.27517712}
+      - {x: 0.2922097, y: 0.047875233, z: -0.3742411}
+      - {x: 0.3020319, y: 0.06306548, z: -0.10663144}
+      - {x: 0.30969748, y: 0.07180442, z: 0.054989688}
+      - {x: 0.19909081, y: 0.077985175, z: 0.26331782}
+      - {x: 0.0010547219, y: 0.089812435, z: 0.26989806}
+      - {x: -0.1968359, y: 0.09843876, z: 0.25131536}
+      - {x: -0.28506666, y: 0.110776566, z: 0.16916144}
+      - {x: -0.30240542, y: 0.12225602, z: -0.09919708}
       isClosed: 0
       space: 0
       controlMode: 2
@@ -39231,7 +39302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6663874763145360809
 Transform:
   m_ObjectHideFlags: 0
@@ -39240,8 +39311,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663874763145360808}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.734, z: 0.43999958}
-  m_LocalScale: {x: 1.7, y: 3, z: 1.7}
+  m_LocalPosition: {x: 0, y: 0.734, z: 0}
+  m_LocalScale: {x: 0.56666666, y: 1, z: 0.5666667}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6663874762935318948}
@@ -39276,7 +39347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663874763164648621}
   m_LocalRotation: {x: -0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.27171898, z: -0.00000056098486}
+  m_LocalPosition: {x: 0, y: -0.27171892, z: -0.00000056098446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39335,7 +39406,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0
     vertexPathMinVertexSpacing: 0
     showTransformTool: 1
@@ -39347,12 +39418,12 @@ MonoBehaviour:
     globalDisplaySettingsFoldout: 1
     keepConstantHandleSize: 0
     showNormalsInVertexMode: 0
-    showBezierPathInVertexMode: 0
+    showBezierPathInVertexMode: 1
     showDisplayOptions: 1
     showPathOptions: 1
     showVertexPathDisplayOptions: 1
     showVertexPathOptions: 1
     showNormals: 1
     showNormalsHelpInfo: 0
-    tabIndex: 0
+    tabIndex: 1
   initialized: 1

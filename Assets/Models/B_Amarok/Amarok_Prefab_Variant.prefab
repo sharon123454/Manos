@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 1648239918364287314}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _stunVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8962202317413635082}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -164,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Amarok_Prefab_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7133889664545816167, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
       value: 'unit movment '
@@ -206,11 +222,8 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 1390155840202112614}
-    - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8512009158752907042}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
@@ -231,6 +244,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5519389455470923982}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!198 &1648239918364287314 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6689285964459791138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -255,6 +273,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -264,11 +285,13 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &5602378655156786812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +312,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 01000000
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -298,11 +324,13 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &2032839130430321204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +350,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 
   range: 5
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -331,11 +362,12 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 30
   statusEffectDuration: 2
-  _statusEffect: 7
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  EnemyStatusEffects: 07000000
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -359,6 +391,9 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 03000000
   range: 2
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -368,11 +403,13 @@ MonoBehaviour:
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 1
-  _statusEffect: 0
+  EnemyStatusEffects: 
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   maxMeleeDistance: 1
-  beforeHitStateTime: 0.7
-  rotateToTargetSpeed: 10
-  afterHitStateTime: 0.5
 --- !u!114 &5731917650349299490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +429,9 @@ MonoBehaviour:
   favorCost: 50
   _AbilityProperties: 06000000
   range: 4
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -418,6 +458,9 @@ MonoBehaviour:
   favorCost: 25
   _AbilityProperties: 
   range: 4
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
@@ -427,11 +470,12 @@ MonoBehaviour:
   critChance: 10
   statusEffectChance: 30
   statusEffectDuration: 1
-  _statusEffect: 1
-  aimingStateTime: 1
-  shootingStateTime: 0.1
-  coolOffStateTime: 0.1
-  rotateToTargetSpeed: 10
+  EnemyStatusEffects: 01000000
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
   unitShoulderHeight: 1.7
   obstacleLayerMask:
     serializedVersion: 2
@@ -441,73 +485,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2081974429006526638
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6689285964459791149}
-    m_Modifications:
-    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_Name
-      value: Nanook_Heal_Friendly
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834126775883182674, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
---- !u!4 &8512009158752907042 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7693295561247020940, guid: b70745618fad2ec4fbde0e12bc147e00, type: 3}
-  m_PrefabInstance: {fileID: 2081974429006526638}
+--- !u!198 &8962202317413635082 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8289157834845877910, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
