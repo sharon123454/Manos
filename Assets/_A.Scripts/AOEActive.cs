@@ -38,7 +38,7 @@ public class AOEActive : MonoBehaviour
     {
         _unit = castingUnit;
         transform.parent = _unit.transform;
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = Vector3.zero + transform.position;
         _statusEffects = new List<StatusEffect>();
         transform.localScale *= AOESize;
         _activeturns = numberOfTurns;
