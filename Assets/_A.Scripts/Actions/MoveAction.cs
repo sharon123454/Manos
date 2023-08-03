@@ -13,7 +13,7 @@ public class MoveAction : BaseAction
     [SerializeField] private int visualMovementSpeed = 4;
 
     private int pathfindingDistanceMultiplier = 10;
-    private float stoppingDistance = .1f;
+    [SerializeField] private float stoppingDistance = .1f;
     private List<Vector3> positionList;
     private int currentPositionIndex;
     public bool isTeleport = false;
@@ -47,7 +47,7 @@ public class MoveAction : BaseAction
                 }
             }
         }
-        else 
+        else
         {
             if (!_isActive) { return; }
 
@@ -74,7 +74,6 @@ public class MoveAction : BaseAction
                 }
             }
         }
-        
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
@@ -90,12 +89,12 @@ public class MoveAction : BaseAction
         foreach (GridPosition pathGridPosition in pathGridPositionList)
         {
             RaycastHit ray;
-            Vector3 myWorldPos = LevelGrid.Instance.GetWorldPosition(pathGridPosition);
+            Vector3 gridWorldPos = LevelGrid.Instance.GetWorldPosition(pathGridPosition);
 
-            if (Physics.Raycast(myWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000,
+            if (Physics.Raycast(gridWorldPos + Vector3.up * 5, Vector3.down, out ray, 2000,
                     PathFinding.Instance.floorGridLayer))
             {
-                positionList.Add(new Vector3(myWorldPos.x, ray.point.y, myWorldPos.z));
+                positionList.Add(new Vector3(gridWorldPos.x, ray.point.y, gridWorldPos.z));
             }
         }
 
@@ -128,7 +127,7 @@ public class MoveAction : BaseAction
                 if (_unitGridPosition == testGridPosition) // If my position
                     continue;
 
-                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position Occupied w another unit
+                if (PathFinding.Instance.IsOccupiedGridPosition(testGridPosition)) // If grid position has GO with somthing dynamic like "Unit" tag
                     continue;
 
                 if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If grid position has GO with "Obstacle" tag

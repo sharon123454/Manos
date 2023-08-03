@@ -14,6 +14,7 @@ public class PathFinding : MonoBehaviour
     [Tooltip("Height from ground to check for obstacles above the path")]
     [SerializeField] private float rayCastOffsetDistance = 5f;
     [SerializeField] internal LayerMask obstacleLayerMask;
+    [SerializeField] internal LayerMask movableLayerMask;
     [SerializeField] internal LayerMask floorGridLayer;
 
     private GridSystem<PathNode> gridSystem;
@@ -40,11 +41,16 @@ public class PathFinding : MonoBehaviour
                 GridPosition gridPosition = new GridPosition(x, z);
                 Vector3 worldPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
 
+                //if true the position has an moveable layer like Unit
+                if (Physics.Raycast(worldPosition + Vector3.down * rayCastOffsetDistance, Vector3.up, rayCastOffsetDistance * 2, movableLayerMask))
+                {
+                    SetOccupiedGridPosition(gridPosition, true);
+                }
+
                 //if true the position has an obstacle
                 if (Physics.Raycast(worldPosition + Vector3.down * rayCastOffsetDistance, Vector3.up, rayCastOffsetDistance * 2, obstacleLayerMask))
                 {
                     SetWalkableGridPosition(gridPosition, false);
-                    //check for more loop wholes like was here
                 }
             }
         }
@@ -54,10 +60,18 @@ public class PathFinding : MonoBehaviour
     {
         return gridSystem.GetGridObject(gridPosition).IsWalkable();
     }
+    public bool IsOccupiedGridPosition(GridPosition gridPosition)
+    {
+        return gridSystem.GetGridObject(gridPosition).IsOccupied();
+    }
 
     public void SetWalkableGridPosition(GridPosition gridPosition, bool isWalkable)
     {
         gridSystem.GetGridObject(gridPosition).SetIsWalkable(isWalkable);
+    }
+    public void SetOccupiedGridPosition(GridPosition gridPosition, bool isOccupied)//need to change this on move
+    {
+        gridSystem.GetGridObject(gridPosition).SetIsOccupied(isOccupied);
     }
 
     public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
@@ -130,7 +144,7 @@ public class PathFinding : MonoBehaviour
                 if (closedList.Contains(neighbourNode))
                     continue;
 
-                if (!neighbourNode.IsWalkable())
+                if (!neighbourNode.IsWalkable() || neighbourNode.IsOccupied())
                 {
                     closedList.Add(neighbourNode);
                     continue;

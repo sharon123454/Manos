@@ -6,6 +6,7 @@ public class PathNode
 {
     private GridPosition _gridPosition;
     private PathNode cameFromPathNode;
+    private bool _isOccupied = false;
     private bool _isWalkable = true;
     private int _gCost;
     private int _hCost;
@@ -20,11 +21,13 @@ public class PathNode
     public int GetFCost() { return _fCost; }
     public int GetHCost() { return _hCost; }
     public bool IsWalkable() { return _isWalkable; }
+    public bool IsOccupied() { return _isOccupied; }
 
     public void SetGCost(int gCost) { _gCost = gCost; }
     public void SetHCost(int hCost) { _hCost = hCost; }
     public void CalculateFCost() { _fCost = _gCost + _hCost; }
     public void SetIsWalkable(bool isWalkable) { _isWalkable = isWalkable; }
+    public void SetIsOccupied(bool isOccupied) { _isOccupied = isOccupied; }
 
     public GridPosition GetGridPosition() { return _gridPosition; }
 

@@ -39,6 +39,7 @@ public class LevelGrid : MonoBehaviour
     public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         gridSystem.GetGridObject(gridPosition).AddUnit(unit);
+        PathFinding.Instance.SetOccupiedGridPosition(gridPosition, true);
     }
 
     public List<Unit> GetUnitListAtGridPosition(GridPosition gridPosition)
@@ -49,6 +50,7 @@ public class LevelGrid : MonoBehaviour
     public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         gridSystem.GetGridObject(gridPosition).RemoveUnit(unit);
+        PathFinding.Instance.SetOccupiedGridPosition(gridPosition, false);
     }
 
     public void UnitMovedGridPosition(Unit unit, GridPosition fromGridPosition, GridPosition toGridPosition)
