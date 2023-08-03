@@ -23,7 +23,7 @@ public class MagicSystemUI : MonoBehaviour
     private void Update()
     {
         HandleSmoothFavorChange();
-        indicator.rectTransform.localPosition = new Vector3(CalculatePosition(MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor()), -15, 0);
+        indicator.rectTransform.localPosition = new Vector3(CalculatePosition(MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor()), +16.5f, 0);
         if (UnitActionSystem.Instance.GetSelectedAction() is BaseAbility)
         {
             indicator.gameObject.SetActive(true);
@@ -53,7 +53,7 @@ public class MagicSystemUI : MonoBehaviour
         // Given data points
         float position1 = 0f;   // Position when fill amount is 1
         float fillAmount1 = 1f; // Corresponding fill amount for position1
-        float position2 = -500f;   // Position when fill amount is 0
+        float position2 = -760;   // Position when fill amount is 0
         float fillAmount2 = 0f; // Corresponding fill amount for position2
 
         // Linear interpolation formula
