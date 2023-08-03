@@ -13,7 +13,6 @@ public class MagicSystem : MonoBehaviour
     [SerializeField] private float startFavor = 300;
     [SerializeField] private float maxFavor = 600;
 
-    private bool visualMatching = false;
     private float critModifier = 0;
     [SerializeField] private float currentFavor = 0;
 
@@ -23,28 +22,28 @@ public class MagicSystem : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
-        BaseAction.OnAnySpellCast += BaseAbility_OnAnySpellCast;
     }
 
     private void Start()
     {
         currentFavor = startFavor;
-        UpdateFavorVisual();
+        OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
+        BaseAction.OnAnySpellCast += BaseAbility_OnAnySpellCast;
     }
-
-    private void Update() { Mathf.Clamp(currentFavor, 0, maxFavor); }
 
     public float GetMaxFavor() { return maxFavor; }
     public float GetCurrentFavor() { return currentFavor; }
+
     public bool CanEnemySpendFavorToTakeAction(int spellFavorCost)
     {
-        return currentFavor + spellFavorCost <= maxFavor;
+        return currentFavor + spellFavorCost <= GetMaxFavor();
     }
     public bool CanFriendlySpendFavorToTakeAction(int spellFavorCost)
     {
         return currentFavor - spellFavorCost >= 0;
     }
 
+    //needs rework or use it as it technically works
     /// <summary>
     /// hard coded trash, help
     /// </summary>
@@ -75,45 +74,23 @@ public class MagicSystem : MonoBehaviour
         return critModifier;
     }
 
-    private void UpdateFavorVisual()
-    {
-        OnFavorChanged?.Invoke(this, currentFavor);
-        visualMatching = true;
-    }
-
     private void BaseAbility_OnAnySpellCast(object sender, int usedFavor)
     {
         float newFavor;
 
         if (TurnSystem.Instance.IsPlayerTurn())
-        {
             newFavor = currentFavor - usedFavor;
-
-            if (newFavor < 0)
-            {
-                newFavor = 0;
-                currentFavor = 0;
-            }
-        }
         else
-        {
             newFavor = currentFavor + usedFavor;
 
-            if (newFavor > maxFavor)
-            {
-                newFavor = maxFavor;
-                currentFavor = maxFavor;
-            }
-        }
+        newFavor = Mathf.Clamp(newFavor, 0, maxFavor);
 
         if (newFavor != currentFavor)
         {
             currentFavor = newFavor;
-            visualMatching = false;
+            OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
         }
-        
-        if (!visualMatching)
-            UpdateFavorVisual();
+
     }
 
 }
