@@ -5,6 +5,9 @@ using System;
 
 public class UnitStatusEffects : MonoBehaviour
 {
+    public static event EventHandler<string> SendConsoleMessage;
+
+    public event EventHandler<StatusEffect> OnStatusApplied;
     public event EventHandler<StatusEffect> OnStatusRemoved;
 
     [SerializeField] private int healValue;
@@ -180,8 +183,9 @@ public class UnitStatusEffects : MonoBehaviour
                 Debug.Log($"{statusEffect} effect isn't Implamented");
                 break;
         }
-
         unitActiveStatusEffects.Add(statusEffect);
+        OnStatusApplied?.Invoke(this, statusEffect);
+        SendConsoleMessage?.Invoke(this, $"{statusEffect} was applied for {duration} turns.");
     }
 
     private void DecreaseEffectCooldown(StatusEffect effect)

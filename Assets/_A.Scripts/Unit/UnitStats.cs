@@ -12,7 +12,6 @@ public class UnitStats : MonoBehaviour
     public event EventHandler OnHeal;
     public event EventHandler OnDamaged;
     public event EventHandler OnCriticalHit;
-    public event EventHandler<List<StatusEffect>> OnStatusApplied;
     private Unit _unit;
     private UnitStatusEffects _unitStatusEffect;
     [SerializeField] private float maxHealth = 100;
@@ -175,9 +174,7 @@ public class UnitStats : MonoBehaviour
                     foreach (StatusEffect effect in currentEffects)
                     {
                         _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
-                        SendConsoleMessage?.Invoke(this, $"{effect} was applied for {effectDuration} turns.");
                     }
-                    OnStatusApplied?.Invoke(this, currentEffects);
                 }
             }
             else

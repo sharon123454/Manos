@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour
         statSheet.OnHeal += StatSheet_OnHealed;
         statSheet.OnDamaged += StatSheet_OnDamaged;
         statSheet.OnCriticalHit += StatSheet_OnCriticallyHit;
-        statSheet.OnStatusApplied += StatSheet_OnStatusApplied; ;
+        unitStatusEffects.OnStatusApplied += StatSheet_OnStatusApplied; ;
         unitStatusEffects.OnStatusRemoved += UnitStatusEffects_OnStatusRemoved;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
@@ -339,10 +339,9 @@ public class Unit : MonoBehaviour
     {
         //animator.
     }
-    private void StatSheet_OnStatusApplied(object sender, List<StatusEffect> activatedEffects)
+    private void StatSheet_OnStatusApplied(object sender, StatusEffect activatedEffect)
     {
-        foreach (StatusEffect effect in activatedEffects)
-            animator.OnStatusEffectRecieved(effect);
+        animator.OnStatusEffectRecieved(activatedEffect);
     }
     private void UnitStatusEffects_OnStatusRemoved(object sender, StatusEffect removedStatus)
     {

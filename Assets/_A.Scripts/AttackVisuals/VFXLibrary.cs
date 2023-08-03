@@ -1,6 +1,21 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
+
+[Serializable]
+public struct MeshAndMat
+{
+    public Renderer[] UnitMeshRendererGroup;
+    public Material GroupMat;
+
+    public void ChangeGroupMat(Material mat)
+    {
+        if (UnitMeshRendererGroup.Length > 0)
+            foreach (var renderer in UnitMeshRendererGroup)
+                renderer.material = mat;
+    }
+}
 
 public class VFXLibrary : MonoBehaviour
 {
@@ -26,6 +41,15 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _ability3A;
     [SerializeField] private ParticleSystem[] _ability4A;
     [SerializeField] private ParticleSystem[] _ability5A;
+    [Header("Invisibility")]
+    [SerializeField] private Material m_InvisibleMat;
+    [SerializeField] private MeshAndMat hairGroup;
+    [SerializeField] private MeshAndMat bodyGroup;
+    [SerializeField] private MeshAndMat equipmentGroup;
+    [SerializeField] private MeshAndMat weaponOneGroup;
+    [SerializeField] private MeshAndMat weaponTwoGroup;
+    [SerializeField] private MeshAndMat other1Group;
+    [SerializeField] private MeshAndMat other2Group;
     [Header("Raynard Abilities")]
     [SerializeField] private ParticleSystem[] _ability1R;
     [SerializeField] private ParticleSystem[] _ability2R;
@@ -77,7 +101,8 @@ public class VFXLibrary : MonoBehaviour
                 ActivateVFXArray(_nullifyVFX);
                 break;
             case StatusEffect.Invisibility:
-                //?
+                print("invi was recieved");
+                ChangeAmarokInvisibilityMat(true);
                 break;
             case StatusEffect.CowardPlague:
                 ActivateVFXArray(_cowardPlagueVFX);
@@ -128,7 +153,7 @@ public class VFXLibrary : MonoBehaviour
                 StopVFXArray(_nullifyVFX);
                 break;
             case StatusEffect.Invisibility:
-                //?
+                ChangeAmarokInvisibilityMat(false);
                 break;
             case StatusEffect.CowardPlague:
                 StopVFXArray(_cowardPlagueVFX);
@@ -153,6 +178,30 @@ public class VFXLibrary : MonoBehaviour
             _SlashVFX.Play();
     }
 
+    private void ChangeAmarokInvisibilityMat(bool invisible)
+    {
+        if (m_InvisibleMat)
+            if (invisible)
+            {
+                hairGroup.ChangeGroupMat(m_InvisibleMat);
+                bodyGroup.ChangeGroupMat(m_InvisibleMat);
+                equipmentGroup.ChangeGroupMat(m_InvisibleMat);
+                weaponOneGroup.ChangeGroupMat(m_InvisibleMat);
+                weaponTwoGroup.ChangeGroupMat(m_InvisibleMat);
+                other1Group.ChangeGroupMat(m_InvisibleMat);
+                other2Group.ChangeGroupMat(m_InvisibleMat);
+            }
+            else
+            {
+                hairGroup.ChangeGroupMat(hairGroup.GroupMat);
+                bodyGroup.ChangeGroupMat(bodyGroup.GroupMat);
+                equipmentGroup.ChangeGroupMat(equipmentGroup.GroupMat);
+                weaponOneGroup.ChangeGroupMat(weaponOneGroup.GroupMat);
+                weaponTwoGroup.ChangeGroupMat(weaponTwoGroup.GroupMat);
+                other1Group.ChangeGroupMat(other1Group.GroupMat);
+                other2Group.ChangeGroupMat(other2Group.GroupMat);
+            }
+    }
     private void ActivateVFXArray(ParticleSystem[] vfxArray)
     {
         if (vfxArray != null)

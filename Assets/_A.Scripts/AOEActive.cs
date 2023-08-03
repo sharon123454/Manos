@@ -11,6 +11,7 @@ public class AOEActive : MonoBehaviour
     private List<StatusEffect> _statusEffects;
     private List<Unit> _affectedUnitList;
     private float _activeturns;
+    private Unit _unit;
 
     void OnEnable()
     {
@@ -35,7 +36,8 @@ public class AOEActive : MonoBehaviour
 
     public void Init(Unit castingUnit, float numberOfTurns, List<StatusEffect> effects, float AOESize)
     {
-        transform.parent = castingUnit.transform;
+        _unit = castingUnit;
+        transform.parent = _unit.transform;
         transform.localPosition = Vector3.zero;
         _statusEffects = new List<StatusEffect>();
         transform.localScale *= AOESize;
@@ -87,20 +89,24 @@ public class AOEActive : MonoBehaviour
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        _activeturns--;
-        
-        if (_activeturns <= 0)
-            Destroy(gameObject);
-
-        if (_affectedUnitList.Count > 0)
+        if (_unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn() ||
+        !_unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
         {
-            foreach (Unit unit in _affectedUnitList)
+            _activeturns--;
+
+            if (_affectedUnitList.Count > 0)
             {
-                foreach (StatusEffect status in _statusEffects)
+                foreach (Unit unit in _affectedUnitList)
                 {
-                    unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
+                    foreach (StatusEffect status in _statusEffects)
+                    {
+                        unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
+                    }
                 }
             }
+            
+            if (_activeturns <= 0)
+                Destroy(gameObject);
         }
     }
 
