@@ -148,12 +148,9 @@ public class UnitAnimator : MonoBehaviour
 
     private void BaseHeal_OnHealActionStarted(object sender, EventArgs e)
     {
-        animator.SetFloat("CastBlend", 1);
-        animator.SetTrigger("Shoot");
     }
     private void BaseHeal_OnHealActionCompleted(object sender, EventArgs e)
     {
-        //vfxLibrary.StopHealVFX();
     }
 
 }

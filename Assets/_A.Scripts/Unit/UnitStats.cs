@@ -211,11 +211,6 @@ public class UnitStats : MonoBehaviour
         }
         OnHeal?.Invoke(this, EventArgs.Empty);
     }
-    public void TryToTakeStatusEffect()
-    {
-        // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(_abilityEffect));
-
-    }
 
     private void TakeDamage(float damageToRecieve, float postureDamage)
     {
