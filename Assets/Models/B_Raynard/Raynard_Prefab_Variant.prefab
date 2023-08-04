@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -151,6 +151,18 @@ PrefabInstance:
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: maxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108413273849954429, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108413273849954429, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108413273849954429, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
@@ -498,6 +510,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8289157834845877910, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 4667108780007785570}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &4041116961549634682 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8705467711112628248, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6445351903449401260 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -571,6 +588,14 @@ PrefabInstance:
       propertyPath: _stunVFX.Array.data[1]
       value: 
       objectReference: {fileID: 3732894303116784372}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _onRecieveDamageVFX.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _onRecieveDamageVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 4041116961549634682}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

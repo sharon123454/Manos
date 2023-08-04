@@ -36,11 +36,9 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _regenerationVFX;
     [SerializeField] private ParticleSystem[] _cowardPlagueVFX;
     [Header("Amarock Abilities")]
-    [SerializeField] private ParticleSystem[] _ability1A;
-    [SerializeField] private ParticleSystem[] _ability2A;
-    [SerializeField] private ParticleSystem[] _ability3A;
-    [SerializeField] private ParticleSystem[] _ability4A;
-    [SerializeField] private ParticleSystem[] _ability5A;
+    [SerializeField] private ParticleSystem[] _aBasicAttack;
+    [SerializeField] private ParticleSystem[] _aPuncture;
+    [SerializeField] private ParticleSystem[] _aMurder;
     [Header("Invisibility")]
     [SerializeField] private Material m_InvisibleMat;
     [SerializeField] private MeshAndMat hairGroup;
@@ -62,8 +60,6 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _nBasicAttack;
     [SerializeField] private ParticleSystem[] _nCleave;
     [SerializeField] private ParticleSystem[] _nPommleStirke;
-    [SerializeField] private ParticleSystem[] _ability3N;
-    [SerializeField] private ParticleSystem[] _ability4N;
 
     public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
@@ -178,7 +174,7 @@ public class VFXLibrary : MonoBehaviour
     {
         ActivateVFXArray(_onRecieveDamageVFX);
     }
-    public void PlayBasicAttack()
+    public void PlayNBasicAttack()
     {
         ActivateVFXArray(_nBasicAttack);
     }
@@ -189,6 +185,18 @@ public class VFXLibrary : MonoBehaviour
     public void PlayCleave()
     {
         ActivateVFXArray(_nCleave);
+    }
+    public void PlayABasicAttack()
+    {
+        ActivateVFXArray(_aBasicAttack);
+    }
+    public void PlayPuncture()
+    {
+        ActivateVFXArray(_aPuncture);
+    }
+    public void PlayMurder()
+    {
+        ActivateVFXArray(_aMurder);
     }
 
     private void ChangeAmarokInvisibilityMat(bool invisible)

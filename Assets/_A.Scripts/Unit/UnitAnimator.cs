@@ -87,11 +87,13 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetFloat("GetHitBlend", 0);
         animator.SetTrigger("Hit");
+        vfxLibrary.PlayTakeDamage();
     }
     public void OnCriticallyHit()
     {
         animator.SetFloat("GetHitBlend", 1);
         animator.SetTrigger("Hit");
+        vfxLibrary.PlayTakeDamage();
     }
     public void OnDead()
     {
