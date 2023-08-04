@@ -2836,7 +2836,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239987382}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 14, y: 11, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3224,7 +3224,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259866273}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 14, y: 11, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19934,6 +19934,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7241822110744786081, guid: 696f31530a1764047900b898477c0e4f, type: 3}
+      propertyPath: Armor
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7241822110744786081, guid: 696f31530a1764047900b898477c0e4f, type: 3}
+      propertyPath: evasion
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7241822110744786081, guid: 696f31530a1764047900b898477c0e4f, type: 3}
+      propertyPath: maxHealth
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7241822110744786081, guid: 696f31530a1764047900b898477c0e4f, type: 3}
+      propertyPath: maxPosture
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24724,6 +24740,10 @@ PrefabInstance:
     - target: {fileID: 1403111208976152028, guid: 410a25be628c06847b35de6d1c5c4cdc, type: 3}
       propertyPath: m_Name
       value: Raynard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237702705593201455, guid: 410a25be628c06847b35de6d1c5c4cdc, type: 3}
+      propertyPath: Armor
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
