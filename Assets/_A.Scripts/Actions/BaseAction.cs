@@ -87,7 +87,9 @@ public abstract class BaseAction : MonoBehaviour
 
     public bool GetIsFollowingMouse() { return isFollowingMouse; }
 
-    public virtual int GetCooldown() { return cooldown; }
+    public virtual int GetCurrentCooldown() { return cooldown; }
+    public virtual int GetAbilityCooldown() { return cooldownAfterUse; }
+
     public virtual int GetFavorCost() { return favorCost; }
     public virtual string GetActionDescription() { return actionDescription; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
