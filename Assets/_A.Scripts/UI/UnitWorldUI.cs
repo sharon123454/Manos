@@ -66,6 +66,13 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
+            if (checkIfBaseAbility.GetIfUsedAction() && checkIfBaseAbility.GetActionName() != "Move")
+            {
+                CursorManager.Instance.SetBlockableCursor();
+                hitChanceText.text = $"hitChance = [{0}]%";
+                return;
+            }
+
             float getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
 
             #region Old Switch
@@ -143,6 +150,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 postureTakenBarImage.fillAmount = Math.Abs(unitStats.GetPostureTaken() - 1) + unitStats.GetHealthNormalized() - 1;
             }
         }
+        else
+        {
+            hitChanceText.text = "";
+        }
     }
     private void DeActivateWorldUI()
     {
@@ -164,7 +175,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
             UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
             return;
 
@@ -172,7 +183,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
             UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
             return;
 

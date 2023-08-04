@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class MagicSystemUI : MonoBehaviour
 {
@@ -31,8 +32,40 @@ public class MagicSystemUI : MonoBehaviour
         {
             HandleSmoothFavorChange();
         }
+        LitStone();
     }
 
+    public void LitStone()
+    {
+        int value = (int)Math.Round(playerBar.fillAmount / 0.168f);
+        //print(value);
+        switch (value)
+        {
+            case 1:
+                HandleStoneSwap(0);
+                break;
+            case 2:
+                HandleStoneSwap(1);
+                break;
+            case 3:
+                HandleStoneSwap(2);
+                break;
+            case 4:
+                HandleStoneSwap(3);
+                break;
+            case 5:
+                HandleStoneSwap(4);
+                break;
+        }
+    }
+    public void HandleStoneSwap(int StoneNum)
+    {
+        foreach (var item in activeFavorStones)
+        {
+            item.gameObject.SetActive(false);
+        }
+        activeFavorStones[StoneNum].gameObject.SetActive(true);
+    }
     private void HandleSmoothFavorChange()
     {
         playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
@@ -42,6 +75,7 @@ public class MagicSystemUI : MonoBehaviour
     private void MagicSystem_OnFavorChanged(object sender, float normalizedFavor)
     {
         favorValue = normalizedFavor;
+        LitStone();
     }
 
 }

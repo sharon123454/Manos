@@ -67,6 +67,11 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
             UnitActionSystem.Instance.savedAction = baseAction;
         });
+
+        if (baseAction.GetIsBonusAction())
+        {
+
+        }
     }
 
     public void UpdateButtonVisual()

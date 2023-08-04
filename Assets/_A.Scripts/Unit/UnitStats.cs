@@ -157,7 +157,7 @@ public class UnitStats : MonoBehaviour
         {
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
-                if (critDiceRoll <= abilityCritChance)
+                if (critDiceRoll + MagicSystem.Instance.AddCritChanceFromFavor(_unit.IsEnemy()) <= abilityCritChance)
                 {
                     TakeDamage(damageToRecieve * 2, postureDamage * 2);
                     SendConsoleMessage?.Invoke(this, "Ability CRIT!");
