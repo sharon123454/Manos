@@ -105,6 +105,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
       value: 'unit movment '
       objectReference: {fileID: 0}
@@ -179,6 +183,10 @@ PrefabInstance:
     - target: {fileID: 7133889664545816167, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
@@ -438,6 +446,7 @@ MonoBehaviour:
   maxMoveDistance: 3
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
+  stoppingDistance: 0.1
   isTeleport: 1
 --- !u!114 &5519389455470923982
 MonoBehaviour:

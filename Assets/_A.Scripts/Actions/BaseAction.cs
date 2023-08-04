@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 // Decided Costs of an Action
 public enum TypeOfAction { Action, BonusAction, Both }
@@ -27,6 +28,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected bool isFollowingMouse;
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
+    [SerializeField] protected Sprite abilityImage;
 
     protected Action onActionComplete;
     protected bool _isActive;
@@ -53,9 +55,11 @@ public abstract class BaseAction : MonoBehaviour
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
     }
 
+    public bool IsBasicAbility() { if (_AbilityProperties.Contains(AbilityProperties.Basic)) return true; else return false; }
     public Unit GetUnit() { return unit; }
     public ActionRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
+    public Sprite GetAbilityImage() { return abilityImage; }
     public MeshShape GetActionMeshShape() { return actionMeshShape; }
     public float GetMeshScaleMultiplicator() { return meshShapeScaleMultiplicator; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
@@ -83,7 +87,9 @@ public abstract class BaseAction : MonoBehaviour
 
     public bool GetIsFollowingMouse() { return isFollowingMouse; }
 
-    public virtual int GetCooldown() { return cooldown; }
+    public virtual int GetCurrentCooldown() { return cooldown; }
+    public virtual int GetAbilityCooldown() { return cooldownAfterUse; }
+
     public virtual int GetFavorCost() { return favorCost; }
     public virtual string GetActionDescription() { return actionDescription; }
     public virtual bool GetIfUsedAction() { return _usedAction; }

@@ -59,7 +59,7 @@ public class GridSystemVisual : MonoBehaviour
         HideAllVisual();
 
         if (selectedAction == null) { return; }
-        if (selectedAction.GetCooldown() > 0) { return; }
+        if (selectedAction.GetCurrentCooldown() > 0) { return; }
 
         switch (selectedAction.GetRange())
         {

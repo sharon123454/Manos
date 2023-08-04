@@ -21,6 +21,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: maxMoveDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
       value: unit movment
       objectReference: {fileID: 0}
@@ -131,11 +135,15 @@ PrefabInstance:
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 872971790911514558}
+      objectReference: {fileID: 8250524655845984563}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: shootPointTransform
       value: 
       objectReference: {fileID: 5391332409113617397}
+    - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: Armor
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7794121002179147597, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: evasion
       value: 20
@@ -216,6 +224,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 25
   postureDamage: 10
   hitChance: 110
@@ -257,6 +266,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 55
   postureDamage: 0
   hitChance: 200
@@ -296,6 +306,7 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
+  abilityImage: {fileID: 0}
   damage: 0
   postureDamage: 0
   hitChance: 100
@@ -337,6 +348,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 100
+  abilityImage: {fileID: 0}
   damage: 50
   postureDamage: 0
   hitChance: 200
@@ -376,6 +388,7 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 3
   meshShapeScaleMultiplicator: 3
+  abilityImage: {fileID: 0}
   damage: 45
   postureDamage: 5
   hitChance: 110
@@ -417,6 +430,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 45
   postureDamage: 10
   hitChance: 110
@@ -458,6 +472,7 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
+  abilityImage: {fileID: 0}
   damage: 0
   postureDamage: 0
   hitChance: 110
@@ -562,6 +577,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4067588932550227601, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
   m_PrefabInstance: {fileID: 6563764753127721018}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8250524655845984563 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2983895553632698633, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+  m_PrefabInstance: {fileID: 6563764753127721018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7133107590373419437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -627,11 +647,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
---- !u!95 &872971790911514558 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7989536064906595859, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
-  m_PrefabInstance: {fileID: 7133107590373419437}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3691354638567946646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5892873199305920571, guid: 551abc92079dd7249846703e1ea01c96, type: 3}
