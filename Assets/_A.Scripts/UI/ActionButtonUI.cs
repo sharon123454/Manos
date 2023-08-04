@@ -69,8 +69,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         });
 
         if (baseAction.GetIsBonusAction())
+            bonusActionSelected.gameObject.SetActive(true);
+        else
+            actionSelected.gameObject.SetActive(true);
+        if (baseAction.ActionUsingBoth())
         {
-
+            bonusActionSelected.gameObject.SetActive(true);
+            actionSelected.gameObject.SetActive(true);
         }
     }
 
