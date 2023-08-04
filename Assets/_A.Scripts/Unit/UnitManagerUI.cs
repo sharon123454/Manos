@@ -18,6 +18,8 @@ public class UnitManagerUI : MonoBehaviour
         UnitManager.GameLost += UnitManager_GameLost;
         UnitManager.GameWon += UnitManager_GameWon;
         UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+        SetNewMainUnit(UnitActionSystem.Instance.GetSelectedUnit().GetUnitUI());
+
     }
 
     private void Instance_OnSelectedUnitChanged(object sender, Unit e)
