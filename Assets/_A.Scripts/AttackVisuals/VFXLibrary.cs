@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.Rendering;
 
 [Serializable]
 public struct MeshAndMat
@@ -51,6 +50,8 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private MeshAndMat weaponTwoGroup;
     [SerializeField] private MeshAndMat other1Group;
     [SerializeField] private MeshAndMat other2Group;
+
+    private string _inviMatNoiseStrength = "Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb";
     [Header("Raynard Abilities")]
     [SerializeField] private ParticleSystem[] _ability1R;
     [SerializeField] private ParticleSystem[] _ability2R;
@@ -195,6 +196,7 @@ public class VFXLibrary : MonoBehaviour
         if (m_InvisibleMat)
             if (invisible)
             {
+                m_InvisibleMat.SetFloat(_inviMatNoiseStrength, -5);
                 hairGroup.ChangeGroupMat(m_InvisibleMat);
                 bodyGroup.ChangeGroupMat(m_InvisibleMat);
                 equipmentGroup.ChangeGroupMat(m_InvisibleMat);
@@ -202,6 +204,7 @@ public class VFXLibrary : MonoBehaviour
                 weaponTwoGroup.ChangeGroupMat(m_InvisibleMat);
                 other1Group.ChangeGroupMat(m_InvisibleMat);
                 other2Group.ChangeGroupMat(m_InvisibleMat);
+                StartCoroutine(turnInviVisible());
             }
             else
             {
@@ -228,6 +231,15 @@ public class VFXLibrary : MonoBehaviour
         if (vfxArray != null)
             for (int i = 0; i < vfxArray.Length; i++)
                 vfxArray[i].Stop();
+    }
+
+    private IEnumerator turnInviVisible()
+    {
+        while (m_InvisibleMat.GetFloat(_inviMatNoiseStrength) <= 15f)
+        {
+            yield return null;
+            m_InvisibleMat.SetFloat(_inviMatNoiseStrength, m_InvisibleMat.GetFloat(_inviMatNoiseStrength) + Time.deltaTime * 5f);
+        }
     }
 
 }
