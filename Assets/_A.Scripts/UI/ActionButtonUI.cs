@@ -25,6 +25,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField] GameObject bonusActionSelected;
     [SerializeField] GameObject bonusActionOutline;
+    [SerializeField] GameObject rangedAction;
+    [SerializeField] GameObject meleeAction;
+    [SerializeField] GameObject favorAction;
+
 
 
     [SerializeField] GameObject OnCooldown;
@@ -67,15 +71,28 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             UnitActionSystem.Instance.SetSelectedAction(baseAction);
             UnitActionSystem.Instance.savedAction = baseAction;
         });
-
-        if (baseAction.GetIsBonusAction())
-            bonusActionSelected.gameObject.SetActive(true);
+        if (baseAction.GetFavorCost() > 0)
+        {
+            favorAction.SetActive(true);
+        }
+        if (baseAction.GetIsBonusAction()) 
+            bonusActionSelected.SetActive(true);
         else
-            actionSelected.gameObject.SetActive(true);
+            actionSelected.SetActive(true);
         if (baseAction.ActionUsingBoth())
         {
-            bonusActionSelected.gameObject.SetActive(true);
-            actionSelected.gameObject.SetActive(true);
+            bonusActionSelected.SetActive(true);
+            actionSelected.SetActive(true);
+        }
+        if (baseAction.GetRange() == ActionRange.Melee)
+        {
+            rangedAction.SetActive(false);
+            meleeAction.SetActive(true);
+        }
+        else
+        {
+            rangedAction.SetActive(true);
+            meleeAction.SetActive(false);
         }
     }
 
