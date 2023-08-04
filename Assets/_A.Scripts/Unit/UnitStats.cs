@@ -74,6 +74,8 @@ public class UnitStats : MonoBehaviour
     public float GetPostureTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetPostureDamage()) / maxHealth; }
 
     public float GetUnitMaxHP() { return maxHealth; }
+    public float GetUnitMaxPosture() { return maxPosture; }
+
     public void Block()
     {
         armorMultiplayer = 2;

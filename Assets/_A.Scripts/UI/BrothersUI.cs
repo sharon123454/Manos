@@ -9,6 +9,7 @@ public class BrothersUI : MonoBehaviour
     [SerializeField] private GameObject actionGrayedOut;
     [SerializeField] private GameObject bonusActionGrayedOut;
     [SerializeField] private TextMeshProUGUI shieldAmountText;
+    [SerializeField] private TextMeshProUGUI healthText,postureText;
     [SerializeField] private Image healthBar, postureBar;
     [SerializeField] private Image actionImage, bonusActionImage;
 
@@ -55,20 +56,20 @@ public class BrothersUI : MonoBehaviour
                     {
                         if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
                         {
-                            bonusActionImage.color = Color.green;
-                            actionImage.color = Color.green;
+                            bonusActionImage.color = Color.gray;
+                            actionImage.color = Color.gray;
                         }
                         else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
                         {
-                            bonusActionImage.color = Color.green;
+                            bonusActionImage.color = Color.gray;
                             actionImage.color = actionBarDefualtColor;
                         }
                         else
                         {
-                            actionImage.color = Color.green;
+                            actionImage.color = Color.gray;
                             bonusActionImage.color = BonusactionBarDefualtColor;
                         }
-                    }
+                    }   
                 }
                 else
                 {
@@ -90,6 +91,10 @@ public class BrothersUI : MonoBehaviour
                 healthBar.fillAmount = specificBro.GetHealthNormalized();
                 postureBar.fillAmount = specificBro.GetPostureNormalized();
                 shieldAmountText.text = specificBro.GetUnitStats().GetArmor().ToString();
+
+
+                healthText.text = $"{specificBro.GetUnitStats().health} / {specificBro.GetUnitStats().GetUnitMaxHP()}";
+                postureText.text = $"{specificBro.GetUnitStats().GetPosture()} / {specificBro.GetUnitStats().GetUnitMaxPosture()}";
             }
             else
             {

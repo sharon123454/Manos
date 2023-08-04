@@ -56,7 +56,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        UpdateButtonVisual();
+        //if (!baseAction.GetUnit().IsEnemy() && baseAction != null)
+        //{ 
+        //    UpdateButtonVisual();
+        //}
     }
 
     public void SetBaseAction(BaseAction baseAction)
@@ -98,7 +101,9 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateButtonVisual()
     {
-        if (TurnSystem.Instance.IsPlayerTurn())
+        if (!baseAction.GetUnit().IsEnemy())
+        {
+if (TurnSystem.Instance.IsPlayerTurn())
         {
             BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
@@ -144,6 +149,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 cooldownSlider.value = baseAction.GetCurrentCooldown();
             }
         }
+        }
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
