@@ -105,7 +105,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             #endregion
             hitChanceText.gameObject.SetActive(true);
             if (unitStats.GetPosture() <= 0)
+            {
                 hitChanceText.text = $"hitChance = [{100}]%";
+                CursorManager.Instance.SetOptimalCursor();
+            }
             else
             {
 
@@ -113,12 +116,15 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 {
                     case Effectiveness.Effective:
                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
+                        CursorManager.Instance.SetOptimalCursor();
                         break;
                     case Effectiveness.Inaccurate:
                         hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 30, 0, 100)}]%";
+                        CursorManager.Instance.SetInaccurateCursor();
                         break;
                     case Effectiveness.Miss:
                         hitChanceText.text = $"hitChance = [0]%";
+                        CursorManager.Instance.SetBlockableCursor();
                         break;
                     default:
                         hitChanceText.text = "Cant find Effectiveness";
@@ -140,6 +146,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void DeActivateWorldUI()
     {
+        CursorManager.Instance.SetDefaultCursor();
         if (UnitActionSystem.Instance.GetSelectedUnit().name != thisUnitName)
         {
             VisualParent.SetActive(false);

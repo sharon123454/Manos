@@ -115,6 +115,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.IsHoveringOnUI(true);
 
         actionInfo.SetActive(true);
+        //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())
+        //else
+        //    CursorManager.Instance.SetBlockableCursor();
+        CursorManager.Instance.SetClickableCursor();
 
         if (baseAction is BaseAbility)
         {
@@ -153,6 +157,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        CursorManager.Instance.SetDefaultCursor();
         UnitActionSystem.Instance.IsHoveringOnUI(false);
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);

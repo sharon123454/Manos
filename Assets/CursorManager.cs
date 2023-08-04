@@ -31,11 +31,11 @@ public class CursorManager : MonoBehaviour
     {
         Cursor.SetCursor(Cursors[2], hotSpot, cursorMode);
     }
-    public void SetSubOptimalCursor()
+    public void SetInaccurateCursor()
     {
         Cursor.SetCursor(Cursors[3], hotSpot, cursorMode);
     }
-    public void SetOutOfrangeCursor()
+    public void SetBlockableCursor()
     {
         Cursor.SetCursor(Cursors[4], hotSpot, cursorMode);
     }
