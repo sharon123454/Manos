@@ -38,7 +38,7 @@ public class MagicSystemUI : MonoBehaviour
     public void LitStone()
     {
         int value = (int)Math.Round(playerBar.fillAmount / 0.168f);
-        print(value);
+        //print(value);
         switch (value)
         {
             case 1:

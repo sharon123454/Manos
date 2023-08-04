@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using System;
 
@@ -28,9 +27,13 @@ public class Unit : MonoBehaviour
     private UnitAnimator animator;
     private Outline unitOutline;
     private UnitStats statSheet;
+    private GameObject unitUI;
 
     private void Awake()
     {
+        if (!isEnemy)
+            unitUI = GameObject.Find($"{name}UI");
+
         statSheet = GetComponent<UnitStats>();
         animator = GetComponent<UnitAnimator>();
         baseActionArray = GetComponents<BaseAction>();
@@ -67,7 +70,7 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
-
+    public GameObject GetUnitUI() { return unitUI; }
     public UnitAnimator GetUnitAnimator() { return animator; }
     public float GetHealthNormalized()
     {
