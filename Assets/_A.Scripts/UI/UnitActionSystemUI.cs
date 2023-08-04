@@ -56,6 +56,16 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            abilitiesOutLine.gameObject.SetActive(true);
+            spellsOutLine.gameObject.SetActive(true);
+        }
+        else
+        {
+            abilitiesOutLine.gameObject.SetActive(false);
+            spellsOutLine.gameObject.SetActive(false);
+        }
         if (abilitesButtonContainerTransform)
             abilitesButtonContainerTransform.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
         else
