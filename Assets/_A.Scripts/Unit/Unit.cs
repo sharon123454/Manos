@@ -141,7 +141,7 @@ public class Unit : MonoBehaviour
         #region Action And Bonus Action
         if (baseAction.ActionUsingBoth() && !usedBonusAction && !usedAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !GetStunStatus())
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCurrentCooldown() == 0 && !isStunned)
             {
                 if (TurnSystem.Instance.IsPlayerTurn())
                     if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
@@ -168,7 +168,8 @@ public class Unit : MonoBehaviour
         #region Bonus Action
         if (baseAction.GetIsBonusAction() && !usedBonusAction)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCooldown() == 0 && !GetStunStatus())
+
+            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCurrentCooldown() == 0 && !isStunned)
             {
                 if (TurnSystem.Instance.IsPlayerTurn())
                     if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
@@ -193,7 +194,8 @@ public class Unit : MonoBehaviour
         #endregion
 
         #region Action
-        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCooldown() == 0 && !GetStunStatus())
+
+        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCurrentCooldown() == 0 && !isStunned)
         {
             if (!CanSpendActionPointsToTakeAction(baseAction))
             {

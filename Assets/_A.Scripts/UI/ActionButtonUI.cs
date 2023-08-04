@@ -9,7 +9,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     [SerializeField] Button button;
     [SerializeField] GameObject actionInfo;
-    [SerializeField] TextMeshProUGUI textMeshPro;
+    [SerializeField] TextMeshProUGUI abilityNameUgui;
     [SerializeField] TextMeshProUGUI descriptionUgui;
     [SerializeField] TextMeshProUGUI damageProUgui;
     [SerializeField] TextMeshProUGUI postureProUgui;
@@ -18,6 +18,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI statusHitChanceProUgui;
     // [SerializeField] TextMeshProUGUI cooldownProUgui;
     [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
+    [SerializeField] Slider cooldownSlider;
 
     [SerializeField] GameObject actionSelected;
     [SerializeField] GameObject actionOutline;
@@ -27,6 +28,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 
     [SerializeField] GameObject OnCooldown;
+    [SerializeField] Image abilityImage;
 
     private BaseAbility isBaseAbility;
     private BaseAction baseAction;
@@ -34,16 +36,16 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
-        if (baseAction.GetIsBonusAction())
-        {
-            bonusActionOutline.SetActive(true);
-            actionOutline.SetActive(false);
-        }
-        else
-        {
-            bonusActionOutline.SetActive(false);
-            actionOutline.SetActive(true);
-        }
+        //if (baseAction.GetIsBonusAction())
+        //{
+        //    bonusActionOutline.SetActive(true);
+        //    actionOutline.SetActive(false);
+        //}
+        //else
+        //{
+        //    bonusActionOutline.SetActive(false);
+        //    actionOutline.SetActive(true);
+        //}
 
         UpdateButtonVisual();
     }
@@ -56,7 +58,9 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetBaseAction(BaseAction baseAction)
     {
         this.baseAction = baseAction;
-        textMeshPro.text = baseAction.GetActionName().ToUpper();
+        abilityNameUgui.text = baseAction.GetActionName().ToUpper();
+        if (baseAction.GetAbilityImage() != null)
+            abilityImage.sprite = baseAction.GetAbilityImage();
 
         button.onClick.AddListener((/*anonymouseFunction*/) =>
         {
@@ -86,23 +90,31 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
                 /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
             {
-                if (OnCooldown)
-                    OnCooldown.SetActive(true);
-
-                if (baseAction.GetCooldown() == 0)
+                if (baseAction.GetCurrentCooldown() == 0)
+                {
                     cooldownVisualProUgui.text = "";
+                    OnCooldown.SetActive(false);
+                }
                 else
-                    cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+                {
+                    OnCooldown.SetActive(true);
+                    cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+                    cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
+                    cooldownSlider.value = baseAction.GetCurrentCooldown();
+                }
             }
-            else if (baseAction.GetCooldown() > 0)
+
+            if (baseAction.GetCurrentCooldown() == 0)
             {
-                OnCooldown.SetActive(true);
-                cooldownVisualProUgui.text = baseAction.GetCooldown().ToString();
+                cooldownVisualProUgui.text = "";
+                OnCooldown.SetActive(false);
             }
             else
             {
-                if (OnCooldown)
-                    OnCooldown.SetActive(false);
+                OnCooldown.SetActive(true);
+                cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+                cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
+                cooldownSlider.value = baseAction.GetCurrentCooldown();
             }
         }
     }
@@ -112,6 +124,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.IsHoveringOnUI(true);
 
         actionInfo.SetActive(true);
+        //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())
+        //else
+        //    CursorManager.Instance.SetBlockableCursor();
+        CursorManager.Instance.SetClickableCursor();
 
         if (baseAction is BaseAbility)
         {
@@ -124,12 +140,12 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 postureProUgui.gameObject.SetActive(true);
                 critHitChanceProUgui.gameObject.SetActive(true);
                 statusHitChanceProUgui.gameObject.SetActive(true);
-                damageProUgui.text = $"Damage: {isBaseAbility.GetDamage()}";
-                postureProUgui.text = $"Posture Damage: {isBaseAbility.GetPostureDamage()}";
-                favorProUgui.text = $"Favor Cost: {isBaseAbility.GetFavorCost()}";
+                damageProUgui.text = $"{isBaseAbility.GetDamage()}";
+                postureProUgui.text = $"{isBaseAbility.GetPostureDamage()}";
+                favorProUgui.text = $"FAVOR - {isBaseAbility.GetFavorCost()}";
                 descriptionUgui.text = $"{isBaseAbility.GetActionDescription()}";
-                critHitChanceProUgui.text = $"Crit Chance: {isBaseAbility.GetCritChance()}%";
-                statusHitChanceProUgui.text = $"Status Chance: {isBaseAbility.GetStatusChance()}%";
+                critHitChanceProUgui.text = $"{isBaseAbility.GetCritChance()}%";
+                statusHitChanceProUgui.text = $"{isBaseAbility.GetStatusChance()}%";
                 //cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
             }
         }
@@ -143,13 +159,30 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             statusHitChanceProUgui.gameObject.SetActive(false);
         }
 
+        if (baseAction.GetCurrentCooldown() == 0)
+            cooldownVisualProUgui.text = "";
+        else
+        {
+            OnCooldown.SetActive(true);
+            cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+            cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
+            cooldownSlider.value = baseAction.GetCurrentCooldown();
+        }
+
         if (baseAction is MoveAction) { return; }
 
+
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
+
+
+
+
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        CursorManager.Instance.SetDefaultCursor();
         UnitActionSystem.Instance.IsHoveringOnUI(false);
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);

@@ -2,63 +2,46 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
 
 public class MagicSystemUI : MonoBehaviour
 {
-    [SerializeField] private Image frontBar;
-    [SerializeField] private Image indicator;
-    [SerializeField] private TextMeshProUGUI friendlyFavorText, enemyFavorText;
+    [SerializeField] private Image playerBar;
+    [SerializeField] private Image enemyBar;
+    [Header("Favor Stones")]
+    [SerializeField] private Image[] activeFavorStones;
     [Tooltip("How fast the bar moves on change")]
-    [SerializeField] private float favorChangeSpeed = 1f;
+    [SerializeField] private float favorChangeSpeed = 2f;
 
     private float favorValue = 0.5f;
 
     private void Awake()
     {
         MagicSystem.OnFavorChanged += MagicSystem_OnFavorChanged;
-
     }
 
     private void Update()
     {
-        HandleSmoothFavorChange();
-        indicator.rectTransform.localPosition = new Vector3(CalculatePosition(MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor()), -15, 0);
-        if (UnitActionSystem.Instance.GetSelectedAction() is BaseAbility)
+        BaseAction selectedAbility = UnitActionSystem.Instance.GetSelectedAction();
+        if (selectedAbility && selectedAbility is BaseAbility && selectedAbility.GetFavorCost() > 0)//if there is a selected action & it's an ability & costs favor
         {
-            indicator.gameObject.SetActive(true);
-            indicator.fillAmount = MagicSystem.Instance.GetCurrentFavor() / MagicSystem.Instance.GetMaxFavor() - (MagicSystem.Instance.GetCurrentFavor() - UnitActionSystem.Instance.GetSelectedAction().GetFavorCost()) / MagicSystem.Instance.GetMaxFavor();
+            //lerp bar in lower percentage of favor cost
+            playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue - (selectedAbility.GetFavorCost() / MagicSystem.Instance.GetMaxFavor()), Time.deltaTime * favorChangeSpeed);
         }
-        else
-            indicator.gameObject.SetActive(false);
+        else//normal
+        {
+            HandleSmoothFavorChange();
+        }
     }
 
     private void HandleSmoothFavorChange()
     {
-        frontBar.fillAmount = Mathf.Lerp(frontBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
-
+        playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
+        enemyBar.fillAmount = Mathf.Lerp(enemyBar.fillAmount, 1 - favorValue, Time.deltaTime * favorChangeSpeed);
     }
 
-    private void MagicSystem_OnFavorChanged(object sender, float currentFavor)
+    private void MagicSystem_OnFavorChanged(object sender, float normalizedFavor)
     {
-        float normalizedFavor = currentFavor / MagicSystem.Instance.GetMaxFavor();
         favorValue = normalizedFavor;
-        friendlyFavorText.text = currentFavor.ToString();
-        enemyFavorText.text = (MagicSystem.Instance.GetMaxFavor() - currentFavor).ToString();
     }
 
-
-    public static float CalculatePosition(float fillAmount)
-    {
-        // Given data points
-        float position1 = 0f;   // Position when fill amount is 1
-        float fillAmount1 = 1f; // Corresponding fill amount for position1
-        float position2 = -500f;   // Position when fill amount is 0
-        float fillAmount2 = 0f; // Corresponding fill amount for position2
-
-        // Linear interpolation formula
-        float position = position1 + (fillAmount - fillAmount1) * (position2 - position1) / (fillAmount2 - fillAmount1);
-
-        return position;
-    }
 }
