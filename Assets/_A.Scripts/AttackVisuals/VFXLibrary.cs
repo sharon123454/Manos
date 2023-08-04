@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering;
 
 [Serializable]
 public struct MeshAndMat
@@ -21,7 +22,7 @@ public class VFXLibrary : MonoBehaviour
 {
     [Header("Generic")]
     [SerializeField] private ParticleSystem[] _healVFX;
-    [SerializeField] private ParticleSystem[] _meleeAttackVFX;
+    [SerializeField] private ParticleSystem[] _onRecieveDamageVFX;
     [Header("On Recieving Status effect")]
     [SerializeField] private ParticleSystem[] _stunVFX;
     [SerializeField] private ParticleSystem[] _rootVFX;
@@ -57,9 +58,9 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _ability4R;
     [SerializeField] private ParticleSystem[] _ability5R;
     [Header("Nanook Abilities")]
-    [SerializeField] private ParticleSystem _SlashVFX;
-    [SerializeField] private ParticleSystem[] _ability1N;
-    [SerializeField] private ParticleSystem[] _ability2N;
+    [SerializeField] private ParticleSystem[] _nBasicAttack;
+    [SerializeField] private ParticleSystem[] _nCleave;
+    [SerializeField] private ParticleSystem[] _nPommleStirke;
     [SerializeField] private ParticleSystem[] _ability3N;
     [SerializeField] private ParticleSystem[] _ability4N;
 
@@ -172,10 +173,21 @@ public class VFXLibrary : MonoBehaviour
     }
 
     //Called through Animation
-    public void PlaySlashAnim()
+    public void PlayTakeDamage()
     {
-        if (_SlashVFX)
-            _SlashVFX.Play();
+        ActivateVFXArray(_onRecieveDamageVFX);
+    }
+    public void PlayBasicAttack()
+    {
+        ActivateVFXArray(_nBasicAttack);
+    }
+    public void PlayPommleStrike()
+    {
+        ActivateVFXArray(_nPommleStirke);
+    }
+    public void PlayCleave()
+    {
+        ActivateVFXArray(_nCleave);
     }
 
     private void ChangeAmarokInvisibilityMat(bool invisible)

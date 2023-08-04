@@ -7,6 +7,7 @@ public class AOEActive : MonoBehaviour
     [SerializeField] private UnitType affectingType;
     [SerializeField] private LayerMask affectedLayer;
     [SerializeField] private List<ParticleSystem> _particles;
+    [SerializeField] private List<ParticleSystem> _onEnterParticles = new List<ParticleSystem>(5);//connect Nanook_Heal_Friendly on entered units
 
     private List<StatusEffect> _statusEffects;
     private List<Unit> _affectedUnitList;
