@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: unit movment
+      value: move at the cost of an action
       objectReference: {fileID: 0}
     - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_SizeDelta.x
@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.y
@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: unit movment
+      value: move at the cost of a bonus action
       objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: Doubles evasion
+      value: Double your evasion rating until the start of your next turn
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: Ranged basic Attack
+  actionDescription: A standard ranged attack
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
@@ -254,11 +254,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Mend
-  actionDescription: Heal an ally
-  actionCost: 0
-  cooldownAfterUse: 1
+  actionDescription: Cast a soothing beam, restoring health to a distant ally
+  actionCost: 1
+  cooldownAfterUse: 2
   favorCost: 50
-  _AbilityProperties: 0000000002000000
+  _AbilityProperties: 02000000
   range: 4
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -266,8 +266,8 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
-  damage: 55
+  abilityImage: {fileID: 21300000, guid: f636bd94e366a924ea61be205dde6696, type: 3}
+  damage: 0
   postureDamage: 0
   hitChance: 200
   critChance: 0
@@ -294,11 +294,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Ensnarement
-  actionDescription: AOE that applies corruption to enemies
-  actionCost: 1
+  actionDescription: Conjure a circle of torment, inflicts root and corruption on
+    foes caught within
+  actionCost: 2
   cooldownAfterUse: 3
   favorCost: 100
-  _AbilityProperties: 0000000005000000
+  _AbilityProperties: 05000000
   range: 5
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -306,14 +307,14 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: ca3f1c82899e1474ea48ab93b7f52678, type: 3}
   damage: 0
   postureDamage: 0
   hitChance: 100
   critChance: 0
   statusEffectChance: 200
-  statusEffectDuration: 2
-  EnemyStatusEffects: 
+  statusEffectDuration: 1
+  EnemyStatusEffects: 030000000a000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -336,11 +337,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacreficial Purification
-  actionDescription: AOE heal
+  actionDescription: Heal all allies regardless of their location, inflict yourself
+    with Corruption in return
   actionCost: 0
   cooldownAfterUse: 5
   favorCost: 0
-  _AbilityProperties: 000000000500000002000000
+  _AbilityProperties: 0500000002000000
   range: 6
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -348,8 +350,8 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 100
-  abilityImage: {fileID: 0}
-  damage: 50
+  abilityImage: {fileID: 21300000, guid: 3f7fc3756b498674b80719f5bf142bbb, type: 3}
+  damage: 0
   postureDamage: 0
   hitChance: 200
   critChance: 0
@@ -357,7 +359,7 @@ MonoBehaviour:
   statusEffectDuration: 1
   EnemyStatusEffects: 
   selfBuffDuration: 1
-  selfBuffs: 
+  selfBuffs: 0a0000000a0000000a000000
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
@@ -376,11 +378,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Eruption
-  actionDescription: AOE attack
+  actionDescription: Unleash a fiery blast within a triangular zone
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 200
-  _AbilityProperties: 0000000005000000
+  _AbilityProperties: 05000000
   range: 5
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -388,12 +390,12 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 3
   meshShapeScaleMultiplicator: 3
-  abilityImage: {fileID: 0}
-  damage: 45
+  abilityImage: {fileID: 21300000, guid: 6554b4463756b4343bc7ed3c869c7512, type: 3}
+  damage: 30
   postureDamage: 5
   hitChance: 110
   critChance: 10
-  statusEffectChance: 30
+  statusEffectChance: 0
   statusEffectDuration: 1
   EnemyStatusEffects: 
   selfBuffDuration: 1
@@ -418,11 +420,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Holy Hush
-  actionDescription: Single target attack that applies Silence
+  actionDescription: Envelop an enemy in a spectral shroud, inflicting Silence (30%)
+    on them
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
-  _AbilityProperties: 00000000
+  _AbilityProperties: 
   range: 5
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -430,14 +433,14 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
-  damage: 45
+  abilityImage: {fileID: 21300000, guid: a3b13ecbf39e1e941b6a6ec96ccf2d34, type: 3}
+  damage: 30
   postureDamage: 10
   hitChance: 110
   critChance: 5
   statusEffectChance: 30
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 02000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -460,11 +463,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacred Radiance
-  actionDescription: AOE that Blinds enemies
+  actionDescription: ' Conjure a blessed area,  inflicting Blind (30%) on enemies
+    caught within '
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 75
-  _AbilityProperties: 0000000005000000
+  _AbilityProperties: 05000000
   range: 4
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
@@ -472,14 +476,14 @@ MonoBehaviour:
   isFollowingMouse: 1
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: 2ae678b5b19a9d248850a5447e394fa8, type: 3}
   damage: 0
   postureDamage: 0
   hitChance: 110
   critChance: 0
-  statusEffectChance: 200
-  statusEffectDuration: 1
-  EnemyStatusEffects: 
+  statusEffectChance: 30
+  statusEffectDuration: 2
+  EnemyStatusEffects: 07000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
