@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class MagicSystem : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class MagicSystem : MonoBehaviour
 
     private float critModifier = 0;
     [SerializeField] private float currentFavor = 0;
-
+    [SerializeField] private Image playerBar;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,11 +27,39 @@ public class MagicSystem : MonoBehaviour
 
     private void Start()
     {
+        playerBar = GameObject.Find("PlayerBar").GetComponent<Image>();
         currentFavor = startFavor;
         OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
         BaseAction.OnAnySpellCast += BaseAbility_OnAnySpellCast;
     }
 
+    public int AddCritChanceFromFavor(bool freindlyUnit)
+    {
+        int value = (int)Math.Round(playerBar.fillAmount / 0.168f);
+        print(value);
+        switch (value)
+        {
+            case 1:
+                if (freindlyUnit)
+                    return 30;
+                break;
+            case 2:
+                if (freindlyUnit)
+                    return 15;
+                break;
+            case 3:
+                break;
+            case 4:
+                if (!freindlyUnit)
+                    return 15;
+                break;
+            case 5:
+                if (!freindlyUnit)
+                    return 30;
+                break;
+        }
+        return 0;
+    }
     public float GetMaxFavor() { return maxFavor; }
     public float GetCurrentFavor() { return currentFavor; }
 
