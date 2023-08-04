@@ -288,9 +288,10 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 5
-  postureDamage: 30
-  hitChance: 200
+  abilityImage: {fileID: 0}
+  damage: 20
+  postureDamage: 15
+  hitChance: 100
   critChance: 20
   statusEffectChance: 0
   statusEffectDuration: 0
@@ -327,13 +328,14 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 30
   postureDamage: 10
-  hitChance: 200
+  hitChance: 110
   critChance: 20
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 04000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -364,7 +366,7 @@ MonoBehaviour:
     \u05D0\u05E0\u05D5\u05E0\u05D9\u05DE\u05D9 \u05D4\u05E6\u05D8\u05E8\u05E3/\u05D4
     \u05DC\u05DE\u05E1\u05DE\u05DA."
   actionCost: 1
-  cooldownAfterUse: 1
+  cooldownAfterUse: 2
   favorCost: 50
   _AbilityProperties: 
   range: 2
@@ -374,13 +376,14 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 30
-  postureDamage: 10
-  hitChance: 200
-  critChance: 20
+  abilityImage: {fileID: 0}
+  damage: 20
+  postureDamage: 5
+  hitChance: 120
+  critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 2
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 0a000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -394,7 +397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6563545203030061650}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
@@ -405,13 +408,14 @@ MonoBehaviour:
   cooldownAfterUse: 4
   favorCost: 50
   _AbilityProperties: 06000000
-  range: 0
+  range: 5
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   maxMoveDistance: 9
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -432,23 +436,24 @@ MonoBehaviour:
   _actionName: Fearsome Presence
   actionDescription: A melee single target attack that can apply Cowards plague
   actionCost: 0
-  cooldownAfterUse: 1
+  cooldownAfterUse: 3
   favorCost: 50
   _AbilityProperties: 
-  range: 0
+  range: 2
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 40
-  hitChance: 200
+  hitChance: 130
   critChance: 10
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 0a000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
