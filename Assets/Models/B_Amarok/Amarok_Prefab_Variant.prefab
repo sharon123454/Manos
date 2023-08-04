@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: 'unit movment '
+      value: move at the cost of an action
       objectReference: {fileID: 0}
     - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_SizeDelta.x
@@ -190,11 +190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: 'unit movment '
+      value: move at the cost of a bonus action
       objectReference: {fileID: 0}
     - target: {fileID: 7240871499249384572, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: Double your armor & reduce incoming posture damage by 50% until the
+      value: Double your armor and reduce incoming posture damage by 50% until the
         start of your next turn
       objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9153245906922689867, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: Doubles Evasion
+      value: Double your evasion rating until the start of your next turn
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5710939152623976360, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -251,6 +251,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5519389455470923982}
+    - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2960364094601102200}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
 --- !u!198 &1648239918364287314 stripped
 ParticleSystem:
@@ -275,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Basic Attack
-  actionDescription: Melee basic attack
+  actionDescription: A standard melee attack
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
@@ -287,6 +290,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 30
   postureDamage: 20
   hitChance: 110
@@ -313,8 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Murder
-  actionDescription: melee attack that deals more damage if the target has less then
-    50%
+  actionDescription: Delivers a lethal melee strike, dealing increased damage to
+    targets with less than 50% health
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
@@ -326,6 +330,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 21300000, guid: 8aa5757af576ec04abdb5b415e55cac4, type: 3}
   damage: 30
   postureDamage: 10
   hitChance: 200
@@ -352,7 +357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Blinding Bolt
-  actionDescription: ranged attack that applies blind
+  actionDescription: Fires a special bolt from range with a chance to inflict Blindness
+    (30%) on the target
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 0
@@ -364,6 +370,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 21300000, guid: aef8cc0a86972654bb5b13e35b6c04f0, type: 3}
   damage: 20
   postureDamage: 20
   hitChance: 105
@@ -393,7 +400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Puncture
-  actionDescription: Melee attack that ignores armor
+  actionDescription: Piercing stab attack which bypasses armor with a chance to inflict
+    Armor Break (30%).
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
@@ -405,13 +413,14 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 25
+  abilityImage: {fileID: 21300000, guid: ca2dd29fb765af7479f04bc54136876e, type: 3}
+  damage: 35
   postureDamage: 10
   hitChance: 120
   critChance: 5
   statusEffectChance: 200
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 04000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -431,9 +440,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
-  actionDescription: teleport yourself
+  actionDescription: Teleport to a spot in range, cloaking yourself with magic and
+    turning invisible
   actionCost: 2
-  cooldownAfterUse: 3
+  cooldownAfterUse: 4
   favorCost: 50
   _AbilityProperties: 06000000
   range: 4
@@ -443,6 +453,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 21300000, guid: cd2a787de29a10940b0d39b843fc1b6f, type: 3}
   maxMoveDistance: 3
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -461,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Stun Bolt
-  actionDescription: Ranged Attack that apllies stun
+  actionDescription: Fires a crossbow bolt with a chance to Stun (30%) the target
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 25
@@ -473,6 +484,7 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 21300000, guid: 8cffe1c6889cb644aa64e79ed9f64761, type: 3}
   damage: 25
   postureDamage: 40
   hitChance: 90
@@ -489,6 +501,38 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &2960364094601102200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689285964459791138}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Shadow Stride
+  actionDescription: Slip into the shadows, reemerging for a surprise melee strike
+    directly behind your foe
+  actionCost: 2
+  cooldownAfterUse: 4
+  favorCost: 50
+  _AbilityProperties: 06000000
+  range: 4
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
+  maxMoveDistance: 3
+  visualRotationSpeed: 7.5
+  visualMovementSpeed: 4
+  stoppingDistance: 0.1
+  isTeleport: 1
 --- !u!4 &6689285964459791149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
