@@ -1332,6 +1332,7 @@ MonoBehaviour:
   maxMoveDistance: 5
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
+  stoppingDistance: 0.1
   isTeleport: 0
 --- !u!114 &506225832036056718
 MonoBehaviour:
@@ -1361,6 +1362,7 @@ MonoBehaviour:
   maxMoveDistance: 6
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
+  stoppingDistance: 0.1
   isTeleport: 0
 --- !u!114 &7240871499249384572
 MonoBehaviour:
@@ -1379,7 +1381,7 @@ MonoBehaviour:
     until the start of your next turn
   actionCost: 0
   cooldownAfterUse: 1
-  favorCost: 100
+  favorCost: 0
   _AbilityProperties: 00000000
   range: 1
   canOnlyHitEnemy: 0
@@ -1404,7 +1406,7 @@ MonoBehaviour:
   actionDescription: Description...
   actionCost: 0
   cooldownAfterUse: 1
-  favorCost: 100
+  favorCost: 0
   _AbilityProperties: 00000000
   range: 1
   canOnlyHitEnemy: 0
