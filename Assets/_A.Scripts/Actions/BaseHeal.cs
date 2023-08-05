@@ -11,7 +11,6 @@ public class BaseHeal : BaseAbility
     public event EventHandler OnHealActionCompleted;
 
     [Header("Heal")]
-    [SerializeField] private int maxMeleeDistance = 1;
     [Range(1f, 600f)]
     [SerializeField] private float healValue = 10;
 
@@ -67,33 +66,6 @@ public class BaseHeal : BaseAbility
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 200, };
-    }
-
-    public override List<GridPosition> GetValidActionGridPositionList()
-    {
-        List<GridPosition> _validGridPositionList = new List<GridPosition>();
-
-        GridPosition unitGridPosition = GetUnit().GetGridPosition();
-
-        for (int x = -maxMeleeDistance; x <= maxMeleeDistance; x++)
-        {
-            for (int z = -maxMeleeDistance; z <= maxMeleeDistance; z++)
-            {
-                GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-
-                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid
-                    continue;
-
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position has no unit
-                    continue;
-
-
-                _validGridPositionList.Add(testGridPosition);
-            }
-        }
-
-        return _validGridPositionList;
     }
 
 }
