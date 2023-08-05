@@ -107,7 +107,7 @@ public class BaseAbility : BaseAction
     public float GetAbilityHitChance() { return hitChance; }
     public float GetPostureDamage() { return postureDamage; }
     public int GetStatusChance() { return statusEffectChance; }
-    public List<StatusEffect> GetStatusEffect() { return EnemyStatusEffects; }
+    public List<StatusEffect> GetStatusEffects() { return EnemyStatusEffects; }
 
     // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 
@@ -123,15 +123,14 @@ public class BaseAbility : BaseAction
 
         if (AOEPrefab)
         {
-            AOEActive aOE = Instantiate(AOEPrefab);
-            aOE.Init(GetUnit(), AOEActiveTurns, GetStatusEffect(), GetMeshScaleMultiplicator());
+            AOEPrefab.Init(GetUnit(), LevelGrid.Instance.GetWorldPosition(gridPosition), isFollowingUnit, AOEActiveTurns, GetStatusEffects(), GetMeshScaleMultiplicator());
         }
     }
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
-    public override List<GridPosition> GetValidActionGridPositionList()//need to implement ranges
+    public override List<GridPosition> GetValidActionGridPositionList()//implements ranges
     {
         switch (GetRange())
         {
@@ -186,7 +185,7 @@ public class BaseAbility : BaseAction
                 if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
                     continue;
 
-                if (!targetUnit.IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
+                if (!targetUnit.IsEnemy() == !GetUnit().IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
                     continue;
 
                 if (ValidationGridChecks())//Childrens special exception

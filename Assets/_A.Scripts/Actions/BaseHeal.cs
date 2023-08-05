@@ -61,7 +61,6 @@ public class BaseHeal : BaseAbility
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         targetUnit.Heal(GetHealValue());
-        targetUnit.GetUnitStats().InvokeHPChange();
         ActionStart(actionComplete);
     }
 

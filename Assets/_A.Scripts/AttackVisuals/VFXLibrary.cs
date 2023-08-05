@@ -20,7 +20,6 @@ public struct MeshAndMat
 public class VFXLibrary : MonoBehaviour
 {
     [Header("Generic")]
-    [SerializeField] private ParticleSystem[] _healVFX;
     [SerializeField] private ParticleSystem[] _onRecieveDamageVFX;
     [Header("On Recieving Status effect")]
     [SerializeField] private ParticleSystem[] _stunVFX;
@@ -51,7 +50,7 @@ public class VFXLibrary : MonoBehaviour
 
     private string _inviMatNoiseStrength = "Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb";
     [Header("Raynard Abilities")]
-    [SerializeField] private ParticleSystem[] _ability1R;
+    [SerializeField] private ParticleSystem[] _rEruption;
     [SerializeField] private ParticleSystem[] _ability2R;
     [SerializeField] private ParticleSystem[] _ability3R;
     [SerializeField] private ParticleSystem[] _ability4R;
@@ -60,6 +59,7 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _nBasicAttack;
     [SerializeField] private ParticleSystem[] _nCleave;
     [SerializeField] private ParticleSystem[] _nPommleStirke;
+    [SerializeField] private ParticleSystem[] _nEldestsDuty;
 
     public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
@@ -164,10 +164,6 @@ public class VFXLibrary : MonoBehaviour
                 break;
         }
     }
-    public void PlayHealActionAnim()
-    {
-        ActivateVFXArray(_healVFX);
-    }
 
     //Called through Animation
     public void PlayTakeDamage()
@@ -186,6 +182,10 @@ public class VFXLibrary : MonoBehaviour
     {
         ActivateVFXArray(_nCleave);
     }
+    public void PlayEldestsDuty()
+    {
+        ActivateVFXArray(_nEldestsDuty);
+    }
     public void PlayABasicAttack()
     {
         ActivateVFXArray(_aBasicAttack);
@@ -198,7 +198,12 @@ public class VFXLibrary : MonoBehaviour
     {
         ActivateVFXArray(_aMurder);
     }
+    public void PlayEruption()
+    {
+        ActivateVFXArray(_rEruption);
+    }
 
+    //private Methods
     private void ChangeAmarokInvisibilityMat(bool invisible)
     {
         if (m_InvisibleMat)
