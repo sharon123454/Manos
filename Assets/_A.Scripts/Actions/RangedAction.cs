@@ -52,16 +52,16 @@ public class RangedAction : BaseAbility
                                                                                                       //error fix
 
         #region Range Obstacle Check
-        if (GetUnit().name != "Amarok")
-        {
-            Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(GetUnit().GetGridPosition());
+        //if (GetUnit().name != "Amarok")
+        //{
+        //    Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(GetUnit().GetGridPosition());
 
-            Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-            float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());
+        //    Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+        //    float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());
 
-            if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
-                return null;
-        }
+        //    if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
+        //        return null;
+        //}
 
         #endregion
 
