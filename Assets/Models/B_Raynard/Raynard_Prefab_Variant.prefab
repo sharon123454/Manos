@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &733578219281277450
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3362208447009617648}
+    m_Modifications:
+    - target: {fileID: 820040011388481265, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: affectingType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 820040011388481265, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: _affectOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657983245103676581, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_Name
+      value: EruptionVFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+--- !u!114 &94416761521409275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 820040011388481265, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+  m_PrefabInstance: {fileID: 733578219281277450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a4e5778416dc44285d5732c096856a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &5813154911753576545 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6521854474885710443, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+  m_PrefabInstance: {fileID: 733578219281277450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6341924251504985468 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5921453962897827702, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
+  m_PrefabInstance: {fileID: 733578219281277450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4667108780007785570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +268,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: 2
       addedObject: {fileID: 7162368075245764267}
+    - targetCorrespondingSourceObject: {fileID: 7956752721601360530, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5813154911753576545}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       insertIndex: -1
@@ -234,6 +327,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -276,6 +370,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: f636bd94e366a924ea61be205dde6696, type: 3}
@@ -317,6 +412,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 1
+  isFollowingUnit: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
   abilityImage: {fileID: 21300000, guid: ca3f1c82899e1474ea48ab93b7f52678, type: 3}
@@ -360,6 +456,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 100
   abilityImage: {fileID: 21300000, guid: 3f7fc3756b498674b80719f5bf142bbb, type: 3}
@@ -397,9 +494,10 @@ MonoBehaviour:
   _AbilityProperties: 05000000
   range: 5
   canOnlyHitEnemy: 0
-  AOEPrefab: {fileID: 0}
+  AOEPrefab: {fileID: 94416761521409275}
   AOEActiveTurns: 1
   isFollowingMouse: 1
+  isFollowingUnit: 0
   actionMeshShape: 3
   meshShapeScaleMultiplicator: 3
   abilityImage: {fileID: 21300000, guid: 6554b4463756b4343bc7ed3c869c7512, type: 3}
@@ -443,6 +541,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: a3b13ecbf39e1e941b6a6ec96ccf2d34, type: 3}
@@ -486,6 +585,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 1
+  isFollowingUnit: 0
   actionMeshShape: 1
   meshShapeScaleMultiplicator: 3
   abilityImage: {fileID: 21300000, guid: 2ae678b5b19a9d248850a5447e394fa8, type: 3}
@@ -505,6 +605,11 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!4 &3362208447009617648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7956752721601360530, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &3732894303116784372 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8289157834845877910, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -577,8 +682,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _eruptionParent
+      value: 
+      objectReference: {fileID: 5813154911753576545}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _stunVFX.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _rEruption.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _stunVFX.Array.data[0]
@@ -588,6 +701,10 @@ PrefabInstance:
       propertyPath: _stunVFX.Array.data[1]
       value: 
       objectReference: {fileID: 3732894303116784372}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _rEruption.Array.data[0]
+      value: 
+      objectReference: {fileID: 6341924251504985468}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _onRecieveDamageVFX.Array.size
       value: 1

@@ -26,6 +26,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected AOEActive AOEPrefab;
     [SerializeField] protected float AOEActiveTurns = 1;
     [SerializeField] protected bool isFollowingMouse;
+    [SerializeField] protected bool isFollowingUnit = true;
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
     [SerializeField] protected Sprite abilityImage;

@@ -9681,7 +9681,7 @@ Transform:
   - {fileID: 6663874763145360809}
   - {fileID: 2852042629251011425}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8232090076302332280
 MonoBehaviour:
@@ -9696,10 +9696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affectingType: 0
-  affectedLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _particles:
+  _affectOffset: {x: 0, y: 0.5, z: 0}
+  _onEnterParticles: []
+  _particlesToTurnOff:
   - {fileID: 6663874762935318971}
   - {fileID: 6663874761968192505}
   - {fileID: 2852042629251011427}
@@ -34268,7 +34267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663874762071093392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.028145721, y: -0.18654567, z: 0.15668805}
+  m_LocalPosition: {x: 0.028145734, y: -0.18654555, z: 0.15668643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39347,7 +39346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663874763164648621}
   m_LocalRotation: {x: -0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.27171892, z: -0.00000056098446}
+  m_LocalPosition: {x: 0, y: -0.27171892, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
