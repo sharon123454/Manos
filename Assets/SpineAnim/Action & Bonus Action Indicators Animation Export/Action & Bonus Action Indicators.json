@@ -1,0 +1,146 @@
+{
+"skeleton": {
+	"hash": "BfIVAhHQnGZXmz7Nx6OakOcmYbM",
+	"spine": "3.8.99",
+	"x": 49,
+	"y": -134,
+	"width": 80,
+	"height": 79,
+	"images": "./images/",
+	"audio": "D:/Hafaka Gimel/UI/Spine/Action & Bonus Action Indicators Animation"
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Layer 1", "bone": "root", "attachment": "Layer 1" },
+	{ "name": "Layer 3 copy", "bone": "root", "attachment": "Layer 3 copy", "blend": "additive" },
+	{ "name": "Layer 2", "bone": "root", "attachment": "Layer 2" },
+	{ "name": "Layer 3", "bone": "root", "attachment": "Layer 3", "blend": "additive" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Layer 1": {
+				"Layer 1": { "x": 89, "y": -96, "width": 62, "height": 62 }
+			},
+			"Layer 2": {
+				"Layer 2": { "x": 89, "y": -96, "width": 62, "height": 62 }
+			},
+			"Layer 3": {
+				"Layer 3": { "x": 89, "y": -94.5, "width": 80, "height": 79 }
+			},
+			"Layer 3 copy": {
+				"Layer 3 copy": { "x": 89, "y": -94.5, "width": 80, "height": 79 }
+			}
+		}
+	}
+],
+"animations": {
+	"Action Blinking": {
+		"slots": {
+			"Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3": {
+				"color": [
+					{ "color": "ffffff00", "curve": 0.383, "c3": 0.617 },
+					{ "time": 1, "color": "ffffff95", "curve": 0.383, "c3": 0.617 },
+					{ "time": 2, "color": "ffffff00" }
+				]
+			},
+			"Layer 3 copy": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"Action Static": {
+		"slots": {
+			"Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3 copy": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"BA Blinking": {
+		"slots": {
+			"Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3 copy": {
+				"color": [
+					{ "color": "ffffff00", "curve": 0.386, "c3": 0.623 },
+					{ "time": 1, "color": "ffffff95", "curve": 0.386, "c3": 0.623 },
+					{ "time": 2, "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"BA Static": {
+		"slots": {
+			"Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3 copy": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"None": {
+		"slots": {
+			"Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"Layer 3 copy": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	}
+}
+}

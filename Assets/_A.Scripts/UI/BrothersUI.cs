@@ -3,15 +3,18 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using Spine;
+using Spine.Unity;
 
 public class BrothersUI : MonoBehaviour
 {
     [SerializeField] private GameObject actionGrayedOut;
     [SerializeField] private GameObject bonusActionGrayedOut;
     [SerializeField] private TextMeshProUGUI shieldAmountText;
-    [SerializeField] private TextMeshProUGUI healthText,postureText;
+    [SerializeField] private TextMeshProUGUI healthText, postureText;
     [SerializeField] private Image healthBar, postureBar;
     [SerializeField] private Image actionImage, bonusActionImage;
+    [SerializeField] SkeletonGraphic actionSpine, bonusActionSpine;
 
     [Header("Dev Data:")]
     [SerializeField] private float delayInitTime = 0.5f;
@@ -56,37 +59,37 @@ public class BrothersUI : MonoBehaviour
                     {
                         if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
                         {
-                            bonusActionImage.color = Color.gray;
-                            actionImage.color = Color.gray;
+                            ActionSpineBlinking();
+                            BonusActionSpineBlinking();
                         }
                         else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
                         {
-                            bonusActionImage.color = Color.gray;
-                            actionImage.color = actionBarDefualtColor;
+                            ActionSpineBlinking();
+                            BonusActionSpineStatic();
                         }
                         else
                         {
-                            actionImage.color = Color.gray;
-                            bonusActionImage.color = BonusactionBarDefualtColor;
+                            BonusActionSpineBlinking();
+                            ActionSpineStatic();
                         }
-                    }   
+                    }
                 }
                 else
                 {
-                    actionImage.color = actionBarDefualtColor;
-                    bonusActionImage.color = BonusactionBarDefualtColor;
+                    ActionSpineStatic();
+                    BonusActionSpineStatic();
                 }
 
 
                 if (specificBro.GetUsedActionPoints())
-                    actionGrayedOut.SetActive(true);
+                    ActionSpineNone();
                 else
-                    actionGrayedOut.SetActive(false);
+                    ActionSpineStatic();
 
                 if (specificBro.GetUsedBonusActionPoints())
-                    bonusActionGrayedOut.SetActive(true);
+                    BonusActionSpineNone();
                 else
-                    bonusActionGrayedOut.SetActive(false);
+                    BonusActionSpineStatic();
 
                 healthBar.fillAmount = specificBro.GetHealthNormalized();
                 postureBar.fillAmount = specificBro.GetPostureNormalized();
@@ -102,4 +105,13 @@ public class BrothersUI : MonoBehaviour
             }
         }
     }
+    void ActionSpineBlinking() { actionSpine.AnimationState.SetAnimation(index, "Action Blinking", true); }
+    void ActionSpineStatic() { actionSpine.AnimationState.SetAnimation(0, "Action Blinking", true); }
+    void ActionSpineNone() { actionSpine.AnimationState.SetAnimation(0, "None", true); }
+
+    public int index;
+    void BonusActionSpineBlinking() { bonusActionSpine.AnimationState.SetAnimation(index, "BA Blinking", true); }
+    void BonusActionSpineStatic() { bonusActionSpine.AnimationState.SetAnimation(0, "BA Static", true); }
+    void BonusActionSpineNone() { bonusActionSpine.AnimationState.SetAnimation(0, "None", true); }
+
 }
