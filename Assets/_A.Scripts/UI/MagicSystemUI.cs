@@ -27,10 +27,12 @@ public class MagicSystemUI : MonoBehaviour
         {
             //lerp bar in lower percentage of favor cost
             playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue - (selectedAbility.GetFavorCost() / MagicSystem.Instance.GetMaxFavor()), Time.deltaTime * favorChangeSpeed);
+            enemyBar.fillAmount = Mathf.Lerp(enemyBar.fillAmount, 1 - favorValue, Time.deltaTime * favorChangeSpeed);
         }
         else//normal
         {
-            HandleSmoothFavorChange();
+            playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
+            enemyBar.fillAmount = Mathf.Lerp(enemyBar.fillAmount, 1 - favorValue, Time.deltaTime * favorChangeSpeed);
         }
         LitStone();
     }
@@ -65,11 +67,6 @@ public class MagicSystemUI : MonoBehaviour
             item.gameObject.SetActive(false);
         }
         activeFavorStones[StoneNum].gameObject.SetActive(true);
-    }
-    private void HandleSmoothFavorChange()
-    {
-        playerBar.fillAmount = Mathf.Lerp(playerBar.fillAmount, favorValue, Time.deltaTime * favorChangeSpeed);
-        enemyBar.fillAmount = Mathf.Lerp(enemyBar.fillAmount, 1 - favorValue, Time.deltaTime * favorChangeSpeed);
     }
 
     private void MagicSystem_OnFavorChanged(object sender, float normalizedFavor)
