@@ -51,7 +51,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         //    actionOutline.SetActive(true);
         //}
 
-        UpdateButtonVisual();
+        StartCoroutine(DelayStart());
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
@@ -78,7 +78,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             favorAction.SetActive(true);
         }
-        if (baseAction.GetIsBonusAction()) 
+        if (baseAction.GetIsBonusAction())
             bonusActionSelected.SetActive(true);
         else
             actionSelected.SetActive(true);
@@ -103,29 +103,45 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (!baseAction.GetUnit().IsEnemy())
         {
-if (TurnSystem.Instance.IsPlayerTurn())
-        {
-            BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-
-            Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-
-            if (bonusActionSelected && baseAction.GetIsBonusAction())
-                bonusActionSelected.SetActive(selectedBaseAction == baseAction);
-            else if (actionSelected)
-                actionSelected.SetActive(selectedBaseAction == baseAction);
-
-            if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
-                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
-                || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.GetRange() == ActionRange.Move
-                || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
-                || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
-                || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
-                /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+            if (TurnSystem.Instance.IsPlayerTurn())
             {
+                BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
+
+                Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+
+                if (bonusActionSelected && baseAction.GetIsBonusAction())
+                    bonusActionSelected.SetActive(selectedBaseAction == baseAction);
+                else if (actionSelected)
+                    actionSelected.SetActive(selectedBaseAction == baseAction);
+
+                if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
+                    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
+                    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.GetRange() == ActionRange.Move
+                    || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
+                    || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
+                    || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
+                    /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+                {
+                    if (baseAction.GetCurrentCooldown() == 0)
+                    {
+                        cooldownVisualProUgui.text = "";
+                        OnCooldown.SetActive(false);
+                    }
+                    else
+                    {
+                        OnCooldown.SetActive(true);
+                        cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+                        cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
+                        cooldownSlider.value = baseAction.GetCurrentCooldown();
+                    }
+                }
+
                 if (baseAction.GetCurrentCooldown() == 0)
                 {
-                    cooldownVisualProUgui.text = "";
-                    OnCooldown.SetActive(false);
+                    if (cooldownVisualProUgui)
+                        cooldownVisualProUgui.text = "";
+                    if (OnCooldown)
+                        OnCooldown.SetActive(false);
                 }
                 else
                 {
@@ -135,22 +151,8 @@ if (TurnSystem.Instance.IsPlayerTurn())
                     cooldownSlider.value = baseAction.GetCurrentCooldown();
                 }
             }
+        }
 
-            if (baseAction.GetCurrentCooldown() == 0)
-            {
-                cooldownVisualProUgui.text = "";
-                OnCooldown.SetActive(false);
-            }
-            else
-            {
-                OnCooldown.SetActive(true);
-                cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
-                cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
-                cooldownSlider.value = baseAction.GetCurrentCooldown();
-            }
-        }
-        }
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -220,6 +222,12 @@ if (TurnSystem.Instance.IsPlayerTurn())
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         if (baseAction is MoveAction) { return; }
 
+    }
+
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(2);
+        UpdateButtonVisual();
     }
 
 }
