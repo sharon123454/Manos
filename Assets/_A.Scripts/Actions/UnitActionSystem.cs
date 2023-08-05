@@ -41,7 +41,8 @@ public class UnitActionSystem : MonoBehaviour
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
     {
         savedAction = null;
-        SetSelectedAction(selectedUnit.GetAction<MoveAction>());
+        selectedAction = null;
+        //SetSelectedAction(selectedUnit.GetAction<MoveAction>());
     }
 
     private void OnEnable() { Invoke("DelayOnEnable", 1); }
@@ -124,10 +125,10 @@ public class UnitActionSystem : MonoBehaviour
         {
             selectedUnit = unit;
 
-            SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
+            //SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
 
-            if (!savedAction)
-                savedAction = selectedUnit.GetAction<MoveAction>();
+            //if (!savedAction)
+            //    savedAction = selectedUnit.GetAction<MoveAction>();
 
             OnSelectedUnitChanged?.Invoke(this, selectedUnit);
         }
