@@ -977,7 +977,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -1017,7 +1017,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 01000000
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 
   range: 5
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 03000000
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -1127,14 +1127,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6689285964459791138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d5b849b8ce31e3429e867285b01d36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Shadow Veil
-  actionDescription: Teleport to a spot in range, cloaking yourself with magic and
-    turning invisible
+  actionDescription: Teleport to a spot in range,
   actionCost: 2
   cooldownAfterUse: 4
   favorCost: 50
@@ -1171,7 +1170,7 @@ MonoBehaviour:
   favorCost: 25
   _AbilityProperties: 
   range: 4
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
