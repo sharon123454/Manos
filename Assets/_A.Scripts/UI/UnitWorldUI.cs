@@ -20,6 +20,8 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
     [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI unitName;
+
     [SerializeField] private GameObject VisualParent;
 
     private Color actionBarDefualtColor;
@@ -38,6 +40,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         AOEManager.OnAnyUnitEnteredAOE += AOEManager_OnAnyUnitEnteredAOE;
         AOEManager.OnAnyUnitExitedAOE += AOEManager_OnAnyUnitExitedAOE;
         thisUnitName = unit.name;
+        unitName.text = thisUnitName;
         UpdateActionPointsText();
         UpdateHealthBar();
     }
@@ -66,6 +69,13 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
+            if (checkIfBaseAbility.GetIfUsedAction() && checkIfBaseAbility.GetActionName() != "Move")
+            {
+                CursorManager.Instance.SetBlockableCursor();
+                hitChanceText.text = $"{0} %";
+                return;
+            }
+
             float getHitChance = UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityHitChance();
 
             #region Old Switch
@@ -106,7 +116,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             hitChanceText.gameObject.SetActive(true);
             if (unitStats.GetPosture() <= 0)
             {
-                hitChanceText.text = $"hitChance = [{100}]%";
+                hitChanceText.text = $"{100}%";
                 CursorManager.Instance.SetOptimalCursor();
             }
             else
@@ -115,15 +125,15 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 switch (unit.GetGridPosition().GetEffectiveRange())
                 {
                     case Effectiveness.Effective:
-                        hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}]%";
+                        hitChanceText.text = $"{Mathf.Clamp(getHitChance - unitStats.GetEvasion(), 0, 100)}%";
                         CursorManager.Instance.SetOptimalCursor();
                         break;
                     case Effectiveness.Inaccurate:
-                        hitChanceText.text = $"hitChance = [{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 30, 0, 100)}]%";
+                        hitChanceText.text = $"{Mathf.Clamp(getHitChance - unitStats.GetEvasion() - 30, 0, 100)}%";
                         CursorManager.Instance.SetInaccurateCursor();
                         break;
                     case Effectiveness.Miss:
-                        hitChanceText.text = $"hitChance = [0]%";
+                        hitChanceText.text = $"0%";
                         CursorManager.Instance.SetBlockableCursor();
                         break;
                     default:
@@ -142,6 +152,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 postureTakenBarImage.gameObject.SetActive(true);
                 postureTakenBarImage.fillAmount = Math.Abs(unitStats.GetPostureTaken() - 1) + unitStats.GetHealthNormalized() - 1;
             }
+        }
+        else
+        {
+            hitChanceText.text = "";
         }
     }
     private void DeActivateWorldUI()
@@ -164,7 +178,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
             UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
             return;
 
@@ -172,7 +186,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (UnitActionSystem.Instance.GetSelectedBaseAbility() && 
+        if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
             UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
             return;
 

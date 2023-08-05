@@ -87,11 +87,13 @@ public class UnitAnimator : MonoBehaviour
     {
         animator.SetFloat("GetHitBlend", 0);
         animator.SetTrigger("Hit");
+        vfxLibrary.PlayTakeDamage();
     }
     public void OnCriticallyHit()
     {
         animator.SetFloat("GetHitBlend", 1);
         animator.SetTrigger("Hit");
+        vfxLibrary.PlayTakeDamage();
     }
     public void OnDead()
     {
@@ -148,12 +150,9 @@ public class UnitAnimator : MonoBehaviour
 
     private void BaseHeal_OnHealActionStarted(object sender, EventArgs e)
     {
-        animator.SetFloat("CastBlend", 1);
-        animator.SetTrigger("Shoot");
     }
     private void BaseHeal_OnHealActionCompleted(object sender, EventArgs e)
     {
-        //vfxLibrary.StopHealVFX();
     }
 
 }

@@ -74,6 +74,8 @@ public class UnitStats : MonoBehaviour
     public float GetPostureTaken() { return (health - UnitActionSystem.Instance.GetSelectedBaseAbility().GetPostureDamage()) / maxHealth; }
 
     public float GetUnitMaxHP() { return maxHealth; }
+    public float GetUnitMaxPosture() { return maxPosture; }
+
     public void Block()
     {
         armorMultiplayer = 2;
@@ -157,7 +159,7 @@ public class UnitStats : MonoBehaviour
         {
             if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
-                if (critDiceRoll <= abilityCritChance)
+                if (critDiceRoll + MagicSystem.Instance.AddCritChanceFromFavor(_unit.IsEnemy()) <= abilityCritChance)
                 {
                     TakeDamage(damageToRecieve * 2, postureDamage * 2);
                     SendConsoleMessage?.Invoke(this, "Ability CRIT!");
@@ -210,11 +212,6 @@ public class UnitStats : MonoBehaviour
             health = maxHealth;
         }
         OnHeal?.Invoke(this, EventArgs.Empty);
-    }
-    public void TryToTakeStatusEffect()
-    {
-        // _unitStatusEffect.unitActiveStatusEffects.Add(_unit.SetGridStatusEffect(_abilityEffect));
-
     }
 
     private void TakeDamage(float damageToRecieve, float postureDamage)

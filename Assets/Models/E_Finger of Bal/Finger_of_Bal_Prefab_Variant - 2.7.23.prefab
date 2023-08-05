@@ -319,6 +319,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7791363177151747680}
+    - targetCorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8180927951246397571}
   m_SourcePrefab: {fileID: 100100000, guid: 40880316c0dafb042972ecceca695b63, type: 3}
 --- !u!198 &2812181260079466395 stripped
 ParticleSystem:
@@ -365,9 +368,10 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 25
   postureDamage: 5
-  hitChance: 200
+  hitChance: 120
   critChance: 5
   statusEffectChance: 100
   statusEffectDuration: 1
@@ -404,13 +408,14 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
   damage: 25
-  postureDamage: 0
-  hitChance: 200
+  postureDamage: 5
+  hitChance: 100
   critChance: 20
-  statusEffectChance: 200
+  statusEffectChance: 30
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 07000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1
@@ -442,9 +447,10 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 18
+  abilityImage: {fileID: 0}
+  damage: 20
   postureDamage: 30
-  hitChance: 200
+  hitChance: 120
   critChance: 10
   statusEffectChance: 200
   statusEffectDuration: 1
@@ -483,13 +489,57 @@ MonoBehaviour:
   isFollowingMouse: 0
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  damage: 53
+  abilityImage: {fileID: 0}
+  damage: 55
   postureDamage: 0
-  hitChance: 200
+  hitChance: 90
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 02000000
+  selfBuffDuration: 1
+  selfBuffs: 
+  startOfActionTime: 1
+  executingActionTime: 0.1
+  endOfActionTime: 0.1
+  unitShoulderHeight: 1.7
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &8180927951246397571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857788119198021099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ec30dd87993e4a94be2e2bacb40cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionName: Mark the Heretic
+  actionDescription: ranged single target attack that heals the caster and has a
+    chance to root enemies
+  actionCost: 1
+  cooldownAfterUse: 3
+  favorCost: 50
+  _AbilityProperties: 
+  range: 4
+  canOnlyHitEnemy: 0
+  AOEPrefab: {fileID: 0}
+  AOEActiveTurns: 1
+  isFollowingMouse: 0
+  actionMeshShape: 0
+  meshShapeScaleMultiplicator: 1
+  abilityImage: {fileID: 0}
+  damage: 10
+  postureDamage: 0
+  hitChance: 150
+  critChance: 0
+  statusEffectChance: 200
+  statusEffectDuration: 1
+  EnemyStatusEffects: 03000000
   selfBuffDuration: 1
   selfBuffs: 
   startOfActionTime: 1

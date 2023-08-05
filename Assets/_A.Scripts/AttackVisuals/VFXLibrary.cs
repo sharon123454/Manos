@@ -20,8 +20,7 @@ public struct MeshAndMat
 public class VFXLibrary : MonoBehaviour
 {
     [Header("Generic")]
-    [SerializeField] private ParticleSystem[] _healVFX;
-    [SerializeField] private ParticleSystem[] _meleeAttackVFX;
+    [SerializeField] private ParticleSystem[] _onRecieveDamageVFX;
     [Header("On Recieving Status effect")]
     [SerializeField] private ParticleSystem[] _stunVFX;
     [SerializeField] private ParticleSystem[] _rootVFX;
@@ -36,11 +35,9 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _regenerationVFX;
     [SerializeField] private ParticleSystem[] _cowardPlagueVFX;
     [Header("Amarock Abilities")]
-    [SerializeField] private ParticleSystem[] _ability1A;
-    [SerializeField] private ParticleSystem[] _ability2A;
-    [SerializeField] private ParticleSystem[] _ability3A;
-    [SerializeField] private ParticleSystem[] _ability4A;
-    [SerializeField] private ParticleSystem[] _ability5A;
+    [SerializeField] private ParticleSystem[] _aBasicAttack;
+    [SerializeField] private ParticleSystem[] _aPuncture;
+    [SerializeField] private ParticleSystem[] _aMurder;
     [Header("Invisibility")]
     [SerializeField] private Material m_InvisibleMat;
     [SerializeField] private MeshAndMat hairGroup;
@@ -50,18 +47,19 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private MeshAndMat weaponTwoGroup;
     [SerializeField] private MeshAndMat other1Group;
     [SerializeField] private MeshAndMat other2Group;
+
+    private string _inviMatNoiseStrength = "Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb";
     [Header("Raynard Abilities")]
-    [SerializeField] private ParticleSystem[] _ability1R;
+    [SerializeField] private ParticleSystem[] _rEruption;
     [SerializeField] private ParticleSystem[] _ability2R;
     [SerializeField] private ParticleSystem[] _ability3R;
     [SerializeField] private ParticleSystem[] _ability4R;
     [SerializeField] private ParticleSystem[] _ability5R;
     [Header("Nanook Abilities")]
-    [SerializeField] private ParticleSystem _SlashVFX;
-    [SerializeField] private ParticleSystem[] _ability1N;
-    [SerializeField] private ParticleSystem[] _ability2N;
-    [SerializeField] private ParticleSystem[] _ability3N;
-    [SerializeField] private ParticleSystem[] _ability4N;
+    [SerializeField] private ParticleSystem[] _nBasicAttack;
+    [SerializeField] private ParticleSystem[] _nCleave;
+    [SerializeField] private ParticleSystem[] _nPommleStirke;
+    [SerializeField] private ParticleSystem[] _nEldestsDuty;
 
     public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
@@ -166,23 +164,52 @@ public class VFXLibrary : MonoBehaviour
                 break;
         }
     }
-    public void PlayHealActionAnim()
-    {
-        ActivateVFXArray(_healVFX);
-    }
 
     //Called through Animation
-    public void PlaySlashAnim()
+    public void PlayTakeDamage()
     {
-        if (_SlashVFX)
-            _SlashVFX.Play();
+        ActivateVFXArray(_onRecieveDamageVFX);
+    }
+    public void PlayNBasicAttack()
+    {
+        ActivateVFXArray(_nBasicAttack);
+    }
+    public void PlayPommleStrike()
+    {
+        ActivateVFXArray(_nPommleStirke);
+    }
+    public void PlayCleave()
+    {
+        ActivateVFXArray(_nCleave);
+    }
+    public void PlayEldestsDuty()
+    {
+        ActivateVFXArray(_nEldestsDuty);
+    }
+    public void PlayABasicAttack()
+    {
+        ActivateVFXArray(_aBasicAttack);
+    }
+    public void PlayPuncture()
+    {
+        ActivateVFXArray(_aPuncture);
+    }
+    public void PlayMurder()
+    {
+        ActivateVFXArray(_aMurder);
+    }
+    public void PlayEruption()
+    {
+        ActivateVFXArray(_rEruption);
     }
 
+    //private Methods
     private void ChangeAmarokInvisibilityMat(bool invisible)
     {
         if (m_InvisibleMat)
             if (invisible)
             {
+                m_InvisibleMat.SetFloat(_inviMatNoiseStrength, -5);
                 hairGroup.ChangeGroupMat(m_InvisibleMat);
                 bodyGroup.ChangeGroupMat(m_InvisibleMat);
                 equipmentGroup.ChangeGroupMat(m_InvisibleMat);
@@ -190,6 +217,7 @@ public class VFXLibrary : MonoBehaviour
                 weaponTwoGroup.ChangeGroupMat(m_InvisibleMat);
                 other1Group.ChangeGroupMat(m_InvisibleMat);
                 other2Group.ChangeGroupMat(m_InvisibleMat);
+                StartCoroutine(turnInviVisible());
             }
             else
             {
@@ -216,6 +244,15 @@ public class VFXLibrary : MonoBehaviour
         if (vfxArray != null)
             for (int i = 0; i < vfxArray.Length; i++)
                 vfxArray[i].Stop();
+    }
+
+    private IEnumerator turnInviVisible()
+    {
+        while (m_InvisibleMat.GetFloat(_inviMatNoiseStrength) <= 15f)
+        {
+            yield return null;
+            m_InvisibleMat.SetFloat(_inviMatNoiseStrength, m_InvisibleMat.GetFloat(_inviMatNoiseStrength) + Time.deltaTime * 5f);
+        }
     }
 
 }

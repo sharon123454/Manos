@@ -5,16 +5,20 @@ using UnityEngine;
 public class AOEActive : MonoBehaviour
 {
     [SerializeField] private UnitType affectingType;
-    [SerializeField] private LayerMask affectedLayer;
-    [SerializeField] private List<ParticleSystem> _particles;
+    [SerializeField] private Vector3 _affectOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField] private List<ParticleSystem> _onEnterParticles;//connect Nanook_Heal_Friendly on entered units
+    [SerializeField] private List<ParticleSystem> _particlesToTurnOff;
 
     private List<StatusEffect> _statusEffects;
     private List<Unit> _affectedUnitList;
+    private Transform _myParent;
     private float _activeturns;
+    private bool _isActive;
     private Unit _unit;
 
-    void OnEnable()
+    void Start()
     {
+        _myParent = transform.parent;
         _affectedUnitList = new List<Unit>();
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
     }
@@ -26,30 +30,20 @@ public class AOEActive : MonoBehaviour
     {
         UnSubscribeToAOE(other);
     }
-    private void OnDisable()
-    {
-        for (int i = 0; i < _particles.Count; i++)
-            _particles[i].Stop();
 
-        TurnSystem.Instance.OnTurnChange -= Instance_OnTurnChange;
-    }
-
-    public void Init(Unit castingUnit, float numberOfTurns, List<StatusEffect> effects, float AOESize)
+    public void Init(Unit castingUnit, Vector3 actionActivationPos, bool followUnit, float numberOfTurns, List<StatusEffect> effects, float AOESize)
     {
         _unit = castingUnit;
-        transform.parent = _unit.transform;
-        transform.localPosition = Vector3.zero + transform.position;
+        if (!followUnit)
+        {
+            transform.parent = transform.root;
+            transform.localPosition = actionActivationPos + _affectOffset;
+        }
         _statusEffects = new List<StatusEffect>();
         transform.localScale *= AOESize;
         _activeturns = numberOfTurns;
         _statusEffects = effects;
-        ActivateVFX();
-    }
-    private void ActivateVFX()
-    {
-        if (_particles.Count > 0)
-            for (int i = 0; i < _particles.Count; i++)
-                _particles[i].Play();
+        _isActive = true;
     }
 
     private void SubscribeToAOE(Collider other)
@@ -89,24 +83,34 @@ public class AOEActive : MonoBehaviour
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
-        if (_unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn() ||
-        !_unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
+        if (_isActive)
         {
-            _activeturns--;
-
-            if (_affectedUnitList.Count > 0)
+            if (_unit.IsEnemy() && TurnSystem.Instance.IsPlayerTurn() ||
+            !_unit.IsEnemy() && !TurnSystem.Instance.IsPlayerTurn())
             {
-                foreach (Unit unit in _affectedUnitList)
+                _activeturns--;
+
+                if (_affectedUnitList.Count > 0)
                 {
-                    foreach (StatusEffect status in _statusEffects)
+                    foreach (Unit unit in _affectedUnitList)
                     {
-                        unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
+                        foreach (StatusEffect status in _statusEffects)
+                        {
+                            unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
+                        }
                     }
                 }
+
+                if (_activeturns <= 0)
+                {
+                    _isActive = false;
+                    transform.parent = _myParent;
+                    transform.localPosition = Vector3.zero + _affectOffset;
+
+                    for (int i = 0; i < _particlesToTurnOff.Count; i++)
+                        _particlesToTurnOff[i].Stop();
+                }
             }
-            
-            if (_activeturns <= 0)
-                Destroy(gameObject);
         }
     }
 

@@ -16,6 +16,8 @@ public class UnitManager : MonoBehaviour
     private bool partyWipped = false, partyWin = false;
     private int friendlyID = 0;
 
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,6 +39,11 @@ public class UnitManager : MonoBehaviour
 
     private void InputController_SwitchSelectedPlayer(InputAction.CallbackContext context)
     {
+        SwitichToNextUnit();
+    }
+
+    public void SwitichToNextUnit()
+    {
         friendlyID++;
 
         if (friendlyID > friendlyUnitList.Count - 1)
@@ -45,6 +52,7 @@ public class UnitManager : MonoBehaviour
         UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[friendlyID]);
     }
 
+    public GameObject GetCurrentUnit() { return friendlyUnitList[friendlyID].gameObject; }
     public List<Unit> GetUnitList() { return unitList; }
     public List<Unit> GetEnemyUnitList() { return enemyUnitList; }
     public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
