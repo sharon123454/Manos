@@ -52,7 +52,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         //    actionOutline.SetActive(true);
         //}
 
-        UpdateButtonVisual();
+        StartCoroutine(DelayStart());
     }
 
 
@@ -112,7 +112,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             if (TurnSystem.Instance.IsPlayerTurn())
             {
 
-
                 if (bonusActionSelected && baseAction.GetIsBonusAction())
                     bonusActionSelected.SetActive(selectedBaseAction == baseAction);
                 else if (actionSelected)
@@ -150,6 +149,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                     OnCooldown.SetActive(false);
                     if (!baseAction.IsBasicAbility())
                         abilityImage.color = Color.white;
+                    if (cooldownVisualProUgui)
+                        cooldownVisualProUgui.text = "";
+                    if (OnCooldown)
+                        OnCooldown.SetActive(false);
                 }
                 else
                 {
@@ -158,7 +161,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                     cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
                     cooldownSlider.value = baseAction.GetCurrentCooldown();
                     if (!baseAction.IsBasicAbility())
-                    abilityImage.color = Color.gray;
+                        abilityImage.color = Color.gray;
                 }
 
             }
@@ -169,12 +172,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                     if (!baseAction.IsBasicAbility())
                         abilityImage.color = Color.gray;
                 }
-               // else { abilityImage.color = Color.white; }
+                // else { abilityImage.color = Color.white; }
             }
         }
-
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         UnitActionSystem.Instance.IsHoveringOnUI(true);
@@ -242,6 +243,12 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         if (baseAction is MoveAction) { return; }
 
+    }
+
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(2);
+        UpdateButtonVisual();
     }
 
 }

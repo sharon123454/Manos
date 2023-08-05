@@ -1,21 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BasicActionSystemUI : MonoBehaviour
 {
     [SerializeField] private List<GameObject> basicImageSprites;
     [SerializeField] private List<ActionButtonUI> actionbuttons;
 
-    private void Awake()
-    {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
-    }
     private void Start()
     {
-        RefreshBasicAbilities();
+        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
     }
 
     private void Instance_OnSelectedUnitChanged(object sender, Unit e)
