@@ -154,7 +154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3707061932649615665, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: maxMoveDistance
-      value: 7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707061932649615665, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: visualMovementSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3747703306803221443, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_LocalPosition.y
@@ -187,6 +191,10 @@ PrefabInstance:
     - target: {fileID: 4262772869031385833, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: maxPosture
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765829223011308330, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5765829223011308330, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: maxMoveDistance
@@ -278,7 +286,7 @@ MonoBehaviour:
   _actionName: Basic attack
   actionDescription: Melee Basic attack
   actionCost: 0
-  cooldownAfterUse: 1
+  cooldownAfterUse: 0
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
@@ -286,6 +294,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -301,7 +310,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &-9011534961201478778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +334,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -341,7 +350,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &7632042829742866947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +382,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -389,7 +398,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &1363537160152828489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +421,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -444,6 +453,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -459,7 +469,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!4 &6563545203030061661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
