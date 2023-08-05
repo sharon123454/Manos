@@ -108,7 +108,14 @@ public class EnemyAI : MonoBehaviour
             bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
             return true;
         }
-
+        // If no other action was executed and the enemy unit has action points left, execute MoveAction
+        MoveAction moveAction = enemyUnit.GetComponent<MoveAction>();
+        if (moveAction != null && moveAction.enabled && enemyUnit.TrySpendActionPointsToTakeAction(moveAction)) // Assuming this method exists
+        {
+            print("INSODE MOOOOOOOOOVE");
+            moveAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
+        }
         return false;
     }
 
