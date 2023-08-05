@@ -69,13 +69,19 @@ public abstract class BaseAction : MonoBehaviour
         List<EnemyAIAction> _enemyAIActionList = new List<EnemyAIAction>();
 
         List<GridPosition> _validGridPositionList = GetValidActionGridPositionList();
-
+        if (_validGridPositionList == null)
+        {
+            return null; // No Possible AI Actions
+        }
+        
         if (_validGridPositionList.Count > 0)
+        {
             foreach (GridPosition gridPosition in _validGridPositionList)
             {
                 EnemyAIAction enemyAIAction = GetEnemyAIAction(gridPosition);
                 _enemyAIActionList.Add(enemyAIAction);
             }
+        }
 
         if (_enemyAIActionList.Count > 0)
         {

@@ -156,7 +156,11 @@ if (TurnSystem.Instance.IsPlayerTurn())
     public void OnPointerEnter(PointerEventData eventData)
     {
         UnitActionSystem.Instance.IsHoveringOnUI(true);
-
+        UnitActionSystem.Instance.SetSelectedAction(baseAction);
+        if (baseAction.IsBasicAbility() && baseAction.GetActionName() != "Basic Attack")
+        {
+            return;
+        }
         actionInfo.SetActive(true);
         //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())
         //else
@@ -204,14 +208,6 @@ if (TurnSystem.Instance.IsPlayerTurn())
         }
 
         if (baseAction is MoveAction) { return; }
-
-
-        UnitActionSystem.Instance.SetSelectedAction(baseAction);
-
-
-
-
-
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -221,9 +217,9 @@ if (TurnSystem.Instance.IsPlayerTurn())
         actionInfo.SetActive(false);
         //cooldownProUgui.gameObject.SetActive(false);
 
+        UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         if (baseAction is MoveAction) { return; }
 
-        UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
     }
 
 }

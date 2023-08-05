@@ -35,12 +35,20 @@ public class UnitActionSystem : MonoBehaviour
     private void Start()
     {
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
+    {
+        savedAction = null;
+        SetSelectedAction(selectedUnit.GetAction<MoveAction>());
     }
 
     private void OnEnable() { Invoke("DelayOnEnable", 1); }
     private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
     {
         ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
+
     }
 
     private void Update()
