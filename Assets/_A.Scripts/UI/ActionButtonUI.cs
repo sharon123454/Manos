@@ -64,7 +64,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             UpdateButtonVisual();
         }
     }
-
+   public BaseAction GetBaseAction() { return baseAction; }
     public void SetBaseAction(BaseAction baseAction)
     {
         this.baseAction = baseAction;
