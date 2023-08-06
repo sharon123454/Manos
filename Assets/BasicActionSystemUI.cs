@@ -14,8 +14,7 @@ public class BasicActionSystemUI : MonoBehaviour
     [SerializeField] private GameObject DodgeUsed;
     private void Start()
     {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+        StartCoroutine(DelayStart());
     }
 
     private void Instance_OnSelectedActionChanged(object sender, System.EventArgs e)
@@ -26,19 +25,13 @@ public class BasicActionSystemUI : MonoBehaviour
         CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
         CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
     }
+
     private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
     {
-        if (action.GetBaseAction().GetIfUsedAction())
-        {
-            DisableHud.SetActive(false);
-         //   print(action.GetActionName() +"  "+ action.GetUnit());
-        }
-        else
-        {
-            DisableHud.SetActive(true);
-            print("AAAAAAAAAAAAAAAA");
-        }
+        if (DisableHud)
+            DisableHud.SetActive(action.GetBaseAction().GetIfUsedAction());
     }
+
     private void Instance_OnSelectedUnitChanged(object sender, Unit e)
     {
         RefreshBasicAbilities();
@@ -55,10 +48,8 @@ public class BasicActionSystemUI : MonoBehaviour
 
     public void RefreshBasicAbilities()
     {
-
         foreach (BaseAction baseAction in UnitActionSystem.Instance.GetSelectedUnit().GetBaseActionArray())
         {
-
             if (baseAction.isActiveAndEnabled && baseAction.IsBasicAbility())
             {
                 if (baseAction.GetActionName() == "Basic Attack")
@@ -82,9 +73,14 @@ public class BasicActionSystemUI : MonoBehaviour
                     actionbuttons[4].SetBaseAction(baseAction);
                 }
             }
-
         }
-
-
     }
+
+    private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(2f);
+        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+    }
+
 }

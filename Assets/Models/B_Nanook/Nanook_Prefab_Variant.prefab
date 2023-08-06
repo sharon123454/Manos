@@ -670,7 +670,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
   healValue: 1
 --- !u!114 &6607013579345623603
 MonoBehaviour:
@@ -694,7 +693,7 @@ MonoBehaviour:
   range: 3
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
-  AOEActiveTurns: 1
+  AOEActiveTurns: 3
   isFollowingMouse: 1
   isFollowingUnit: 0
   actionMeshShape: 1
@@ -706,13 +705,12 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 06000000
   selfBuffDuration: 1
   selfBuffs: 08000000
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
   healValue: 10
 --- !u!4 &8797272167150233451 stripped
 Transform:

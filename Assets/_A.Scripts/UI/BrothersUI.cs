@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
-using Spine;
 using Spine.Unity;
+using TMPro;
 
 public class BrothersUI : MonoBehaviour
 {
+    [SerializeField] private StatusEffectsUI statusEffectUI;
     [SerializeField] private GameObject actionGrayedOut;
     [SerializeField] private GameObject bonusActionGrayedOut;
     [SerializeField] private TextMeshProUGUI shieldAmountText;
@@ -45,6 +45,8 @@ public class BrothersUI : MonoBehaviour
         foreach (Unit singleUnit in unitLlist)
             if (fixedName == singleUnit.name)
                 specificBro = singleUnit;
+
+        statusEffectUI.InitStatusUI(specificBro);
     }
 
     void Update()

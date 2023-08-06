@@ -29,8 +29,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] GameObject meleeAction;
     [SerializeField] GameObject favorAction;
 
-
-
     [SerializeField] GameObject OnCooldown;
     [SerializeField] Image abilityImage;
 
@@ -40,7 +38,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
-       // UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+        // UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
         //if (baseAction.GetIsBonusAction())
         //{
         //    bonusActionOutline.SetActive(true);
@@ -55,8 +53,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         StartCoroutine(DelayStart());
     }
 
-
-
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
         if (!baseAction.GetUnit().IsEnemy() && baseAction != null)
@@ -64,7 +60,9 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             UpdateButtonVisual();
         }
     }
-   public BaseAction GetBaseAction() { return baseAction; }
+
+    public BaseAction GetBaseAction() { return baseAction; }
+
     public void SetBaseAction(BaseAction baseAction)
     {
         this.baseAction = baseAction;
@@ -104,7 +102,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UpdateButtonVisual()
     {
-        if (!baseAction.GetUnit().IsEnemy())
+        if (baseAction && !baseAction.GetUnit().IsEnemy())
         {
             BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
 
@@ -127,15 +125,19 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 {
                     if (baseAction.GetCurrentCooldown() == 0)
                     {
-                        cooldownVisualProUgui.text = "";
-                        OnCooldown.SetActive(false);
+                        if (cooldownVisualProUgui)
+                            cooldownVisualProUgui.text = "";
+                        if (OnCooldown)
+                            OnCooldown.SetActive(false);
                         if (!baseAction.IsBasicAbility())
                             abilityImage.color = Color.white;
                     }
                     else
                     {
-                        OnCooldown.SetActive(true);
-                        cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+                        if (OnCooldown)
+                            OnCooldown.SetActive(true);
+                        if (cooldownVisualProUgui)
+                            cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
                         cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
                         cooldownSlider.value = baseAction.GetCurrentCooldown();
                         if (!baseAction.IsBasicAbility())
@@ -145,8 +147,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
                 if (baseAction.GetCurrentCooldown() == 0)
                 {
-                    cooldownVisualProUgui.text = "";
-                    OnCooldown.SetActive(false);
                     if (!baseAction.IsBasicAbility())
                         abilityImage.color = Color.white;
                     if (cooldownVisualProUgui)
@@ -156,8 +156,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 }
                 else
                 {
-                    OnCooldown.SetActive(true);
-                    cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
+                    if (OnCooldown)
+                        OnCooldown.SetActive(true);
+                    if (cooldownVisualProUgui)
+                        cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
                     cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
                     cooldownSlider.value = baseAction.GetCurrentCooldown();
                     if (!baseAction.IsBasicAbility())
