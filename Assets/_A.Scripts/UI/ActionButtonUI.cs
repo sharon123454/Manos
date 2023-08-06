@@ -181,7 +181,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         UnitActionSystem.Instance.IsHoveringOnUI(true);
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
-        if (baseAction.GetActionName() != "Basic Attack")
+        if (baseAction.IsBasicAbility() && baseAction.GetActionName() != "Basic Attack")
         {
             return;
         }
