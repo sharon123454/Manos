@@ -34,7 +34,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private BaseAbility isBaseAbility;
     private BaseAction baseAction;
-
+    [SerializeField] bool canUseAction = false;
     void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
@@ -52,7 +52,6 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         StartCoroutine(DelayStart());
     }
-
     private void Instance_OnTurnChange(object sender, System.EventArgs e)
     {
         if (!baseAction.GetUnit().IsEnemy() && baseAction != null)
@@ -182,7 +181,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         UnitActionSystem.Instance.IsHoveringOnUI(true);
         UnitActionSystem.Instance.SetSelectedAction(baseAction);
-        if (baseAction.IsBasicAbility() && baseAction.GetActionName() != "Basic Attack")
+        if (baseAction.GetActionName() != "Basic Attack")
         {
             return;
         }

@@ -17,17 +17,23 @@ public class BasicActionSystemUI : MonoBehaviour
     {
         StartCoroutine(DelayStart());
         RefreshBasicAbilities();
+        UnitActionSystem.Instance.OnActionStarted += Instance_OnActionStarted;
+    }
+
+    private void Instance_OnActionStarted(object sender, System.EventArgs e)
+    {
 
     }
 
     private void Instance_OnSelectedActionChanged(object sender, System.EventArgs e)
     {
-        CheckIfUsedBasicAbility(actionbuttons[0], AttackUsed);
-        CheckIfUsedBasicAbility(actionbuttons[1], MoveUsed);
-        CheckIfUsedBasicAbility(actionbuttons[2], BlockUsed);
-        CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
-        CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
-        
+
+        //CheckIfUsedBasicAbility(actionbuttons[0], AttackUsed);
+        //CheckIfUsedBasicAbility(actionbuttons[1], MoveUsed);
+        //CheckIfUsedBasicAbility(actionbuttons[2], BlockUsed);
+        //CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
+        //CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
+
     }
 
     private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
@@ -50,6 +56,7 @@ public class BasicActionSystemUI : MonoBehaviour
     {
         RefreshBasicAbilities();
         UnselectBasicCanvas();
+
     }
 
     public void SelectBasicAbility(GameObject currentAbility)
@@ -89,6 +96,24 @@ public class BasicActionSystemUI : MonoBehaviour
                 }
             }
         }
+        Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (SelectedUnit.GetUsedActionPoints())
+        {
+            AttackUsed.SetActive(true);
+            BlockUsed.SetActive(true);
+            DasheUsed.SetActive(true);
+            DodgeUsed.SetActive(true);
+        }
+        else
+        {
+            AttackUsed.SetActive(false);
+            BlockUsed.SetActive(false);
+            DasheUsed.SetActive(false);
+            DodgeUsed.SetActive(false);
+        }
+        if (SelectedUnit.GetUsedBonusActionPoints())
+            MoveUsed.SetActive(true);
+        else { MoveUsed.SetActive(false); }
     }
 
     private IEnumerator DelayStart()
