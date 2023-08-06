@@ -31,9 +31,13 @@ public class AOEManager : MonoBehaviour
             Destroy(gameObject);
 
         Instance = this;
+    }
+    private void Start()
+    {
         _inRangeUnits = new List<Unit>();
         _collider = GetComponent<MeshCollider>();
         _meshVisual = GetComponent<MeshFilter>();
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
     }
 
     private void Update()
@@ -139,6 +143,11 @@ public class AOEManager : MonoBehaviour
         transform.localScale = Vector3.one;
         _isAOEActive = false;
         _clampRange = 1f;
+    }
+
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    {
+        DisableAOE();
     }
 
 }
