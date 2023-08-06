@@ -20,6 +20,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI armorPointsText;
     [SerializeField] private TextMeshProUGUI hitChanceText;
     [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI postureText;
     [SerializeField] private TextMeshProUGUI unitName;
 
     [SerializeField] private GameObject VisualParent;
@@ -51,6 +52,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         postureBarImage.fillAmount = unitStats.GetPostureNormalized();
         armorPointsText.text = unitStats.GetArmor().ToString();
         healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
+        postureText.text = $"{unit.GetUnitStats().GetPosture()} / {unit.GetUnitStats().GetUnitMaxPosture()}";
     }
 
     private void UpdateActionPointsText()
@@ -66,6 +68,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
         VisualParent.SetActive(true);
         healthText.text = $"{unit.GetUnitStats().health} / {unit.GetUnitStats().GetUnitMaxHP()}";
+        postureText.text = $"{unit.GetUnitStats().GetPosture()} / {unit.GetUnitStats().GetUnitMaxPosture()}";
 
         if (unit.IsEnemy() && checkIfBaseAbility is BaseAbility)
         {
