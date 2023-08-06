@@ -131,7 +131,6 @@ public class UnitStats : MonoBehaviour
             damageToRecieve = rawDamage;
             if (AP.Contains(AbilityProperties.Finisher))
                 if (health <= maxHealth / 2) damageToRecieve *= 2;
-            SendConsoleMessage?.Invoke(this, "Armor Ignored!");
         }
 
         if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBreak))
@@ -178,6 +177,8 @@ public class UnitStats : MonoBehaviour
                         _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
                     }
                 }
+                if (AP.Contains(AbilityProperties.Finisher))
+                    SendConsoleMessage?.Invoke(this, "Armor Ignored!");
             }
             else
             {

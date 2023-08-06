@@ -11,8 +11,8 @@ public class BaseHeal : BaseAbility
     public event EventHandler OnHealActionCompleted;
 
     [Header("Heal")]
-    [Range(1f, 600f)]
-    [SerializeField] private float healValue = 10;
+   // [Range(1f, 600f)]
+    [SerializeField] private float healValue;
 
     private Unit targetUnit;
     public float GetHealValue() { return healValue; }
