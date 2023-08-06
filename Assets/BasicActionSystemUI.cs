@@ -29,7 +29,7 @@ public class BasicActionSystemUI : MonoBehaviour
     {
 
        // RefreshBasicAbilities();
-        UnselectBasicCanvas();
+      //  UnselectBasicCanvas();
         Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         if (SelectedUnit.GetUsedActionPoints())
         {
@@ -54,11 +54,6 @@ public class BasicActionSystemUI : MonoBehaviour
     }
     public GameObject savedDisabledIcon;
     public void DisableObject(GameObject gameObject) { if(savedDisabledIcon) savedDisabledIcon.SetActive(true); savedDisabledIcon = gameObject; gameObject.SetActive(false); }
-    private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
-    {
-        if (DisableHud)
-            DisableHud.SetActive(action.GetBaseAction().GetIfUsedAction());
-    }
     private void UnselectBasicCanvas()
     {
 
