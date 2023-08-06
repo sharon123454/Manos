@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 506225832036056718, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: unit movement
+      value: Unit movement
       objectReference: {fileID: 0}
     - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_SizeDelta.y
@@ -345,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7237301886958795925, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: actionDescription
-      value: unit movement
+      value: Unit movement
       objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
@@ -490,7 +490,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 05000000
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
   favorCost: 0
   _AbilityProperties: 
   range: 2
-  canOnlyHitEnemy: 0
+  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -670,7 +670,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
   healValue: 1
 --- !u!114 &6607013579345623603
 MonoBehaviour:
@@ -690,15 +689,15 @@ MonoBehaviour:
   actionCost: 2
   cooldownAfterUse: 4
   favorCost: 50
-  _AbilityProperties: 
+  _AbilityProperties: 05000000
   range: 3
   canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
-  isFollowingMouse: 0
+  isFollowingMouse: 1
   isFollowingUnit: 0
-  actionMeshShape: 0
-  meshShapeScaleMultiplicator: 1
+  actionMeshShape: 1
+  meshShapeScaleMultiplicator: 3
   abilityImage: {fileID: 21300000, guid: 9cd63da2b211cb14e838425ad7b7a97d, type: 3}
   damage: 0
   postureDamage: 0
@@ -706,13 +705,12 @@ MonoBehaviour:
   critChance: 0
   statusEffectChance: 200
   statusEffectDuration: 1
-  EnemyStatusEffects: 
+  EnemyStatusEffects: 06000000
   selfBuffDuration: 1
   selfBuffs: 08000000
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
   healValue: 10
 --- !u!4 &8797272167150233451 stripped
 Transform:

@@ -48,17 +48,21 @@ public class RangedAction : BaseAbility
         //error fix
         if (targetUnit == null && !canOnlyHitEnemy) { return base.GetValidActionGridPositionList(); } //target unit was found null so added check but its missing range
                                                                                                       //implementation in baseAbility- GetValidActionGridPositionList()
-        //error fix
-        //error fix
+                                                                                                      //error fix
+                                                                                                      //error fix
 
         #region Range Obstacle Check
-        Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(GetUnit().GetGridPosition());
+        //if (GetUnit().name != "Amarok")
+        //{
+        //    Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(GetUnit().GetGridPosition());
 
-        Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
-        float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());
+        //    Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+        //    float shotDistance = Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition());
 
-        if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
-            return null;
+        //    if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
+        //        return null;
+        //}
+
         #endregion
 
         return base.GetValidActionGridPositionList();

@@ -1,31 +1,60 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BasicActionSystemUI : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> basicImageSprites;
+    [SerializeField] private List<GameObject> basicSelectedImageSprites;
+    [SerializeField] private List<GameObject> BasicUnSelectedImages;
     [SerializeField] private List<ActionButtonUI> actionbuttons;
 
-    private void Awake()
-    {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
-    }
+    [SerializeField] private GameObject AttackUsed;
+    [SerializeField] private GameObject MoveUsed;
+    [SerializeField] private GameObject BlockUsed;
+    [SerializeField] private GameObject DasheUsed;
+    [SerializeField] private GameObject DodgeUsed;
     private void Start()
     {
+        StartCoroutine(DelayStart());
         RefreshBasicAbilities();
+
     }
 
+    private void Instance_OnSelectedActionChanged(object sender, System.EventArgs e)
+    {
+        CheckIfUsedBasicAbility(actionbuttons[0], AttackUsed);
+        CheckIfUsedBasicAbility(actionbuttons[1], MoveUsed);
+        CheckIfUsedBasicAbility(actionbuttons[2], BlockUsed);
+        CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
+        CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
+        
+    }
+
+    private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
+    {
+        if (DisableHud)
+            DisableHud.SetActive(action.GetBaseAction().GetIfUsedAction());
+    }
+    private void UnselectBasicCanvas()
+    {
+        foreach (var item in BasicUnSelectedImages)
+        {
+            item.SetActive(true);
+        }
+        foreach (var item in basicSelectedImageSprites)
+        {
+            item.SetActive(false);
+        }
+    }
     private void Instance_OnSelectedUnitChanged(object sender, Unit e)
     {
         RefreshBasicAbilities();
+        UnselectBasicCanvas();
     }
 
     public void SelectBasicAbility(GameObject currentAbility)
     {
-        foreach (var sprite in basicImageSprites)
+        foreach (var sprite in basicSelectedImageSprites)
         {
             sprite.SetActive(false);
         }
@@ -59,7 +88,14 @@ public class BasicActionSystemUI : MonoBehaviour
                     actionbuttons[4].SetBaseAction(baseAction);
                 }
             }
-
         }
     }
+
+    private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(2f);
+        UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+    }
+
 }

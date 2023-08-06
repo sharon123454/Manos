@@ -51,7 +51,7 @@ public class VFXLibrary : MonoBehaviour
     private string _inviMatNoiseStrength = "Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb";
     [Header("Raynard Abilities")]
     [SerializeField] private ParticleSystem[] _rEruption;
-    [SerializeField] private ParticleSystem[] _ability2R;
+    [SerializeField] private ParticleSystem[] _rEnsnare;
     [SerializeField] private ParticleSystem[] _ability3R;
     [SerializeField] private ParticleSystem[] _ability4R;
     [SerializeField] private ParticleSystem[] _ability5R;
@@ -201,6 +201,10 @@ public class VFXLibrary : MonoBehaviour
     public void PlayEruption()
     {
         ActivateVFXArray(_rEruption);
+    }
+    public void PlayEnsnare()
+    {
+        ActivateVFXArray(_rEnsnare);
     }
 
     //private Methods

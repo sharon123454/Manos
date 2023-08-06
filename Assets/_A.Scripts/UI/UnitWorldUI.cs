@@ -145,10 +145,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (getHitChance - unitStats.GetEvasion() > 0)
             {
                 healthTakenBarImage.gameObject.SetActive(true);
-                healthTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetHealthNormalized() - 1, 0, 0);
+                healthTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetHealthNormalized() - 1 - 0.05f, 0.05f, 0);
                 healthTakenBarImage.fillAmount = Math.Abs(unitStats.GetDamageTaken() - 1) + unitStats.GetHealthNormalized() - 1;
 
-                postureTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetPostureNormalized() - 1, 0, 0);
+                postureTakenBarImage.rectTransform.localPosition = new Vector3(unitStats.GetPostureNormalized() - 1 - 0.05f, 0.05f, 0);
                 postureTakenBarImage.gameObject.SetActive(true);
                 postureTakenBarImage.fillAmount = Math.Abs(unitStats.GetPostureTaken() - 1) + unitStats.GetHealthNormalized() - 1;
             }

@@ -27,6 +27,8 @@ public class UnitActionSystemUI : MonoBehaviour
     [Header("Spells")]
     float spellsOutLineInitialX;
     float spellsOutLineInitialWidth;
+
+
     private void Awake()
     {
         actionButtonUIList = new List<ActionButtonUI>(10);
@@ -48,7 +50,10 @@ public class UnitActionSystemUI : MonoBehaviour
         CreateUnitActionButtonsForAbilites();
         UpdateActionSystemVisuals();
     }
-
+    private void Update()
+    {
+        
+    }
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
     {
         UpdateActionSystemVisuals();
@@ -79,7 +84,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         if (abilitesButtonContainerTransform.gameObject.activeInHierarchy)
             CreateUnitActionButtonsForAbilites();
-        else
+        else if (spellsButtonContainerTransform.gameObject.activeInHierarchy) 
             CreateUnitActionButtonsForSpells();
 
         UpdateActionSystemVisuals();

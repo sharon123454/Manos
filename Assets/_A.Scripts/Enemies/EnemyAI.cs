@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 using System;
 
 public class EnemyAI : MonoBehaviour
 {
+    private List<Unit> enemyUnits; // You'll need to populate this list with the enemy units
+
     private enum State { WaitingForEnemyTurn, TakingTurn, Busy }
 
     private State state;
@@ -33,7 +34,7 @@ public class EnemyAI : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
-                    if (TryTakeEnemyAIAction(SetStateTakingTurn))
+                    if (OnTryTakeEnemyAIAction(SetStateTakingTurn))
                     {
                         state = State.Busy;
                     }
@@ -49,7 +50,17 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
     }
-
+    private bool OnTryTakeEnemyAIAction(Action onEnemyAIActionComplete)
+    {
+        foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
+        {
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void SetStateTakingTurn()
     {
         timer = 0.5f;
@@ -64,69 +75,77 @@ public class EnemyAI : MonoBehaviour
             timer = 2f;
         }
     }
-
-    private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
+    private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
     {
-        foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
+        EnemyAIAction bestEnemyAIAction = null;
+        BaseAction bestBaseAction = null;
+
+        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
-            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+            // Check if the BaseAction script is enabled
+            if (!baseAction.enabled)
+                continue; // Skip this action if the script is not enabled
+
+            if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+                continue; // Enemy can't afford this action
+
+            EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
+            if (testEnemyAIAction == null)
+                continue; // Skip if no valid action
+
+            int randomFactorForTest = UnityEngine.Random.Range(0, 100);
+            int randomFactorForBest = bestEnemyAIAction == null ? 0 : UnityEngine.Random.Range(0, 100);
+
+            if (bestEnemyAIAction == null || testEnemyAIAction.actionValue + randomFactorForTest > bestEnemyAIAction.actionValue + randomFactorForBest)
             {
-                return true;
+                bestEnemyAIAction = testEnemyAIAction; // Assign the test action if it's better
+                bestBaseAction = baseAction; // Assign the corresponding base action
             }
+        }
+
+        if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
+        {
+            bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
+        }
+        // If no other action was executed and the enemy unit has action points left, execute MoveAction
+        MoveAction moveAction = enemyUnit.GetComponent<MoveAction>();
+        if (moveAction != null && moveAction.enabled && enemyUnit.TrySpendActionPointsToTakeAction(moveAction)) // Assuming this method exists
+        {
+            print("INSODE MOOOOOOOOOVE");
+            moveAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
         }
         return false;
     }
 
-    private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
+
+
+    private void OnEnemyAIActionComplete()
     {
-        EnemyAIAction _bestEnemyAIAction = null;
-        BaseAction _bestBaseAction = null;
+        // Logic to handle the completion of an enemy AI action
 
-       // StartCoroutine(CameraController.Instance.LerpToUnit(enemyUnit.transform.position));
+        // Example: Play a sound effect
+        // AudioManager.PlaySound("actionComplete");
 
-        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
+        // Example: Update the game state
+        // GameStateManager.UpdateState();
+
+        // Example: Start the next enemy's turn or end the enemy turn phase
+        TurnSystem.Instance.NextTurn();
+    }
+    private void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
         {
-            if (enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
-                continue; // Enemy can't afford this action
-
-            #region try to block action when out of favor
-            //if (_bestBaseAction is BaseAbility) // Enemy can't afford this Spell
-            //{
-            //    BaseAbility _bestBaseAbility = _bestBaseAction as BaseAbility;
-
-            //    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(_bestBaseAbility.GetFavorCost()))
-            //    {
-            //        print("your gay and not supposed to shoot");
-            //        continue;
-            //    }
-            //}
-            #endregion
-
-            if (_bestEnemyAIAction == null)// Set first value
-            {
-                _bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
-                _bestBaseAction = baseAction;
-            }
-            else // Compare other actions value to the first if better value found, replace.
-            {
-                EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
-
-                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > _bestEnemyAIAction.actionValue)
-                {
-                    _bestEnemyAIAction = testEnemyAIAction;
-                    _bestBaseAction = baseAction;
-                }
-            }
-        }
-        if (_bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(_bestBaseAction))
-        {
-            _bestBaseAction.TakeAction(_bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
-            return true;
-        }
-        else
-        {
-            return false;
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
     }
 
+    // You can add more methods and logic as needed, such as different AI personalities, tactical decision-making, collaboration between units, etc.
 }
