@@ -84,7 +84,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         if (abilitesButtonContainerTransform.gameObject.activeInHierarchy)
             CreateUnitActionButtonsForAbilites();
-        else
+        else if (spellsButtonContainerTransform.gameObject.activeInHierarchy) 
             CreateUnitActionButtonsForSpells();
 
         UpdateActionSystemVisuals();

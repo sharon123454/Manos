@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BasicActionSystemUI : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> basicImageSprites;
+    [SerializeField] private List<GameObject> basicSelectedImageSprites;
+    [SerializeField] private List<GameObject> BasicUnSelectedImages;
     [SerializeField] private List<ActionButtonUI> actionbuttons;
 
     [SerializeField] private GameObject AttackUsed;
@@ -15,6 +16,8 @@ public class BasicActionSystemUI : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DelayStart());
+        RefreshBasicAbilities();
+
     }
 
     private void Instance_OnSelectedActionChanged(object sender, System.EventArgs e)
@@ -24,6 +27,7 @@ public class BasicActionSystemUI : MonoBehaviour
         CheckIfUsedBasicAbility(actionbuttons[2], BlockUsed);
         CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
         CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
+        
     }
 
     private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
@@ -31,15 +35,26 @@ public class BasicActionSystemUI : MonoBehaviour
         if (DisableHud)
             DisableHud.SetActive(action.GetBaseAction().GetIfUsedAction());
     }
-
+    private void UnselectBasicCanvas()
+    {
+        foreach (var item in BasicUnSelectedImages)
+        {
+            item.SetActive(true);
+        }
+        foreach (var item in basicSelectedImageSprites)
+        {
+            item.SetActive(false);
+        }
+    }
     private void Instance_OnSelectedUnitChanged(object sender, Unit e)
     {
         RefreshBasicAbilities();
+        UnselectBasicCanvas();
     }
 
     public void SelectBasicAbility(GameObject currentAbility)
     {
-        foreach (var sprite in basicImageSprites)
+        foreach (var sprite in basicSelectedImageSprites)
         {
             sprite.SetActive(false);
         }

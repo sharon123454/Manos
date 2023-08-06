@@ -249,7 +249,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     IEnumerator DelayStart()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         UpdateButtonVisual();
     }
 
