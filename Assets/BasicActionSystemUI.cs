@@ -28,11 +28,28 @@ public class BasicActionSystemUI : MonoBehaviour
     private void Instance_OnSelectedActionChanged(object sender, System.EventArgs e)
     {
 
-        //CheckIfUsedBasicAbility(actionbuttons[0], AttackUsed);
-        //CheckIfUsedBasicAbility(actionbuttons[1], MoveUsed);
-        //CheckIfUsedBasicAbility(actionbuttons[2], BlockUsed);
-        //CheckIfUsedBasicAbility(actionbuttons[3], DasheUsed);
-        //CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
+       // RefreshBasicAbilities();
+        UnselectBasicCanvas();
+        Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (SelectedUnit.GetUsedActionPoints())
+        {
+            AttackUsed.SetActive(true);
+            BlockUsed.SetActive(true);
+            DasheUsed.SetActive(true);
+            DodgeUsed.SetActive(true);
+        }
+        else
+        {
+            AttackUsed.SetActive(false);
+            BlockUsed.SetActive(false);
+            DasheUsed.SetActive(false);
+            DodgeUsed.SetActive(false);
+        }
+
+        if (SelectedUnit.GetUsedBonusActionPoints())
+            MoveUsed.SetActive(true);
+        else
+            MoveUsed.SetActive(false);
 
     }
     public GameObject savedDisabledIcon;
@@ -58,7 +75,7 @@ public class BasicActionSystemUI : MonoBehaviour
     {
         RefreshBasicAbilities();
         UnselectBasicCanvas();
-      //  Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+       // Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
         if (e.GetUsedActionPoints())
         {
             AttackUsed.SetActive(true);
