@@ -16,7 +16,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI favorProUgui;
     [SerializeField] TextMeshProUGUI critHitChanceProUgui;
     [SerializeField] TextMeshProUGUI statusHitChanceProUgui;
-    // [SerializeField] TextMeshProUGUI cooldownProUgui;
+     [SerializeField] TextMeshProUGUI cooldownProUgui;
     [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
     [SerializeField] Slider cooldownSlider;
 
@@ -190,7 +190,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         //else
         //    CursorManager.Instance.SetBlockableCursor();
         CursorManager.Instance.SetClickableCursor();
-
+        cooldownProUgui.text = baseAction.GetAbilityCooldown().ToString();
         if (baseAction is BaseAbility)
         {
             //   cooldownProUgui.gameObject.SetActive(true);
