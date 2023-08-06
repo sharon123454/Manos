@@ -35,7 +35,8 @@ public class BasicActionSystemUI : MonoBehaviour
         //CheckIfUsedBasicAbility(actionbuttons[4], DodgeUsed);
 
     }
-
+    public GameObject savedDisabledIcon;
+    public void DisableObject(GameObject gameObject) { if(savedDisabledIcon) savedDisabledIcon.SetActive(true); savedDisabledIcon = gameObject; gameObject.SetActive(false); }
     private void CheckIfUsedBasicAbility(ActionButtonUI action, GameObject DisableHud)
     {
         if (DisableHud)
@@ -43,6 +44,7 @@ public class BasicActionSystemUI : MonoBehaviour
     }
     private void UnselectBasicCanvas()
     {
+
         foreach (var item in BasicUnSelectedImages)
         {
             item.SetActive(true);
@@ -56,7 +58,26 @@ public class BasicActionSystemUI : MonoBehaviour
     {
         RefreshBasicAbilities();
         UnselectBasicCanvas();
+      //  Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        if (e.GetUsedActionPoints())
+        {
+            AttackUsed.SetActive(true);
+            BlockUsed.SetActive(true);
+            DasheUsed.SetActive(true);
+            DodgeUsed.SetActive(true);
+        }
+        else
+        {
+            AttackUsed.SetActive(false);
+            BlockUsed.SetActive(false);
+            DasheUsed.SetActive(false);
+            DodgeUsed.SetActive(false);
+        }
 
+        if (e.GetUsedBonusActionPoints())
+            MoveUsed.SetActive(true);
+        else
+            MoveUsed.SetActive(false);
     }
 
     public void SelectBasicAbility(GameObject currentAbility)
@@ -111,9 +132,11 @@ public class BasicActionSystemUI : MonoBehaviour
             DasheUsed.SetActive(false);
             DodgeUsed.SetActive(false);
         }
+
         if (SelectedUnit.GetUsedBonusActionPoints())
             MoveUsed.SetActive(true);
-        else { MoveUsed.SetActive(false); }
+        else
+            MoveUsed.SetActive(false);
     }
 
     private IEnumerator DelayStart()
