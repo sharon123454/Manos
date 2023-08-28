@@ -54,6 +54,12 @@ public class ConsoleApp : MonoBehaviour
     private void InputController_Pause(InputAction.CallbackContext context)
     {
         settingsMenu.SetActive(!settingsMenu.activeSelf);
+
+        if (settingsMenu.activeSelf)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+
     }
 
 }
