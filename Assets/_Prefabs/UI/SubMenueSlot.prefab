@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Color: {r: 0.14851485, g: 0.14851485, b: 0.25, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -203,12 +203,12 @@ GameObject:
   - component: {fileID: 1858147010403576848}
   - component: {fileID: 1458921929456368495}
   m_Layer: 5
-  m_Name: CooldownBgImage
+  m_Name: CooldownBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &576014477986056854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1042,17 +1042,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
+      propertyPath: _cooldownBg
+      value: 
+      objectReference: {fileID: 5043845230131918372}
+    - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
       propertyPath: _abilityImage
       value: 
       objectReference: {fileID: 3689859499303904109}
     - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
       propertyPath: _cooldownBgImage
       value: 
-      objectReference: {fileID: 1458921929456368495}
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
+      propertyPath: _abilityButtonImage
+      value: 
+      objectReference: {fileID: 3689859499303904109}
     - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
       propertyPath: _cooldownCircleImage
       value: 
       objectReference: {fileID: 5723259346718990450}
+    - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
+      propertyPath: _abilityButtonUIImage
+      value: 
+      objectReference: {fileID: 3689859499303904109}
     - target: {fileID: 6511141608789150413, guid: 8809c408ce3dcd045b2f25acc8922a63, type: 3}
       propertyPath: _currentCooldownAmountTMP
       value: 

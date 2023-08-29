@@ -107,9 +107,9 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        if (savedAction != null)
+        if (baseAction != null && baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
         {
-            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect), baseAction.GetIsFollowingMouse(),
+            AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
 
