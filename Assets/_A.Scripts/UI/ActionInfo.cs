@@ -7,29 +7,33 @@ using TMPro;
 public class ActionInfo : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _actionNameTMP;
-    [SerializeField] private TextMeshProUGUI _actionCooldownTMP;
     [SerializeField] private TextMeshProUGUI _actionDescriptionTMP;
+    [Header("Action prameters")]
+    [SerializeField] private GameObject _actionCoooldownGroup;
+    [SerializeField] private TextMeshProUGUI _actionCooldownTMP;
     [SerializeField] private GameObject _actionCostGroup;
     [SerializeField] private GameObject _bonusActionCostGroup;
     [SerializeField] private GameObject _actionFavorCostGroup;
     [SerializeField] private TextMeshProUGUI _actionFavorTMP;
     [SerializeField] private GameObject _actionTypeGroup;
-    [SerializeField] private Image _actionTypeImage;
     [SerializeField] private TextMeshProUGUI _actionTypeTMP;
+    [SerializeField] private Image _actionTypeImage;
+    [SerializeField] private Sprite _actionMeleeImage;
+    [SerializeField] private Sprite _actionRangeImage;
     [SerializeField] private GameObject _actionAttackGroup;
     [SerializeField] private TextMeshProUGUI _actionAccuracyTMP;
     [SerializeField] private TextMeshProUGUI _actionDamageTMP;
     [SerializeField] private TextMeshProUGUI _actionPostureTMP;
     [SerializeField] private TextMeshProUGUI _actionCritHitChanceTMP;
 
+    //need more work - displays everything to UI
     public void UpdateInfoData(BaseAction baseAction)
     {
+        //Set fresh data
         if (_actionNameTMP)
-            _actionNameTMP.text = baseAction.GetActionName().ToUpper();
+            _actionNameTMP.text = baseAction.GetActionName();
         if (_actionDescriptionTMP)
             _actionDescriptionTMP.text = baseAction.GetActionDescription();
-        if (_actionCooldownTMP)
-            _actionCooldownTMP.text = baseAction.GetAbilityCooldown().ToString();
 
         if (baseAction.ActionUsingBoth())
         {
@@ -53,20 +57,26 @@ public class ActionInfo : MonoBehaviour
                 _actionCostGroup.SetActive(true);
         }
 
-        if (_actionTypeTMP && baseAction.GetRange() == ActionRange.Melee)
+        if (_actionTypeGroup)
         {
-            _actionTypeTMP.text = "Melee";
-            //_actionTypeImage.sprite = ;
-        }
-        else if (baseAction.IsBasicAbility())
-        {
-
-        }
-        else
-        {
-            if (_actionTypeTMP)
-                _actionTypeTMP.text = "Range";
-            //_actionTypeImage.sprite = ;
+            _actionTypeGroup.SetActive(true);
+            if (_actionTypeTMP && baseAction.GetRange() == ActionRange.Melee)
+            {
+                _actionTypeTMP.text = "Melee";
+                _actionTypeImage.sprite = _actionMeleeImage;
+            }
+            else if (baseAction.IsBasicAbility() && _actionNameTMP.text != "Basic Attack")
+            {
+                _actionTypeGroup.SetActive(false);
+            }
+            else
+            {
+                if (_actionTypeTMP)
+                {
+                    _actionTypeTMP.text = "Range";
+                    _actionTypeImage.sprite = _actionRangeImage;
+                }
+            }
         }
 
         if (_actionFavorCostGroup)
@@ -79,6 +89,8 @@ public class ActionInfo : MonoBehaviour
             {
                 BaseAbility isBaseAbility = (BaseAbility)baseAction;
                 _actionAttackGroup.SetActive(true);
+                _actionCoooldownGroup.SetActive(true);
+                _actionCooldownTMP.text = isBaseAbility.GetAbilityCooldown().ToString();
                 _actionAccuracyTMP.text = $"{isBaseAbility.GetAbilityHitChance()}%";
                 _actionCritHitChanceTMP.text = $"{isBaseAbility.GetCritChance()}%";
                 _actionPostureTMP.text = $"{isBaseAbility.GetPostureDamage()}";
@@ -90,6 +102,7 @@ public class ActionInfo : MonoBehaviour
             else
             {
                 _actionAttackGroup.SetActive(false);
+                _actionCoooldownGroup.SetActive(false);
             }
     }
 

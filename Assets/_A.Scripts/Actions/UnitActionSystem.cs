@@ -38,19 +38,7 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
-    {
-        savedAction = null;
-        selectedAction = null;
-        //SetSelectedAction(selectedUnit.GetAction<MoveAction>());
-    }
-
     private void OnEnable() { Invoke("DelayOnEnable", 1); }
-    private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
-    {
-        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
-
-    }
 
     private void Update()
     {
@@ -86,7 +74,7 @@ public class UnitActionSystem : MonoBehaviour
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
         savedAction = null;
     }
-    public void IsHoveringOnUI(bool ui) { hoveringUI = ui; }
+    public void SetHoveringOnUI(bool ui) { hoveringUI = ui; }
     public Unit GetSelectedUnit() { return selectedUnit; }
     public void SetSelectedAction(BaseAction baseAction)
     {
@@ -212,6 +200,18 @@ public class UnitActionSystem : MonoBehaviour
         OnBusyChanged?.Invoke(this, isBusy);
     }
 
+    private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
+    {
+        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
+
+    }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
+    {
+        savedAction = null;
+        selectedAction = null;
+        //SetSelectedAction(selectedUnit.GetAction<MoveAction>());
+    }
     private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
     {
         if (isBusy) { return; }

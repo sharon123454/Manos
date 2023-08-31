@@ -1,179 +1,167 @@
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
 using System;
-using TMPro;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
-    [SerializeField] private Transform actionButtonPrefab, abilitesButtonContainerTransform, spellsButtonContainerTransform;
-    private List<ActionButtonUI> actionButtonUIList;
-    [Space]
-    [Header("AbilitiesContainer")]
-    [SerializeField] private RectTransform AbilitiesContainerGameObject;
-    [SerializeField] private RectTransform SpellsContainerGameObject;
-    float AbilitiesContainerInisialX;
-    float SpellsContainerInisialX;
+    [SerializeField] private RectTransform actionButtonPrefab;
+    [SerializeField] private RectTransform _actionsButtonContainer;//Container where the ActionButtonUI created
+    [SerializeField] private RectTransform _abilityButtonsContainer;// -_actionsButtonContainer- moved to here when ability button pressed
+    [SerializeField] private RectTransform _spellButtonsContainer;// -_actionsButtonContainer- moved to here when spell button pressed
+    [SerializeField] private GameObject _subMenueFramePrefab;//Frame should be at the bottom of the hirarchy, so instantiated last (is this good?)
+    [Tooltip("0-Basic Attack, 1-Move, 2-Dash, 3-Block, 4-Dodge")]
+    [SerializeField] private List<ActionButtonUI> _basicActionButtonUIList;//Reference for the static basic abilities
 
-    [Space]
-    [Header("Abilties")]
-    [SerializeField] private Image abilitiesOutLine;
-    [SerializeField] private Image spellsOutLine;
-    float abilitiesOutLineInitialX;
-    float abilitiesOutLineInitialWidth;
-
-    [Space]
-    [Header("Spells")]
-    float spellsOutLineInitialX;
-    float spellsOutLineInitialWidth;
-
-
-    private void Awake()
-    {
-        actionButtonUIList = new List<ActionButtonUI>(10);
-        AbilitiesContainerInisialX = AbilitiesContainerGameObject.anchoredPosition.x;
-        abilitiesOutLineInitialX = abilitiesOutLine.rectTransform.anchoredPosition.x;
-        abilitiesOutLineInitialWidth = abilitiesOutLine.rectTransform.sizeDelta.x;
-
-        SpellsContainerInisialX = SpellsContainerGameObject.anchoredPosition.x;
-        spellsOutLineInitialX = spellsOutLine.rectTransform.anchoredPosition.x;
-        spellsOutLineInitialWidth = spellsOutLine.rectTransform.sizeDelta.x;
-    }
+    private List<ActionButtonUI> _activeActionButtonsUIList = new List<ActionButtonUI>(20);
 
     private void Start()
     {
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
-        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
+        foreach (ActionButtonUI basicActionButton in _basicActionButtonUIList)
+            _activeActionButtonsUIList.Add(basicActionButton);
 
-        CreateUnitActionButtonsForAbilites();
-        UpdateActionSystemVisuals();
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
+        ActionButtonUI.OnAnyActionButtonPressed += ActionButtonUI_OnAnyActionButtonPressed;
+
+        SetBasicActionButtons();
     }
-    private void Update()
+
+    //Called through Buttons -forAbilities- set thought inspector; says if ability or spell pressed
+    public void CreateUnitActionButtons(bool forAbilities)
     {
-        
+        //getting the current unit reference
+        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+
+        //clearing the Button Data list
+        _activeActionButtonsUIList.Clear();
+
+        //clearing the Game Objects container parent
+        foreach (Transform buttonTransform in _actionsButtonContainer)
+            Destroy(buttonTransform.gameObject);
+
+        //set container in parent
+        if (forAbilities)
+            _actionsButtonContainer.SetParent(_abilityButtonsContainer);
+        else
+            _actionsButtonContainer.SetParent(_spellButtonsContainer);
+
+        //re-setting position
+        _actionsButtonContainer.localPosition = new Vector3(0, 142.5f, 0);
+
+        //activating GameObject
+        _actionsButtonContainer.gameObject.SetActive(true);
+
+        //re-adding basic actions to Updating list
+        foreach (ActionButtonUI basicActionButton in _basicActionButtonUIList)
+            _activeActionButtonsUIList.Add(basicActionButton);
+
+        if (selectedUnit)
+        {
+            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
+            {
+                if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility())
+                {
+                    if (forAbilities && baseAction.GetFavorCost() == 0)
+                    {
+                        RectTransform newAbilityButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
+                        ActionButtonUI abilityUI = newAbilityButton.GetComponentInChildren<ActionButtonUI>();
+                        abilityUI.SetButtonAction(baseAction);
+                        _activeActionButtonsUIList.Add(abilityUI);
+                    }
+                    else if (!forAbilities && baseAction.GetFavorCost() > 0)
+                    {
+                        RectTransform newSpellButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
+                        ActionButtonUI spellUI = newSpellButton.GetComponentInChildren<ActionButtonUI>();
+                        spellUI.SetButtonAction(baseAction);
+                        _activeActionButtonsUIList.Add(spellUI);
+                    }
+                }
+            }
+        }
+
+        Instantiate(_subMenueFramePrefab, _actionsButtonContainer);
+        UpdateActionSystemButtons();
     }
-    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
+
+    private void SetBasicActionButtons()
     {
-        UpdateActionSystemVisuals();
+        Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+
+        if (SelectedUnit)
+        {
+            foreach (BaseAction baseAction in SelectedUnit.GetBaseActionArray())
+            {
+                if (baseAction.enabled && baseAction.IsBasicAbility())
+                {
+                    if (baseAction.GetActionName() == "Basic Attack")
+                    {
+                        _basicActionButtonUIList[0].SetButtonAction(baseAction);
+                    }
+                    if (baseAction.GetActionName() == "Move")
+                    {
+                        _basicActionButtonUIList[1].SetButtonAction(baseAction);
+                    }
+                    if (baseAction.GetActionName() == "Dash")
+                    {
+                        _basicActionButtonUIList[2].SetButtonAction(baseAction);
+                    }
+                    if (baseAction.GetActionName() == "Block")
+                    {
+                        _basicActionButtonUIList[3].SetButtonAction(baseAction);
+                    }
+                    if (baseAction.GetActionName() == "Dodge")
+                    {
+                        _basicActionButtonUIList[4].SetButtonAction(baseAction);
+                    }
+                }
+            }
+        }
+    }
+    private void UpdateActionSystemButtons()
+    {
+        foreach (ActionButtonUI actionButtonUI in _activeActionButtonsUIList)
+            if (actionButtonUI.isActiveAndEnabled)
+                actionButtonUI.UpdateButtonCoolDown();
     }
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
         if (TurnSystem.Instance.IsPlayerTurn())
         {
-            abilitiesOutLine.gameObject.SetActive(true);
-            spellsOutLine.gameObject.SetActive(true);
-        }
-        else
-        {
-            abilitiesOutLine.gameObject.SetActive(false);
-            spellsOutLine.gameObject.SetActive(false);
-        }
-        if (abilitesButtonContainerTransform)
-            abilitesButtonContainerTransform.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
-        else
-            spellsButtonContainerTransform.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
-
-        UpdateActionSystemVisuals();
-    }
-
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
-    {
-
-        if (abilitesButtonContainerTransform.gameObject.activeInHierarchy)
-        {
-            CreateUnitActionButtonsForAbilites();
-            SpellsContainerGameObject.gameObject.SetActive(false);
-        }
-        else
-        {
-            CreateUnitActionButtonsForSpells();
-            AbilitiesContainerGameObject.gameObject.SetActive(false);
+            SetBasicActionButtons();
         }
 
-        UpdateActionSystemVisuals();
-
-    }
-
-
-    public void CreateUnitActionButtonsForAbilites()
-    {
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        AbilitiesContainerGameObject.gameObject.SetActive(true);
-        SpellsContainerGameObject.gameObject.SetActive(false);
-        foreach (Transform buttonTransform in abilitesButtonContainerTransform)
-            Destroy(buttonTransform.gameObject);
-        float abilityContainerinitialX = AbilitiesContainerInisialX;
-        float _initialX = abilitiesOutLineInitialX;
-        float _initialWidth = abilitiesOutLineInitialWidth;
-        AbilitiesContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, AbilitiesContainerGameObject.anchoredPosition.y);
-        abilitiesOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, abilitiesOutLine.rectTransform.anchoredPosition.y);
-        abilitiesOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, abilitiesOutLine.rectTransform.sizeDelta.y);
-        actionButtonUIList.Clear();
-
-        if (selectedUnit)
+        if (_actionsButtonContainer)
         {
-            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
-            {
-                if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility() && baseAction.GetFavorCost() == 0)
-                {
-                    AbilitiesContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, AbilitiesContainerGameObject.anchoredPosition.y);
-                    abilitiesOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, abilitiesOutLine.rectTransform.anchoredPosition.y);
-                    abilitiesOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, abilitiesOutLine.rectTransform.sizeDelta.y);
-                    Transform actionButtonTransform = Instantiate(actionButtonPrefab, abilitesButtonContainerTransform);
-                    ActionButtonUI actionbuttonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
-                    actionbuttonUI.SetBaseAction(baseAction);
-                    actionButtonUIList.Add(actionbuttonUI);
-                    _initialX += 33f;
-                    _initialWidth += 33 * 2;
-                    abilityContainerinitialX -= 33f;
-                }
-            }
+            _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
-    public void CreateUnitActionButtonsForSpells()
+    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
     {
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        SpellsContainerGameObject.gameObject.SetActive(true);
-        AbilitiesContainerGameObject.gameObject.SetActive(false);
-        foreach (Transform buttonTransform in spellsButtonContainerTransform)
-            Destroy(buttonTransform.gameObject);
-        float abilityContainerinitialX = SpellsContainerInisialX;
-        float _initialX = spellsOutLineInitialX;
-        float _initialWidth = spellsOutLineInitialWidth;
-        SpellsContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, SpellsContainerGameObject.anchoredPosition.y);
-        spellsOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, spellsOutLine.rectTransform.anchoredPosition.y);
-        spellsOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, spellsOutLine.rectTransform.sizeDelta.y);
-        actionButtonUIList.Clear();
+        UpdateActionSystemButtons();
 
-        if (selectedUnit)
+        if (_actionsButtonContainer)
         {
-            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
-            {
-                if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility() && baseAction.GetFavorCost() > 0)
-                {
-                    SpellsContainerGameObject.anchoredPosition = new Vector2(abilityContainerinitialX, SpellsContainerGameObject.anchoredPosition.y);
-                    spellsOutLine.rectTransform.anchoredPosition = new Vector2(_initialX, spellsOutLine.rectTransform.anchoredPosition.y);
-                    spellsOutLine.rectTransform.sizeDelta = new Vector2(_initialWidth, spellsOutLine.rectTransform.sizeDelta.y);
-                    Transform actionButtonTransform = Instantiate(actionButtonPrefab, spellsButtonContainerTransform);
-                    ActionButtonUI actionbuttonUI = actionButtonTransform.GetComponent<ActionButtonUI>();
-                    actionbuttonUI.SetBaseAction(baseAction);
-                    actionButtonUIList.Add(actionbuttonUI);
-                    _initialX += 33f;
-                    _initialWidth += 33 * 2;
-                    abilityContainerinitialX -= 33f;
-                }
-            }
+            _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
-
-    private void UpdateActionSystemVisuals()
+    private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI buttonClicked)
     {
-        foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
-            if (actionButtonUI.isActiveAndEnabled)
-                actionButtonUI.UpdateButtonVisual();
+        BaseAction clickedAction = buttonClicked.GetAction();
+        if (clickedAction && _actionsButtonContainer && clickedAction.IsBasicAbility())
+        {
+            _actionsButtonContainer.gameObject.SetActive(false);
+        }
+    }
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)//code inside needs adressing/needs to update if open
+    {
+        SetBasicActionButtons();
+
+        if (_actionsButtonContainer)
+        {
+            _actionsButtonContainer.gameObject.SetActive(false);
+        }
     }
 
 }

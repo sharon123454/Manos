@@ -33,11 +33,11 @@ public class TurnSystemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UnitActionSystem.Instance.IsHoveringOnUI(true);
+        UnitActionSystem.Instance.SetHoveringOnUI(true);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        UnitActionSystem.Instance.IsHoveringOnUI(false);
+        UnitActionSystem.Instance.SetHoveringOnUI(false);
     }
 
     private void UpdateTurnText()

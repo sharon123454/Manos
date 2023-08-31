@@ -338,8 +338,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 557932103328165827}
   - {fileID: 2193075843506521215}
+  - {fileID: 557932103328165827}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -361,15 +361,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionNameTMP: {fileID: 8222392353415239564}
-  _actionCooldownTMP: {fileID: 5235501289315899996}
   _actionDescriptionTMP: {fileID: 4768338875222146210}
+  _actionCoooldownGroup: {fileID: 8881584221840525562}
+  _actionCooldownTMP: {fileID: 5235501289315899996}
   _actionCostGroup: {fileID: 8158708203054421251}
   _bonusActionCostGroup: {fileID: 8126272162494329031}
   _actionFavorCostGroup: {fileID: 8075617997385975361}
   _actionFavorTMP: {fileID: 3750824194355003430}
   _actionTypeGroup: {fileID: 9011619248094784135}
-  _actionTypeImage: {fileID: 7243456700234655913}
   _actionTypeTMP: {fileID: 318785926897302}
+  _actionTypeImage: {fileID: 7243456700234655913}
+  _actionMeleeImage: {fileID: -2111866555, guid: 938c53ed7a70f624b897f48c45c57283, type: 3}
+  _actionRangeImage: {fileID: -1274161354, guid: 938c53ed7a70f624b897f48c45c57283, type: 3}
   _actionAttackGroup: {fileID: 8756043946217982959}
   _actionAccuracyTMP: {fileID: 1276466096909326505}
   _actionDamageTMP: {fileID: 6759871919906099264}
@@ -393,14 +396,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: -15
+  m_Spacing: -5.25
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 1
+  m_ReverseArrangement: 0
 --- !u!1 &3063006796090875148
 GameObject:
   m_ObjectHideFlags: 0
