@@ -46,7 +46,7 @@ public class UnitActionSystem : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         //canceles current action
-        if (ManosInputController.Instance.Space.IsPressed())
+        if (ManosInputController.Instance.Space.IsPressed())// Move to buttonUI
         {
             if (selectedAction is MoveAction)
             { }

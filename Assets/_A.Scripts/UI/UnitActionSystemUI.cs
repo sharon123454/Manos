@@ -127,10 +127,10 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
-        if (TurnSystem.Instance.IsPlayerTurn())
-        {
-            SetBasicActionButtons();
-        }
+        if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
+
+        SetBasicActionButtons();
+        ActionButtonUI.UnselectButtons();
 
         if (_actionsButtonContainer)
         {
@@ -139,26 +139,32 @@ public class UnitActionSystemUI : MonoBehaviour
     }
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
     {
+        if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
+
         UpdateActionSystemButtons();
+        ActionButtonUI.UnselectButtons();
 
         if (_actionsButtonContainer)
         {
+            _actionsButtonContainer.gameObject.SetActive(false);
+        }
+    }
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
+    {
+        SetBasicActionButtons();
+
+        if (_actionsButtonContainer)
+        {
+            ActionButtonUI.UnselectButtons();
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
     private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI buttonClicked)
     {
-        BaseAction clickedAction = buttonClicked.GetAction();
-        if (clickedAction && _actionsButtonContainer && clickedAction.IsBasicAbility())
-        {
-            _actionsButtonContainer.gameObject.SetActive(false);
-        }
-    }
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)//code inside needs adressing/needs to update if open
-    {
-        SetBasicActionButtons();
+        if (!buttonClicked) { return; }
 
-        if (_actionsButtonContainer)
+        BaseAction clickedAction = buttonClicked.GetAction();
+        if (_actionsButtonContainer && clickedAction && clickedAction.IsBasicAbility())
         {
             _actionsButtonContainer.gameObject.SetActive(false);
         }

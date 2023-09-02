@@ -19,10 +19,10 @@ public class UnitManagerUI : MonoBehaviour
         UnitManager.GameWon += UnitManager_GameWon;
     }
 
-    private void Instance_OnSelectedUnitChanged(object sender, Unit e)
+    private void Instance_OnSelectedUnitChanged(object sender, Unit selectedUnit)
     {
-        if (!e.IsEnemy())
-            SetNewMainUnit(e.GetUnitUI());
+        if (TurnSystem.Instance.IsPlayerTurn())
+            SetNewMainUnit(selectedUnit.GetUnitUI());
     }
 
     /// <summary>
@@ -50,8 +50,8 @@ public class UnitManagerUI : MonoBehaviour
         NewMain.transform.SetParent(SelectedMember.transform);
         NewMain.transform.localScale = Vector3.one;
         NewMain.GetComponent<RectTransform>().localPosition = Vector3.zero;
-
     }
+
     private void UnitManager_GameLost(object sender, EventArgs e)
     {
         _LosePanel.SetActive(true);

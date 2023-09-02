@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         if (!isEnemy)
-            unitUI = GameObject.Find($"{name}UI");
+            unitUI = GameObject.Find($"UI_{name}Portrait");
 
         statSheet = GetComponent<UnitStats>();
         animator = GetComponent<UnitAnimator>();

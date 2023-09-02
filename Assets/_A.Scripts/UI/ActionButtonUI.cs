@@ -20,6 +20,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private GameObject _cooldownBg;
     [SerializeField] private Image _cooldownCircleImage;
     [SerializeField] private TextMeshProUGUI _currentCooldownAmountTMP;
+    [SerializeField] private bool _isBasicAction;
 
     private BaseAction _myAction;
     private Button _myButton;
@@ -42,38 +43,48 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         OnAnyActionButtonPressed -= ActionButtonUI_OnAnyActionButtonPressed;
     }
 
-    //Called through inspector
     public void ActionButtonPressed()
     {
         Debug.Log($"Object name: {name} has been pressed");
         OnAnyActionButtonPressed?.Invoke(this, this);
     }
-
+    public bool GetIsBaseActionButton() { return _isBasicAction; }
     public BaseAction GetAction() { return _myAction; }
+    //will need rework for when we get ability image in grayscale VvvvvV
     public void SetButtonAction(BaseAction baseAction)
     {
         //caching the current action to the button
         _myAction = baseAction;
 
-        //setting button function by cached action
-        //_myButton.onClick.RemoveAllListeners(); <------------------------------this is problematic for ability & spell buttons
-        _myButton.onClick.AddListener(() =>
+        //setting button function by cached action except ability & spell button contaners
+        if (!(_isBasicAction && !_myAction))
         {
-            ActionButtonPressed();
-            UnitActionSystem.Instance.SetSelectedAction(_myAction);
-            UnitActionSystem.Instance.savedAction = _myAction;
-        });
-
-        //setting ability image if it has an image (might need rework)
-        if (_abilityButtonUIImage && baseAction.GetAbilityImage() != null)
-        {
-            _selectedImage = baseAction.GetAbilityImage();
-            _abilityButtonUIImage.sprite = _selectedImage;
-            //if (!_cooldownBg.activeSelf) { } <--when we get grayscaled UI 
+            if (_myButton && _myAction)
+            {
+                _myButton.onClick.RemoveAllListeners();
+                _myButton.onClick.AddListener(() =>
+                {
+                    UnitActionSystem.Instance.SetSelectedAction(_myAction);
+                    UnitActionSystem.Instance.savedAction = _myAction;
+                    ActionButtonPressed();
+                });
+            }
         }
 
-        //update the info tab with the current action
-        actionInfo.UpdateInfoData(_myAction);
+        if (_myAction)
+        {
+            //setting ability image if it has an image
+            if (_abilityButtonUIImage && _myAction.GetAbilityImage())
+            {
+                _selectedImage = _myAction.GetAbilityImage();
+                _abilityButtonUIImage.sprite = _selectedImage;
+                //if (!_cooldownBg.activeSelf) { } <----------------------------------when we get grayscaled UI 
+            }
+
+            //update the info tab with the current action
+            if (actionInfo)
+                actionInfo.UpdateInfoData(_myAction);
+        }
     }
     public void UpdateButtonCoolDown()
     {
@@ -116,6 +127,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
         }
     }
+    public static void UnselectButtons()
+    {
+        OnAnyActionButtonPressed?.Invoke(null, null);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -150,22 +165,28 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI pressedButton)
     {
-        if (_selectedImage && pressedButton == this)
-        {
-            _myImage.sprite = _selectedImage;
-        }
-
-        //if (pressedButton.GetAction() && !pressedButton.GetAction().IsBasicAbility() && pressedButton != this)
-        //{
-        //    if (_unselectedImage)
-        //        _myImage.sprite = _unselectedImage;
-        //}
-
-        else
+        if (!pressedButton)
         {
             if (_unselectedImage)
                 _myImage.sprite = _unselectedImage;
+            return;
         }
-    }//needs work for selected/unselected visual
+
+        if (pressedButton)
+        {
+            if (_selectedImage && pressedButton == this)
+            {
+                _myImage.sprite = _selectedImage;
+            }
+            else if (_unselectedImage && pressedButton != this && pressedButton.GetIsBaseActionButton())
+            {
+                _myImage.sprite = _unselectedImage;
+            }
+            else if (_myAction)
+            {
+
+            }
+        }
+    }
 
 }
