@@ -143,7 +143,7 @@ Transform:
   - {fileID: 3959014731875403017}
   - {fileID: 7874558692601403815}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7334543682236001560
 MonoBehaviour:
@@ -157,8 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healVFX: []
-  _meleeAttackVFX: []
+  _onRecieveDamageVFX: []
   _stunVFX: []
   _rootVFX: []
   _hasteVFX: []
@@ -171,11 +170,9 @@ MonoBehaviour:
   _corruptionVFX: []
   _regenerationVFX: []
   _cowardPlagueVFX: []
-  _ability1A: []
-  _ability2A: []
-  _ability3A: []
-  _ability4A: []
-  _ability5A: []
+  _aBasicAttack: []
+  _aPuncture: []
+  _aMurder: []
   m_InvisibleMat: {fileID: 0}
   hairGroup:
     UnitMeshRendererGroup: []
@@ -198,16 +195,15 @@ MonoBehaviour:
   other2Group:
     UnitMeshRendererGroup: []
     GroupMat: {fileID: 0}
-  _ability1R: []
-  _ability2R: []
+  _rEruption: []
+  _rEnsnare: []
   _ability3R: []
   _ability4R: []
   _ability5R: []
-  _SlashVFX: {fileID: 0}
-  _ability1N: []
-  _ability2N: []
-  _ability3N: []
-  _ability4N: []
+  _nBasicAttack: []
+  _nCleave: []
+  _nPommleStirke: []
+  _nEldestsDuty: []
 --- !u!95 &2983895553632698633
 Animator:
   serializedVersion: 5
@@ -5398,7 +5394,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9502f105c0bcfd64595052eba755330c, type: 2}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6157,7 +6153,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6fd5a196f7c46a045be73f576ace7472, type: 2}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6380,7 +6376,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dc9f16548b173034fa5dee7d12194ba6, type: 2}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6634,7 +6630,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b44a7a282dd444b4d886598fc81a48a8, type: 2}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7559,7 +7555,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6634129585899134021, guid: 0eb2c6f0947e0f34e9d1ca1c0b34552f, type: 3}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8061,7 +8057,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9502f105c0bcfd64595052eba755330c, type: 2}
+  - {fileID: 2100000, guid: 23bfa6133eb962d46a528297c7e45acd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8690,6 +8686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Raynard_Staff
       objectReference: {fileID: 0}
+    - target: {fileID: 648757841676465931, guid: cc740d851f60f2a46a8294415508386c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5be86a3a8e8261b4d8adcc4fde7c0ba5, type: 2}
     - target: {fileID: 2652682132868459798, guid: cc740d851f60f2a46a8294415508386c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8734,6 +8734,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 80.97
       objectReference: {fileID: 0}
+    - target: {fileID: 7945465636933651513, guid: cc740d851f60f2a46a8294415508386c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5be86a3a8e8261b4d8adcc4fde7c0ba5, type: 2}
+    - target: {fileID: 8541661743567960076, guid: cc740d851f60f2a46a8294415508386c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5be86a3a8e8261b4d8adcc4fde7c0ba5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
