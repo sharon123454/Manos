@@ -16,8 +16,6 @@ public class UnitManager : MonoBehaviour
     private bool partyWipped = false, partyWin = false;
     private int friendlyID = 0;
 
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this)

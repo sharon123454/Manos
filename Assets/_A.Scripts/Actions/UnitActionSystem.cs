@@ -32,13 +32,7 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
-        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-    }
-
-    private void OnEnable() { Invoke("DelayOnEnable", 1); }
+    private void Start() { StartCoroutine(DelayOnStart()); }
 
     private void Update()
     {
@@ -68,6 +62,20 @@ public class UnitActionSystem : MonoBehaviour
         ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
+    public void SetSelectedUnit(Unit unit)
+    {
+        if (unit)
+        {
+            selectedUnit = unit;
+            savedAction = null;
+            selectedAction = null;
+            OnSelectedUnitChanged?.Invoke(this, selectedUnit);
+            //SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
+
+            //if (!savedAction)
+            //    savedAction = selectedUnit.GetAction<MoveAction>();
+        }
+    }
     public void InvokeAbilityFinished()
     {
         CheckActionUse();
@@ -107,20 +115,6 @@ public class UnitActionSystem : MonoBehaviour
     public BaseAction GetSelectedAction() { return selectedAction; }
     public MoveAction GetSelectedMoveAction() { return selectedMoveAction; }
     public BaseAbility GetSelectedBaseAbility() { return selectedBaseAbility; }
-    public void SetSelectedUnit(Unit unit)
-    {
-        if (unit)
-        {
-            selectedUnit = unit;
-
-            //SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
-
-            //if (!savedAction)
-            //    savedAction = selectedUnit.GetAction<MoveAction>();
-
-            OnSelectedUnitChanged?.Invoke(this, selectedUnit);
-        }
-    }
 
     private void CheckActionUse()
     {
@@ -200,18 +194,23 @@ public class UnitActionSystem : MonoBehaviour
         OnBusyChanged?.Invoke(this, isBusy);
     }
 
-    private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
+    private IEnumerator DelayOnStart()
     {
+        yield return null;
+        yield return null;
+        List<Unit> friendlyUnits = UnitManager.Instance.GetFriendlyUnitList();
+        if (friendlyUnits.Count > 0)
+        {
+            SetSelectedUnit(friendlyUnits[0]);
+            Debug.Log($"found unit {friendlyUnits[0]} on start");
+        }
+        else
+            Debug.Log($"{name}: unit not found");
+
         ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
-
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
-    {
-        savedAction = null;
-        selectedAction = null;
-        //SetSelectedAction(selectedUnit.GetAction<MoveAction>());
-    }
     private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
     {
         if (isBusy) { return; }
