@@ -108,6 +108,8 @@ public class UnitActionSystem : MonoBehaviour
             AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
+        else 
+            AOEManager.Instance.DisableAOE();
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
