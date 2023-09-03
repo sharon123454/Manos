@@ -14,6 +14,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private ActionInfo actionInfo;
     [SerializeField] private Sprite _selectedImage;
     [SerializeField] private Sprite _unselectedImage;
+    [SerializeField] private int _framesToOpenInfo = 5;
 
     [Header("Ability & Spell slots")]
     [SerializeField] private Image _abilityButtonUIImage;
@@ -22,8 +23,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI _currentCooldownAmountTMP;
     [SerializeField] private bool _isBasicAction;
 
+    private static Coroutine _InfoActivationCoroutine;
     private BaseAction _myAction;
     private Button _myButton;
+    private bool _isHovored;
     private Image _myImage;
 
     private void Awake()
@@ -132,18 +135,27 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         OnAnyActionButtonPressed?.Invoke(null, null);
     }
 
+    private IEnumerator ActivateIntoUI()
+    {
+        for (int i = 0; i < _framesToOpenInfo; i++)
+            yield return null;
+
+        if (actionInfo && _isHovored)
+        {
+            actionInfo.gameObject.SetActive(true);
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        _isHovored = true;
         UnitActionSystem.Instance.SetHoveringOnUI(true);
         CursorManager.Instance.SetClickableCursor();
 
         if (!_myAction) { return; }
         UnitActionSystem.Instance.SetSelectedAction(_myAction);
 
-        if (actionInfo)
-        {
-            actionInfo.gameObject.SetActive(true);
-        }
+        _InfoActivationCoroutine = StartCoroutine(ActivateIntoUI());
 
         //change cursor?
         //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())
@@ -152,10 +164,11 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        _isHovored = false;
         CursorManager.Instance.SetDefaultCursor();
         UnitActionSystem.Instance.SetHoveringOnUI(false);
 
-        if (actionInfo)
+        if (actionInfo && actionInfo.gameObject.activeSelf)
         {
             actionInfo.gameObject.SetActive(false);
         }
