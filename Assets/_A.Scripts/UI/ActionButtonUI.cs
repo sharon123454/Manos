@@ -51,6 +51,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Debug.Log($"Object name: {name} has been pressed");
         OnAnyActionButtonPressed?.Invoke(this, this);
     }
+    public void PressButton() { _myButton.onClick.Invoke(); }
     public bool GetIsBaseActionButton() { return _isBasicAction; }
     public BaseAction GetAction() { return _myAction; }
     //will need rework for when we get ability image in grayscale VvvvvV
@@ -130,10 +131,11 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
         }
     }
-    public static void UnselectButtons()
-    {
-        OnAnyActionButtonPressed?.Invoke(null, null);
-    }
+
+    //public static void UnselectButtons()//- needs to see if needed
+    //{
+    //    OnAnyActionButtonPressed?.Invoke(null, null);
+    //}
 
     private IEnumerator ActivateIntoUI()
     {
@@ -178,12 +180,13 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI pressedButton)
     {
-        if (!pressedButton)
-        {
-            if (_unselectedImage)
-                _myImage.sprite = _unselectedImage;
-            return;
-        }
+        //related to UnselectButtons, for now it always goes to Move
+        //if (!pressedButton)
+        //{
+        //    if (_unselectedImage)
+        //        _myImage.sprite = _unselectedImage;
+        //    return;
+        //}
 
         if (pressedButton)
         {

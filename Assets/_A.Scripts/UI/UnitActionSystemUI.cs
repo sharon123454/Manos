@@ -130,7 +130,7 @@ public class UnitActionSystemUI : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         SetBasicActionButtons();
-        ActionButtonUI.UnselectButtons();
+        _basicActionButtonUIList[1].PressButton();//move button clicked
 
         if (_actionsButtonContainer)
         {
@@ -142,7 +142,7 @@ public class UnitActionSystemUI : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         UpdateActionSystemButtons();
-        ActionButtonUI.UnselectButtons();
+        _basicActionButtonUIList[1].PressButton();//move button clicked
 
         if (_actionsButtonContainer)
         {
@@ -155,7 +155,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         if (_actionsButtonContainer)
         {
-            ActionButtonUI.UnselectButtons();
+            _basicActionButtonUIList[1].PressButton();
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
