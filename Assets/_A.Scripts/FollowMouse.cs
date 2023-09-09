@@ -32,6 +32,7 @@ public class FollowMouse : MonoBehaviour
             _diagLinePooler.Add(diagLine);
             _linePooler.Add(line);
         }
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
     }
 
     void Update()
@@ -43,6 +44,11 @@ public class FollowMouse : MonoBehaviour
             transform.position = _rayCastHit.point;
             Debug.DrawRay(_ray.origin, _ray.direction * 10, Color.red, 0.01f);
         }
+    }
+
+    private void OnDisable()
+    {
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
     }
 
     public void DrawLineOnPath(List<GridPosition> _pathGridPositionList)
@@ -97,5 +103,7 @@ public class FollowMouse : MonoBehaviour
             _linesAreOut = false;
         }
     }
+
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit selectedUnit) { TryResetLines(); }
 
 }

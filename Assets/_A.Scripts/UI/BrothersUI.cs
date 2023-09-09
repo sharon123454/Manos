@@ -19,34 +19,13 @@ public class BrothersUI : MonoBehaviour
     [Header("Dev Data:")]
     [SerializeField] private float delayInitTime = 0.5f;
 
-    private Color actionBarDefualtColor;
-    private Color BonusactionBarDefualtColor;
     private WaitForSeconds initDelay;
     [SerializeField] private Unit specificBro;
 
     void Start()
     {
         initDelay = new WaitForSeconds(delayInitTime);
-        BonusactionBarDefualtColor = bonusActionImage.color;
-        actionBarDefualtColor = actionImage.color;
         StartCoroutine(InitBrotherUI());
-    }
-
-    IEnumerator InitBrotherUI()
-    {
-        yield return initDelay;
-
-        List<Unit> unitLlist = UnitManager.Instance.GetFriendlyUnitList();
-
-        string fixedName = "";
-        for (int i = 0; i < name.Length - 2; i++)
-            fixedName += name[i];
-
-        foreach (Unit singleUnit in unitLlist)
-            if (fixedName == singleUnit.name)
-                specificBro = singleUnit;
-
-        statusEffectUI.InitStatusUI(specificBro);
     }
 
     void Update()
@@ -107,6 +86,27 @@ public class BrothersUI : MonoBehaviour
             }
         }
     }
+
+    IEnumerator InitBrotherUI()
+    {
+        yield return initDelay;
+
+        List<Unit> unitLlist = UnitManager.Instance.GetFriendlyUnitList();
+
+        string fixedName = "";
+        for (int i = 3; i < name.Length - 8; i++)
+            fixedName += name[i];
+
+        foreach (Unit singleUnit in unitLlist)
+            if (fixedName == singleUnit.name)
+                specificBro = singleUnit;
+
+        if (specificBro)
+            statusEffectUI.InitStatusUI(specificBro);
+        else
+            Debug.Log("Missing Unit reference");
+    }
+
     void ActionSpineBlinking() { actionSpine.AnimationState.SetAnimation(index, "Action Blinking", true); }
     void ActionSpineStatic() { actionSpine.AnimationState.SetAnimation(0, "Action Blinking", true); }
     void ActionSpineNone() { actionSpine.AnimationState.SetAnimation(0, "None", true); }

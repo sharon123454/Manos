@@ -3,253 +3,206 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 using TMPro;
 
+[RequireComponent(typeof(Button))]
 public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] Button button;
-    [SerializeField] GameObject actionInfo;
-    [SerializeField] TextMeshProUGUI abilityNameUgui;
-    [SerializeField] TextMeshProUGUI descriptionUgui;
-    [SerializeField] TextMeshProUGUI damageProUgui;
-    [SerializeField] TextMeshProUGUI postureProUgui;
-    [SerializeField] TextMeshProUGUI favorProUgui;
-    [SerializeField] TextMeshProUGUI critHitChanceProUgui;
-    [SerializeField] TextMeshProUGUI statusHitChanceProUgui;
-     [SerializeField] TextMeshProUGUI cooldownProUgui;
-    [SerializeField] TextMeshProUGUI cooldownVisualProUgui;
-    [SerializeField] Slider cooldownSlider;
+    public static event EventHandler<ActionButtonUI> OnAnyActionButtonPressed;
 
-    [SerializeField] GameObject actionSelected;
-    [SerializeField] GameObject actionOutline;
+    [SerializeField] private ActionInfo actionInfo;
+    [SerializeField] private Sprite _selectedImage;
+    [SerializeField] private Sprite _unselectedImage;
+    [SerializeField] private int _framesToOpenInfo = 5;
 
-    [SerializeField] GameObject bonusActionSelected;
-    [SerializeField] GameObject bonusActionOutline;
-    [SerializeField] GameObject rangedAction;
-    [SerializeField] GameObject meleeAction;
-    [SerializeField] GameObject favorAction;
+    [Header("Ability & Spell slots")]
+    [SerializeField] private Image _abilityButtonUIImage;
+    [SerializeField] private GameObject _cooldownBg;
+    [SerializeField] private Image _cooldownCircleImage;
+    [SerializeField] private TextMeshProUGUI _currentCooldownAmountTMP;
+    [SerializeField] private bool _isBasicAction;
 
-    [SerializeField] GameObject OnCooldown;
-    [SerializeField] Image abilityImage;
+    private static Coroutine _InfoActivationCoroutine;
+    private BaseAction _myAction;
+    private Button _myButton;
+    private bool _isHovored;
+    private Image _myImage;
 
-    private BaseAbility isBaseAbility;
-    private BaseAction baseAction;
-    [SerializeField] bool canUseAction = false;
-    void Start()
+    private void Awake()
     {
-        TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
-        // UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
-        //if (baseAction.GetIsBonusAction())
-        //{
-        //    bonusActionOutline.SetActive(true);
-        //    actionOutline.SetActive(false);
-        //}
-        //else
-        //{
-        //    bonusActionOutline.SetActive(false);
-        //    actionOutline.SetActive(true);
-        //}
-
-        StartCoroutine(DelayStart());
-    }
-    private void Instance_OnTurnChange(object sender, System.EventArgs e)
-    {
-        if (!baseAction.GetUnit().IsEnemy() && baseAction != null)
+        _myImage = GetComponent<Image>();
+        _myButton = GetComponent<Button>();
+        _myButton.onClick.AddListener((/*anonymouseFunction*/) =>
         {
-            UpdateButtonVisual();
-        }
-    }
-
-    public BaseAction GetBaseAction() { return baseAction; }
-
-    public void SetBaseAction(BaseAction baseAction)
-    {
-        this.baseAction = baseAction;
-        abilityNameUgui.text = baseAction.GetActionName().ToUpper();
-        if (baseAction.GetAbilityImage() != null)
-            abilityImage.sprite = baseAction.GetAbilityImage();
-
-        button.onClick.AddListener((/*anonymouseFunction*/) =>
-        {
-            UnitActionSystem.Instance.SetSelectedAction(baseAction);
-            UnitActionSystem.Instance.savedAction = baseAction;
+            ActionButtonPressed();
         });
-        if (baseAction.GetFavorCost() > 0)
-        {
-            favorAction.SetActive(true);
-        }
-        if (baseAction.GetIsBonusAction())
-            bonusActionSelected.SetActive(true);
-        else
-            actionSelected.SetActive(true);
-        if (baseAction.ActionUsingBoth())
-        {
-            bonusActionSelected.SetActive(true);
-            actionSelected.SetActive(true);
-        }
-        if (baseAction.GetRange() == ActionRange.Melee)
-        {
-            rangedAction.SetActive(false);
-            meleeAction.SetActive(true);
-        }
-        else
-        {
-            rangedAction.SetActive(true);
-            meleeAction.SetActive(false);
-        }
+
+        OnAnyActionButtonPressed += ActionButtonUI_OnAnyActionButtonPressed;
     }
 
-    public void UpdateButtonVisual()
+    private void OnDestroy()
     {
-        if (baseAction && !baseAction.GetUnit().IsEnemy())
+        OnAnyActionButtonPressed -= ActionButtonUI_OnAnyActionButtonPressed;
+    }
+
+    public void ActionButtonPressed()
+    {
+        Debug.Log($"Object name: {name} has been pressed");
+        OnAnyActionButtonPressed?.Invoke(this, this);
+    }
+    public void PressButton() { _myButton.onClick.Invoke(); }
+    public bool GetIsBaseActionButton() { return _isBasicAction; }
+    public BaseAction GetAction() { return _myAction; }
+    //will need rework for when we get ability image in grayscale VvvvvV
+    public void SetButtonAction(BaseAction baseAction)
+    {
+        //caching the current action to the button
+        _myAction = baseAction;
+
+        //setting button function by cached action except ability & spell button contaners
+        if (!(_isBasicAction && !_myAction))
         {
-            BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
-
-            Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-            if (TurnSystem.Instance.IsPlayerTurn())
+            if (_myButton && _myAction)
             {
-
-                if (bonusActionSelected && baseAction.GetIsBonusAction())
-                    bonusActionSelected.SetActive(selectedBaseAction == baseAction);
-                else if (actionSelected)
-                    actionSelected.SetActive(selectedBaseAction == baseAction);
-
-                if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !baseAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
-                    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
-                    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && baseAction.GetRange() == ActionRange.Move
-                    || baseAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
-                    || !baseAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
-                    || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost())
-                    /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+                _myButton.onClick.RemoveAllListeners();
+                _myButton.onClick.AddListener(() =>
                 {
-                    if (baseAction.GetCurrentCooldown() == 0)
-                    {
-                        if (cooldownVisualProUgui)
-                            cooldownVisualProUgui.text = "";
-                        if (OnCooldown)
-                            OnCooldown.SetActive(false);
-                        if (!baseAction.IsBasicAbility())
-                            abilityImage.color = Color.white;
-                    }
-                    else
-                    {
-                        if (OnCooldown)
-                            OnCooldown.SetActive(true);
-                        if (cooldownVisualProUgui)
-                            cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
-                        cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
-                        cooldownSlider.value = baseAction.GetCurrentCooldown();
-                        if (!baseAction.IsBasicAbility())
-                            abilityImage.color = Color.gray;
-                    }
-                }
-
-                if (baseAction.GetCurrentCooldown() == 0)
-                {
-                    if (!baseAction.IsBasicAbility())
-                        abilityImage.color = Color.white;
-                    if (cooldownVisualProUgui)
-                        cooldownVisualProUgui.text = "";
-                    if (OnCooldown)
-                        OnCooldown.SetActive(false);
-                }
-                else
-                {
-                    if (OnCooldown)
-                        OnCooldown.SetActive(true);
-                    if (cooldownVisualProUgui)
-                        cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
-                    cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
-                    cooldownSlider.value = baseAction.GetCurrentCooldown();
-                    if (!baseAction.IsBasicAbility())
-                        abilityImage.color = Color.gray;
-                }
-
+                    UnitActionSystem.Instance.SetSelectedAction(_myAction);
+                    UnitActionSystem.Instance.savedAction = _myAction;
+                    ActionButtonPressed();
+                });
             }
-            if (!baseAction.IsBasicAbility())
+        }
+
+        if (_myAction)
+        {
+            //setting ability image if it has an image
+            if (_abilityButtonUIImage && _myAction.GetAbilityImage())
             {
-                if (baseAction.GetUnit().CanSpendActionPointsToTakeAction(baseAction))
-                {
-                    if (!baseAction.IsBasicAbility())
-                        abilityImage.color = Color.gray;
-                }
-                // else { abilityImage.color = Color.white; }
+                _selectedImage = _myAction.GetAbilityImage();
+                _abilityButtonUIImage.sprite = _selectedImage;
+                //if (!_cooldownBg.activeSelf) { } <----------------------------------when we get grayscaled UI 
+            }
+
+            //update the info tab with the current action
+            if (actionInfo)
+                actionInfo.UpdateInfoData(_myAction);
+        }
+    }
+    public void UpdateButtonCoolDown()
+    {
+        if (_myAction && TurnSystem.Instance.IsPlayerTurn())
+        {
+            //Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
+            //if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !_myAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
+            //    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
+            //    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && _myAction.GetRange() == ActionRange.Move
+            //    || _myAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
+            //    || !_myAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
+            //    || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(_myAction.GetFavorCost())
+            //    || !_myAction.IsBasicAbility()
+            //    /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
+            //{ }
+
+            if (_myAction.GetCurrentCooldown() <= 0)
+            {
+                //setting the cooldown amount to empty
+                if (_currentCooldownAmountTMP)
+                    _currentCooldownAmountTMP.text = "";
+                //setting the circle (cooldown visual) to 0
+                if (_cooldownCircleImage)
+                    _cooldownCircleImage.fillAmount = 0;
+                //turning off the rayblocking background
+                if (_cooldownBg)
+                    _cooldownBg.SetActive(false);
+            }
+            else
+            {
+                //activating the rayblocking background
+                if (_cooldownBg)
+                    _cooldownBg.SetActive(true);
+                //setting the cooldown amount to current cooldown amount
+                if (_currentCooldownAmountTMP)
+                    _currentCooldownAmountTMP.text = _myAction.GetCurrentCooldown().ToString();
+                //setting the circle (cooldown visual) to it's percentage
+                if (_cooldownCircleImage)
+                    _cooldownCircleImage.fillAmount = (float)_myAction.GetCurrentCooldown() / (float)_myAction.GetAbilityCooldown();
             }
         }
     }
+
+    //public static void UnselectButtons()//- needs to see if needed
+    //{
+    //    OnAnyActionButtonPressed?.Invoke(null, null);
+    //}
+
+    private IEnumerator ActivateIntoUI()
+    {
+        for (int i = 0; i < _framesToOpenInfo; i++)
+            yield return null;
+
+        if (actionInfo && _isHovored)
+        {
+            actionInfo.gameObject.SetActive(true);
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UnitActionSystem.Instance.IsHoveringOnUI(true);
-        UnitActionSystem.Instance.SetSelectedAction(baseAction);
-        if (baseAction.IsBasicAbility() && baseAction.GetActionName() != "Basic Attack")
-        {
-            return;
-        }
-        actionInfo.SetActive(true);
+        _isHovored = true;
+        UnitActionSystem.Instance.SetHoveringOnUI(true);
+        CursorManager.Instance.SetClickableCursor();
+
+        if (!_myAction) { return; }
+        UnitActionSystem.Instance.SetSelectedAction(_myAction);
+
+        _InfoActivationCoroutine = StartCoroutine(ActivateIntoUI());
+
+        //change cursor?
         //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())
         //else
         //    CursorManager.Instance.SetBlockableCursor();
-        CursorManager.Instance.SetClickableCursor();
-        cooldownProUgui.text = baseAction.GetAbilityCooldown().ToString();
-        if (baseAction is BaseAbility)
-        {
-            //   cooldownProUgui.gameObject.SetActive(true);
-            if (!isBaseAbility)
-            {
-                isBaseAbility = (BaseAbility)baseAction;
-                favorProUgui.gameObject.SetActive(true);
-                damageProUgui.gameObject.SetActive(true);
-                postureProUgui.gameObject.SetActive(true);
-                critHitChanceProUgui.gameObject.SetActive(true);
-                statusHitChanceProUgui.gameObject.SetActive(true);
-                damageProUgui.text = $"{isBaseAbility.GetDamage()}";
-                postureProUgui.text = $"{isBaseAbility.GetPostureDamage()}";
-                favorProUgui.text = $"FAVOR - {isBaseAbility.GetFavorCost()}";
-                descriptionUgui.text = $"{isBaseAbility.GetActionDescription()}";
-                critHitChanceProUgui.text = $"{isBaseAbility.GetCritChance()}%";
-                statusHitChanceProUgui.text = $"{isBaseAbility.GetStatusChance()}%";
-                //cooldownProUgui.text = $"Cooldown : {baseAction.GetCooldown()} Turns";
-            }
-        }
-        else
-        {
-            descriptionUgui.text = $"{baseAction.GetActionDescription()}";
-            favorProUgui.gameObject.SetActive(false);
-            damageProUgui.gameObject.SetActive(false);
-            postureProUgui.gameObject.SetActive(false);
-            critHitChanceProUgui.gameObject.SetActive(false);
-            statusHitChanceProUgui.gameObject.SetActive(false);
-        }
-
-        if (baseAction.GetCurrentCooldown() == 0)
-            cooldownVisualProUgui.text = "";
-        else
-        {
-            OnCooldown.SetActive(true);
-            cooldownVisualProUgui.text = baseAction.GetCurrentCooldown().ToString();
-            cooldownSlider.maxValue = baseAction.GetAbilityCooldown();
-            cooldownSlider.value = baseAction.GetCurrentCooldown();
-        }
-
-        if (baseAction is MoveAction) { return; }
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
+        _isHovored = false;
         CursorManager.Instance.SetDefaultCursor();
-        UnitActionSystem.Instance.IsHoveringOnUI(false);
-        actionInfo.SetActive(false);
-        //cooldownProUgui.gameObject.SetActive(false);
+        UnitActionSystem.Instance.SetHoveringOnUI(false);
+
+        if (actionInfo && actionInfo.gameObject.activeSelf)
+        {
+            actionInfo.gameObject.SetActive(false);
+        }
 
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
-        if (baseAction is MoveAction) { return; }
-
+        if (_myAction is MoveAction) { return; }//???
     }
-
-    IEnumerator DelayStart()
+    private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI pressedButton)
     {
-        yield return new WaitForSeconds(1);
-        UpdateButtonVisual();
+        //related to UnselectButtons, for now it always goes to Move
+        //if (!pressedButton)
+        //{
+        //    if (_unselectedImage)
+        //        _myImage.sprite = _unselectedImage;
+        //    return;
+        //}
+
+        if (pressedButton)
+        {
+            if (_selectedImage && pressedButton == this)
+            {
+                _myImage.sprite = _selectedImage;
+            }
+            else if (_unselectedImage && pressedButton != this && pressedButton.GetIsBaseActionButton())
+            {
+                _myImage.sprite = _unselectedImage;
+            }
+            else if (_myAction)
+            {
+
+            }
+        }
     }
 
 }

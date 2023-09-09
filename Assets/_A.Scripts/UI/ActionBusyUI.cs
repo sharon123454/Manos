@@ -6,16 +6,16 @@ public class ActionBusyUI : MonoBehaviour
 {
     private void Start()
     {
+        //event exists for when character takes an action
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
-        Hide();
     }
 
     private void UnitActionSystem_OnBusyChanged(object sender, bool isBusy)
     {
-        if (isBusy)
-            Show();
-        else
-            Hide();
+        //if (isBusy)
+        //    Hide();
+        //else
+        //    Show();
     }
 
     private void Show() { gameObject.SetActive(true); }

@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2728543194546227892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4505485517987154809}
+  - component: {fileID: 470477883494835471}
+  - component: {fileID: 7387473566371120556}
+  m_Layer: 5
+  m_Name: UI_StatusEffectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4505485517987154809
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728543194546227892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 120, y: -20}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &470477883494835471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728543194546227892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2506da8385c04be4ebfcb6af6057ac38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _status:
+  - Effect: 1
+    EffectImage: {fileID: 21300000, guid: adb0632b4f4533446ba49373f0a77af7, type: 3}
+  - Effect: 2
+    EffectImage: {fileID: 21300000, guid: d1102243be95991438ccb3a0871f4026, type: 3}
+  - Effect: 3
+    EffectImage: {fileID: 21300000, guid: bc8b79e120d4b7c4d920673ebae2baee, type: 3}
+  - Effect: 4
+    EffectImage: {fileID: 21300000, guid: 08ee8a7290a86de4ab8a04a9aaf5f506, type: 3}
+  - Effect: 5
+    EffectImage: {fileID: 21300000, guid: f00651252b98a1047b7c9c34d59df1a6, type: 3}
+  - Effect: 6
+    EffectImage: {fileID: 21300000, guid: a701eaf57ab67a640a57088de7bfb70a, type: 3}
+  - Effect: 7
+    EffectImage: {fileID: 21300000, guid: afc893bf34d9ca34a9b7aa7c006c4e7a, type: 3}
+  - Effect: 8
+    EffectImage: {fileID: 21300000, guid: ce10a12b673edc74f90791a82e785c00, type: 3}
+  - Effect: 9
+    EffectImage: {fileID: 21300000, guid: cc7429e9a381a2740856be71e247d59e, type: 3}
+  - Effect: 10
+    EffectImage: {fileID: 21300000, guid: b6a7d6f59d465d640964a737b091da89, type: 3}
+  - Effect: 11
+    EffectImage: {fileID: 21300000, guid: 68599aeb4e925fa468d5e357922ef982, type: 3}
+  - Effect: 12
+    EffectImage: {fileID: 21300000, guid: 576af8574b69bd540bf3fa4fc9da23d0, type: 3}
+  - Effect: 13
+    EffectImage: {fileID: 21300000, guid: 519b71204cf442a45aaba31f5903d74d, type: 3}
+  - Effect: 14
+    EffectImage: {fileID: 21300000, guid: 30f939ec1f2069a4288850feaaa6a6bf, type: 3}
+  statusUIPrefab: {fileID: 1315626143674052297, guid: d6abf6d148f6b9f4a88bf410a088ab11, type: 3}
+--- !u!114 &7387473566371120556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728543194546227892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 10, y: 10}
+  m_Constraint: 1
+  m_ConstraintCount: 3

@@ -37,7 +37,8 @@ public class AOEManager : MonoBehaviour
         _inRangeUnits = new List<Unit>();
         _collider = GetComponent<MeshCollider>();
         _meshVisual = GetComponent<MeshFilter>();
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
     }
 
     private void Update()
@@ -80,6 +81,13 @@ public class AOEManager : MonoBehaviour
             }
     }
 
+    public void DisableAOE()
+    {
+        transform.parent.position = Vector3.zero;
+        transform.localScale = Vector3.one;
+        _isAOEActive = false;
+        _clampRange = 1f;
+    }
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
     public void SetIsAOEActive(bool isActive, bool isfollowMouse, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, ActionRange abilityRange)
     {
@@ -137,15 +145,12 @@ public class AOEManager : MonoBehaviour
             }
         }
     }
-    private void DisableAOE()
-    {
-        transform.parent.position = Vector3.zero;
-        transform.localScale = Vector3.one;
-        _isAOEActive = false;
-        _clampRange = 1f;
-    }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
+    {
+        DisableAOE();
+    }
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit selectedUnit)
     {
         DisableAOE();
     }

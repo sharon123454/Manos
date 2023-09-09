@@ -32,25 +32,7 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
-        OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-    }
-
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit e)
-    {
-        savedAction = null;
-        selectedAction = null;
-        //SetSelectedAction(selectedUnit.GetAction<MoveAction>());
-    }
-
-    private void OnEnable() { Invoke("DelayOnEnable", 1); }
-    private void DelayOnEnable()//invoked on enable as script loads before ManosInputController
-    {
-        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
-
-    }
+    private void Start() { StartCoroutine(DelayOnStart()); }
 
     private void Update()
     {
@@ -58,7 +40,7 @@ public class UnitActionSystem : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         //canceles current action
-        if (ManosInputController.Instance.Space.IsPressed())
+        if (ManosInputController.Instance.Space.IsPressed())// Move to buttonUI
         {
             if (selectedAction is MoveAction)
             { }
@@ -80,13 +62,27 @@ public class UnitActionSystem : MonoBehaviour
         ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
+    public void SetSelectedUnit(Unit unit)
+    {
+        if (unit)
+        {
+            selectedUnit = unit;
+            savedAction = null;
+            selectedAction = null;
+            OnSelectedUnitChanged?.Invoke(this, selectedUnit);
+            //SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
+
+            //if (!savedAction)
+            //    savedAction = selectedUnit.GetAction<MoveAction>();
+        }
+    }
     public void InvokeAbilityFinished()
     {
         CheckActionUse();
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
         savedAction = null;
     }
-    public void IsHoveringOnUI(bool ui) { hoveringUI = ui; }
+    public void SetHoveringOnUI(bool ui) { hoveringUI = ui; }
     public Unit GetSelectedUnit() { return selectedUnit; }
     public void SetSelectedAction(BaseAction baseAction)
     {
@@ -107,11 +103,13 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        if (savedAction != null)
+        if (baseAction != null && baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
         {
-            AOEManager.Instance.SetIsAOEActive(baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect), baseAction.GetIsFollowingMouse(),
+            AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
+        else 
+            AOEManager.Instance.DisableAOE();
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -119,20 +117,6 @@ public class UnitActionSystem : MonoBehaviour
     public BaseAction GetSelectedAction() { return selectedAction; }
     public MoveAction GetSelectedMoveAction() { return selectedMoveAction; }
     public BaseAbility GetSelectedBaseAbility() { return selectedBaseAbility; }
-    public void SetSelectedUnit(Unit unit)
-    {
-        if (unit)
-        {
-            selectedUnit = unit;
-
-            //SetSelectedAction(selectedUnit.GetAction<MoveAction>()); //default unit action
-
-            //if (!savedAction)
-            //    savedAction = selectedUnit.GetAction<MoveAction>();
-
-            OnSelectedUnitChanged?.Invoke(this, selectedUnit);
-        }
-    }
 
     private void CheckActionUse()
     {
@@ -210,6 +194,23 @@ public class UnitActionSystem : MonoBehaviour
     {
         isBusy = false;
         OnBusyChanged?.Invoke(this, isBusy);
+    }
+
+    private IEnumerator DelayOnStart()
+    {
+        yield return null;
+        yield return null;
+        List<Unit> friendlyUnits = UnitManager.Instance.GetFriendlyUnitList();
+        if (friendlyUnits.Count > 0)
+        {
+            SetSelectedUnit(friendlyUnits[0]);
+            Debug.Log($"found unit {friendlyUnits[0]} on start");
+        }
+        else
+            Debug.Log($"{name}: unit not found");
+
+        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)

@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float edgePercentageToMove = 0.05f;
 
+    private static Coroutine _lerpCameraCoroutine;
     private float _zoomHeight;
 
     private void Awake()
@@ -72,7 +73,8 @@ public class CameraController : MonoBehaviour
         if (moveVector == Vector3.zero)
             return;
 
-        StopAllCoroutines();
+        if (_lerpCameraCoroutine != null)
+            StopCoroutine(_lerpCameraCoroutine);
 
         Vector3 newPosition = transform.position + (camMoveSpeed * Time.deltaTime * moveVector);
         if (newPosition.x > MinX && newPosition.x < MaxX && newPosition.z > MinZ && newPosition.z < MaxZ)
@@ -86,7 +88,8 @@ public class CameraController : MonoBehaviour
         if (moveVector == Vector3.zero)
             return;
 
-        StopAllCoroutines();
+        if (_lerpCameraCoroutine != null)
+            StopCoroutine(_lerpCameraCoroutine);
 
         Vector3 newPosition = transform.position + (camMoveSpeed * Time.deltaTime * moveVector);
         if (newPosition.x > MinX && newPosition.x < MaxX && newPosition.z > MinZ && newPosition.z < MaxZ)
@@ -133,14 +136,19 @@ public class CameraController : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
-        StartCoroutine(LerpToUnit(newlySelectedUnit.transform.position));
+        _lerpCameraCoroutine = StartCoroutine(LerpToUnit(newlySelectedUnit.transform.position));
     }
 
     private IEnumerator LerpToUnit(Vector3 unitPos)
     {
-        while (MathF.Abs(Vector3.Distance(transform.position, unitPos)) > lerpDistanceFromUnit)
+        Vector3 destination = new Vector3(unitPos.x, transform.position.y, unitPos.z);
+        float distance = Vector3.Distance(transform.position, destination);
+        float remainingDistance = distance;
+
+        while (remainingDistance > lerpDistanceFromUnit)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(unitPos.x, transform.position.y, unitPos.z), lerpSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, destination, 1 - (remainingDistance / distance));
+            remainingDistance -= lerpSpeed * Time.deltaTime;
             yield return null;
         }
     }
