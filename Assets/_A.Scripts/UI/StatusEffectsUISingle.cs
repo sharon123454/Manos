@@ -12,18 +12,21 @@ public class StatusEffectsUISingle : MonoBehaviour
     [SerializeField] private float aphlaIncrease = 0.15f;
 
     private WaitForSeconds waitForFadeIn;
-    private StatusEffect myEffect;
 
     private void Awake()
     {
         waitForFadeIn = new WaitForSeconds(timeBetweerIncrease);
     }
 
-    public void Init(StatusEffect effect, Sprite myStatusImage)
+    public void Init(Sprite myStatusImage, int statusDuration)
     {
-        myEffect = effect;
         imageUGUI.sprite = myStatusImage;
+        UpdateStatusEffect(statusDuration);
         StartCoroutine(FadeIn());
+    }
+    public void UpdateStatusEffect(int statusDuration)
+    {
+        valueTMPro.text = statusDuration.ToString();
     }
 
     private IEnumerator FadeIn()

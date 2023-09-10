@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using static com.zibra.common.Editor.SDFObjects.ServerAuthManager;
 
 [Serializable]
 public struct StatusVisual
@@ -24,25 +25,49 @@ public class StatusEffectsUI : MonoBehaviour
         public static bool operator false(ActiveStatusEffect status)
         { return status.UIElement == null; }
     }
+
     private List<ActiveStatusEffect> _activeEffects = new List<ActiveStatusEffect>();
     private Unit myUnit;
 
     public void InitStatusUI(Unit unit)
     {
         myUnit = unit;
+        TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
         myUnit.unitStatusEffects.OnStatusApplied += UnitStatusEffects_OnStatusApplied;
         myUnit.unitStatusEffects.OnStatusRemoved += UnitStatusEffects_OnStatusRemoved;
     }
 
     private void UnitStatusEffects_OnStatusApplied(object sender, StatusEffect effectApplied)
     {
+        bool effectIsActive = false;
+
+        foreach (ActiveStatusEffect activeEffect in _activeEffects)
+            if (activeEffect.Status == effectApplied)
+                effectIsActive = true;
+
         foreach (StatusVisual effect in _status)
         {
             if (effectApplied == effect.Effect)
             {
-                StatusEffectsUISingle newUI = Instantiate(statusUIPrefab, transform);
-                newUI.Init(effect.Effect, effect.EffectImage);
-                _activeEffects.Add(new ActiveStatusEffect { Status = effect.Effect, UIElement = newUI });
+                if (!effectIsActive)
+                {
+                    //create new effect
+                    StatusEffectsUISingle newUI = Instantiate(statusUIPrefab, transform);
+                    newUI.Init(effect.EffectImage, myUnit.unitStatusEffects.GetEffectDurationByEffect(effect.Effect));
+                    _activeEffects.Add(new ActiveStatusEffect { Status = effect.Effect, UIElement = newUI });
+                }
+                else
+                {
+                    //access existing status UI and Update
+                    foreach (ActiveStatusEffect activeEffect in _activeEffects)
+                    {
+                        if (activeEffect.Status == effect.Effect)
+                        {
+                            activeEffect.UIElement.UpdateStatusEffect(myUnit.unitStatusEffects.GetEffectDurationByEffect(effect.Effect));
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
@@ -58,6 +83,11 @@ public class StatusEffectsUI : MonoBehaviour
             _activeEffects.Remove(objToDestroy);
             Destroy(objToDestroy.UIElement.gameObject);
         }
+    }
+    private void TurnSystem_OnTurnChange(object sender, EventArgs e)
+    {
+        foreach (ActiveStatusEffect activeEffect in _activeEffects)
+            activeEffect.UIElement.UpdateStatusEffect(myUnit.unitStatusEffects.GetEffectDurationByEffect(activeEffect.Status));
     }
 
 }
