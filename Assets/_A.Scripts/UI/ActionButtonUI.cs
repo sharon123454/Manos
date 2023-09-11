@@ -137,7 +137,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //    OnAnyActionButtonPressed?.Invoke(null, null);
     //}
 
-    private IEnumerator ActivateIntoUI()
+    private IEnumerator ActivateInfoUI()
     {
         for (int i = 0; i < _framesToOpenInfo; i++)
             yield return null;
@@ -157,7 +157,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (!_myAction) { return; }
         UnitActionSystem.Instance.SetSelectedAction(_myAction);
 
-        _InfoActivationCoroutine = StartCoroutine(ActivateIntoUI());
+        _InfoActivationCoroutine = StartCoroutine(ActivateInfoUI());
 
         //change cursor?
         //if (!OnCooldown.activeInHierarchy && baseAction.GetFavorCost() <= MagicSystem.Instance.GetCurrentFavor())

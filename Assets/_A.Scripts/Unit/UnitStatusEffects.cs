@@ -100,6 +100,46 @@ public class UnitStatusEffects : MonoBehaviour
 
     }
 
+    public int GetEffectDurationByEffect(StatusEffect effect)
+    {
+        switch (effect)
+        {
+            case StatusEffect.Stun:
+                return stunDuration;
+            case StatusEffect.Silence:
+                return SilenceDuration;
+            case StatusEffect.Root:
+                return rootDuration;
+            case StatusEffect.ArmorBreak:
+                return armorBrakeDuration;
+            case StatusEffect.GainArmor:
+                return gainArmorDuration;
+            case StatusEffect.Haste:
+                return HasteDuration;
+            case StatusEffect.Blind:
+                return BlindDuration;
+            case StatusEffect.Undying:
+                return UndyingDuration;
+            case StatusEffect.Regeneration:
+                return regenerationAmount;
+            case StatusEffect.Corruption:
+                return CorruptionDuration;
+            case StatusEffect.CowardPlague:
+                return cowardPlagueDuration;
+            case StatusEffect.Nullify:
+                return nullifyDuration;
+            case StatusEffect.Invisibility:
+                return InvisibilityDuration;
+            case StatusEffect.Taunt:
+                return TauntDuration;
+            case StatusEffect.ToBeTauntUnused:
+                return unusedDuration;
+            case StatusEffect.None:
+            default:
+                Debug.Log($"effect: {effect}, is none or not implamented");
+                return 0;
+        }
+    }
     public bool ContainsEffect(StatusEffect effect) { return unitActiveStatusEffects.Contains(effect); }
     public void AddStatusEffectToUnit(StatusEffect statusEffect, int duration)
     {
@@ -112,68 +152,71 @@ public class UnitStatusEffects : MonoBehaviour
                 stunDuration += duration;
                 break;
             case StatusEffect.Silence:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 SilenceDuration += duration;
                 break;
             case StatusEffect.ArmorBreak:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 armorBrakeDuration += duration;
                 break;
             case StatusEffect.Root:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 rootDuration += duration;
                 break;
             case StatusEffect.CowardPlague:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 cowardPlagueDuration += duration;
                 break;
             case StatusEffect.Nullify:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 nullifyDuration += duration;
                 break;
             case StatusEffect.GainArmor:
                 if (!unitActiveStatusEffects.Contains(statusEffect))
-                { _stats.Armor += amountOfArmorGain; }
+                {
+                    unitActiveStatusEffects.Add(statusEffect);
+                    _stats.Armor += amountOfArmorGain;
+                }
 
                 gainArmorDuration += duration;
                 break;
             case StatusEffect.Haste:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 HasteDuration += duration;
                 break;
             case StatusEffect.Blind:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 BlindDuration += duration;
                 break;
             case StatusEffect.Undying:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 UndyingDuration += duration;
                 break;
             case StatusEffect.Regeneration:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 RegenerationDuration += duration;
                 break;
             case StatusEffect.Corruption:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 CorruptionDuration += duration;
                 break;
             case StatusEffect.Invisibility:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 InvisibilityDuration += duration;
                 break;
             case StatusEffect.Taunt:
-                if (!unitActiveStatusEffects.Contains(statusEffect)) { }
+                if (!unitActiveStatusEffects.Contains(statusEffect)) { unitActiveStatusEffects.Add(statusEffect); }
 
                 TauntDuration += duration;
                 break;
@@ -183,7 +226,7 @@ public class UnitStatusEffects : MonoBehaviour
                 Debug.Log($"{statusEffect} effect isn't Implamented");
                 break;
         }
-        unitActiveStatusEffects.Add(statusEffect);
+
         OnStatusApplied?.Invoke(this, statusEffect);
         SendConsoleMessage?.Invoke(this, $"{statusEffect} was applied for {duration} turns.");
     }
