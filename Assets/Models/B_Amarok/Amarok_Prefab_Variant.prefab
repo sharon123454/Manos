@@ -677,9 +677,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5933148771435360925}
     - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _corruptionVFX.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
       propertyPath: _aBasicAttack.Array.data[0]
       value: 
       objectReference: {fileID: 8873878028467416913}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _corruptionVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 917909502271330544}
     - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
       propertyPath: _onRecieveDamageVFX.Array.size
       value: 1
@@ -948,6 +956,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2960364094601102200}
   m_SourcePrefab: {fileID: 100100000, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+--- !u!198 &917909502271330544 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 275902034067831404, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1648239918364287314 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -981,6 +994,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
@@ -996,7 +1010,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &5602378655156786812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,6 +1034,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: 8aa5757af576ec04abdb5b415e55cac4, type: 3}
@@ -1036,7 +1050,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &2032839130430321204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,6 +1074,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: aef8cc0a86972654bb5b13e35b6c04f0, type: 3}
@@ -1104,6 +1118,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: ca2dd29fb765af7479f04bc54136876e, type: 3}
@@ -1119,7 +1134,6 @@ MonoBehaviour:
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
-  maxMeleeDistance: 1
 --- !u!114 &5731917650349299490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,6 +1157,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: cd2a787de29a10940b0d39b843fc1b6f, type: 3}
@@ -1174,6 +1189,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 21300000, guid: 8cffe1c6889cb644aa64e79ed9f64761, type: 3}
@@ -1217,6 +1233,7 @@ MonoBehaviour:
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
+  isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
   abilityImage: {fileID: 0}
