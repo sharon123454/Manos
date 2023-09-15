@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using static com.zibra.common.Editor.SDFObjects.ServerAuthManager;
 
 [Serializable]
 public struct StatusVisual
