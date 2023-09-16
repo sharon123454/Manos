@@ -21,6 +21,9 @@ public class VFXLibrary : MonoBehaviour
 {
     [Header("Generic")]
     [SerializeField] private ParticleSystem[] _onRecieveDamageVFX;
+    [SerializeField] private Renderer[] _unitMeshRendererGroup;
+    [SerializeField] private Material _corruptMat;
+
     [Header("On Recieving Status effect")]
     [SerializeField] private ParticleSystem[] _stunVFX;
     [SerializeField] private ParticleSystem[] _rootVFX;
@@ -34,6 +37,7 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _corruptionVFX;
     [SerializeField] private ParticleSystem[] _regenerationVFX;
     [SerializeField] private ParticleSystem[] _cowardPlagueVFX;
+
     [Header("Amarock Abilities")]
     [SerializeField] private ParticleSystem[] _aBasicAttack;
     [SerializeField] private ParticleSystem[] _aPuncture;
@@ -60,6 +64,8 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private ParticleSystem[] _nCleave;
     [SerializeField] private ParticleSystem[] _nPommleStirke;
     [SerializeField] private ParticleSystem[] _nEldestsDuty;
+
+    private bool _isCorrupted = false;
 
     public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
@@ -94,6 +100,26 @@ public class VFXLibrary : MonoBehaviour
                 break;
             case StatusEffect.Corruption:
                 ActivateVFXArray(_corruptionVFX);
+
+                //if Material exists skip
+                if (_isCorrupted) { return; }
+
+                //Add corrupts material
+                foreach (Renderer renderer in _unitMeshRendererGroup)
+                {
+                    //Get the current materials of the renderer
+                    Material[] currentlyAssignedMaterials = renderer.materials;
+                    //Create a new materials array with space for the additional material
+                    Material[] updatedMaterials = new Material[currentlyAssignedMaterials.Length + 1];
+                    //Copy the existing materials to the new array
+                    for (int i = 0; i < currentlyAssignedMaterials.Length; i++)
+                        updatedMaterials[i] = currentlyAssignedMaterials[i];
+                    //Add your new material (e.g., _corruptMat) at the end
+                    updatedMaterials[updatedMaterials.Length - 1] = _corruptMat;
+                    //Assign the updated materials array back to the renderer
+                    renderer.materials = updatedMaterials;
+                }
+                _isCorrupted = true;
                 break;
             case StatusEffect.Nullify:
                 ActivateVFXArray(_nullifyVFX);
@@ -146,6 +172,20 @@ public class VFXLibrary : MonoBehaviour
                 break;
             case StatusEffect.Corruption:
                 StopVFXArray(_corruptionVFX);
+                //remove corrupt material
+                foreach (Renderer renderer in _unitMeshRendererGroup)
+                {
+                    //Get the current materials of the renderer
+                    Material[] currentlyAssignedMaterials = renderer.materials;
+                    //Create a new materials array with space for the additional material
+                    Material[] updatedMaterials = new Material[currentlyAssignedMaterials.Length - 1];
+                    //Copy the existing materials to the new array
+                    for (int i = 0; i < currentlyAssignedMaterials.Length - 1; i++)
+                        updatedMaterials[i] = currentlyAssignedMaterials[i];
+                    //Assign the updated materials array back to the renderer
+                    renderer.materials = updatedMaterials;
+                }
+                _isCorrupted = false;
                 break;
             case StatusEffect.Nullify:
                 StopVFXArray(_nullifyVFX);

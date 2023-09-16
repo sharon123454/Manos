@@ -12658,7 +12658,7 @@ Transform:
   - {fileID: 2375042198577170949}
   - {fileID: 8436195436777286763}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &6683539710798205148
 MonoBehaviour:
@@ -12672,9 +12672,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SlashVFX: {fileID: 0}
-  _HealVFX: []
-  _StunVFX:
+  _onRecieveDamageVFX:
+  - {fileID: 0}
+  _unitMeshRendererGroup:
+  - {fileID: 8566589450797276}
+  - {fileID: 6234118466408601385}
+  - {fileID: 9095023351893582449}
+  - {fileID: 5218021276118993775}
+  - {fileID: 4633088245996682896}
+  - {fileID: 8272643844237564063}
+  - {fileID: 245146170057199353}
+  - {fileID: 7960204103588780402}
+  - {fileID: 5857883143326737614}
+  - {fileID: 4340948979443937731}
+  - {fileID: 8074823587615975642}
+  - {fileID: 3266003266355870571}
+  - {fileID: 600716977607530985}
+  - {fileID: 8967884176905957210}
+  - {fileID: 5540711257542458124}
+  - {fileID: 7427520814854560673}
+  - {fileID: 8825630038125399334}
+  - {fileID: 473420999247068219}
+  - {fileID: 1451732273417975347}
+  - {fileID: 3246849402144254697}
+  - {fileID: 3190277573141932726}
+  _corruptMat: {fileID: 2100000, guid: f7c184bc35b51f042a60b20acec527d2, type: 2}
+  _stunVFX:
+  - {fileID: 0}
+  - {fileID: 0}
+  _rootVFX: []
+  _hasteVFX: []
+  _blindVFX: []
+  _silnceVFX: []
+  _nullifyVFX: []
+  _undyingVFX: []
+  _gainArmorVFX: []
+  _armorBreakVFX: []
+  _corruptionVFX:
+  - {fileID: 0}
+  _regenerationVFX: []
+  _cowardPlagueVFX: []
+  _aBasicAttack: []
+  _aPuncture: []
+  _aMurder: []
+  m_InvisibleMat: {fileID: 0}
+  hairGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  bodyGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  equipmentGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  weaponOneGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  weaponTwoGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  other1Group:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  other2Group:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  _rEruption: []
+  _rEnsnare: []
+  _ability3R: []
+  _ability4R: []
+  _ability5R: []
+  _nBasicAttack:
+  - {fileID: 0}
+  _nCleave:
+  - {fileID: 0}
+  _nPommleStirke:
+  - {fileID: 0}
+  _nEldestsDuty:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!95 &1919100398704509480

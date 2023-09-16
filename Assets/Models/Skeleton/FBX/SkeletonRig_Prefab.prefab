@@ -193,7 +193,7 @@ Transform:
   - {fileID: 6260124125166256089}
   - {fileID: 606471416920867587}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6709182859543503275
 MonoBehaviour:
@@ -207,9 +207,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bfd14a22df5ae49bd339885594bf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SlashVFX: {fileID: 0}
-  _HealVFX: []
-  _StunVFX: []
+  _onRecieveDamageVFX: []
+  _unitMeshRendererGroup:
+  - {fileID: 6485750734271507282}
+  - {fileID: 1555925821419957887}
+  _corruptMat: {fileID: 2100000, guid: f7c184bc35b51f042a60b20acec527d2, type: 2}
+  _stunVFX: []
+  _rootVFX: []
+  _hasteVFX: []
+  _blindVFX: []
+  _silnceVFX: []
+  _nullifyVFX: []
+  _undyingVFX: []
+  _gainArmorVFX: []
+  _armorBreakVFX: []
+  _corruptionVFX: []
+  _regenerationVFX: []
+  _cowardPlagueVFX: []
+  _aBasicAttack: []
+  _aPuncture: []
+  _aMurder: []
+  m_InvisibleMat: {fileID: 0}
+  hairGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  bodyGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  equipmentGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  weaponOneGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  weaponTwoGroup:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  other1Group:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  other2Group:
+    UnitMeshRendererGroup: []
+    GroupMat: {fileID: 0}
+  _rEruption: []
+  _rEnsnare: []
+  _ability3R: []
+  _ability4R: []
+  _ability5R: []
+  _nBasicAttack: []
+  _nCleave: []
+  _nPommleStirke: []
+  _nEldestsDuty: []
 --- !u!95 &5498916728652989751
 Animator:
   serializedVersion: 5
@@ -6295,5 +6343,10 @@ PrefabInstance:
 --- !u!4 &1718840133039407839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3880702689588468994, guid: 51353680156a8784f815396ba568016a, type: 3}
+  m_PrefabInstance: {fileID: 2450395216799932381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6485750734271507282 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8647912499432551567, guid: 51353680156a8784f815396ba568016a, type: 3}
   m_PrefabInstance: {fileID: 2450395216799932381}
   m_PrefabAsset: {fileID: 0}
