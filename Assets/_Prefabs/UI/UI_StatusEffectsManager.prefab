@@ -52,32 +52,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _status:
   - Effect: 1
+    EffectInfo: Target skips its next turn
     EffectImage: {fileID: 21300000, guid: adb0632b4f4533446ba49373f0a77af7, type: 3}
   - Effect: 2
+    EffectInfo: While affected the target cant use abilities (can only move and use
+      basic attack)
     EffectImage: {fileID: 21300000, guid: d1102243be95991438ccb3a0871f4026, type: 3}
   - Effect: 3
+    EffectInfo: While affected by root a unit can't use the actions move & dash 
+      or any other ability or spell which involves movement
     EffectImage: {fileID: 21300000, guid: bc8b79e120d4b7c4d920673ebae2baee, type: 3}
   - Effect: 4
+    EffectInfo: Affected unit's armor is 0 while affected
     EffectImage: {fileID: 21300000, guid: 08ee8a7290a86de4ab8a04a9aaf5f506, type: 3}
   - Effect: 5
+    EffectInfo: Double unit Armor while affected
     EffectImage: {fileID: 21300000, guid: f00651252b98a1047b7c9c34d59df1a6, type: 3}
   - Effect: 6
+    EffectInfo: Affected unit can move double the amount of tiles using their move
+      and dash actions
     EffectImage: {fileID: 21300000, guid: a701eaf57ab67a640a57088de7bfb70a, type: 3}
   - Effect: 7
+    EffectInfo: 'While affected the unit has its hit chance halved for any attack '
     EffectImage: {fileID: 21300000, guid: afc893bf34d9ca34a9b7aa7c006c4e7a, type: 3}
   - Effect: 8
+    EffectInfo: Affected unit's hp can't go below 1 HP for x turns
     EffectImage: {fileID: 21300000, guid: ce10a12b673edc74f90791a82e785c00, type: 3}
   - Effect: 9
+    EffectInfo: Affected unit regains a set amount of HP at the end of the unit's
+      turn
     EffectImage: {fileID: 21300000, guid: cc7429e9a381a2740856be71e247d59e, type: 3}
   - Effect: 10
+    EffectInfo: Affected unit suffers damage at the beginning of their turn
     EffectImage: {fileID: 21300000, guid: b6a7d6f59d465d640964a737b091da89, type: 3}
   - Effect: 11
+    EffectInfo: If the affected enemy unit exits status inflicter's melee range they
+      receive the ability's damage and posture damage again
     EffectImage: {fileID: 21300000, guid: 68599aeb4e925fa468d5e357922ef982, type: 3}
   - Effect: 12
+    EffectInfo: Missing text
     EffectImage: {fileID: 21300000, guid: 576af8574b69bd540bf3fa4fc9da23d0, type: 3}
   - Effect: 13
+    EffectInfo: ' Affected unit becomes invisible and cannot be targeted'
     EffectImage: {fileID: 21300000, guid: 519b71204cf442a45aaba31f5903d74d, type: 3}
   - Effect: 14
+    EffectInfo: While affected the unit can only target the unit that gave it Taunt
+      (with single target abilitys)
     EffectImage: {fileID: 21300000, guid: 30f939ec1f2069a4288850feaaa6a6bf, type: 3}
   statusUIPrefab: {fileID: 1315626143674052297, guid: d6abf6d148f6b9f4a88bf410a088ab11, type: 3}
 --- !u!114 &7387473566371120556

@@ -26,7 +26,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private static Coroutine _InfoActivationCoroutine;
     private BaseAction _myAction;
     private Button _myButton;
-    private bool _isHovored;
+    private bool _isHovered;
     private Image _myImage;
 
     private void Awake()
@@ -142,7 +142,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         for (int i = 0; i < _framesToOpenInfo; i++)
             yield return null;
 
-        if (actionInfo && _isHovored)
+        if (actionInfo && _isHovered)
         {
             actionInfo.gameObject.SetActive(true);
         }
@@ -150,7 +150,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _isHovored = true;
+        _isHovered = true;
         UnitActionSystem.Instance.SetHoveringOnUI(true);
         CursorManager.Instance.SetClickableCursor();
 
@@ -166,7 +166,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        _isHovored = false;
+        _isHovered = false;
         CursorManager.Instance.SetDefaultCursor();
         UnitActionSystem.Instance.SetHoveringOnUI(false);
 

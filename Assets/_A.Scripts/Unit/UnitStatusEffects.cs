@@ -121,7 +121,7 @@ public class UnitStatusEffects : MonoBehaviour
             case StatusEffect.Undying:
                 return UndyingDuration;
             case StatusEffect.Regeneration:
-                return regenerationAmount;
+                return RegenerationDuration;
             case StatusEffect.Corruption:
                 return CorruptionDuration;
             case StatusEffect.CowardPlague:

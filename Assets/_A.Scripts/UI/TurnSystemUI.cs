@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
-using TMPro;
 
-public class TurnSystemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class TurnSystemUI : MonoBehaviour
 {
     [SerializeField] private Button endTurnBtn;
     [SerializeField] private GameObject actionsUIGO;
@@ -20,6 +18,7 @@ public class TurnSystemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         });
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
+        //UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
 
         UpdateTurnText();
         UpdateUIVisibility();
@@ -29,15 +28,6 @@ public class TurnSystemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         UpdateTurnText();
         UpdateUIVisibility();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UnitActionSystem.Instance.SetHoveringOnUI(true);
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UnitActionSystem.Instance.SetHoveringOnUI(false);
     }
 
     private void UpdateTurnText()

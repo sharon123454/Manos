@@ -7,6 +7,7 @@ using System;
 public struct StatusVisual
 {
     public StatusEffect Effect;
+    public string EffectInfo;
     public Sprite EffectImage;
 }
 public class StatusEffectsUI : MonoBehaviour
@@ -52,7 +53,7 @@ public class StatusEffectsUI : MonoBehaviour
                 {
                     //create new effect
                     StatusEffectsUISingle newUI = Instantiate(statusUIPrefab, transform);
-                    newUI.Init(effect.EffectImage, myUnit.unitStatusEffects.GetEffectDurationByEffect(effect.Effect));
+                    newUI.Init(effect.Effect.ToString(), effect.EffectImage, effect.EffectInfo, myUnit.unitStatusEffects.GetEffectDurationByEffect(effect.Effect));
                     _activeEffects.Add(new ActiveStatusEffect { Status = effect.Effect, UIElement = newUI });
                 }
                 else
