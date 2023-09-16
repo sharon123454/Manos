@@ -28,60 +28,68 @@ public class UnitActionSystemUI : MonoBehaviour
     }
 
     //Called through Buttons -forAbilities- set thought inspector; says if ability or spell pressed
-    public void CreateUnitActionButtons(bool forAbilities)
+    public void ToggleUnitActionButtons(bool forAbilities)
     {
-        //getting the current unit reference
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-
-        //clearing the Button Data list
-        _activeActionButtonsUIList.Clear();
-
-        //clearing the Game Objects container parent
-        foreach (Transform buttonTransform in _actionsButtonContainer)
-            Destroy(buttonTransform.gameObject);
-
-        //set container in parent
-        if (forAbilities)
-            _actionsButtonContainer.SetParent(_abilityButtonsContainer);
-        else
-            _actionsButtonContainer.SetParent(_spellButtonsContainer);
-
-        //re-setting position
-        _actionsButtonContainer.localPosition = new Vector3(0, 142.5f, 0);
-
-        //activating GameObject
-        _actionsButtonContainer.gameObject.SetActive(true);
-
-        //re-adding basic actions to Updating list
-        foreach (ActionButtonUI basicActionButton in _basicActionButtonUIList)
-            _activeActionButtonsUIList.Add(basicActionButton);
-
-        if (selectedUnit)
+        if (!_actionsButtonContainer.gameObject.activeSelf)
         {
-            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
+            //getting the current unit reference
+            Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+
+            //clearing the Button Data list
+            _activeActionButtonsUIList.Clear();
+
+            //clearing the Game Objects container parent
+            foreach (Transform buttonTransform in _actionsButtonContainer)
+                Destroy(buttonTransform.gameObject);
+
+            //set container in parent
+            if (forAbilities)
+                _actionsButtonContainer.SetParent(_abilityButtonsContainer);
+            else
+                _actionsButtonContainer.SetParent(_spellButtonsContainer);
+
+            //re-setting position
+            _actionsButtonContainer.localPosition = new Vector3(0, 142.5f, 0);
+
+            //activating GameObject
+            _actionsButtonContainer.gameObject.SetActive(true);
+
+            //re-adding basic actions to Updating list
+            foreach (ActionButtonUI basicActionButton in _basicActionButtonUIList)
+                _activeActionButtonsUIList.Add(basicActionButton);
+
+            if (selectedUnit)
             {
-                if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility())
+                foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
                 {
-                    if (forAbilities && baseAction.GetFavorCost() == 0)
+                    if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility())
                     {
-                        RectTransform newAbilityButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
-                        ActionButtonUI abilityUI = newAbilityButton.GetComponentInChildren<ActionButtonUI>();
-                        abilityUI.SetButtonAction(baseAction);
-                        _activeActionButtonsUIList.Add(abilityUI);
-                    }
-                    else if (!forAbilities && baseAction.GetFavorCost() > 0)
-                    {
-                        RectTransform newSpellButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
-                        ActionButtonUI spellUI = newSpellButton.GetComponentInChildren<ActionButtonUI>();
-                        spellUI.SetButtonAction(baseAction);
-                        _activeActionButtonsUIList.Add(spellUI);
+                        if (forAbilities && baseAction.GetFavorCost() == 0)
+                        {
+                            RectTransform newAbilityButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
+                            ActionButtonUI abilityUI = newAbilityButton.GetComponentInChildren<ActionButtonUI>();
+                            abilityUI.SetButtonAction(baseAction);
+                            _activeActionButtonsUIList.Add(abilityUI);
+                        }
+                        else if (!forAbilities && baseAction.GetFavorCost() > 0)
+                        {
+                            RectTransform newSpellButton = Instantiate(actionButtonPrefab, _actionsButtonContainer);
+                            ActionButtonUI spellUI = newSpellButton.GetComponentInChildren<ActionButtonUI>();
+                            spellUI.SetButtonAction(baseAction);
+                            _activeActionButtonsUIList.Add(spellUI);
+                        }
                     }
                 }
             }
-        }
 
-        Instantiate(_subMenueFramePrefab, _actionsButtonContainer);
-        UpdateActionSystemButtons();
+            Instantiate(_subMenueFramePrefab, _actionsButtonContainer);
+            UpdateActionSystemButtons();
+        }
+        else
+        {
+            //de-activating GameObject
+            _actionsButtonContainer.gameObject.SetActive(false);
+        }
     }
 
     private void SetBasicActionButtons()
