@@ -6,7 +6,6 @@ public class AOEActive : MonoBehaviour
 {
     [SerializeField] private UnitType affectingType;
     [SerializeField] private Vector3 _affectOffset = new Vector3(0, 0.5f, 0);
-    [SerializeField] private List<ParticleSystem> _onEnterParticles;//connect Nanook_Heal_Friendly on entered units
     [SerializeField] private List<ParticleSystem> _particlesToTurnOff;
 
     private List<StatusEffect> _statusEffects;
@@ -59,6 +58,9 @@ public class AOEActive : MonoBehaviour
                     case UnitType.Player:
                         if (!potentialTarget.IsEnemy())
                             _affectedUnitList.Add(potentialTarget);
+
+                        //will need rework if more ActiveAOE will be added
+                        potentialTarget.GetUnitAnimator().OnEnteredNanookHeal();
                         break;
                     case UnitType.Enemy:
                         if (potentialTarget.IsEnemy())
@@ -78,7 +80,13 @@ public class AOEActive : MonoBehaviour
         Unit leavingTarget = other.GetComponent<Unit>();
 
         if (leavingTarget && _affectedUnitList.Contains(leavingTarget))
+        {
             _affectedUnitList.Remove(leavingTarget);
+
+            //will need rework if more ActiveAOE will be added
+            if (!leavingTarget.IsEnemy())
+                leavingTarget.GetUnitAnimator().OnExitedNanookHeal();
+        }
     }
 
     private void Instance_OnTurnChange(object sender, System.EventArgs e)

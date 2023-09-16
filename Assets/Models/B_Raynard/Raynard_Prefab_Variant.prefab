@@ -631,6 +631,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 4667108780007785570}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7930909041434155347 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3374561120041131313, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6563764753127721018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724,9 +729,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _friendlyHealVFX.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _corruptionVFX.Array.data[0]
       value: 
       objectReference: {fileID: 4832597444083793422}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _friendlyHealVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 7930909041434155347}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _onRecieveDamageVFX.Array.size
       value: 1

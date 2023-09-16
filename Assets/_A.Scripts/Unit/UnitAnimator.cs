@@ -75,6 +75,15 @@ public class UnitAnimator : MonoBehaviour
         animator.Play($"{actionName}_Anim");
     }
 
+    public void OnEnteredNanookHeal()
+    {
+        vfxLibrary.OnEnteredNanookHeal();
+    }
+    public void OnExitedNanookHeal()
+    {
+        vfxLibrary.OnExitedNanookHeal();
+    }
+
     public void OnStatusEffectRecieved(StatusEffect statusEffect)
     {
         vfxLibrary.OnStatusEffectRecieved(statusEffect);

@@ -21,6 +21,7 @@ public class VFXLibrary : MonoBehaviour
 {
     [Header("Generic")]
     [SerializeField] private ParticleSystem[] _onRecieveDamageVFX;
+    [SerializeField] private ParticleSystem[] _friendlyHealVFX;
     [SerializeField] private Renderer[] _unitMeshRendererGroup;
     [SerializeField] private Material _corruptMat;
 
@@ -53,6 +54,7 @@ public class VFXLibrary : MonoBehaviour
     [SerializeField] private MeshAndMat other2Group;
 
     private string _inviMatNoiseStrength = "Vector1_1a2d15c3d3f04ff7ac01469d7e8986bb";
+
     [Header("Raynard Abilities")]
     [SerializeField] private ParticleSystem[] _rEruption;
     [SerializeField] private ParticleSystem[] _rEnsnare;
@@ -205,6 +207,15 @@ public class VFXLibrary : MonoBehaviour
         }
     }
 
+    public void OnEnteredNanookHeal()
+    {
+        ActivateVFXArray(_friendlyHealVFX);
+    }
+    public void OnExitedNanookHeal()
+    {
+        StopVFXArray(_friendlyHealVFX);
+    }
+
     //Called through Animation
     public void PlayTakeDamage()
     {
@@ -278,10 +289,7 @@ public class VFXLibrary : MonoBehaviour
     {
         if (vfxArray != null)
             for (int i = 0; i < vfxArray.Length; i++)
-            {
-                vfxArray[i].gameObject.SetActive(true);
                 vfxArray[i].Play();
-            }
     }
     private void StopVFXArray(ParticleSystem[] vfxArray)
     {
