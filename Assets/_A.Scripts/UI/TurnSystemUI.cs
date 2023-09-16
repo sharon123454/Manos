@@ -18,26 +18,30 @@ public class TurnSystemUI : MonoBehaviour
         });
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
-        //UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
+        UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
 
         UpdateTurnText();
-        UpdateUIVisibility();
+        UpdateUIVisibility(TurnSystem.Instance.IsPlayerTurn());
     }
 
+    private void UnitActionSystem_OnBusyChanged(object sender, bool isBusy)
+    {
+        UpdateUIVisibility(!isBusy);
+    }
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
         UpdateTurnText();
-        UpdateUIVisibility();
+        UpdateUIVisibility(TurnSystem.Instance.IsPlayerTurn());
     }
 
     private void UpdateTurnText()
     {
         //turnNumberText.text = $"TURN {TurnSystem.Instance.GetTurnNumber()}";
     }
-    private void UpdateUIVisibility()
+    private void UpdateUIVisibility(bool isVisible)
     {
-        endTurnBtn.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
-        actionsUIGO.SetActive(TurnSystem.Instance.IsPlayerTurn());
+        endTurnBtn.gameObject.SetActive(isVisible);
+        actionsUIGO.SetActive(isVisible);
     }
 
 }
