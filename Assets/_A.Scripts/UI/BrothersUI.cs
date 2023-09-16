@@ -74,7 +74,7 @@ public class BrothersUI : MonoBehaviour
 
                 healthBar.fillAmount = specificBro.GetHealthNormalized();
                 postureBar.fillAmount = specificBro.GetPostureNormalized();
-                shieldAmountText.text = specificBro.GetUnitStats().GetArmor().ToString();
+                shieldAmountText.text = $" {specificBro.GetUnitStats().GetArmor()}";
 
 
                 healthText.text = $"{specificBro.GetUnitStats().health} / {specificBro.GetUnitStats().GetUnitMaxHP()}";
