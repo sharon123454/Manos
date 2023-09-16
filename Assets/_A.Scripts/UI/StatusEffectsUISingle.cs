@@ -17,6 +17,10 @@ public class StatusEffectsUISingle : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private float aphlaIncrease = 0.15f;
     [SerializeField] private int _framesToOpenInfo = 5;
 
+    [Header("Dev Tools:")]
+    [Tooltip("Refreash purposes")]
+    [SerializeField] private HorizontalOrVerticalLayoutGroup _layoutGroup;
+
     private static Coroutine _InfoActivationCoroutine;
     private WaitForSeconds waitForFadeIn;
     private bool _isHovered;
@@ -37,7 +41,7 @@ public class StatusEffectsUISingle : MonoBehaviour, IPointerEnterHandler, IPoint
     public void UpdateStatusEffect(int statusDuration)
     {
         valueTMPro.text = statusDuration.ToString();
-        turnsLeftTMPro.text = $"Turns left:{statusDuration}";
+        turnsLeftTMPro.text = $"Turns left: {statusDuration}";
     }
 
     private IEnumerator ActivateInfo()
@@ -46,7 +50,15 @@ public class StatusEffectsUISingle : MonoBehaviour, IPointerEnterHandler, IPoint
             yield return null;
 
         if (statusInfoGroup && _isHovered)
+        {
             statusInfoGroup.SetActive(true);
+            for (int i = 0; i < 3; i++)
+            {
+                yield return null;
+                _layoutGroup.enabled = false;
+                _layoutGroup.enabled = true;
+            }
+        }
     }
     private IEnumerator FadeIn()
     {

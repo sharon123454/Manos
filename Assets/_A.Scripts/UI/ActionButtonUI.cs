@@ -23,6 +23,10 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI _currentCooldownAmountTMP;
     [SerializeField] private bool _isBasicAction;
 
+    [Header("Dev Tools:")]
+    [Tooltip("Refreash purposes")]
+    [SerializeField] private HorizontalOrVerticalLayoutGroup _layoutGroup;
+
     private static Coroutine _InfoActivationCoroutine;
     private BaseAction _myAction;
     private Button _myButton;
@@ -145,6 +149,12 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (actionInfo && _isHovered)
         {
             actionInfo.gameObject.SetActive(true);
+            for (int i = 0; i < 3; i++)
+            {
+                yield return null;
+                _layoutGroup.enabled = false;
+                _layoutGroup.enabled = true;
+            }
         }
     }
 
