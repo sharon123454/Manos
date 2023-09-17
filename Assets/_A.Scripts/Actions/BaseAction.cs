@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
 
-// Decided Costs of an Action
+// Costs of an Action
 public enum TypeOfAction { Action, BonusAction, Both }
 public abstract class BaseAction : MonoBehaviour
 {
@@ -30,6 +29,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected MeshShape actionMeshShape;
     [SerializeField] protected float meshShapeScaleMultiplicator = 1;
     [SerializeField] protected Sprite abilityImage;
+    [SerializeField] protected Sprite abilityGrayImage;
 
     protected Action onActionComplete;
     protected bool _isActive;
@@ -61,6 +61,7 @@ public abstract class BaseAction : MonoBehaviour
     public ActionRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
     public Sprite GetAbilityImage() { return abilityImage; }
+    public Sprite GetAbilityGrayImage() { return abilityGrayImage; }
     public MeshShape GetActionMeshShape() { return actionMeshShape; }
     public float GetMeshScaleMultiplicator() { return meshShapeScaleMultiplicator; }
     public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
