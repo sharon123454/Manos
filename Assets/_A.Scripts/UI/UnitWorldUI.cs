@@ -57,10 +57,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void UpdateActionPointsText()
     {
-        if (!unit.GetUsedActionPoints()) actionBarImage.fillAmount = 100;
+        if (!unit.GetUsedAction()) actionBarImage.fillAmount = 100;
         else actionBarImage.fillAmount = 0;
 
-        if (!unit.GetUsedBonusActionPoints()) bonusActionBarImage.fillAmount = 100;
+        if (!unit.GetUsedBonusAction()) bonusActionBarImage.fillAmount = 100;
         else bonusActionBarImage.fillAmount = 0;
     }
     private void ActivateWorldUI()
@@ -211,22 +211,26 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
         {
-            if (UnitActionSystem.Instance.GetSelectedAction() != null)
+            BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+            if (selectedAction)
             {
-                if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                switch (selectedAction.GetActionCost())
                 {
-                    bonusActionBarImage.color = Color.green;
-                    actionBarImage.color = Color.green;
-                }
-                else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
-                {
-                    bonusActionBarImage.color = Color.green;
-                    actionBarImage.color = actionBarDefualtColor;
-                }
-                else
-                {
-                    actionBarImage.color = Color.green;
-                    bonusActionBarImage.color = BonusactionBarDefualtColor;
+                    case TypeOfAction.Action:
+                        actionBarImage.color = Color.green;
+                        bonusActionBarImage.color = BonusactionBarDefualtColor;
+                        break;
+                    case TypeOfAction.BonusAction:
+                        bonusActionBarImage.color = Color.green;
+                        actionBarImage.color = actionBarDefualtColor;
+                        break;
+                    case TypeOfAction.Both:
+                        bonusActionBarImage.color = Color.green;
+                        actionBarImage.color = Color.green;
+                        break;
+                    default:
+                        Debug.Log("I'm not supposed to be called");
+                        break;
                 }
             }
         }
