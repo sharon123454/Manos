@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 
@@ -19,12 +20,21 @@ public class UnitActionSystemUI : MonoBehaviour
         foreach (ActionButtonUI basicActionButton in _basicActionButtonUIList)
             _activeActionButtonsUIList.Add(basicActionButton);
 
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
-        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
         ActionButtonUI.OnAnyActionButtonPressed += ActionButtonUI_OnAnyActionButtonPressed;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
+        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
 
         SetBasicActionButtons();
+    }
+    private void OnDisable()
+    {
+        TurnSystem.Instance.OnTurnChange -= TurnSystem_OnTurnChange;
+        BaseAction.OnAnyActionStarted -= BaseAction_OnAnyActionStarted;
+        ActionButtonUI.OnAnyActionButtonPressed -= ActionButtonUI_OnAnyActionButtonPressed;
+        UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
+        ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
     //Called through Buttons -forAbilities- set thought inspector; says if ability or spell pressed
@@ -86,11 +96,11 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void SetBasicActionButtons()
     {
-        Unit SelectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
 
-        if (SelectedUnit)
+        if (selectedUnit)
         {
-            foreach (BaseAction baseAction in SelectedUnit.GetBaseActionArray())
+            foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {
                 if (baseAction.enabled && baseAction.IsBasicAbility())
                 {
@@ -117,6 +127,7 @@ public class UnitActionSystemUI : MonoBehaviour
                 }
             }
         }
+
         UpdateActionSystemButtons();
     }
     private void UpdateActionSystemButtons()
@@ -156,7 +167,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         if (_actionsButtonContainer)
         {
-            _basicActionButtonUIList[1].PressButton();
+            _basicActionButtonUIList[1].PressButton();//move button clicked
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
@@ -164,11 +175,31 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         if (!buttonClicked) { return; }
 
+        UpdateActionSystemButtons();
         BaseAction clickedAction = buttonClicked.GetAction();
         if (_actionsButtonContainer && clickedAction && clickedAction.IsBasicAbility())
         {
             _actionsButtonContainer.gameObject.SetActive(false);
         }
+    }
+    private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
+    {
+        if (UnitActionSystem.Instance.isBusy || !TurnSystem.Instance.IsPlayerTurn()) { return; }
+
+        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+
+        int passedInput = (int)inputValue.ReadValue<float>();
+
+        if (passedInput >= _basicActionButtonUIList.Count) { return; }
+
+        BaseAction selectedAction = _activeActionButtonsUIList[passedInput].GetAction();
+        int actionCost = (int)selectedAction.GetActionCost();
+
+        if (actionCost == 0 && selectedUnit.GetUsedAction()) { return; }
+        else if (actionCost == 1 && selectedUnit.GetUsedBonusAction()) { return; }
+        else if (actionCost == 2 && (selectedUnit.GetUsedAction() || selectedUnit.GetUsedBonusAction())) { return; }
+
+        _basicActionButtonUIList[passedInput].PressButton();
     }
 
 }

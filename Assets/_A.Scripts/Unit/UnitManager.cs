@@ -27,18 +27,23 @@ public class UnitManager : MonoBehaviour
         enemyUnitList = new List<Unit>();
         friendlyUnitList = new List<Unit>();
     }
-
     private void Start()
     {
         Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
         Unit.OnAnyUnitSpawned += Unit_OnAnyUnitSpawned;
         ManosInputController.Instance.SwitchSelectedPlayer.performed += InputController_SwitchSelectedPlayer;
     }
-
-    private void InputController_SwitchSelectedPlayer(InputAction.CallbackContext context)
+    private void OnDestroy()
     {
-        SwitichToNextUnit();
+        Unit.OnAnyUnitDead -= Unit_OnAnyUnitDead;
+        Unit.OnAnyUnitSpawned -= Unit_OnAnyUnitSpawned;
+        ManosInputController.Instance.SwitchSelectedPlayer.performed -= InputController_SwitchSelectedPlayer;
     }
+
+    public GameObject GetCurrentUnit() { return friendlyUnitList[friendlyID].gameObject; }
+    public List<Unit> GetUnitList() { return unitList; }
+    public List<Unit> GetEnemyUnitList() { return enemyUnitList; }
+    public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
 
     public void SwitichToNextUnit()
     {
@@ -49,12 +54,6 @@ public class UnitManager : MonoBehaviour
 
         UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[friendlyID]);
     }
-
-    public GameObject GetCurrentUnit() { return friendlyUnitList[friendlyID].gameObject; }
-    public List<Unit> GetUnitList() { return unitList; }
-    public List<Unit> GetEnemyUnitList() { return enemyUnitList; }
-    public List<Unit> GetFriendlyUnitList() { return friendlyUnitList; }
-
     public void SelectFriendlyUnitWithUI(string brotherName)
     {
         foreach (Unit unit in friendlyUnitList)
@@ -84,7 +83,6 @@ public class UnitManager : MonoBehaviour
         if (partyWin)
             GameWon?.Invoke(this, EventArgs.Empty);
     }
-
     private void Unit_OnAnyUnitSpawned(object sender, EventArgs e)
     {
         Unit unit = sender as Unit;
@@ -101,18 +99,22 @@ public class UnitManager : MonoBehaviour
                 UnitActionSystem.Instance.SetSelectedUnit(friendlyUnitList[0]);
         }
     }
-
-    private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    private void InputController_SwitchSelectedPlayer(InputAction.CallbackContext context)
     {
-        int _selectedFriendlyID = 0;
-
-        foreach (Unit friendlyUnit in friendlyUnitList)
-        {
-            if (friendlyUnit == UnitActionSystem.Instance.GetSelectedUnit())
-                friendlyID = _selectedFriendlyID;
-
-            _selectedFriendlyID++;
-        }
+        if (UnitActionSystem.Instance.isBusy || !TurnSystem.Instance.IsPlayerTurn()) { return; }
+        SwitichToNextUnit();
     }
+    //private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
+    //{
+    //    int _selectedFriendlyID = 0;
+
+    //    foreach (Unit friendlyUnit in friendlyUnitList)
+    //    {
+    //        if (friendlyUnit == UnitActionSystem.Instance.GetSelectedUnit())
+    //            friendlyID = _selectedFriendlyID;
+
+    //        _selectedFriendlyID++;
+    //    }
+    //}
 
 }

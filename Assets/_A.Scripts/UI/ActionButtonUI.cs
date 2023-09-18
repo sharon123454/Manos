@@ -12,12 +12,12 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public static event EventHandler<ActionButtonUI> OnAnyActionButtonPressed;
 
     [SerializeField] private ActionInfo actionInfo;
+    [SerializeField] private Sprite _grayImage;
     [SerializeField] private Sprite _selectedImage;
     [SerializeField] private Sprite _unselectedImage;
     [SerializeField] private int _framesToOpenInfo = 5;
 
     [Header("Ability & Spell slots")]
-    [SerializeField] private Image _abilityButtonUIImage;
     [SerializeField] private GameObject _cooldownBg;
     [SerializeField] private Image _cooldownCircleImage;
     [SerializeField] private TextMeshProUGUI _currentCooldownAmountTMP;
@@ -44,21 +44,15 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         OnAnyActionButtonPressed += ActionButtonUI_OnAnyActionButtonPressed;
     }
-
     private void OnDestroy()
     {
         OnAnyActionButtonPressed -= ActionButtonUI_OnAnyActionButtonPressed;
     }
 
-    public void ActionButtonPressed()
-    {
-        Debug.Log($"Object name: {name} has been pressed");
-        OnAnyActionButtonPressed?.Invoke(this, this);
-    }
     public void PressButton() { _myButton.onClick.Invoke(); }
     public bool GetIsBaseActionButton() { return _isBasicAction; }
     public BaseAction GetAction() { return _myAction; }
-    //will need rework for when we get ability image in grayscale VvvvvV
+
     public void SetButtonAction(BaseAction baseAction)
     {
         //caching the current action to the button
@@ -81,33 +75,52 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (_myAction)
         {
-            //setting ability image if it has an image
-            if (_abilityButtonUIImage && _myAction.GetAbilityImage())
+            //getting ability images
+            if (_myImage && _myAction.GetAbilityImage())
             {
+                _grayImage = _myAction.GetAbilityGrayImage();
                 _selectedImage = _myAction.GetAbilityImage();
-                _abilityButtonUIImage.sprite = _selectedImage;
-                //if (!_cooldownBg.activeSelf) { } <----------------------------------when we get grayscaled UI 
+                _myImage.sprite = _selectedImage;
             }
 
             //update the info tab with the current action
             if (actionInfo)
                 actionInfo.UpdateInfoData(_myAction);
         }
+
+        UpdateButtonVisual();
     }
-    public void UpdateButtonCoolDown()
+    public void UpdateButtonVisual()
     {
-        if (_myAction && TurnSystem.Instance.IsPlayerTurn())
+        if (_myAction && TurnSystem.Instance.IsPlayerTurn())//if action not null and is player turn
         {
-            //Unit selectedunit = UnitActionSystem.Instance.GetSelectedUnit();
-            //if (UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !_myAction.GetAbilityPropertie().Contains(AbilityProperties.Basic)
-            //    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Stun)
-            //    || UnitActionSystem.Instance.GetSelectedUnit().unitStatusEffects.ContainsEffect(StatusEffect.Root) && _myAction.GetRange() == ActionRange.Move
-            //    || _myAction.GetIsBonusAction() && selectedunit.GetUsedBonusActionPoints()
-            //    || !_myAction.GetIsBonusAction() && selectedunit.GetUsedActionPoints()
-            //    || !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(_myAction.GetFavorCost())
-            //    || !_myAction.IsBasicAbility()
-            //    /*|| baseAction is BaseAbility && MagicSystem.Instance.GetCurrentFavor() <= 0*/)
-            //{ }
+            Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+            if (_grayImage)//if action button has gray image
+            {
+                switch (_myAction.GetActionCost())//split by the action cost
+                {
+                    case TypeOfAction.Action:
+                        if (selectedUnit.GetUsedAction() || UnitCantUseAction(selectedUnit, _myAction))
+                        {
+                            _myImage.sprite = _grayImage;
+                        }
+                        break;
+                    case TypeOfAction.BonusAction:
+                        if (selectedUnit.GetUsedBonusAction() || UnitCantUseAction(selectedUnit, _myAction))
+                        {
+                            _myImage.sprite = _grayImage;
+                        }
+                        break;
+                    case TypeOfAction.Both:
+                        if (selectedUnit.GetUsedBonusAction() || selectedUnit.GetUsedAction() || UnitCantUseAction(selectedUnit, _myAction))
+                        {
+                            _myImage.sprite = _grayImage;
+                        }
+                        break;
+                }
+
+                if (_cooldownBg && _cooldownBg.activeSelf) { _myImage.sprite = _grayImage; }//if cooldown is active make gray
+            }
 
             if (_myAction.GetCurrentCooldown() <= 0)
             {
@@ -135,11 +148,19 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
         }
     }
+    private bool UnitCantUseAction(Unit selectedUnit, BaseAction action)//tied to UpdateButtonVisual
+    {
+        return action is BaseAbility && !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(action.GetFavorCost())//if Action is Ability and don't have favor
+        || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Root) && action.GetRange() == ActionRange.Move//if Rooted and Action is Movement
+        || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !action.IsBasicAbility()//if Silenced and Action isn't basic
+        || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Stun);//if Unit is Stunned
+    }
 
-    //public static void UnselectButtons()//- needs to see if needed
-    //{
-    //    OnAnyActionButtonPressed?.Invoke(null, null);
-    //}
+    private void ActionButtonPressed()
+    {
+        Debug.Log($"Object name: {name} has been pressed");
+        OnAnyActionButtonPressed?.Invoke(this, this);
+    }
 
     private IEnumerator ActivateInfoUI()
     {
@@ -188,27 +209,20 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         UnitActionSystem.Instance.SetSelectedAction(UnitActionSystem.Instance.savedAction);
         if (_myAction is MoveAction) { return; }//???
     }
+
     private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI pressedButton)
     {
-        //related to UnselectButtons, for now it always goes to Move
-        //if (!pressedButton)
-        //{
-        //    if (_unselectedImage)
-        //        _myImage.sprite = _unselectedImage;
-        //    return;
-        //}
-
         if (pressedButton)
         {
-            if (_selectedImage && pressedButton == this)
+            if (_selectedImage && pressedButton == this)//pressed on an action button which has a selected Image
             {
                 _myImage.sprite = _selectedImage;
             }
-            else if (_unselectedImage && pressedButton != this && pressedButton.GetIsBaseActionButton())
+            else if (_unselectedImage && pressedButton != this && pressedButton.GetIsBaseActionButton())//basic action button pressed and this isn't it and has the unselected image
             {
                 _myImage.sprite = _unselectedImage;
             }
-            else if (_myAction)
+            else if (_myAction)//if non basic action button pressed
             {
 
             }

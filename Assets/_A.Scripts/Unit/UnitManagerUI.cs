@@ -26,16 +26,16 @@ public class UnitManagerUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Temporary
+    /// Pressed through buttons (OnYesButtonClick Temporary)
     /// </summary>
     /// <returns></returns>
     public void OnYesButtonClick()
     {
         SceneManager.LoadScene(0);
     }
-
     public void OnBrotherUIPressed(string brotherName)
     {
+        if (UnitActionSystem.Instance.isBusy || !TurnSystem.Instance.IsPlayerTurn()) { return; }
         UnitManager.Instance.SelectFriendlyUnitWithUI(brotherName);
     }
 

@@ -17,11 +17,12 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private LayerMask unitsLayerMask;
 
     internal BaseAction savedAction;
+    internal bool isBusy;
+
     private BaseAction selectedAction;
     private BaseAbility selectedBaseAbility;
     private MoveAction selectedMoveAction;
     private Unit selectedUnit;
-    private bool isBusy;
     private bool hoveringUI = false;
 
     private void Awake()
@@ -31,9 +32,7 @@ public class UnitActionSystem : MonoBehaviour
 
         Instance = this;
     }
-
     private void Start() { StartCoroutine(DelayOnStart()); }
-
     private void Update()
     {
         if (isBusy) { return; }
@@ -55,11 +54,6 @@ public class UnitActionSystem : MonoBehaviour
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
-    }
-
-    private void OnDisable()
-    {
-        ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
     }
 
     public void SetSelectedUnit(Unit unit)
@@ -209,28 +203,7 @@ public class UnitActionSystem : MonoBehaviour
         else
             Debug.Log($"{name}: unit not found");
 
-        ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
-    {
-        if (isBusy) { return; }
-        if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
-
-        BaseAction[] availableUnitActions = selectedUnit.GetBaseActionArray();
-        int passedInput = (int)inputValue.ReadValue<float>();
-
-        if (passedInput >= availableUnitActions.Length) { return; }
-
-        BaseAction selectedAction = availableUnitActions[passedInput];
-        int actionCost = (int)selectedAction.GetActionCost();
-
-        if (actionCost == 0 && selectedUnit.GetUsedAction()) { return; }
-        else if (actionCost == 1 && selectedUnit.GetUsedBonusAction()) { return; }
-        else if (actionCost == 2 && (selectedUnit.GetUsedAction() || selectedUnit.GetUsedBonusAction())) { return; }
-
-        SetSelectedAction(selectedAction);
     }
 
 }

@@ -40,7 +40,6 @@ public class Unit : MonoBehaviour
         unitStatusEffects = GetComponent<UnitStatusEffects>();
         unitOutline = GetComponentInChildren<Outline>();
     }
-
     private void Start()
     {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -58,7 +57,6 @@ public class Unit : MonoBehaviour
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
-
     private void Update()
     {
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -70,6 +68,7 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedGridPosition(this, oldGridPosition, newGridPosition);
         }
     }
+
     public GameObject GetUnitUI() { return unitUI; }
     public UnitAnimator GetUnitAnimator() { return animator; }
     public float GetHealthNormalized()
@@ -97,32 +96,22 @@ public class Unit : MonoBehaviour
         return null;
     }
 
-    public bool UsedAllPoints()
+    public bool GetUsedBothActions()
     {
-        if (usedAction && usedBonusAction)
-        {
-            return true;
-        }
-        else return false;
+        return usedAction && usedBonusAction;
     }
-    public bool GetUsedActionPoints()
+    public bool GetUsedAction()
     {
-        if (usedAction)
-            return true;
-        else
-            return false;
+        return usedAction;
     }
-    public bool GetUsedBonusActionPoints()
+    public bool GetUsedBonusAction()
     {
-        if (usedBonusAction)
-            return true;
-        else
-            return false;
+        return usedBonusAction;
     }
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
     {
-        if (GetStunStatus())
+        if (GetIsStunned())
         {
             SendConsoleMessage?.Invoke(this, $"{transform.name} is Stunned, Can't use action.");
             return false;
@@ -141,101 +130,72 @@ public class Unit : MonoBehaviour
         }
         #endregion
 
-        #region Action And Bonus Action
-        if (baseAction.ActionUsingBoth() && !usedBonusAction && !usedAction)
+        if (baseAction.GetCurrentCooldown() == 0)
         {
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCurrentCooldown() == 0 && !isStunned)
+            switch (baseAction.GetActionCost())
             {
-                if (TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                case TypeOfAction.Action:
+                    #region Action
+                    if (!GetUsedAction() && !CanSpendActionPointsToTakeAction(baseAction))
                     {
-                        return false;
-                    }
+                        if (TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
 
-                if (!TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                        if (!TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
+
+                        SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
+                        SpendActionPoints(0);
+                        return true;
+                    }
+                    #endregion
+                    return false;
+                case TypeOfAction.BonusAction:
+                    #region Bonus Action
+                    if (!GetUsedBonusAction() && !CanSpendActionPointsToTakeAction(baseAction))
                     {
-                        return false;
-                    }
+                        if (TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
 
-                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(2);
-                // baseAction._usedAction = true;
-                return true;
+                        if (!TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
+
+                        SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
+                        SpendActionPoints(1);
+                        return true;
+                    }
+                    #endregion
+                    return false;
+                case TypeOfAction.Both:
+                    #region Action And Bonus Action
+                    if (!GetUsedBonusAction() && !GetUsedAction() && !CanSpendActionPointsToTakeAction(baseAction))
+                    {
+                        if (TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
+
+                        if (!TurnSystem.Instance.IsPlayerTurn() && !MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
+                            return false;
+
+                        SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
+                        SpendActionPoints(2);
+                        return true;
+                    }
+                    #endregion
+                    return false;
+                default:
+                    Debug.Log("I'm not supposed to be called");
+                    return false;
             }
-            else
-                return false;
         }
-        #endregion
 
-        #region Bonus Action
-        if (baseAction.GetIsBonusAction() && !usedBonusAction)
-        {
-
-            if (!CanSpendActionPointsToTakeAction(baseAction) && baseAction.GetCurrentCooldown() == 0 && !isStunned)
-            {
-                if (TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
-                    {
-                        return false;
-                    }
-
-                if (!TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
-                    {
-                        return false;
-                    }
-
-                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(1);
-                // baseAction._usedAction = true;
-                return true;
-            }
-            else
-                return false;
-        }
-        #endregion
-
-        #region Action
-
-        if (!baseAction.GetIsBonusAction() && !usedAction && baseAction.GetCurrentCooldown() == 0 && !isStunned)
-        {
-            if (!CanSpendActionPointsToTakeAction(baseAction))
-            {
-
-                if (TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(baseAction.GetFavorCost()))
-                    {
-                        return false;
-                    }
-
-
-                if (!TurnSystem.Instance.IsPlayerTurn())
-                    if (!MagicSystem.Instance.CanEnemySpendFavorToTakeAction(baseAction.GetFavorCost()))
-                    {
-                        return false;
-                    }
-
-
-                SendConsoleMessage?.Invoke(this, $"{transform.name} used {baseAction.GetActionName()}.");
-                SpendActionPoints(0);
-                //baseAction._usedAction = true;
-                return true;
-            }
-            else
-                return false;
-        }
-        else
-            return false;
-        #endregion
-
+        return false;
     }
     public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
     {
         return baseAction.GetIfUsedAction();
     }
 
-    public bool GetStunStatus() { return isStunned; }
+    public bool GetIsStunned() { return isStunned; }
     public void SetStunStatus(bool newStatus) { isStunned = newStatus; }
 
     public bool ReturnSkillActionType(BaseAction baseAction)
@@ -311,11 +271,11 @@ public class Unit : MonoBehaviour
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)
     {
         if (IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
-            !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
+        !IsEnemy() && TurnSystem.Instance.IsPlayerTurn())
         {
-            usedBonusAction = false;
             usedAction = false;
-            canMakeAttackOfOpportunity = true;
+            usedBonusAction = false;
+            if (GetIsStunned()) { usedAction = true; usedBonusAction = true; }
             statSheet.ResetUnitStats();
             OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
         }

@@ -56,7 +56,7 @@ public abstract class BaseAction : MonoBehaviour
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
     }
 
-    public bool IsBasicAbility() { if (_AbilityProperties.Contains(AbilityProperties.Basic)) return true; else return false; }
+    public bool IsBasicAbility() { return _AbilityProperties.Contains(AbilityProperties.Basic); }
     public Unit GetUnit() { return unit; }
     public ActionRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
