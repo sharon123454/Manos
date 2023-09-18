@@ -35,26 +35,29 @@ public class ActionInfo : MonoBehaviour
         if (_actionDescriptionTMP)
             _actionDescriptionTMP.text = baseAction.GetActionDescription();
 
-        if (baseAction.ActionUsingBoth())
+        switch (baseAction.GetActionCost())
         {
-            if (_bonusActionCostGroup)
-                _bonusActionCostGroup.SetActive(true);
-            if (_actionCostGroup)
-                _actionCostGroup.SetActive(true);
-        }
-        else if (baseAction.GetIsBonusAction())
-        {
-            if (_bonusActionCostGroup)
-                _bonusActionCostGroup.SetActive(true);
-            if (_actionCostGroup)
-                _actionCostGroup.SetActive(false);
-        }
-        else
-        {
-            if (_bonusActionCostGroup)
-                _bonusActionCostGroup.SetActive(false);
-            if (_actionCostGroup)
-                _actionCostGroup.SetActive(true);
+            case TypeOfAction.Action:
+                if (_bonusActionCostGroup)
+                    _bonusActionCostGroup.SetActive(false);
+                if (_actionCostGroup)
+                    _actionCostGroup.SetActive(true);
+                break;
+            case TypeOfAction.BonusAction:
+                if (_bonusActionCostGroup)
+                    _bonusActionCostGroup.SetActive(true);
+                if (_actionCostGroup)
+                    _actionCostGroup.SetActive(false);
+                break;
+            case TypeOfAction.Both:
+                if (_bonusActionCostGroup)
+                    _bonusActionCostGroup.SetActive(true);
+                if (_actionCostGroup)
+                    _actionCostGroup.SetActive(true);
+                break;
+            default:
+                Debug.Log("I'm not supposed to be called");
+                break;
         }
 
         if (_actionTypeGroup)

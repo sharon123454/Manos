@@ -117,12 +117,13 @@ public class UnitActionSystemUI : MonoBehaviour
                 }
             }
         }
+        UpdateActionSystemButtons();
     }
     private void UpdateActionSystemButtons()
     {
         foreach (ActionButtonUI actionButtonUI in _activeActionButtonsUIList)
             if (actionButtonUI.isActiveAndEnabled)
-                actionButtonUI.UpdateButtonCoolDown();
+                actionButtonUI.UpdateButtonVisual();
     }
 
     private void TurnSystem_OnTurnChange(object sender, EventArgs e)

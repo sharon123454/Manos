@@ -7,13 +7,12 @@ using TMPro;
 
 public class BrothersUI : MonoBehaviour
 {
+    [SerializeField] private Image portraitImage;
+    [SerializeField] private Sprite deadPortrait;
     [SerializeField] private StatusEffectsUI statusEffectUI;
-    [SerializeField] private GameObject actionGrayedOut;
-    [SerializeField] private GameObject bonusActionGrayedOut;
     [SerializeField] private TextMeshProUGUI shieldAmountText;
     [SerializeField] private TextMeshProUGUI healthText, postureText;
     [SerializeField] private Image healthBar, postureBar;
-    [SerializeField] private Image actionImage, bonusActionImage;
     [SerializeField] SkeletonGraphic actionSpine, bonusActionSpine;
 
     [Header("Dev Data:")]
@@ -36,41 +35,44 @@ public class BrothersUI : MonoBehaviour
             {
                 if (UnitActionSystem.Instance.GetSelectedUnit() == specificBro)
                 {
-                    if (UnitActionSystem.Instance.GetSelectedAction() != null)
+                    BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+                    if (selectedAction)
                     {
-                        if (UnitActionSystem.Instance.GetSelectedAction().ActionUsingBoth())
+                        switch (selectedAction.GetActionCost())
                         {
-                            ActionSpineBlinking();
-                            BonusActionSpineBlinking();
-                        }
-                        else if (UnitActionSystem.Instance.GetSelectedAction().GetIsBonusAction())
-                        {
-                            ActionSpineBlinking();
-                            BonusActionSpineStatic();
-                        }
-                        else
-                        {
-                            BonusActionSpineBlinking();
-                            ActionSpineStatic();
+                            case TypeOfAction.Action:
+                                ActionSpineBlinking();
+                                BonusActionSpineStatic();
+                                break;
+                            case TypeOfAction.BonusAction:
+                                BonusActionSpineBlinking();
+                                ActionSpineStatic();
+                                break;
+                            case TypeOfAction.Both:
+                                BonusActionSpineBlinking();
+                                ActionSpineBlinking();
+                                break;
+                            default:
+                                Debug.Log("I'm not supposed to be called");
+                                break;
                         }
                     }
                 }
                 else
                 {
-                    ActionSpineStatic();
                     BonusActionSpineStatic();
-                }
-
-
-                if (specificBro.GetUsedActionPoints())
-                    ActionSpineNone();
-                else
                     ActionSpineStatic();
-
-                if (specificBro.GetUsedBonusActionPoints())
+                }
+                //------------------------------------------------ elses look wierd
+                if (specificBro.GetUsedAction())
                     BonusActionSpineNone();
                 else
                     BonusActionSpineStatic();
+
+                if (specificBro.GetUsedBonusAction())
+                    ActionSpineNone();
+                else
+                    ActionSpineStatic();
 
                 healthBar.fillAmount = specificBro.GetHealthNormalized();
                 postureBar.fillAmount = specificBro.GetPostureNormalized();
@@ -82,6 +84,11 @@ public class BrothersUI : MonoBehaviour
             }
             else
             {
+                //test once we have dead images
+                //if (deadPortrait)
+                    //portraitImage.sprite = deadPortrait;
+
+                //this.enabled = false;
                 gameObject.SetActive(false);
             }
         }
@@ -107,13 +114,13 @@ public class BrothersUI : MonoBehaviour
             Debug.Log("Missing Unit reference");
     }
 
-    void ActionSpineBlinking() { actionSpine.AnimationState.SetAnimation(index, "Action Blinking", true); }
-    void ActionSpineStatic() { actionSpine.AnimationState.SetAnimation(0, "Action Blinking", true); }
-    void ActionSpineNone() { actionSpine.AnimationState.SetAnimation(0, "None", true); }
+    void BonusActionSpineBlinking() { actionSpine.AnimationState.SetAnimation(index, "Action Blinking", true); }
+    void BonusActionSpineStatic() { actionSpine.AnimationState.SetAnimation(0, "Action Blinking", true); }
+    void BonusActionSpineNone() { actionSpine.AnimationState.SetAnimation(0, "None", true); }
 
     public int index;
-    void BonusActionSpineBlinking() { bonusActionSpine.AnimationState.SetAnimation(index, "BA Blinking", true); }
-    void BonusActionSpineStatic() { bonusActionSpine.AnimationState.SetAnimation(0, "BA Static", true); }
-    void BonusActionSpineNone() { bonusActionSpine.AnimationState.SetAnimation(0, "None", true); }
+    void ActionSpineBlinking() { bonusActionSpine.AnimationState.SetAnimation(index, "BA Blinking", true); }
+    void ActionSpineStatic() { bonusActionSpine.AnimationState.SetAnimation(0, "BA Static", true); }
+    void ActionSpineNone() { bonusActionSpine.AnimationState.SetAnimation(0, "None", true); }
 
 }

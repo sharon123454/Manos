@@ -74,7 +74,7 @@ public abstract class BaseAction : MonoBehaviour
         {
             return null; // No Possible AI Actions
         }
-        
+
         if (_validGridPositionList.Count > 0)
         {
             foreach (GridPosition gridPosition in _validGridPositionList)
@@ -101,8 +101,11 @@ public abstract class BaseAction : MonoBehaviour
     public virtual int GetFavorCost() { return favorCost; }
     public virtual string GetActionDescription() { return actionDescription; }
     public virtual bool GetIfUsedAction() { return _usedAction; }
-    public virtual bool GetIsBonusAction() { if ((int)actionCost == 1) { return true; } else return false; }
-    public virtual bool ActionUsingBoth() { if ((int)actionCost == 2) { return true; } else return false; }
+    /// <summary>
+    /// As int: 0 = Action,1 = BonusAction,2 = Both
+    /// </summary>
+    /// <returns>actionCost</returns>
+    public TypeOfAction GetActionCost() { return actionCost; }
     public virtual bool IsValidActionGridPosition(GridPosition gridPosition)
     {
         List<GridPosition> validGridPositionList = GetValidActionGridPositionList();

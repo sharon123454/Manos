@@ -108,7 +108,7 @@ public class UnitActionSystem : MonoBehaviour
             AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
             selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
-        else 
+        else
             AOEManager.Instance.DisableAOE();
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
@@ -122,21 +122,21 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (TurnSystem.Instance.IsPlayerTurn())
         {
-            if (selectedUnit.UsedAllPoints())
+            if (selectedUnit.GetUsedBothActions())
             {
                 print("UNIT USED ALL ABILITES");
 
                 for (int i = 0; i < 3; i++)
                 {
-                    if (!UnitManager.Instance.GetFriendlyUnitList()[i].UsedAllPoints())
+                    if (!UnitManager.Instance.GetFriendlyUnitList()[i].GetUsedBothActions())
                     {
                         SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[i]);
                         break;
                     }
                 }
-                if (UnitManager.Instance.GetFriendlyUnitList()[0].UsedAllPoints()
-                    && UnitManager.Instance.GetFriendlyUnitList()[1].UsedAllPoints()
-                    && UnitManager.Instance.GetFriendlyUnitList()[2].UsedAllPoints()
+                if (UnitManager.Instance.GetFriendlyUnitList()[0].GetUsedBothActions()
+                    && UnitManager.Instance.GetFriendlyUnitList()[1].GetUsedBothActions()
+                    && UnitManager.Instance.GetFriendlyUnitList()[2].GetUsedBothActions()
                     )
                 {
                     TurnSystem.Instance.NextTurn();
@@ -223,10 +223,14 @@ public class UnitActionSystem : MonoBehaviour
 
         if (passedInput >= availableUnitActions.Length) { return; }
 
-        if (!availableUnitActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedActionPoints()) { return; }
-        else if (availableUnitActions[passedInput].GetIsBonusAction() && selectedUnit.GetUsedBonusActionPoints()) { return; }
+        BaseAction selectedAction = availableUnitActions[passedInput];
+        int actionCost = (int)selectedAction.GetActionCost();
 
-        SetSelectedAction(availableUnitActions[passedInput]);
+        if (actionCost == 0 && selectedUnit.GetUsedAction()) { return; }
+        else if (actionCost == 1 && selectedUnit.GetUsedBonusAction()) { return; }
+        else if (actionCost == 2 && (selectedUnit.GetUsedAction() || selectedUnit.GetUsedBonusAction())) { return; }
+
+        SetSelectedAction(selectedAction);
     }
 
 }
