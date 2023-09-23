@@ -70,7 +70,7 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {
-                if (baseAction.isActiveAndEnabled && !baseAction.IsXPropertyInAction(AbilityProperties.Basic))
+                if (baseAction.isActiveAndEnabled && !baseAction.IsBasicAbility())
                 {
                     if (forAbilities && baseAction.GetFavorCost() == 0)
                     {
@@ -102,7 +102,7 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             foreach (BaseAction baseAction in selectedUnit.GetBaseActionArray())
             {
-                if (baseAction.enabled && baseAction.IsXPropertyInAction(AbilityProperties.Basic))
+                if (baseAction.enabled && baseAction.IsBasicAbility())
                 {
                     if (baseAction.GetActionName() == "Basic Attack")
                     {
@@ -177,7 +177,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         UpdateActionSystemButtons();
         BaseAction clickedAction = buttonClicked.GetAction();
-        if (_actionsButtonContainer && clickedAction && clickedAction.IsXPropertyInAction(AbilityProperties.Basic))
+        if (_actionsButtonContainer && clickedAction && clickedAction.IsBasicAbility())
         {
             _actionsButtonContainer.gameObject.SetActive(false);
         }

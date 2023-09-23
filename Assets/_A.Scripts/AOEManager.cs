@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public enum MeshShape { None, Sphere, Cube, Triangle, pointTriangle }
+public enum MeshShape { None, Sphere, Cube, Triangle }
 [Serializable]
 public struct AOE_MeshType { public MeshShape ShapeType; public Mesh Mesh; }
 public class AOEManager : MonoBehaviour
@@ -37,7 +37,8 @@ public class AOEManager : MonoBehaviour
         _inRangeUnits = new List<Unit>();
         _collider = GetComponent<MeshCollider>();
         _meshVisual = GetComponent<MeshFilter>();
-        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
     }
 
     private void Update()
@@ -80,18 +81,20 @@ public class AOEManager : MonoBehaviour
             }
     }
 
-    public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
-    public void SetIsAOEActive(bool isfollowMouse, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, ActionRange abilityRange)
-    {
-        _isFollowingMouse = isfollowMouse;
-        InitAOE(centerZonePosition, AOEMeshType, rangeMultiplicator, abilityRange);
-    }
     public void DisableAOE()
     {
         transform.parent.position = Vector3.zero;
         transform.localScale = Vector3.one;
         _isAOEActive = false;
         _clampRange = 1f;
+    }
+    public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
+    public void SetIsAOEActive(bool isActive, bool isfollowMouse, Vector3 centerZonePosition, MeshShape AOEMeshType, float rangeMultiplicator, ActionRange abilityRange)
+    {
+        if (!isActive || AOEMeshType == MeshShape.None) { DisableAOE(); return; }
+
+        _isFollowingMouse = isfollowMouse;
+        InitAOE(centerZonePosition, AOEMeshType, rangeMultiplicator, abilityRange);
     }
 
     private void InitAOE(Vector3 aOEPositiion, MeshShape typeOfShape, float rangeMultiplicator, ActionRange abilityRange)
@@ -128,11 +131,11 @@ public class AOEManager : MonoBehaviour
                             break;
                         case ActionRange.Medium:
                         case ActionRange.Long:
-                        case ActionRange.InaccurateAtAll:
                         case ActionRange.EffectiveAtAll:
                             _clampRange = _longRange;
                             break;
                         case ActionRange.Move:
+                        case ActionRange.InaccurateAtAll:
                         case ActionRange.ResetGrid:
                         default:
                             _clampRange = 0;
@@ -143,7 +146,11 @@ public class AOEManager : MonoBehaviour
         }
     }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
+    {
+        DisableAOE();
+    }
+    private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit selectedUnit)
     {
         DisableAOE();
     }

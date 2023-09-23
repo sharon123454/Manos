@@ -11,7 +11,7 @@ public class AOEActive : MonoBehaviour
     private List<StatusEffect> _statusEffects;
     private List<Unit> _affectedUnitList;
     private Transform _myParent;
-    private int _activeturns;
+    private float _activeturns;
     private bool _isActive;
     private Unit _unit;
 
@@ -19,7 +19,6 @@ public class AOEActive : MonoBehaviour
     {
         _myParent = transform.parent;
         _affectedUnitList = new List<Unit>();
-        _statusEffects = new List<StatusEffect>();
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
     }
     private void OnTriggerEnter(Collider other)
@@ -31,16 +30,15 @@ public class AOEActive : MonoBehaviour
         UnSubscribeToAOE(other);
     }
 
-    public void Init(Unit castingUnit, Vector3 actionActivationPos, bool followUnit, int numberOfTurns, List<StatusEffect> effects, float AOESize)
+    public void Init(Unit castingUnit, Vector3 actionActivationPos, bool followUnit, float numberOfTurns, List<StatusEffect> effects, float AOESize)
     {
-        Debug.Log($"{name} was initiated.");
-        if (numberOfTurns < 1) { return; }
         _unit = castingUnit;
         if (!followUnit)
         {
             transform.parent = transform.root;
             transform.localPosition = actionActivationPos + _affectOffset;
         }
+        _statusEffects = new List<StatusEffect>();
         transform.localScale *= AOESize;
         _activeturns = numberOfTurns;
         _statusEffects = effects;
@@ -106,7 +104,7 @@ public class AOEActive : MonoBehaviour
                     {
                         foreach (StatusEffect status in _statusEffects)
                         {
-                            unit.unitStatusEffects.AddStatusEffectToUnit(status, _activeturns);
+                            unit.unitStatusEffects.AddStatusEffectToUnit(status, (int)_activeturns);
                         }
                     }
                 }

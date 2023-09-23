@@ -68,7 +68,7 @@ public class ActionInfo : MonoBehaviour
                 _actionTypeTMP.text = "Melee";
                 _actionTypeImage.sprite = _actionMeleeImage;
             }
-            else if (baseAction.IsXPropertyInAction(AbilityProperties.Basic) && _actionNameTMP.text != "Basic Attack")
+            else if (baseAction.IsBasicAbility() && _actionNameTMP.text != "Basic Attack")
             {
                 _actionTypeGroup.SetActive(false);
             }
