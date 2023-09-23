@@ -13,8 +13,8 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Image healthTakenBarImage;
     [SerializeField] private Image postureBarImage;
     [SerializeField] private Image postureTakenBarImage;
-    [SerializeField] private Image actionBarImage;
-    [SerializeField] private Image bonusActionBarImage;
+    //[SerializeField] private Image actionBarImage;
+    //[SerializeField] private Image bonusActionBarImage;
     [SerializeField] private Image critImage;
     [SerializeField] private UnitStats unitStats;
     [SerializeField] private TextMeshProUGUI armorPointsText;
@@ -25,24 +25,24 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [SerializeField] private GameObject VisualParent;
 
-    private Color actionBarDefualtColor;
-    private Color BonusactionBarDefualtColor;
+    //private Color actionBarDefualtColor;
+    //private Color BonusactionBarDefualtColor;
     private string thisUnitName;
 
     private void Start()
     {
-        actionBarDefualtColor = actionBarImage.color;
-        BonusactionBarDefualtColor = bonusActionBarImage.color;
-        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+        //actionBarDefualtColor = actionBarImage.color;
+        //BonusactionBarDefualtColor = bonusActionBarImage.color;
+        //Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
         unitStats.OnDamaged += HealthSystem_OnDamaged;
         unitStats.OnCriticalHit += UnitStats_OnCriticalHit;
         UnitActionSystem.Instance.OnSelectedUnitChanged += Instance_OnSelectedUnitChanged;
-        UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
+        //UnitActionSystem.Instance.OnSelectedActionChanged += Instance_OnSelectedActionChanged;
         AOEManager.OnAnyUnitEnteredAOE += AOEManager_OnAnyUnitEnteredAOE;
         AOEManager.OnAnyUnitExitedAOE += AOEManager_OnAnyUnitExitedAOE;
         thisUnitName = unit.name;
         unitName.text = thisUnitName;
-        UpdateActionPointsText();
+        //UpdateActionPointsText();
         UpdateHealthBar();
     }
 
@@ -55,14 +55,14 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         postureText.text = $"{unit.GetUnitStats().GetPosture()} / {unit.GetUnitStats().GetUnitMaxPosture()}";
     }
 
-    private void UpdateActionPointsText()
-    {
-        if (!unit.GetUsedAction()) actionBarImage.fillAmount = 100;
-        else actionBarImage.fillAmount = 0;
+    //private void UpdateActionPointsText()
+    //{
+    //    if (!unit.GetUsedAction()) actionBarImage.fillAmount = 100;
+    //    else actionBarImage.fillAmount = 0;
 
-        if (!unit.GetUsedBonusAction()) bonusActionBarImage.fillAmount = 100;
-        else bonusActionBarImage.fillAmount = 0;
-    }
+    //    if (!unit.GetUsedBonusAction()) bonusActionBarImage.fillAmount = 100;
+    //    else bonusActionBarImage.fillAmount = 0;
+    //}
     private void ActivateWorldUI()
     {
         var checkIfBaseAbility = UnitActionSystem.Instance.GetSelectedAction();
@@ -172,17 +172,10 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         healthTakenBarImage.gameObject.SetActive(false);
     }
 
-    IEnumerator ShowCriticalHitVisual()
-    {
-        critImage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2);
-        critImage.gameObject.SetActive(false);
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
-            UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+            UnitActionSystem.Instance.GetSelectedBaseAbility().IsXPropertyInAction(AbilityProperties.AreaOfEffect))
             return;
 
         ActivateWorldUI();
@@ -190,7 +183,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         if (UnitActionSystem.Instance.GetSelectedBaseAbility() &&
-            UnitActionSystem.Instance.GetSelectedBaseAbility().GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+            UnitActionSystem.Instance.GetSelectedBaseAbility().IsXPropertyInAction(AbilityProperties.AreaOfEffect))
             return;
 
         DeActivateWorldUI();
@@ -207,39 +200,6 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             DeActivateWorldUI();
     }
 
-    private void Instance_OnSelectedActionChanged(object sender, EventArgs e)
-    {
-        if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
-        {
-            BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
-            if (selectedAction)
-            {
-                switch (selectedAction.GetActionCost())
-                {
-                    case TypeOfAction.Action:
-                        actionBarImage.color = Color.green;
-                        bonusActionBarImage.color = BonusactionBarDefualtColor;
-                        break;
-                    case TypeOfAction.BonusAction:
-                        bonusActionBarImage.color = Color.green;
-                        actionBarImage.color = actionBarDefualtColor;
-                        break;
-                    case TypeOfAction.Both:
-                        bonusActionBarImage.color = Color.green;
-                        actionBarImage.color = Color.green;
-                        break;
-                    default:
-                        Debug.Log("I'm not supposed to be called");
-                        break;
-                }
-            }
-        }
-        else
-        {
-            actionBarImage.color = actionBarDefualtColor;
-            bonusActionBarImage.color = BonusactionBarDefualtColor;
-        }
-    }
     private void Instance_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
         if (newlySelectedUnit.name == thisUnitName)
@@ -254,6 +214,46 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
 
-    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { UpdateActionPointsText(); }
+    private IEnumerator ShowCriticalHitVisual()
+    {
+        critImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        critImage.gameObject.SetActive(false);
+    }
+
+    //private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e) { /*UpdateActionPointsText(); */}
+    //private void Instance_OnSelectedActionChanged(object sender, EventArgs e)
+    //{
+    //    //if (UnitActionSystem.Instance.GetSelectedUnit().name == thisUnitName)
+    //    //{
+    //    //    BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
+    //    //    if (selectedAction)
+    //    //    {
+    //    //        switch (selectedAction.GetActionCost())
+    //    //        {
+    //    //            case TypeOfAction.Action:
+    //    //                actionBarImage.color = Color.green;
+    //    //                bonusActionBarImage.color = BonusactionBarDefualtColor;
+    //    //                break;
+    //    //            case TypeOfAction.BonusAction:
+    //    //                bonusActionBarImage.color = Color.green;
+    //    //                actionBarImage.color = actionBarDefualtColor;
+    //    //                break;
+    //    //            case TypeOfAction.Both:
+    //    //                bonusActionBarImage.color = Color.green;
+    //    //                actionBarImage.color = Color.green;
+    //    //                break;
+    //    //            default:
+    //    //                Debug.Log("I'm not supposed to be called");
+    //    //                break;
+    //    //        }
+    //    //    }
+    //    //}
+    //    //else
+    //    //{
+    //    //    actionBarImage.color = actionBarDefualtColor;
+    //    //    bonusActionBarImage.color = BonusactionBarDefualtColor;
+    //    //}
+    //}
 
 }

@@ -20,14 +20,21 @@ public class RangedAction : BaseAbility
     [Tooltip("Relevant for raycasting when this Unit shoots")]
     [SerializeField] private LayerMask obstacleLayerMask;
 
-    private Unit targetUnit;
     private bool canShootBullt;
 
     protected override void StartOfActionUpdate()
     {
         base.StartOfActionUpdate();
-        Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
-        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        if (GetTargetUnit())
+        {
+            Vector3 aimDir = (GetTargetUnit().GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
+            transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        }
+        else
+        {
+            //Vector3 aimDir = (targetDirection - GetUnit().GetWorldPosition()).normalized;
+            //transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        }
     }
     protected override void ExecutionOfActionUpdate()
     {
@@ -40,16 +47,14 @@ public class RangedAction : BaseAbility
     }
     protected override void EndOfActionUpdate() { base.EndOfActionUpdate(); }
 
-    public Unit GetTargetUnit() { return targetUnit; }
-
-    public override List<GridPosition> GetValidActionGridPositionList()
+    public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
         //error fix
         //error fix
-        if (targetUnit == null && !canOnlyHitEnemy) { return base.GetValidActionGridPositionList(); } //target unit was found null so added check but its missing range
-                                                                                                      //implementation in baseAbility- GetValidActionGridPositionList()
-                                                                                                      //error fix
-                                                                                                      //error fix
+        //if (targetUnit == null && !canOnlyHitEnemy) { return base.GetValidActionGridPositionList(); } //target unit was found null so added check but its missing range
+        //implementation in baseAbility- GetValidActionGridPositionList()
+        //error fix
+        //error fix
 
         #region Range Obstacle Check
         //if (GetUnit().name != "Amarok")
@@ -62,11 +67,22 @@ public class RangedAction : BaseAbility
         //    if (Physics.Raycast(unitWorldPosition + Vector3.up * unitShoulderHeight, shootDir, shotDistance, obstacleLayerMask)) // If blocked by an Obstacle
         //        return null;
         //}
-
         #endregion
 
-        return base.GetValidActionGridPositionList();
+        canShootBullt = true;
+        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);//normal range attack implementation
+        base.TakeAction(gridPosition, actionComplete);
+
+        ActionStart(actionComplete);
     }
+    //public override void TakeAction(Vector3 mousePosition, Action actionComplete)//aoe implementation
+    //{
+    //    canShootBullt = true;
+    //    targetUnit = null;
+    //    base.TakeAction(mousePosition, actionComplete);
+
+    //    ActionStart(actionComplete);
+    //}
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)//action value resides here (preference on who to do action on)
     {
@@ -75,33 +91,24 @@ public class RangedAction : BaseAbility
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 100 + Mathf.RoundToInt((1 - targetUnit.GetHealthNormalized()) * 100f), };
     }
 
-    public override void TakeAction(GridPosition gridPosition, Action actionComplete)
-    {
-        canShootBullt = true;
-        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
-        base.TakeAction(gridPosition, actionComplete);
-
-        ActionStart(actionComplete);
-    }
-
     private void Shoot(float damage)
     {
-        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+        if (IsXPropertyInAction(AbilityProperties.AreaOfEffect))
         {
-            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
+            foreach (Unit unit in AOEManager.Instance.GetUnitsInRange())
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, GetAbilityProperties(), statusEffectChance, statusEffectDuration);
                 }
             }
-            return;
         }
         else
-            targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
-
-        OnShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });
-        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });
+        {
+            GetTargetUnit().Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, GetAbilityProperties(), statusEffectChance, statusEffectDuration);
+        }
+        OnShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = GetTargetUnit(), ShootingUnit = GetUnit() });
+        OnAnyShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = GetTargetUnit(), ShootingUnit = GetUnit() });
     }
 
 }

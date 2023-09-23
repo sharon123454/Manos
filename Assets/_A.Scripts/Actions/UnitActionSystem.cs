@@ -97,10 +97,10 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        if (baseAction != null && baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+        if (baseAction && baseAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect))
         {
-            AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
-            selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
+            AOEManager.Instance.SetIsAOEActive(baseAction.GetIsFollowingMouse(), selectedUnit.transform.position,
+            baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
         else
             AOEManager.Instance.DisableAOE();
@@ -151,7 +151,14 @@ public class UnitActionSystem : MonoBehaviour
                     if (_unit == selectedUnit)//Unit is already selected
                         return false;
 
-                    if (_unit.IsEnemy())
+                    if (_unit.IsEnemy())//Unit is Enemy
+                        return false;
+
+                    BaseAction selectedAction = GetSelectedAction();
+                    if (selectedAction && (selectedAction.IsXPropertyInAction(AbilityProperties.CDR)//Action Properties that applies on Allies
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect)
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.Teleport)
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.Heal)))
                         return false;
 
                     SetSelectedUnit(_unit);
@@ -161,19 +168,28 @@ public class UnitActionSystem : MonoBehaviour
 
         return false;
     }
-    private void HandleSelectedAction()
+    private void HandleSelectedAction()//fix AOE
     {
         if (ManosInputController.Instance.Click.WasReleasedThisFrame())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
             if (selectedAction == null) { print("Selected Action is Null Returning"); return; }
             if (selectedAction.GetIfUsedAction()) { print("Selected action been used Returning"); return; }
-            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { print("Grid Is Not Valid"); return; }
-            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
+            if (!selectedAction.IsValidActionGridPosition(mouseGridPosition) && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect)) { print("Grid Is Not Valid"); return; }
+            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }
 
             SetBusy();
-            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
+            if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect))
+            {
+                print("AOE pressed");
+                //selectedAction.TakeAction(MouseWorld.GetPosition(), ClearBusy);
+            }
+            else
+            {
+                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+            }
 
             OnActionStarted?.Invoke(this, EventArgs.Empty);
         }

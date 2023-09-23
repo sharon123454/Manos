@@ -218,6 +218,7 @@ public class Unit : MonoBehaviour
     public void Heal(float healValue)
     {
         statSheet.Heal(healValue);
+        SendConsoleMessage?.Invoke(this, $"{name} was healed for {healValue}");
     }
     public void Block() { statSheet.Block(); }
     public void Dodge() { statSheet.Dodge(); }

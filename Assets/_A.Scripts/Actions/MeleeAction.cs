@@ -9,13 +9,11 @@ public class MeleeAction : BaseAbility
     public event EventHandler OnMeleeActionStarted;
     public event EventHandler OnMeleeActionCompleted;
 
-    private Unit targetUnit;
-
     protected override void StartOfActionUpdate()
     {
         base.StartOfActionUpdate();
 
-        Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
+        Vector3 aimDir = (GetTargetUnit().GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
         transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
     }
     protected override void ExecutionOfActionUpdate() { base.ExecutionOfActionUpdate(); }
@@ -26,18 +24,21 @@ public class MeleeAction : BaseAbility
     {
         base.OnActionExecutionChange();
         OnAnyMeleeHit?.Invoke(this, EventArgs.Empty);
-        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+        if (IsXPropertyInAction(AbilityProperties.AreaOfEffect))
         {
-            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
+            foreach (Unit unit in AOEManager.Instance.GetUnitsInRange())
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, GetAbilityProperties(), statusEffectChance, statusEffectDuration);
                 }
             }
             return;
         }
-        targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+        else
+        {
+            GetTargetUnit().Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, GetAbilityProperties(), statusEffectChance, statusEffectDuration);
+        }
     }
     protected override void OnActionEndChange()
     {

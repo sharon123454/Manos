@@ -3,19 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-// Types of Ranges Actions can have
-public enum ActionRange
-{
-    Move/*Set per Unit*/,
-    Self/* 0 */,
-    Melee/* 0 - 1 */,
-    Close/* 0 - 4, 5-9 */,
-    Medium/* 2-4, 5 - 9, 10-15 */,
-    Long/* 5 - 15 */,
-    EffectiveAtAll/* 0 - 15 */,
-    InaccurateAtAll/* 0-15 */,
-    ResetGrid/*None*/
-}
 // Types of effects added after use of Ability
 public enum StatusEffect
 {
@@ -36,27 +23,17 @@ public enum StatusEffect
     Taunt,//
     ToBeTauntUnused,//
 }
-// to fill  x-------------------------------------------------
-public enum AbilityProperties
-{
-    Basic,//Ignores Silance Effect
-    Finisher,//If the Target has less then 50% before the attack, deal double damage
-    Heal,//Give a friendly unit health points
-    IgnoreArmor,//The attack damage is done directly to a units health
-    CDR,//Reduces your ability's current cooldowns
-    AreaOfEffect,// Affects all units within a certain radius of the target point, dealing damage or applying other effects to each unit (physics based)
-    Teleport,//The unit instantaneously transport itself to a designated location x tiles away, bypassing obstacles and enemy units that may be in the way
-}
-// Transitions in the life of an Ability
+// Transition states in the life of an Ability
 public enum AbilityState
 {
     StartOfAction,// Prepare Ability parameters and visual state
     ExecutingAction,// Execute Ability function
-    EndOfAction// Ease back to out of ability state
+    EndOfAction// Ease back out of ability state
 }
-
 public class BaseAbility : BaseAction
 {
+    //public static event EventHandler OnAnyAbiltyHit;
+
     [Header("Ability")]
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected float postureDamage = 0f;
@@ -73,6 +50,9 @@ public class BaseAbility : BaseAction
     [SerializeField] private float executingActionTime = 0.1f;
     [SerializeField] private float endOfActionTime = 0.1f;
 
+    protected Unit targetUnit;
+    //protected Vector3 targetDirection;
+    //protected List<Unit> aOETargetUnits = new List<Unit>(5);
     protected float rotateToTargetSpeed = 10f;
 
     private float _actionStateTimer;
@@ -102,6 +82,7 @@ public class BaseAbility : BaseAction
             NextState();
     }
 
+    public Unit GetTargetUnit() { return targetUnit; }
     public float GetDamage() { return damage; }
     public int GetCritChance() { return critChance; }
     public float GetAbilityHitChance() { return hitChance; }
@@ -121,11 +102,21 @@ public class BaseAbility : BaseAction
         //gridPosition + unit.GetGridPosition() 
         //HandleAbilityRange();
 
-        if (AOEPrefab)
-        {
-            AOEPrefab.Init(GetUnit(), LevelGrid.Instance.GetWorldPosition(gridPosition), isFollowingUnit, AOEActiveTurns, GetStatusEffects(), GetMeshScaleMultiplicator());
-        }
+        //if (AOEPrefab)
+        //{
+        //    AOEPrefab.Init(GetUnit(), LevelGrid.Instance.GetWorldPosition(gridPosition), isFollowingUnit, AOEActiveTurns, GetStatusEffects(), GetMeshScaleMultiplicator());
+        //}
     }
+    //public override void TakeAction(Vector3 mousePosition, Action actionComplete)
+    //{
+    //    _state = AbilityState.StartOfAction;
+    //    _actionStateTimer = startOfActionTime;
+    //    targetDirection = mousePosition;
+
+    //    if (selfBuffs.Count > 0)
+    //        SetSelfBuff();
+    //}
+
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
@@ -146,7 +137,7 @@ public class BaseAbility : BaseAction
             case ActionRange.Long:
             case ActionRange.EffectiveAtAll:
             case ActionRange.InaccurateAtAll:
-                print(GetRange());
+                print($"Ability range: {GetRange()}");
                 return GetGridPositionListByRange(9);
             case ActionRange.ResetGrid:
                 Debug.Log($"Ability {name}: has No Valid Grid");
@@ -182,7 +173,7 @@ public class BaseAbility : BaseAction
                     break;
                 }
 
-                if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
+                if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !IsXPropertyInAction(AbilityProperties.Heal))// Both units on the same team
                     continue;
 
                 if (!targetUnit.IsEnemy() == !GetUnit().IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
@@ -203,9 +194,22 @@ public class BaseAbility : BaseAction
 
     protected virtual bool ValidationGridChecks() { return true; }
 
-    protected virtual void StartOfActionUpdate() { }
+    protected virtual void StartOfActionUpdate()
+    {
+        //if (IsXPropertyInAction(AbilityProperties.AreaOfEffect))
+        //{
+        //    foreach (Unit unit in AOEManager.Instance.GetUnitsInRange())
+        //    {
+        //        if (!unit.IsEnemy())
+        //        {
+        //            aOETargetUnits.Add(unit);
+        //            print(unit.name + "was added by AOE");
+        //        }
+        //    }
+        //}
+    }
     protected virtual void ExecutionOfActionUpdate() { }
-    protected virtual void EndOfActionUpdate() { }
+    protected virtual void EndOfActionUpdate() { /*aOETargetUnits.Clear();*/ }
 
     protected virtual void OnActionStartChange() { }
     protected virtual void OnActionExecutionChange() { }

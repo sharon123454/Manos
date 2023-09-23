@@ -11,18 +11,23 @@ public class BaseHeal : BaseAbility
     public event EventHandler OnHealActionCompleted;
 
     [Header("Heal")]
-   // [Range(1f, 600f)]
     [SerializeField] private float healValue;
 
-    private Unit targetUnit;
     public float GetHealValue() { return healValue; }
 
     protected override void StartOfActionUpdate()
     {
         base.StartOfActionUpdate();
-
-        Vector3 aimDir = (targetUnit.GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
-        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        if (GetTargetUnit())
+        {
+            Vector3 aimDir = (GetTargetUnit().GetWorldPosition() - GetUnit().GetWorldPosition()).normalized;
+            transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        }
+        else
+        {
+            //Vector3 aimDir = (targetDirection - GetUnit().GetWorldPosition()).normalized;
+            //transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+        }
     }
     protected override void ExecutionOfActionUpdate() { base.ExecutionOfActionUpdate(); }
     protected override void EndOfActionUpdate() { base.EndOfActionUpdate(); }
@@ -32,20 +37,19 @@ public class BaseHeal : BaseAbility
     {
         base.OnActionExecutionChange();
 
-        OnAnyHealHit?.Invoke(this, EventArgs.Empty);
-        if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
+        if (IsXPropertyInAction(AbilityProperties.AreaOfEffect))
         {
-            foreach (var unit in AOEManager.Instance.GetUnitsInRange())
+            foreach (Unit unit in AOEManager.Instance.GetUnitsInRange())
             {
-                if (!unit.IsEnemy())
-                {
-                    unit.Heal(GetHealValue());
-                    print(unit.name + "was healed");
-                }
+                unit.Heal(GetHealValue());
             }
-            return;
         }
-        targetUnit.Heal(GetHealValue());
+        else
+        {
+            GetTargetUnit().Heal(GetHealValue());
+        }
+
+        OnAnyHealHit?.Invoke(this, EventArgs.Empty);
     }
     protected override void OnActionEndChange()
     {
@@ -59,9 +63,16 @@ public class BaseHeal : BaseAbility
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
-        targetUnit.Heal(GetHealValue());
+        //targetUnit.Heal(GetHealValue());
         ActionStart(actionComplete);
     }
+    //public override void TakeAction(Vector3 mousePosition, Action actionComplete)
+    //{
+    //    targetUnit = null;
+    //    base.TakeAction(mousePosition, actionComplete);
+
+    //    ActionStart(actionComplete);
+    //}
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
