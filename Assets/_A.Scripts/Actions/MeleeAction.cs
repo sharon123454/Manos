@@ -32,12 +32,12 @@ public class MeleeAction : BaseAbility
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration, enemyEffectivess);
                 }
             }
             return;
         }
-        targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+        targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration, enemyEffectivess);
     }
     protected override void OnActionEndChange()
     {
@@ -51,6 +51,7 @@ public class MeleeAction : BaseAbility
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
+        enemyEffectivess = targetUnit.GetUnitStats().GetEffectiveness;
         OnMeleeActionStarted?.Invoke(this, EventArgs.Empty);
 
         ActionStart(actionComplete);

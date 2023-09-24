@@ -28,6 +28,7 @@ public class AOEProjectile : MonoBehaviour
     private Action onAOEBehaviourComplete;
     private Vector3 positionXZ;
     private float totalDistance;
+    private Effectiveness enemyEffectivess;
 
     private void Update()
     {
@@ -52,7 +53,7 @@ public class AOEProjectile : MonoBehaviour
                 if (collider.TryGetComponent<Unit>(out Unit targetUnit))
                 {
                     //NEED TO ADD ABILITY CRIT CHANCE
-                    targetUnit.Damage(damage, postureDamage, hitChance, 50, currentEffect, abilityProperties, _statusEffectChance, _statusEffectDuration);
+                    targetUnit.Damage(damage, postureDamage, hitChance, 50, currentEffect, abilityProperties, _statusEffectChance, _statusEffectDuration, enemyEffectivess);
                 }
 
             OnAnyAOEHit?.Invoke(this, EventArgs.Empty);
@@ -72,6 +73,7 @@ public class AOEProjectile : MonoBehaviour
         this.onAOEBehaviourComplete = onAOEBehaviourComplete;
         targetPosition = LevelGrid.Instance.GetWorldPosition(targetGridPosition);
 
+        enemyEffectivess = LevelGrid.Instance.GetUnitAtGridPosition(targetGridPosition).GetUnitStats().GetEffectiveness;
         currentEffect = effect;
         abilityProperties = AP;
         _statusEffectChance = statusEffectChance;

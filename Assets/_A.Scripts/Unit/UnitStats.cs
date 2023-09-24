@@ -26,28 +26,25 @@ public class UnitStats : MonoBehaviour
     private int _Effectivness = 0;
     private float postureDMGMultiplayer = 1;
 
-    private Effectiveness GetEffectiveness => _unit.GetGridEffectiveness();
-    private int CurrentEffectiveness
+    public Effectiveness GetEffectiveness => _unit.GetGridEffectiveness();
+    private int CurrentEffectiveness(Effectiveness effectiveness)
     {
-        get
+        switch (effectiveness)
         {
-            switch (GetEffectiveness)
-            {
-                case Effectiveness.Effective:
-                    _Effectivness = 0;
-                    break;
-                case Effectiveness.Inaccurate:
-                    _Effectivness = 30;
-                    break;
-                case Effectiveness.Miss:
-                    _Effectivness = 200;
-                    break;
-                default:
-                    _Effectivness = 50;
-                    break;
-            }
-            return _Effectivness;
+            case Effectiveness.Effective:
+                _Effectivness = 0;
+                break;
+            case Effectiveness.Inaccurate:
+                _Effectivness = 30;
+                break;
+            case Effectiveness.Miss:
+                _Effectivness = 200;
+                break;
+            default:
+                _Effectivness = 50;
+                break;
         }
+        return _Effectivness;
     }
 
     private void Awake()
@@ -55,13 +52,11 @@ public class UnitStats : MonoBehaviour
         currentPosture = maxPosture;
         health = maxHealth;
     }
-
     private void Start()
     {
         _unit = GetComponent<Unit>();
         _unitStatusEffect = GetComponent<UnitStatusEffects>();
     }
-
     private void Update()
     {
         //   print(GetEffectiveness + " "+ _unit.name);
@@ -106,7 +101,7 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture -= postureDamage;
     }
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration, Effectiveness effectiveness)
     {
         #region Dice Rolls
         int DiceRoll = UnityEngine.Random.Range(0, 101);
@@ -154,9 +149,11 @@ public class UnitStats : MonoBehaviour
         #endregion
 
         #region Normal Calculation
+        print(_unit.name + " " + hitChance);
+        print(hitChance - CurrentEffectiveness(effectiveness) - (evasion * evasionMultiplayer));
         if (currentPosture > 0)
         {
-            if (((hitChance - CurrentEffectiveness) - (evasion * evasionMultiplayer)) >= DiceRoll)
+            if (((hitChance - CurrentEffectiveness(effectiveness)) - (evasion * evasionMultiplayer)) >= DiceRoll)
             {
                 if (critDiceRoll + MagicSystem.Instance.AddCritChanceFromFavor(_unit.IsEnemy()) <= abilityCritChance)
                 {

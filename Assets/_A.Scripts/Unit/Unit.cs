@@ -221,9 +221,9 @@ public class Unit : MonoBehaviour
     }
     public void Block() { statSheet.Block(); }
     public void Dodge() { statSheet.Dodge(); }
-    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration)
+    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration,Effectiveness effectiveness)
     {
-        statSheet.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration);
+        statSheet.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration, effectiveness);
     }
 
     #region Attack of Oppertunity

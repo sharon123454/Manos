@@ -34,7 +34,7 @@ public class RangedAction : BaseAbility
         base.ExecutionOfActionUpdate();
         if (canShootBullt)
         {
-            Shoot(damage);
+            Shoot(damage, enemyEffectivess);
             canShootBullt = false;
         }
     }
@@ -79,12 +79,13 @@ public class RangedAction : BaseAbility
     {
         canShootBullt = true;
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        enemyEffectivess = targetUnit.GetUnitStats().GetEffectiveness;
         base.TakeAction(gridPosition, actionComplete);
 
         ActionStart(actionComplete);
     }
 
-    private void Shoot(float damage)
+    private void Shoot(float damage, Effectiveness effectiveness)
     {
         if (_AbilityProperties.Contains(AbilityProperties.AreaOfEffect))
         {
@@ -92,13 +93,13 @@ public class RangedAction : BaseAbility
             {
                 if (unit.IsEnemy())
                 {
-                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+                    unit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration, effectiveness);
                 }
             }
             return;
         }
         else
-            targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration);
+            targetUnit.Damage(damage, postureDamage, hitChance, critChance, EnemyStatusEffects, _AbilityProperties, statusEffectChance, statusEffectDuration, effectiveness);
 
         OnShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });
         OnAnyShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });

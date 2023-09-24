@@ -31,6 +31,7 @@ public abstract class BaseAction : MonoBehaviour
     [SerializeField] protected Sprite abilityImage;
     [SerializeField] protected Sprite abilityGrayImage;
 
+    protected Effectiveness enemyEffectivess;
     protected Action onActionComplete;
     protected bool _isActive;
     protected bool _usedAction;
