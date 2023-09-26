@@ -1,5 +1,93 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1122926157815544510
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6563545203030061661}
+    m_Modifications:
+    - target: {fileID: 1523115340999357460, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_Name
+      value: Nail_of_Bal_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524795103385579551, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: _stunVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 1233074578948505634}
+    - target: {fileID: 5524795103385579551, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: _stunVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8909061472188757370}
+    - target: {fileID: 5524795103385579551, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+      propertyPath: _corruptionVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 828216371285604736}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+--- !u!95 &1352842811534917738 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2113081280134134484, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+  m_PrefabInstance: {fileID: 1122926157815544510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3799671848831337423 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4264427321780484465, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+  m_PrefabInstance: {fileID: 1122926157815544510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5536814113820744621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4846955659393065235, guid: e9af5c3b49a041844aadd4d1323ae056, type: 3}
+  m_PrefabInstance: {fileID: 1122926157815544510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4797162124106565360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,6 +99,10 @@ PrefabInstance:
     - target: {fileID: 1295893034346284535, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
       propertyPath: m_Name
       value: SkeletonRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295893034346284535, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1923106816148725581, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
       propertyPath: m_RootOrder
@@ -81,16 +173,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
---- !u!95 &1063661124605707207 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5498916728652989751, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
-  m_PrefabInstance: {fileID: 4797162124106565360}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1733093586814513545 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6530183065304741753, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
-  m_PrefabInstance: {fileID: 4797162124106565360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6350866009510500797 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1923106816148725581, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
@@ -110,7 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: m_LocalPosition.x
@@ -179,11 +261,11 @@ PrefabInstance:
     - target: {fileID: 4254964426521657081, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 1063661124605707207}
+      objectReference: {fileID: 1352842811534917738}
     - target: {fileID: 4254964426521657081, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: shootPointTransform
       value: 
-      objectReference: {fileID: 1733093586814513545}
+      objectReference: {fileID: 3799671848831337423}
     - target: {fileID: 4262772869031385833, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       propertyPath: Armor
       value: 5
@@ -252,6 +334,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       insertIndex: 1
       addedObject: {fileID: 6350866009510500797}
+    - targetCorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 5536814113820744621}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
       insertIndex: -1
@@ -301,16 +386,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 0
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 15
   hitChance: 100
@@ -341,16 +426,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 01000000
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 30
   postureDamage: 10
   hitChance: 110
@@ -389,16 +474,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 50
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 5
   hitChance: 120
@@ -428,16 +513,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 4
   favorCost: 50
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 06000000
   range: 5
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   maxMoveDistance: 9
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -460,16 +545,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 50
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 40
   hitChance: 130
