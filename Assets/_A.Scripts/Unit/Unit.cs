@@ -81,7 +81,6 @@ public class Unit : MonoBehaviour
     }
     public bool IsEnemy() { return isEnemy; }
     public UnitStats GetUnitStats() { return statSheet; }
-    public void SetGridEffectiveness(Effectiveness _effectiveness) { gridPosition.SetEffectiveRange(_effectiveness); }
     public Effectiveness GetGridEffectiveness() { return gridPosition.GetEffectiveRange(); }
     public GridPosition GetGridPosition() { return gridPosition; }
     public Vector3 GetWorldPosition() { return transform.position; }
@@ -215,13 +214,13 @@ public class Unit : MonoBehaviour
         OnAnyActionPointsChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void Heal(float healValue)
+    public void Heal(float healValue, List<StatusEffect> abilityEffects, int effectDuration)
     {
-        statSheet.Heal(healValue);
+        statSheet.Heal(healValue, abilityEffects, effectDuration);
     }
     public void Block() { statSheet.Block(); }
     public void Dodge() { statSheet.Dodge(); }
-    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration,Effectiveness effectiveness)
+    public void Damage(float damage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> abilityEffect, List<AbilityProperties> AP, int AbilityhitChance, int Duration, Effectiveness effectiveness)
     {
         statSheet.TryTakeDamage(damage, postureDamage, hitChance, abilityCritChance, abilityEffect, AP, AbilityhitChance, Duration, effectiveness);
     }

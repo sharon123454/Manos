@@ -152,7 +152,7 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         return action is BaseAbility && !MagicSystem.Instance.CanFriendlySpendFavorToTakeAction(action.GetFavorCost())//if Action is Ability and don't have favor
         || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Root) && action.GetRange() == ActionRange.Move//if Rooted and Action is Movement
-        || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !action.IsBasicAbility()//if Silenced and Action isn't basic
+        || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Silence) && !action.IsXPropertyInAction(AbilityProperties.Basic)//if Silenced and Action isn't basic
         || selectedUnit.unitStatusEffects.ContainsEffect(StatusEffect.Stun);//if Unit is Stunned
     }
 

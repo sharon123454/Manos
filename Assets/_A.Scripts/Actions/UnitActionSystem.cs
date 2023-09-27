@@ -70,12 +70,7 @@ public class UnitActionSystem : MonoBehaviour
             //    savedAction = selectedUnit.GetAction<MoveAction>();
         }
     }
-    public void InvokeAbilityFinished()
-    {
-        CheckActionUse();
-        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
-        savedAction = null;
-    }
+
     public void SetHoveringOnUI(bool ui) { hoveringUI = ui; }
     public Unit GetSelectedUnit() { return selectedUnit; }
     public void SetSelectedAction(BaseAction baseAction)
@@ -97,10 +92,10 @@ public class UnitActionSystem : MonoBehaviour
             selectedMoveAction = null;
         }
 
-        if (baseAction != null && baseAction.GetAbilityPropertie().Contains(AbilityProperties.AreaOfEffect))
+        if (baseAction && baseAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect))
         {
-            AOEManager.Instance.SetIsAOEActive(true, baseAction.GetIsFollowingMouse(),
-            selectedUnit.transform.position, baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
+            AOEManager.Instance.SetIsAOEActive(baseAction.GetIsFollowingMouse(), selectedUnit.transform.position,
+            baseAction.GetActionMeshShape(), baseAction.GetMeshScaleMultiplicator(), baseAction.GetRange());
         }
         else
             AOEManager.Instance.DisableAOE();
@@ -151,7 +146,14 @@ public class UnitActionSystem : MonoBehaviour
                     if (_unit == selectedUnit)//Unit is already selected
                         return false;
 
-                    if (_unit.IsEnemy())
+                    if (_unit.IsEnemy())//Unit is Enemy
+                        return false;
+
+                    BaseAction selectedAction = GetSelectedAction();
+                    if (selectedAction && (selectedAction.IsXPropertyInAction(AbilityProperties.CDR)//Action Properties that applies on Allies
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect)
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.Teleport)
+                        || selectedAction.IsXPropertyInAction(AbilityProperties.Heal)))
                         return false;
 
                     SetSelectedUnit(_unit);
@@ -166,11 +168,16 @@ public class UnitActionSystem : MonoBehaviour
         if (ManosInputController.Instance.Click.WasReleasedThisFrame())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+            Unit unitAtGridPos = LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition);
+
+            if (mouseGridPosition == null) { print("Grid Position is Null"); return; }
             if (selectedAction == null) { print("Selected Action is Null Returning"); return; }
             if (selectedAction.GetIfUsedAction()) { print("Selected action been used Returning"); return; }
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { print("Grid Is Not Valid"); return; }
-            if (LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition) != null && LevelGrid.Instance.GetUnitAtGridPosition(mouseGridPosition).GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
+            if (mouseGridPosition.GetEffectiveRange() == Effectiveness.Miss) { print("Grid Effectivness is 0"); return; }
+            if (unitAtGridPos && unitAtGridPos.GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }
+            if (!unitAtGridPos && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && selectedAction.GetRange() != ActionRange.Move) { print("Unit in grid pos is NULL and action selected is NOT AoE and NOT Move"); return; }
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
@@ -204,6 +211,14 @@ public class UnitActionSystem : MonoBehaviour
             Debug.Log($"{name}: unit not found");
 
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
+    }
+
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    {
+        CheckActionUse();
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+        savedAction = null;
     }
 
 }

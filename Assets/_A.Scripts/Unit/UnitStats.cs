@@ -114,7 +114,7 @@ public class UnitStats : MonoBehaviour
 
         if (AP.Contains(AbilityProperties.Heal))
         {
-            Heal(rawDamage);
+            Heal(rawDamage, currentEffects, effectDuration);
             return;
         }
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
@@ -143,7 +143,7 @@ public class UnitStats : MonoBehaviour
 
         if (damageToRecieve <= 0)
         {
-            SendConsoleMessage?.Invoke(this, "Damage was mitigated.");
+            SendConsoleMessage?.Invoke(this, $"{name} mitigated the damage");
             return;
         }
         #endregion
@@ -164,7 +164,6 @@ public class UnitStats : MonoBehaviour
                 else
                 {
                     TakeDamage(damageToRecieve, postureDamage);
-                    SendConsoleMessage?.Invoke(this, "Ability HIT!");
                 }
 
                 if (currentEffects.Count > 0 && statusDiceRoll <= chanceToTakeStatusEffect)
@@ -175,12 +174,12 @@ public class UnitStats : MonoBehaviour
                     }
                 }
                 if (AP.Contains(AbilityProperties.Finisher))
-                    SendConsoleMessage?.Invoke(this, "Armor Ignored!");
+                    SendConsoleMessage?.Invoke(this, $"{name} Armor Ignored damage!");
             }
             else
             {
                 OnDodge?.Invoke(this, EventArgs.Empty);
-                SendConsoleMessage?.Invoke(this, "Attack Missed");
+                SendConsoleMessage?.Invoke(this, $"Attack Missed {name}");
             }
             return;
 
@@ -202,14 +201,24 @@ public class UnitStats : MonoBehaviour
     }
 
     public UnitStatusEffects getUnitStatusEffects() { return _unitStatusEffect; }
-    public void Heal(float healValue)
+    public void Heal(float healValue, List<StatusEffect> abilityEffects, int effectDuration)
     {
         health += healValue;
         if (health > maxHealth)
         {
             health = maxHealth;
         }
+        
         OnHeal?.Invoke(this, EventArgs.Empty);
+        SendConsoleMessage?.Invoke(this, $"{name} was healed for {healValue}");
+
+        if (abilityEffects.Count > 0)
+        {
+            foreach (StatusEffect effect in abilityEffects)
+            {
+                _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
+            }
+        }
     }
 
     private void TakeDamage(float damageToRecieve, float postureDamage)
@@ -217,21 +226,13 @@ public class UnitStats : MonoBehaviour
         health -= damageToRecieve;
         currentPosture -= postureDamage;
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
-        if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying))
-        {
-            InvokeHPChange();
-            return;
-        }
-        if (health < 0) health = 0;
-
-        InvokeHPChange();
-
-        if (health == 0) Die();
-    }
-
-    public void InvokeHPChange()
-    {
         OnDamaged?.Invoke(this, EventArgs.Empty);
+        SendConsoleMessage?.Invoke(this, $"{name} was damaged for {damageToRecieve}hp, {postureDamage}posture.");
+
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying)) { return; }
+
+        if (health < 0) health = 0;
+        if (health == 0) Die();
     }
 
     private void Die()

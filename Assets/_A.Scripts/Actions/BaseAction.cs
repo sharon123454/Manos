@@ -5,6 +5,30 @@ using System;
 
 // Costs of an Action
 public enum TypeOfAction { Action, BonusAction, Both }
+// Types of Range Actions have
+public enum ActionRange
+{
+    Move/*Set per Unit*/,
+    Self/* 0 */,
+    Melee/* 0 - 1 */,
+    Close/* 0 - 4, 5-9 */,
+    Medium/* 2-4, 5 - 9, 10-15 */,
+    Long/* 5 - 15 */,
+    EffectiveAtAll/* 0 - 15 */,
+    InaccurateAtAll/* 0-15 */,
+    ResetGrid/*None*/
+}
+// Ability Properties Actions have
+public enum AbilityProperties
+{
+    Basic,//Ignores Silance Effect
+    Finisher,//If the Target has less then 50% before the attack, deal double damage
+    Heal,//Give a friendly unit health points
+    IgnoreArmor,//The attack damage is done directly to a units health
+    CDR,//Reduces your ability's current cooldowns
+    AreaOfEffect,// Affects all units within a certain radius of the target point, dealing damage or applying other effects to each unit (physics based)
+    Teleport,//The unit instantaneously transport itself to a designated location x tiles away, bypassing obstacles and enemy units that may be in the way
+}
 public abstract class BaseAction : MonoBehaviour
 {
     public static event EventHandler<int> OnAnySpellCast;
@@ -12,24 +36,23 @@ public abstract class BaseAction : MonoBehaviour
     public static event EventHandler OnAnyActionCompleted;
 
     [Header("Base Action")]
-    [SerializeField] protected string _actionName = "Empty";
-    [SerializeField] protected string actionDescription = "Description...";
-    [SerializeField] protected TypeOfAction actionCost;
-    [SerializeField] protected int cooldownAfterUse = 1;
-    [SerializeField] protected int favorCost = 0;
-    [SerializeField] protected List<AbilityProperties> _AbilityProperties = new() { AbilityProperties.Basic };
+    [SerializeField] private string _actionName = "Empty";
+    [SerializeField] private string actionDescription = "Description...";
+    [SerializeField] private TypeOfAction actionCost;
+    [SerializeField] private int cooldownAfterUse = 1;
+    [SerializeField] private int favorCost = 0;
+    [SerializeField] private Sprite abilityImage;
+    [SerializeField] private Sprite abilityGrayImage;
+    [SerializeField] private List<AbilityProperties> _AbilityProperties = new List<AbilityProperties>();
     [SerializeField] private ActionRange range;
-    [SerializeField] protected bool canOnlyHitEnemy;
     [Header("AoE")]
     [Tooltip("Leave Empty if AOE is single activation")]
     [SerializeField] protected AOEActive AOEPrefab;
-    [SerializeField] protected float AOEActiveTurns = 1;
-    [SerializeField] protected bool isFollowingMouse;
+    [SerializeField] protected int AOEActiveTurns = 1;
+    [SerializeField] private bool isFollowingMouse;
     [SerializeField] protected bool isFollowingUnit = true;
-    [SerializeField] protected MeshShape actionMeshShape;
-    [SerializeField] protected float meshShapeScaleMultiplicator = 1;
-    [SerializeField] protected Sprite abilityImage;
-    [SerializeField] protected Sprite abilityGrayImage;
+    [SerializeField] private MeshShape actionMeshShape;
+    [SerializeField] private float meshShapeScaleMultiplicator = 1;
 
     protected Effectiveness enemyEffectivess;
     protected Action onActionComplete;
@@ -38,8 +61,7 @@ public abstract class BaseAction : MonoBehaviour
 
     private Unit unit;
     private int cooldown;
-
-    BaseAbility baseAbility;
+    private BaseAbility baseAbility;
 
     protected virtual void Awake()
     {
@@ -51,13 +73,11 @@ public abstract class BaseAction : MonoBehaviour
             baseAbility = GetComponent<BaseAbility>();
         }
     }
-
     protected virtual void Start()
     {
         TurnSystem.Instance.OnTurnChange += Instance_OnTurnChange;
     }
 
-    public bool IsBasicAbility() { return _AbilityProperties.Contains(AbilityProperties.Basic); }
     public Unit GetUnit() { return unit; }
     public ActionRange GetRange() { return range; }
     public string GetActionName() { return _actionName; }
@@ -65,7 +85,8 @@ public abstract class BaseAction : MonoBehaviour
     public Sprite GetAbilityGrayImage() { return abilityGrayImage; }
     public MeshShape GetActionMeshShape() { return actionMeshShape; }
     public float GetMeshScaleMultiplicator() { return meshShapeScaleMultiplicator; }
-    public List<AbilityProperties> GetAbilityPropertie() { return _AbilityProperties; }
+    public bool IsXPropertyInAction(AbilityProperties X) { return _AbilityProperties.Contains(X); }
+    public List<AbilityProperties> GetAbilityProperties() { return _AbilityProperties; }
     public EnemyAIAction GetBestEnemyAIAction()
     {
         List<EnemyAIAction> _enemyAIActionList = new List<EnemyAIAction>();
@@ -115,25 +136,26 @@ public abstract class BaseAction : MonoBehaviour
 
     protected void ActionStart(Action onActionComple)
     {
-        GetUnit().GetUnitAnimator().OnActionStarted(GetActionName());
+        GetUnit().GetUnitAnimator().OnActionStarted(GetActionName());//activates action animation
+        this.onActionComplete = onActionComple;//setting the end of action Action
         cooldown += cooldownAfterUse;
-        if (baseAbility)
+
+        if (GetFavorCost() > 0)//if spell, updates MagicSystem
             OnAnySpellCast?.Invoke(this, GetFavorCost());
-        _isActive = true;
-        this.onActionComplete = onActionComple;
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);
+
+        _isActive = true;//allowing action update to run (check specific actions/BaseAbility for implementation)
+        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);//updates ActionUI
     }
     protected void ActionComplete()
     {
-        _isActive = false;
+        _isActive = false;//closing update proccess
         onActionComplete();
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);
-        UnitActionSystem.Instance.InvokeAbilityFinished();
+        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);//updates AOE and UnitActionSystem
     }
 
+    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
     public abstract List<GridPosition> GetValidActionGridPositionList();
     public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
-    public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);
 
     private void Instance_OnTurnChange(object sender, EventArgs e)
     {

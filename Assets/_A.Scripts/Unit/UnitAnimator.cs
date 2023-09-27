@@ -15,10 +15,8 @@ public class UnitAnimator : MonoBehaviour
     {
         vfxLibrary = animator.gameObject.GetComponent<VFXLibrary>();
 
-        BaseHeal[] _healActions = GetComponents<BaseHeal>();
         MoveAction[] _moveActions = GetComponents<MoveAction>();
         RangedAction[] _shootActions = GetComponents<RangedAction>();
-        MeleeAction[] _meleeActions = GetComponents<MeleeAction>();
 
         if (_moveActions.Length > 0)
             foreach (MoveAction moveAction in _moveActions)
@@ -35,22 +33,6 @@ public class UnitAnimator : MonoBehaviour
                 if (shootAction)
                 {
                     shootAction.OnShoot += ShootAction_OnShoot;
-                }
-
-        if (_meleeActions.Length > 0)
-            foreach (MeleeAction meleeAction in _meleeActions)
-                if (meleeAction)
-                {
-                    meleeAction.OnMeleeActionStarted += MeleeAction_OnMeleeActionStarted;
-                    meleeAction.OnMeleeActionCompleted += MeleeAction_OnMeleeActionCompleted;
-                }
-
-        if (_healActions.Length > 0)
-            foreach (BaseHeal healAction in _healActions)
-                if (healAction)
-                {
-                    healAction.OnHealActionStarted += BaseHeal_OnHealActionStarted;
-                    healAction.OnHealActionCompleted += BaseHeal_OnHealActionCompleted;
                 }
 
         if (TryGetComponent<DodgeAction>(out DodgeAction dodgeAction))
@@ -146,22 +128,6 @@ public class UnitAnimator : MonoBehaviour
     private void MoveAction_OnStopMoving(object sender, EventArgs e)
     {
         animator.SetBool("IsWalking", false);
-    }
-
-    private void MeleeAction_OnMeleeActionStarted(object sender, EventArgs e)
-    {
-        animator.SetTrigger("MeleeAttack");
-    }
-    private void MeleeAction_OnMeleeActionCompleted(object sender, EventArgs e)
-    {
-
-    }
-
-    private void BaseHeal_OnHealActionStarted(object sender, EventArgs e)
-    {
-    }
-    private void BaseHeal_OnHealActionCompleted(object sender, EventArgs e)
-    {
     }
 
 }

@@ -3,19 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-// Types of Ranges Actions can have
-public enum ActionRange
-{
-    Move/*Set per Unit*/,
-    Self/* 0 */,
-    Melee/* 0 - 1 */,
-    Close/* 0 - 4, 5-9 */,
-    Medium/* 2-4, 5 - 9, 10-15 */,
-    Long/* 5 - 15 */,
-    EffectiveAtAll/* 0 - 15 */,
-    InaccurateAtAll/* 0-15 */,
-    ResetGrid/*None*/
-}
 // Types of effects added after use of Ability
 public enum StatusEffect
 {
@@ -36,17 +23,6 @@ public enum StatusEffect
     Taunt,//
     ToBeTauntUnused,//
 }
-// to fill  x-------------------------------------------------
-public enum AbilityProperties
-{
-    Basic,//Ignores Silance Effect
-    Finisher,//If the Target has less then 50% before the attack, deal double damage
-    Heal,//Give a friendly unit health points
-    IgnoreArmor,//The attack damage is done directly to a units health
-    CDR,//Reduces your ability's current cooldowns
-    AreaOfEffect,// Affects all units within a certain radius of the target point, dealing damage or applying other effects to each unit (physics based)
-    Teleport,//The unit instantaneously transport itself to a designated location x tiles away, bypassing obstacles and enemy units that may be in the way
-}
 // Transitions in the life of an Ability
 public enum AbilityState
 {
@@ -54,7 +30,6 @@ public enum AbilityState
     ExecutingAction,// Execute Ability function
     EndOfAction// Ease back to out of ability state
 }
-
 public class BaseAbility : BaseAction
 {
     [Header("Ability")]
@@ -73,6 +48,20 @@ public class BaseAbility : BaseAction
     [SerializeField] private float executingActionTime = 0.1f;
     [SerializeField] private float endOfActionTime = 0.1f;
 
+    protected Unit targetUnit;
+    protected Vector3 actionAimDirection;
+    private List<Unit> _aoEUnitTargets = new List<Unit>();
+    public List<Unit> GetAoETargets() { return _aoEUnitTargets; }
+    public void SetTargetByAoE(List<Unit> aoEUnitTargets)
+    {
+        targetUnit = null;
+        _aoEUnitTargets.Clear();
+        actionAimDirection = MouseWorld.GetPosition();
+        foreach (Unit unit in aoEUnitTargets)
+            _aoEUnitTargets.Add(unit);
+    }
+
+    //AOE targets missing
     protected float rotateToTargetSpeed = 10f;
 
     private float _actionStateTimer;
@@ -113,24 +102,28 @@ public class BaseAbility : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
-        _state = AbilityState.StartOfAction;
+        //Setting Action to starting state and resetting timer before activation on Update
         _actionStateTimer = startOfActionTime;
-        // cooldown += addCooldown;
+        _state = AbilityState.StartOfAction;
+
+        //Activating Action self Buffs
         if (selfBuffs.Count > 0)
             SetSelfBuff();
-        //gridPosition + unit.GetGridPosition() 
-        //HandleAbilityRange();
 
+        //for specific AOEs
         if (AOEPrefab)
-        {
-            AOEPrefab.Init(GetUnit(), LevelGrid.Instance.GetWorldPosition(gridPosition), isFollowingUnit, AOEActiveTurns, GetStatusEffects(), GetMeshScaleMultiplicator());
-        }
+            AOEPrefab.Init(GetUnit().IsEnemy(), LevelGrid.Instance.GetWorldPosition(gridPosition), isFollowingUnit, AOEActiveTurns, GetStatusEffects(), GetMeshScaleMultiplicator());
+
+        //overridable for method for children
+        OnActionStart();
+        //start of the action
+        ActionStart(actionComplete);
     }
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
-    public override List<GridPosition> GetValidActionGridPositionList()//implements ranges
+    public override List<GridPosition> GetValidActionGridPositionList()//implements ranges (needs fixing as it deosn't remove close ranges)
     {
         switch (GetRange())
         {
@@ -171,22 +164,25 @@ public class BaseAbility : BaseAction
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) // If grid valid
                     continue;
 
-                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) // If grid position has no unit
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition) && !IsXPropertyInAction(AbilityProperties.AreaOfEffect)) // If grid position has no unit and not AOE
                     continue;
 
                 Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
-                if (GetUnit().IsEnemy() && targetUnit.GetUnitStats().getUnitStatusEffects().unitActiveStatusEffects.Contains(StatusEffect.Taunt))
+                if (targetUnit)
                 {
-                    _validGridPositionList.Clear();
-                    _validGridPositionList.Add(testGridPosition);
-                    break;
+                    if (GetUnit().IsEnemy() && targetUnit.GetUnitStats().getUnitStatusEffects().unitActiveStatusEffects.Contains(StatusEffect.Taunt))
+                    {
+                        _validGridPositionList.Clear();
+                        _validGridPositionList.Add(testGridPosition);
+                        break;
+                    }
+
+                    if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !IsXPropertyInAction(AbilityProperties.Heal))// Both units on the same team
+                        continue;
+
+                    if (!targetUnit.IsEnemy() == !GetUnit().IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
+                        continue;
                 }
-
-                if (targetUnit.IsEnemy() == GetUnit().IsEnemy() && !_AbilityProperties.Contains(AbilityProperties.Heal))// Both units on the same team
-                    continue;
-
-                if (!targetUnit.IsEnemy() == !GetUnit().IsEnemy() && targetUnit.unitStatusEffects.unitActiveStatusEffects.Contains(StatusEffect.Invisibility))// Both units on the same team
-                    continue;
 
                 if (ValidationGridChecks())//Childrens special exception
                     _validGridPositionList.Add(testGridPosition);
@@ -203,30 +199,48 @@ public class BaseAbility : BaseAction
 
     protected virtual bool ValidationGridChecks() { return true; }
 
+    /// <summary>
+    /// Starting state of an action during update
+    /// </summary>
     protected virtual void StartOfActionUpdate() { }
+    /// <summary>
+    /// Executing state of an action during update
+    /// </summary>
     protected virtual void ExecutionOfActionUpdate() { }
+    /// <summary>
+    /// End state of an action during update
+    /// </summary>
     protected virtual void EndOfActionUpdate() { }
 
-    protected virtual void OnActionStartChange() { }
-    protected virtual void OnActionExecutionChange() { }
-    protected virtual void OnActionEndChange() { }
+    /// <summary>
+    /// Right before action start state starts updating
+    /// </summary>
+    protected virtual void OnActionStart() { }
+    /// <summary>
+    /// Right before action execution starts updates
+    /// </summary>
+    protected virtual void OnActionExecution() { }
+    /// <summary>
+    /// Right before action end starts updates
+    /// </summary>
+    protected virtual void OnActionEnded() { }
 
+    //State Machine Switch
     private void NextState()
     {
         switch (_state)
         {
             case AbilityState.StartOfAction:
+                OnActionExecution();
                 _state = AbilityState.ExecutingAction;
                 _actionStateTimer = executingActionTime;
-                OnActionStartChange();
                 break;
             case AbilityState.ExecutingAction:
+                OnActionEnded();
                 _state = AbilityState.EndOfAction;
                 _actionStateTimer = endOfActionTime;
-                OnActionExecutionChange();
                 break;
             case AbilityState.EndOfAction:
-                OnActionEndChange();
                 ActionComplete();
                 break;
         }

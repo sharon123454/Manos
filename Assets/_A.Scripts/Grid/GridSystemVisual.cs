@@ -131,10 +131,7 @@ public class GridSystemVisual : MonoBehaviour
             {
                 gridSystemVisualSingleArray[position._x, position._z].Show(gridVisualColor);
 
-                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
-
-                if (targetUnit && targetUnit.IsEnemy())
-                    targetUnit.SetGridEffectiveness(effectiveness);
+                position.SetEffectiveRange(effectiveness);
             }
     }
 
@@ -301,29 +298,23 @@ public class GridSystemVisual : MonoBehaviour
     //Filtering
     private void HideGridPositionList(List<GridPosition> gridPositions)
     {
-        Unit targetUnit;
-
         foreach (GridPosition position in gridPositions)
             if (gridSystemVisualSingleArray[position._x, position._z] != null)
             {
                 gridSystemVisualSingleArray[position._x, position._z].Hide();
 
-                targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(position);
-
-                if (targetUnit && targetUnit.IsEnemy())
-                    targetUnit.SetGridEffectiveness(Effectiveness.Miss);
+                position.SetEffectiveRange(Effectiveness.Miss);
             }
     }
-    private void HideAllVisual()//fix removing effectiveness
+    private void HideAllVisual()
     {
         for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
                 if (gridSystemVisualSingleArray[x, z] != null)
+                {
                     gridSystemVisualSingleArray[x, z].Hide();
-
-        //List<Unit> unitList = UnitManager.Instance.GetEnemyUnitList();
-        //foreach (Unit unit in unitList)
-        //    unit.SetGridEffectiveness(Effectiveness.Miss);
+                    LevelGrid.Instance.GetGridPosition(gridSystemVisualSingleArray[x, z].transform.position).SetEffectiveRange(Effectiveness.Miss);
+                }
     }
 
     #region  Filter By Range methods
