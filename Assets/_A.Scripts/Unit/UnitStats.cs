@@ -144,7 +144,7 @@ public class UnitStats : MonoBehaviour
         if (damageToRecieve <= 0)
         {
             SendConsoleMessage?.Invoke(this, $"{name} mitigated the damage");
-            return;
+            damageToRecieve = 0;
         }
         #endregion
 
