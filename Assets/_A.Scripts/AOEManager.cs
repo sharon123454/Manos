@@ -17,6 +17,9 @@ public class AOEManager : MonoBehaviour
     [SerializeField] private float _closeRange = 9f;
     [SerializeField] private float _longRange = 15f;
 
+    private Quaternion _quaternionZero = new Quaternion(0, 0, 0, 0);
+    private float rotateToTargetSpeed = 10f;
+    private MeshShape _currentMeshShape;
     private List<Unit> _inRangeUnits;
     private MeshCollider _collider;
     private MeshFilter _meshVisual;
@@ -49,6 +52,13 @@ public class AOEManager : MonoBehaviour
                 _mousePos = MouseWorld.GetPosition();
                 transform.position = transform.parent.position + Vector3.ClampMagnitude(_mousePos - transform.parent.position, _clampRange);
             }
+
+            if (_currentMeshShape == meshArrayType[4].ShapeType)
+            {
+                Vector3 aimDir = (MouseWorld.GetPosition() - transform.position).normalized;
+                aimDir.y = 0;
+                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * rotateToTargetSpeed);
+            }
         }
         else
         {
@@ -61,23 +71,31 @@ public class AOEManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Unit unit;
-        if (unit = other.gameObject.GetComponent<Unit>())
-            if (!_inRangeUnits.Contains(unit))
-            {
-                _inRangeUnits.Add(unit);
-                OnAnyUnitEnteredAOE?.Invoke(this, unit);
-            }
+        if (_isAOEActive)
+        {
+            Unit unit;
+            if (unit = other.gameObject.GetComponent<Unit>())
+                if (!_inRangeUnits.Contains(unit))
+                {
+                    _inRangeUnits.Add(unit);
+                    OnAnyUnitEnteredAOE?.Invoke(this, unit);
+                }
+        }
+        else { if (_inRangeUnits.Count > 0) { _inRangeUnits.Clear(); } }
     }
     private void OnTriggerExit(Collider other)
     {
-        Unit unit;
-        if (unit = other.gameObject.GetComponent<Unit>())
-            if (_inRangeUnits.Contains(unit))
-            {
-                _inRangeUnits.Remove(unit);
-                OnAnyUnitExitedAOE?.Invoke(this, unit);
-            }
+        if (_isAOEActive)
+        {
+            Unit unit;
+            if (unit = other.gameObject.GetComponent<Unit>())
+                if (_inRangeUnits.Contains(unit))
+                {
+                    _inRangeUnits.Remove(unit);
+                    OnAnyUnitExitedAOE?.Invoke(this, unit);
+                }
+        }
+        else { if (_inRangeUnits.Count > 0) { _inRangeUnits.Clear(); } }
     }
 
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
@@ -110,9 +128,11 @@ public class AOEManager : MonoBehaviour
                         return;
                     }
 
+                    transform.rotation = _quaternionZero;
                     transform.localScale = Vector3.one;
                     transform.localScale = Vector3.one * LevelGrid.Instance.GetCellSize() * rangeMultiplicator;
                     transform.parent.position = aOEPositiion;
+                    _currentMeshShape = shape.ShapeType;
                     _collider.sharedMesh = shape.Mesh;
                     _meshVisual.mesh = shape.Mesh;
                     _isAOEActive = true;
