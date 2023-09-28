@@ -5,7 +5,7 @@ using System;
 
 public class RangedAction : BaseAbility
 {
-    public static event EventHandler<OnSHootEventArgs> OnAnyShoot;
+    public static event EventHandler<OnSHootEventArgs> OnAnyShoot;//Screen shake event
     public event EventHandler<OnSHootEventArgs> OnShoot;
     public class OnSHootEventArgs : EventArgs
     {
@@ -40,7 +40,6 @@ public class RangedAction : BaseAbility
             targetUnit.Damage(damage, postureDamage, hitChance, critChance, GetStatusEffects(), GetAbilityProperties(), statusEffectChance, statusEffectDuration, enemyEffectivess);
 
             OnShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });
-            OnAnyShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = targetUnit, ShootingUnit = GetUnit() });
         }
         else
         {
@@ -51,7 +50,6 @@ public class RangedAction : BaseAbility
                     unit.Damage(damage, postureDamage, hitChance, critChance, GetStatusEffects(), GetAbilityProperties(), statusEffectChance, statusEffectDuration, enemyEffectivess);
 
                     OnShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = unit, ShootingUnit = GetUnit() });
-                    OnAnyShoot?.Invoke(this, new OnSHootEventArgs { TargetUnit = unit, ShootingUnit = GetUnit() });
                 }
             }
         }
