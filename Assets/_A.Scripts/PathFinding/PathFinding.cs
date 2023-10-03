@@ -14,6 +14,7 @@ public class PathFinding : MonoBehaviour
     [Tooltip("Height from ground to check for obstacles above the path")]
     [SerializeField] private float rayCastOffsetDistance = 5f;
     [SerializeField] internal LayerMask obstacleLayerMask;
+    [SerializeField] internal LayerMask EnemyobstacleLayerMask;
     [SerializeField] internal LayerMask movableLayerMask;
     [SerializeField] internal LayerMask floorGridLayer;
 
@@ -52,6 +53,10 @@ public class PathFinding : MonoBehaviour
                 {
                     SetWalkableGridPosition(gridPosition, false);
                 }
+                if (Physics.Raycast(worldPosition + Vector3.down * rayCastOffsetDistance, Vector3.up, rayCastOffsetDistance * 2, EnemyobstacleLayerMask))
+                {
+                    SetWalkableGridPositionForEnemy(gridPosition, false);
+                }
             }
         }
     }
@@ -59,6 +64,10 @@ public class PathFinding : MonoBehaviour
     public bool IsWalkableGridPosition(GridPosition gridPosition)
     {
         return gridSystem.GetGridObject(gridPosition).IsWalkable();
+    }
+    public bool IsWalkableGridPositionForEnemy(GridPosition gridPosition)
+    {
+        return gridSystem.GetGridObject(gridPosition).IsWalkableForEnemy();
     }
     public bool IsOccupiedGridPosition(GridPosition gridPosition)
     {
@@ -68,6 +77,10 @@ public class PathFinding : MonoBehaviour
     public void SetWalkableGridPosition(GridPosition gridPosition, bool isWalkable)
     {
         gridSystem.GetGridObject(gridPosition).SetIsWalkable(isWalkable);
+    }
+    public void SetWalkableGridPositionForEnemy(GridPosition gridPosition, bool isWalkable)
+    {
+        gridSystem.GetGridObject(gridPosition).SetIsWalkableForEnemy(isWalkable);
     }
     public void SetOccupiedGridPosition(GridPosition gridPosition, bool isOccupied)//need to change this on move
     {
