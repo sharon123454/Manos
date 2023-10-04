@@ -133,6 +133,11 @@ public class MoveAction : BaseAction
                 if (!PathFinding.Instance.IsWalkableGridPosition(testGridPosition)) // If grid position has GO with "Obstacle" tag
                     continue;
 
+                if (!PathFinding.Instance.IsWalkableGridPositionForEnemy(testGridPosition) && GetUnit().IsEnemy())
+                {
+                    print("BLOCKKKKKKKKK ITS ENEMY");
+                    continue;
+                }
                 if (!PathFinding.Instance.HasPath(_unitGridPosition, testGridPosition)) // If grid position is Unreachable
                     continue;
 
