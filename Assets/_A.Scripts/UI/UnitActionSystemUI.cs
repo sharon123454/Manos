@@ -182,7 +182,7 @@ public class UnitActionSystemUI : MonoBehaviour
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
-    private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)
+    private void ManosInputController_SetSelectedAction(InputAction.CallbackContext inputValue)//fix grid square not updating unless OnEnter
     {
         if (UnitActionSystem.Instance.isBusy || !TurnSystem.Instance.IsPlayerTurn()) { return; }
 

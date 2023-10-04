@@ -8,7 +8,7 @@ public class GridSystemVisual : MonoBehaviour
     public static GridSystemVisual Instance { get; private set; }
 
     [SerializeField] private Transform GridSystemVisualSinglePrefab;
-    [SerializeField] private Transform GridParent, adjacentParent, closeParent, farParent, veryFarParent;
+    [SerializeField] private Transform GridParent;
     [SerializeField] private int _Adjacent = 1;
     [SerializeField] private int _Close = 4;
     [SerializeField] private int _Far = 6;

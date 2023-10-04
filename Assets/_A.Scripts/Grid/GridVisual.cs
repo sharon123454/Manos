@@ -32,7 +32,7 @@ public class GridVisual : MonoBehaviour
         {
             if (_rayCastHit.point == null) { return; }
 
-            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);//change to floor only (not unit)
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(_rayCastHit.point);
 
             if (LevelGrid.Instance.HasAnyUnitOnGridPosition(mouseGridPosition)) { return; }
 
