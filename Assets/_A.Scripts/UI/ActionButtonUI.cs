@@ -212,6 +212,8 @@ public class ActionButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void ActionButtonUI_OnAnyActionButtonPressed(object sender, ActionButtonUI pressedButton)
     {
+        if (_cooldownBg && _cooldownBg.activeSelf || _grayImage && _myImage.sprite == _grayImage && !_myAction.IsXPropertyInAction(AbilityProperties.Basic)) { return; }
+
         if (pressedButton)
         {
             if (_selectedImage && pressedButton == this)//pressed on an action button which has a selected Image
