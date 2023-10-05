@@ -52,7 +52,7 @@ public class Unit : MonoBehaviour
         statSheet.OnHeal += StatSheet_OnHealed;
         statSheet.OnDamaged += StatSheet_OnDamaged;
         statSheet.OnCriticalHit += StatSheet_OnCriticallyHit;
-        unitStatusEffects.OnStatusApplied += StatSheet_OnStatusApplied; ;
+        unitStatusEffects.OnStatusApplied += StatSheet_OnStatusApplied;
         unitStatusEffects.OnStatusRemoved += UnitStatusEffects_OnStatusRemoved;
 
         OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);

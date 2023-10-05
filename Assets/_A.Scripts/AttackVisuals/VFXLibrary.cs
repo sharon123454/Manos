@@ -27,7 +27,7 @@ public class VFXLibrary : MonoBehaviour
 
     [Header("On Recieving Status effect")]
     [SerializeField] private ParticleSystem[] _stunVFX;
-    [SerializeField] private ParticleSystem[] _rootVFX;
+    [SerializeField] private Animator _rootVFX;
     [SerializeField] private ParticleSystem[] _hasteVFX;
     [SerializeField] private ParticleSystem[] _blindVFX;
     [SerializeField] private ParticleSystem[] _silnceVFX;
@@ -80,7 +80,7 @@ public class VFXLibrary : MonoBehaviour
                 ActivateVFXArray(_silnceVFX);
                 break;
             case StatusEffect.Root:
-                ActivateVFXArray(_rootVFX);
+                _rootVFX.SetBool("TurnOn", true);
                 break;
             case StatusEffect.ArmorBreak:
                 ActivateVFXArray(_armorBreakVFX);
@@ -152,7 +152,7 @@ public class VFXLibrary : MonoBehaviour
                 StopVFXArray(_silnceVFX);
                 break;
             case StatusEffect.Root:
-                StopVFXArray(_rootVFX);
+                _rootVFX.SetBool("TurnOn", false);
                 break;
             case StatusEffect.ArmorBreak:
                 StopVFXArray(_armorBreakVFX);

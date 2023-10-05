@@ -57,8 +57,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _rootVFX
+      value: 
+      objectReference: {fileID: 5411720278641658210}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
       propertyPath: _stunVFX.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _hasteVFX.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
       propertyPath: _stunVFX.Array.data[0]
@@ -68,6 +76,18 @@ PrefabInstance:
       propertyPath: _stunVFX.Array.data[1]
       value: 
       objectReference: {fileID: 8909061472188757370}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _hasteVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 1590570638329356231}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _hasteVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 3339612352593115287}
+    - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
+      propertyPath: _hasteVFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 6946221995607147578}
     - target: {fileID: 6709182859543503275, guid: 7c4456b512fdba049a4eb541c0cb905a, type: 3}
       propertyPath: _corruptionVFX.Array.size
       value: 1
@@ -273,6 +293,21 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5671357162320866922, guid: 40880316c0dafb042972ecceca695b63, type: 3}
   m_PrefabInstance: {fileID: 6892890628263964232}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1590570638329356231 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5312734704817107343, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3339612352593115287 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8210299873016895199, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5411720278641658210 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1491321953657300778, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6563545203030061650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 341730515354229786, guid: 40880316c0dafb042972ecceca695b63, type: 3}
@@ -295,16 +330,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 30
   postureDamage: 0
   hitChance: 110
@@ -334,16 +369,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 100
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 0
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 30
   hitChance: 110
@@ -373,16 +408,16 @@ MonoBehaviour:
   actionCost: 2
   cooldownAfterUse: 6
   favorCost: 75
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 0
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 0
   postureDamage: 0
   hitChance: 200
@@ -398,6 +433,11 @@ MonoBehaviour:
 --- !u!4 &6563545203030061661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 341730515354229781, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 6892890628263964232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6946221995607147578 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4597479897330461298, guid: 40880316c0dafb042972ecceca695b63, type: 3}
   m_PrefabInstance: {fileID: 6892890628263964232}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &8909061472188757370 stripped

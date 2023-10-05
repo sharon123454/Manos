@@ -9,8 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 7857788119198021092}
     m_Modifications:
     - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
+      propertyPath: _rootVFX
+      value: 
+      objectReference: {fileID: 9007295826962190043}
+    - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
       propertyPath: _stunVFX.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
+      propertyPath: _hasteVFX.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
       propertyPath: _stunVFX.Array.data[0]
@@ -20,6 +28,18 @@ PrefabInstance:
       propertyPath: _stunVFX.Array.data[1]
       value: 
       objectReference: {fileID: 5600583528701735619}
+    - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
+      propertyPath: _hasteVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 2308317658892720254}
+    - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
+      propertyPath: _hasteVFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 1748155879524925230}
+    - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
+      propertyPath: _hasteVFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 6232961152673710979}
     - target: {fileID: 4457993544496233670, guid: 520408a02138df54eb6ddc30bd8f11d1, type: 3}
       propertyPath: _corruptionVFX.Array.size
       value: 1
@@ -270,6 +290,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8180927951246397571}
   m_SourcePrefab: {fileID: 100100000, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+--- !u!198 &1748155879524925230 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8210299873016895199, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 7616267286890719729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2308317658892720254 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5312734704817107343, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 7616267286890719729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &2812181260079466395 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5671357162320866922, guid: 40880316c0dafb042972ecceca695b63, type: 3}
@@ -283,6 +313,11 @@ ParticleSystem:
 --- !u!198 &5600583528701735619 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2597222066535471922, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 7616267286890719729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6232961152673710979 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4597479897330461298, guid: 40880316c0dafb042972ecceca695b63, type: 3}
   m_PrefabInstance: {fileID: 7616267286890719729}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7857788119198021092 stripped
@@ -312,16 +347,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 25
   postureDamage: 5
   hitChance: 120
@@ -352,16 +387,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 01000000
   range: 2
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 25
   postureDamage: 5
   hitChance: 100
@@ -391,16 +426,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 03000000
   range: 4
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 20
   postureDamage: 30
   hitChance: 120
@@ -434,16 +469,16 @@ MonoBehaviour:
   actionCost: 2
   cooldownAfterUse: 5
   favorCost: 200
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 4
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 55
   postureDamage: 0
   hitChance: 90
@@ -478,16 +513,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 50
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 
   range: 4
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
   damage: 10
   postureDamage: 0
   hitChance: 150
@@ -504,3 +539,8 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!95 &9007295826962190043 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1491321953657300778, guid: 40880316c0dafb042972ecceca695b63, type: 3}
+  m_PrefabInstance: {fileID: 7616267286890719729}
+  m_PrefabAsset: {fileID: 0}

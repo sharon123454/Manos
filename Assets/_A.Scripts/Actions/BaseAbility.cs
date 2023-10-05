@@ -61,7 +61,6 @@ public class BaseAbility : BaseAction
             _aoEUnitTargets.Add(unit);
     }
 
-    //AOE targets missing
     protected float rotateToTargetSpeed = 10f;
 
     private float _actionStateTimer;
@@ -97,8 +96,6 @@ public class BaseAbility : BaseAction
     public float GetPostureDamage() { return postureDamage; }
     public int GetStatusChance() { return statusEffectChance; }
     public List<StatusEffect> GetStatusEffects() { return EnemyStatusEffects; }
-
-    // targetUnit.Damage(damage* 2, postureDamage, hitChance, critChance, _abilityEffect, statusEffectChance, statusEffectDuration);
 
     public override void TakeAction(GridPosition gridPosition, Action actionComplete)
     {
@@ -148,7 +145,7 @@ public class BaseAbility : BaseAction
                 return null;
         }
     }
-    private List<GridPosition> GetGridPositionListByRange(int includeRange)// GridSystemVisual line 66 FilterByRange method holds the secret to immortality
+    private List<GridPosition> GetGridPositionListByRange(int includeRange)
     {
         GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         List<GridPosition> _validGridPositionList = new List<GridPosition>();

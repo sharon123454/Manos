@@ -57,6 +57,10 @@ PrefabInstance:
       value: Amarok_Visual
       objectReference: {fileID: 0}
     - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
+      propertyPath: _rootVFX
+      value: 
+      objectReference: {fileID: 5537511476044261394}
+    - target: {fileID: 8510549598777970172, guid: 43284e7b341743a4a8a2639f7c00ba34, type: 3}
       propertyPath: _hasteVFX.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -174,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6033764124026794417, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -357,6 +361,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2806576734137105275, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 1110456871291789980}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5537511476044261394 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4877420374376663694, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 1110456871291789980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6689285964459791138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6033764124026794430, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -379,17 +388,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 1
   favorCost: 0
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 00000000
   range: 2
-  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
-  abilityGrayImage: {fileID: 0}
   damage: 30
   postureDamage: 20
   hitChance: 110
@@ -420,17 +428,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 3
   favorCost: 0
+  abilityImage: {fileID: 21300000, guid: 129230f080de57a41991e9c8d8790c35, type: 3}
+  abilityGrayImage: {fileID: 454409785, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 01000000
   range: 2
-  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 21300000, guid: 129230f080de57a41991e9c8d8790c35, type: 3}
-  abilityGrayImage: {fileID: 454409785, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   damage: 30
   postureDamage: 10
   hitChance: 200
@@ -461,17 +468,16 @@ MonoBehaviour:
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 0
+  abilityImage: {fileID: 21300000, guid: aef8cc0a86972654bb5b13e35b6c04f0, type: 3}
+  abilityGrayImage: {fileID: -315544411, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 
   range: 5
-  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 21300000, guid: aef8cc0a86972654bb5b13e35b6c04f0, type: 3}
-  abilityGrayImage: {fileID: -315544411, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   damage: 20
   postureDamage: 20
   hitChance: 105
@@ -506,17 +512,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
+  abilityImage: {fileID: 21300000, guid: fe9b018337e1e7d4ba123efa616f549b, type: 3}
+  abilityGrayImage: {fileID: 1603157459, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 03000000
   range: 2
-  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 21300000, guid: fe9b018337e1e7d4ba123efa616f549b, type: 3}
-  abilityGrayImage: {fileID: 1603157459, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   damage: 35
   postureDamage: 10
   hitChance: 120
@@ -546,17 +551,16 @@ MonoBehaviour:
   actionCost: 2
   cooldownAfterUse: 4
   favorCost: 50
+  abilityImage: {fileID: 21300000, guid: cd2a787de29a10940b0d39b843fc1b6f, type: 3}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 06000000
   range: 4
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 21300000, guid: cd2a787de29a10940b0d39b843fc1b6f, type: 3}
-  abilityGrayImage: {fileID: 0}
   maxMoveDistance: 3
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
@@ -579,17 +583,16 @@ MonoBehaviour:
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 25
+  abilityImage: {fileID: 21300000, guid: 8cffe1c6889cb644aa64e79ed9f64761, type: 3}
+  abilityGrayImage: {fileID: 721319953, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 
   range: 4
-  canOnlyHitEnemy: 1
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 21300000, guid: 8cffe1c6889cb644aa64e79ed9f64761, type: 3}
-  abilityGrayImage: {fileID: 721319953, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   damage: 25
   postureDamage: 40
   hitChance: 90
@@ -624,17 +627,16 @@ MonoBehaviour:
   actionCost: 2
   cooldownAfterUse: 4
   favorCost: 50
+  abilityImage: {fileID: 0}
+  abilityGrayImage: {fileID: 0}
   _AbilityProperties: 06000000
   range: 4
-  canOnlyHitEnemy: 0
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
   isFollowingUnit: 1
   actionMeshShape: 0
   meshShapeScaleMultiplicator: 1
-  abilityImage: {fileID: 0}
-  abilityGrayImage: {fileID: 0}
   maxMoveDistance: 3
   visualRotationSpeed: 7.5
   visualMovementSpeed: 4
