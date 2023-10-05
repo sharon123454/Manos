@@ -177,16 +177,21 @@ public class UnitActionSystem : MonoBehaviour
             if (unitAtGridPos && unitAtGridPos.GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
             if (!unitAtGridPos && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && selectedAction.GetRange() != ActionRange.Move) { print("Unit in grid pos is NULL and action selected is NOT AoE and NOT Move"); return; }
             #region AoE grid effectiveness check
-            if (Physics.Raycast(MouseWorld.GetPosition() + Vector3.up, MouseWorld.GetPosition() + Vector3.down * 3, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
+            Vector3 mousePos = MouseWorld.GetPosition();
+            if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && Physics.Raycast(mousePos + Vector3.up * 3, Vector3.down * 3, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
             {
+                Debug.DrawRay(mousePos + Vector3.up * 3, Vector3.down * 3, Color.green, 10);
                 if (_rayCastHit.transform.TryGetComponent<GridVisual>(out GridVisual _gridVisual))
                 {
+                    _gridVisual.ReturnColor();
                     if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && !_gridVisual.IsVisualActive())
                     {
                         print("Grid Visual AoE is disabled"); return;
                     }
                 }
+
             }
+
             #endregion
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }//MUST BE LAST (will consume resources)
 

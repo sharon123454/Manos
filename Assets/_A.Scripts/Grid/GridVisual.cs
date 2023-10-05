@@ -66,7 +66,10 @@ public class GridVisual : MonoBehaviour
     {
         return _gridVisual.material.color == Color.green;
     }
-
+    public void ReturnColor()
+    {
+        print(_gridVisual.material.color);
+    }
     public void ShowGridVisual()
     {
         if (_gridVisual)
