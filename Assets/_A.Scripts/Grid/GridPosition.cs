@@ -19,7 +19,7 @@ public struct GridPosition : IEquatable<GridPosition>
     {
         this._x = x; this._z = z;
         _currentEffect = StatusEffect.None;
-        _effectiveness = Effectiveness.Effective;
+        _effectiveness = Effectiveness.Miss;
     }
 
     public void SetEffectiveRange(Effectiveness type) { _effectiveness = type; }

@@ -15,7 +15,7 @@ public class ManosInputController : MonoBehaviour
     internal InputAction RightClick { get; private set; }
     internal InputAction RotateLeft { get; private set; }
     internal InputAction RotateRight { get; private set; }
-    internal InputAction ShowAllHUD { get; private set; }
+    internal InputAction Alt { get; private set; }
     internal InputAction OpenSettings { get; private set; }
     internal InputAction PointerDelta { get; private set; }
     internal InputAction PointerPosition { get; private set; }
@@ -35,6 +35,7 @@ public class ManosInputController : MonoBehaviour
 
     private void OnEnable()
     {
+        Alt = _inputActions.PlayerCamera.Alt;
         Move = _inputActions.PlayerCamera.Move;
         Zoom = _inputActions.PlayerCamera.Zoom;
         Space = _inputActions.PlayerCamera.Space;
@@ -43,7 +44,6 @@ public class ManosInputController : MonoBehaviour
         RightClick = _inputActions.PlayerCamera.RightClick;
         RotateLeft = _inputActions.PlayerCamera.RotateLeft;
         RotateRight = _inputActions.PlayerCamera.RotateRight;
-        ShowAllHUD = _inputActions.PlayerCamera.ShowAllHUD;
         OpenSettings = _inputActions.PlayerCamera.OpenSettings;
         PointerDelta = _inputActions.PlayerCamera.PointerDelta;
         PointerPosition = _inputActions.PlayerCamera.PointerPosition;

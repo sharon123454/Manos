@@ -61,25 +61,7 @@ public class GridSystemVisual : MonoBehaviour
         if (selectedAction == null) { return; }
         if (selectedAction.GetCurrentCooldown() > 0) { return; }
 
-        switch (selectedAction.GetRange())
-        {
-            case ActionRange.Move:
-            case ActionRange.Self:
-            case ActionRange.Melee:
-            case ActionRange.Close:
-            case ActionRange.Medium:
-            case ActionRange.Long:
-            case ActionRange.EffectiveAtAll:
-            case ActionRange.InaccurateAtAll:
-                FilterByRange(selectedAction.GetRange(), selectedUnit);
-                break;
-            case ActionRange.ResetGrid:
-                HideAllVisual();
-                break;
-            default:
-                Debug.Log("Case not Implamented");
-                return;
-        }
+        FilterByRange(selectedAction.GetRange(), selectedUnit);
     }
     private void FilterByRange(ActionRange AbilityRange, Unit selectedUnit)
     {
@@ -123,18 +105,6 @@ public class GridSystemVisual : MonoBehaviour
         }
     }
 
-    //Execution
-    private void ShowGridPositionList(List<GridPosition> gridPositions, Color gridVisualColor, Effectiveness effectiveness)
-    {
-        foreach (GridPosition position in gridPositions)
-            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-            {
-                gridSystemVisualSingleArray[position._x, position._z].Show(gridVisualColor);
-
-                position.SetEffectiveRange(effectiveness);
-            }
-    }
-
     //Filtering
     private void ShowGridPositionRange(GridPosition gridPosition, int range, Color color, Effectiveness effectiveness)
     {
@@ -157,60 +127,61 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-
-        if (gridPosList.Count > 0)
-            if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
-            {
-                foreach (GridPosition position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                        //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
-                    }
-            }
-            else
-            {
-                switch (range)//parenting for outline purposes
-                {
-                    case 1://_adjacent
-                        foreach (GridPosition position in gridPosList)
-                            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                            {
-                                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
-                            }
-                        break;
-                    case 4://_close
-                        foreach (GridPosition position in gridPosList)
-                            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                            {
-                                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
-                            }
-                        break;
-                    case 6://_far
-                        foreach (GridPosition position in gridPosList)
-                            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                            {
-                                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
-                            }
-                        break;
-                    case 9://_veryFar
-                        foreach (GridPosition position in gridPosList)
-                            if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                            {
-                                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
-                            }
-                        break;
-                    default:
-                        break;
-                }
-            }
+        #region deprecated
+        //if (gridPosList.Count > 0)
+        //    if (UnitActionSystem.Instance.GetSelectedAction() is MoveAction)
+        //    {
+        //        foreach (GridPosition position in gridPosList)
+        //            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //            {
+        //                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+        //            }
+        //    }
+        //
+        //else
+        //{
+        //    switch (range)//parenting for outline purposes
+        //    {
+        //        case 1://_adjacent
+        //            foreach (GridPosition position in gridPosList)
+        //                if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //                {
+        //                    gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                    //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+        //                }
+        //            break;
+        //        case 4://_close
+        //            foreach (GridPosition position in gridPosList)
+        //                if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //                {
+        //                    gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                    //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+        //                }
+        //            break;
+        //        case 6://_far
+        //            foreach (GridPosition position in gridPosList)
+        //                if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //                {
+        //                    gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                    //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+        //                }
+        //            break;
+        //        case 9://_veryFar
+        //            foreach (GridPosition position in gridPosList)
+        //                if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //                {
+        //                    gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                    //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+        //                }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        #endregion
 
         ShowGridPositionList(gridPosList, color, effectiveness);
-
     }
     private void ShowGridPositionRangeSquare(GridPosition gridPosition, int range, Color color, Effectiveness effectiveness)
     {
@@ -229,55 +200,69 @@ public class GridSystemVisual : MonoBehaviour
             }
         }
 
-        switch (range)
-        {
-            case 1://_adjacent
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                        //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
-                    }
-                break;
-            case 4://_close
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                        //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
-                    }
-                break;
-            case 6://_far
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                        //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
-                    }
-                break;
-            case 9://_veryFar
-                foreach (var position in gridPosList)
-                    if (gridSystemVisualSingleArray[position._x, position._z] != null)
-                    {
-                        gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
-                        //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
-                    }
-                break;
-            default:
-                break;
-        }
+        #region deprecated
+        //switch (range)
+        //{
+        //    case 1://_adjacent
+        //        foreach (var position in gridPosList)
+        //            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //            {
+        //                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(adjacentParent, true);
+        //            }
+        //        break;
+        //    case 4://_close
+        //        foreach (var position in gridPosList)
+        //            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //            {
+        //                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(closeParent, true);
+        //            }
+        //        break;
+        //    case 6://_far
+        //        foreach (var position in gridPosList)
+        //            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //            {
+        //                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(farParent, true);
+        //            }
+        //        break;
+        //    case 9://_veryFar
+        //        foreach (var position in gridPosList)
+        //            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+        //            {
+        //                gridSystemVisualSingleArray[position._x, position._z].UpdateGridVisualSingle(color);
+        //                //gridSystemVisualSingleArray[position._x, position._z].transform.SetParent(veryFarParent, true);
+        //            }
+        //        break;
+        //    default:
+        //        break;
+        //}
+        #endregion
 
         ShowGridPositionList(gridPosList, color, effectiveness);
     }
 
     //Execution
+    private void ShowGridPositionList(List<GridPosition> gridPositions, Color gridVisualColor, Effectiveness effectiveness)
+    {
+        foreach (GridPosition position in gridPositions)
+            if (gridSystemVisualSingleArray[position._x, position._z] != null)
+            {
+                if (LevelGrid.Instance.GetUnitAtGridPosition(position) != null)
+                {
+                    LevelGrid.Instance.GetUnitAtGridPosition(position).SetGridEffectiveness(effectiveness);
+                }
+                gridSystemVisualSingleArray[position._x, position._z].Show(gridVisualColor);
+            }
+    }
     private void HideGridPositionRange(GridPosition gridPosition, int range)
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
-        for (int x = -range; x <= range; x++)
+        for (int x = -range; x < range; x++)
         {
-            for (int z = -range; z <= range; z++)
+            for (int z = -range; z < range; z++)
             {
                 GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
@@ -294,16 +279,16 @@ public class GridSystemVisual : MonoBehaviour
 
         HideGridPositionList(gridPosList);
     }
-
-    //Filtering
     private void HideGridPositionList(List<GridPosition> gridPositions)
     {
         foreach (GridPosition position in gridPositions)
             if (gridSystemVisualSingleArray[position._x, position._z] != null)
             {
+                if (LevelGrid.Instance.GetUnitAtGridPosition(position) != null)
+                {
+                    LevelGrid.Instance.GetUnitAtGridPosition(position).SetGridEffectiveness(Effectiveness.Miss);
+                }
                 gridSystemVisualSingleArray[position._x, position._z].Hide();
-
-                position.SetEffectiveRange(Effectiveness.Miss);
             }
     }
     private void HideAllVisual()
@@ -312,15 +297,17 @@ public class GridSystemVisual : MonoBehaviour
             for (int z = 0; z < LevelGrid.Instance.GetLength(); z++)
                 if (gridSystemVisualSingleArray[x, z] != null)
                 {
+                    if (LevelGrid.Instance.GetUnitAtGridPosition(LevelGrid.Instance.GetGridPosition(gridSystemVisualSingleArray[x, z].transform.position)) != null)
+                    {
+                        LevelGrid.Instance.GetUnitAtGridPosition(LevelGrid.Instance.GetGridPosition(gridSystemVisualSingleArray[x, z].transform.position)).SetGridEffectiveness(Effectiveness.Miss);
+                    }
                     gridSystemVisualSingleArray[x, z].Hide();
-                    LevelGrid.Instance.GetGridPosition(gridSystemVisualSingleArray[x, z].transform.position).SetEffectiveRange(Effectiveness.Miss);
                 }
     }
 
     #region  Filter By Range methods
     private void MoveRange(Unit selectedUnit/*, int playerMovement*/)
     {
-        ShowGridPositionRange(selectedUnit.GetGridPosition(), _VeryFar, Color.white, Effectiveness.Miss);
         HideAllVisual();
     }
     private void SelfRange(Unit selectedUnit)

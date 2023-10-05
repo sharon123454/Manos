@@ -123,7 +123,7 @@ public class BaseAbility : BaseAction
     {
         return new EnemyAIAction { gridPosition = gridPosition, actionValue = 0 };
     }
-    public override List<GridPosition> GetValidActionGridPositionList()//implements ranges (needs fixing as it deosn't remove close ranges)
+    public override List<GridPosition> GetValidActionGridPositionList()//implements ranges
     {
         switch (GetRange())
         {
@@ -139,17 +139,16 @@ public class BaseAbility : BaseAction
             case ActionRange.Long:
             case ActionRange.EffectiveAtAll:
             case ActionRange.InaccurateAtAll:
-                print(GetRange());
                 return GetGridPositionListByRange(9);
             case ActionRange.ResetGrid:
-                Debug.Log($"Ability {name}: has No Valid Grid");
+                Debug.Log($"Ability {name}: Has No Valid Grid" + "- ERROR(Switch action Range)");
                 return null;
             default:
-                Debug.Log("Range isn't implamented");
+                Debug.Log($"Ability {name}: Range isn't implamented" + "- ERROR(Switch action Range)");
                 return null;
         }
     }
-    private List<GridPosition> GetGridPositionListByRange(int includeRange)
+    private List<GridPosition> GetGridPositionListByRange(int includeRange)// GridSystemVisual line 66 FilterByRange method holds the secret to immortality
     {
         GridPosition _unitGridPosition = GetUnit().GetGridPosition();
         List<GridPosition> _validGridPositionList = new List<GridPosition>();

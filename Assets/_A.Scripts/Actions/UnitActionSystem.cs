@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine;
 using System;
@@ -174,10 +173,23 @@ public class UnitActionSystem : MonoBehaviour
             if (selectedAction == null) { print("Selected Action is Null Returning"); return; }
             if (selectedAction.GetIfUsedAction()) { print("Selected action been used Returning"); return; }
             if (!selectedAction.IsValidActionGridPosition(mouseGridPosition)) { print("Grid Is Not Valid"); return; }
-            if (mouseGridPosition.GetEffectiveRange() == Effectiveness.Miss) { print("Grid Effectivness is 0"); return; }
+            //if (mouseGridPosition.GetEffectiveRange() == Effectiveness.Miss) { print("Grid Effectivness is 0"); return; }
             if (unitAtGridPos && unitAtGridPos.GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
-            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }
             if (!unitAtGridPos && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && selectedAction.GetRange() != ActionRange.Move) { print("Unit in grid pos is NULL and action selected is NOT AoE and NOT Move"); return; }
+            #region AoE grid effectiveness check
+            Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
+            if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
+            {
+                if (_rayCastHit.transform.TryGetComponent<GridVisual>(out GridVisual _gridVisual))
+                {
+                    if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && !_gridVisual.IsVisualActive())
+                    {
+                        print("Grid Visual AoE is disabled"); return;
+                    }
+                }
+            }
+            #endregion
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }//MUST BE LAST (will consume resources)
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);

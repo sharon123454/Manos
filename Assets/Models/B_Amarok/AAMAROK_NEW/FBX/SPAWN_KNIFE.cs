@@ -7,7 +7,7 @@ public class SPAWN_KNIFE : MonoBehaviour
     [SerializeField] private GameObject knife;
     private void Update()
     {
-        if (ManosInputController.Instance.ShowAllHUD.inProgress)
+        if (ManosInputController.Instance.Alt.inProgress)
         {
             spawnKnife();
         }

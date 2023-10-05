@@ -19,22 +19,25 @@ public class GridSystemVisualSingle : MonoBehaviour
             _Outline.OutlineColor = color;
     }
 
-    public void UpdateGridVisualSingle(Color color)
-    {
-        if (_MyVisual)
-            _MyVisual.UpdateVisualGridColor(color);
-
-        if (_Outline)
-            _Outline.OutlineColor = color;
-    }
-
     public void Hide()
     {
         if (_MyVisual)
+        {
+            _MyVisual.UpdateVisualGridColor(Color.white);
             _MyVisual.HideGridVisual();
+        }
 
         if (_Outline)
             _Outline.OutlineColor = new(0, 0, 0, 0);
     }
+
+    //public void UpdateGridVisualSingle(Color color)
+    //{
+    //    if (_MyVisual)
+    //        _MyVisual.UpdateVisualGridColor(color);
+
+    //    if (_Outline)
+    //        _Outline.OutlineColor = color;
+    //}
 
 }
