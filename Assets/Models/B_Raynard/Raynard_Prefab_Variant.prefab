@@ -8,14 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3362208447009617648}
     m_Modifications:
-    - target: {fileID: 820040011388481265, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
-      propertyPath: affectingType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 820040011388481265, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
-      propertyPath: _affectOffset.y
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 4657983245103676581, guid: fb4c9301ef05ade4396af958bc7ca934, type: 3}
       propertyPath: m_Name
       value: EruptionVFX
@@ -454,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a08758c9a4ac348b6809bd76e92d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionName: Sacreficial Purification
+  _actionName: Sacrificial Purification
   actionDescription: Heal all allies regardless of their location, inflict yourself
     with Corruption in return
   actionCost: 0
@@ -464,12 +456,12 @@ MonoBehaviour:
   abilityGrayImage: {fileID: -1259281355, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 0500000002000000
   range: 6
-  AOEPrefab: {fileID: 0}
+  AOEPrefab: {fileID: 1039713466503091717}
   AOEActiveTurns: 1
-  isFollowingMouse: 0
+  isFollowingMouse: 1
   isFollowingUnit: 0
   actionMeshShape: 1
-  meshShapeScaleMultiplicator: 100
+  meshShapeScaleMultiplicator: 3
   damage: 0
   postureDamage: 0
   hitChance: 200
@@ -477,8 +469,8 @@ MonoBehaviour:
   statusEffectChance: 200
   statusEffectDuration: 1
   EnemyStatusEffects: 
-  selfBuffDuration: 1
-  selfBuffs: 0a0000000a0000000a000000
+  selfBuffDuration: 4
+  selfBuffs: 0a000000
   startOfActionTime: 1
   executingActionTime: 0.1
   endOfActionTime: 0.1
@@ -803,6 +795,18 @@ PrefabInstance:
       propertyPath: _onRecieveDamageVFX.Array.data[0]
       value: 
       objectReference: {fileID: 4041116961549634682}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _rSacrificialPurification.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _rSacrificialPurification.Array.data[0]
+      value: 
+      objectReference: {fileID: 8514439976444779192}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _rSacrificialPurification.Array.data[1]
+      value: 
+      objectReference: {fileID: 5599574432393229278}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -836,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576501712582603058, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576501712582603058, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -872,13 +876,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7109862164090767113, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
       propertyPath: m_Name
-      value: sacrificial_purification
+      value: Sacrificial Purification
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
+--- !u!114 &1039713466503091717 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5815563023128886317, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
+  m_PrefabInstance: {fileID: 6834434684016208424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a4e5778416dc44285d5732c096856a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1421867415032224538 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5576501712582603058, guid: f23df650d028acf45996333cfcd0dd0d, type: 3}
@@ -980,10 +995,6 @@ PrefabInstance:
     - target: {fileID: 8066562550769641467, guid: c91d27da7563a5140a61769cd0e2713c, type: 3}
       propertyPath: m_Name
       value: EnsnarementVFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 8066562550769641467, guid: c91d27da7563a5140a61769cd0e2713c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8955154106670124487, guid: c91d27da7563a5140a61769cd0e2713c, type: 3}
       propertyPath: m_RootOrder

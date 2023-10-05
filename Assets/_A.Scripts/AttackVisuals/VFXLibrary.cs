@@ -58,7 +58,7 @@ public class VFXLibrary : MonoBehaviour
     [Header("Raynard Abilities")]
     [SerializeField] private ParticleSystem[] _rEruption;
     [SerializeField] private ParticleSystem[] _rEnsnare;
-    [SerializeField] private ParticleSystem[] _ability3R;
+    [SerializeField] private ParticleSystem[] _rSacrificialPurification;
     [SerializeField] private ParticleSystem[] _ability4R;
     [SerializeField] private ParticleSystem[] _ability5R;
     [Header("Nanook Abilities")]
@@ -256,6 +256,10 @@ public class VFXLibrary : MonoBehaviour
     public void PlayEnsnare()
     {
         ActivateVFXArray(_rEnsnare);
+    }
+    public void PlaySacrificialPurification()
+    {
+        ActivateVFXArray(_rSacrificialPurification);
     }
 
     //private Methods
