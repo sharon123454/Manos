@@ -64,11 +64,7 @@ public class GridVisual : MonoBehaviour
 
     public bool IsVisualActive()
     {
-        return _gridVisual.material.color == Color.green;
-    }
-    public void ReturnColor()
-    {
-        print(_gridVisual.material.color);
+        return _gridVisual.enabled;
     }
     public void ShowGridVisual()
     {

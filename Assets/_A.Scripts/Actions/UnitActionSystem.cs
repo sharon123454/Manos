@@ -180,18 +180,15 @@ public class UnitActionSystem : MonoBehaviour
             Vector3 mousePos = MouseWorld.GetPosition();
             if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && Physics.Raycast(mousePos + Vector3.up * 3, Vector3.down * 3, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
             {
-                Debug.DrawRay(mousePos + Vector3.up * 3, Vector3.down * 3, Color.green, 10);
+                //Debug.DrawRay(mousePos + Vector3.up * 3, Vector3.down * 3, Color.green, 10);
                 if (_rayCastHit.transform.TryGetComponent<GridVisual>(out GridVisual _gridVisual))
                 {
-                    _gridVisual.ReturnColor();
-                    if (selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && !_gridVisual.IsVisualActive())
+                    if (!_gridVisual.IsVisualActive())
                     {
                         print("Grid Visual AoE is disabled"); return;
                     }
                 }
-
             }
-
             #endregion
             if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction)) { print("Action Points for current ability is insufficent Returning"); return; }//MUST BE LAST (will consume resources)
 
