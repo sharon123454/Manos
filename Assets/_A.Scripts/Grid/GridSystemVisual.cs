@@ -260,9 +260,9 @@ public class GridSystemVisual : MonoBehaviour
     {
         List<GridPosition> gridPosList = new List<GridPosition>();
 
-        for (int x = -range; x < range; x++)
+        for (int x = -range; x <= range; x++)
         {
-            for (int z = -range; z < range; z++)
+            for (int z = -range; z <= range; z++)
             {
                 GridPosition testGridPosition = gridPosition + new GridPosition(x, z);
                 if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))

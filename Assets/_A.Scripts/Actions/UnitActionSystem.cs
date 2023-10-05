@@ -177,8 +177,7 @@ public class UnitActionSystem : MonoBehaviour
             if (unitAtGridPos && unitAtGridPos.GetGridEffectiveness() == Effectiveness.Miss) { print("Unit in grid pos and effectivness is 0"); return; }
             if (!unitAtGridPos && !selectedAction.IsXPropertyInAction(AbilityProperties.AreaOfEffect) && selectedAction.GetRange() != ActionRange.Move) { print("Unit in grid pos is NULL and action selected is NOT AoE and NOT Move"); return; }
             #region AoE grid effectiveness check
-            Ray _ray = Camera.main.ScreenPointToRay(ManosInputController.Instance.GetPointerPosition());
-            if (Physics.Raycast(_ray, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
+            if (Physics.Raycast(MouseWorld.GetPosition() + Vector3.up, MouseWorld.GetPosition() + Vector3.down * 3, out RaycastHit _rayCastHit, float.MaxValue, LayerMask.GetMask("Grid")))
             {
                 if (_rayCastHit.transform.TryGetComponent<GridVisual>(out GridVisual _gridVisual))
                 {
