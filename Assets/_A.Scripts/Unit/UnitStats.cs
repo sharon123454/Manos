@@ -227,7 +227,7 @@ public class UnitStats : MonoBehaviour
         currentPosture -= postureDamage;
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         OnDamaged?.Invoke(this, EventArgs.Empty);
-        SendConsoleMessage?.Invoke(this, $"{name} was damaged for {damageToRecieve}hp, {postureDamage}posture.");
+        SendConsoleMessage?.Invoke(this, $"{name} was damaged for {damageToRecieve} HP, {postureDamage} Posture.");
 
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying)) { return; }
 
