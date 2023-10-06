@@ -202,7 +202,7 @@ public class UnitWorldUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void UnitStats_OnCriticalHit(object sender, EventArgs e)
     {
-        StartCoroutine(ShowCriticalHitVisual());
+        //StartCoroutine(ShowCriticalHitVisual());
     }
     private void HealthSystem_OnDamaged(object sender, EventArgs e) { UpdateHealthBar(); }
 
