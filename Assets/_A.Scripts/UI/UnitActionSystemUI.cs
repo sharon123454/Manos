@@ -22,6 +22,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
         TurnSystem.Instance.OnTurnChange += TurnSystem_OnTurnChange;
         BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+        BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
         ActionButtonUI.OnAnyActionButtonPressed += ActionButtonUI_OnAnyActionButtonPressed;
         UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
         ManosInputController.Instance.SelectActionWithNumbers.performed += ManosInputController_SetSelectedAction;
@@ -160,6 +161,10 @@ public class UnitActionSystemUI : MonoBehaviour
         {
             _actionsButtonContainer.gameObject.SetActive(false);
         }
+    }
+    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    {
+        UpdateActionSystemButtons();
     }
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
