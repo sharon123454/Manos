@@ -155,7 +155,6 @@ public class UnitActionSystemUI : MonoBehaviour
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
         UpdateActionSystemButtons();
-        _basicActionButtonUIList[1].PressButton();//move button clicked
 
         if (_actionsButtonContainer)
         {
@@ -165,6 +164,7 @@ public class UnitActionSystemUI : MonoBehaviour
     private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
     {
         UpdateActionSystemButtons();
+        _basicActionButtonUIList[1].PressButton();//move button clicked
     }
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, Unit newlySelectedUnit)
     {
