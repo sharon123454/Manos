@@ -228,7 +228,7 @@ public class UnitStatusEffects : MonoBehaviour
         }
 
         OnStatusApplied?.Invoke(this, statusEffect);
-        SendConsoleMessage?.Invoke(this, $"{statusEffect} was applied for {duration} turns.");
+        SendConsoleMessage?.Invoke(this, $"{statusEffect} was applied on {_unit.name} for {duration} turns.");
     }
 
     private void DecreaseEffectCooldown(StatusEffect effect)
