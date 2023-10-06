@@ -214,6 +214,10 @@ PrefabInstance:
       propertyPath: actionDescription
       value: move at the cost of a bonus action
       objectReference: {fileID: 0}
+    - target: {fileID: 7715958244359653519, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.845
+      objectReference: {fileID: 0}
     - target: {fileID: 7786307098148229981, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: animator
       value: 
@@ -631,6 +635,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 275902034067831404, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
   m_PrefabInstance: {fileID: 4667108780007785570}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &6026052186203146774 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1397294820608855668, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
+  m_PrefabInstance: {fileID: 4667108780007785570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6445351903449401260 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1852839670216770510, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
@@ -720,6 +729,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _blindVFX.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _hasteVFX.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -743,6 +756,10 @@ PrefabInstance:
       propertyPath: _stunVFX.Array.data[1]
       value: 
       objectReference: {fileID: 3732894303116784372}
+    - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
+      propertyPath: _blindVFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 6026052186203146774}
     - target: {fileID: 7334543682236001560, guid: 0c65f24cb41aea24b99ada07e95808a7, type: 3}
       propertyPath: _hasteVFX.Array.data[0]
       value: 
