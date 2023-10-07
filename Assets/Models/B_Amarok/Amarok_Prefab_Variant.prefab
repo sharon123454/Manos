@@ -164,22 +164,6 @@ PrefabInstance:
       propertyPath: actionDescription
       value: move at the cost of an action
       objectReference: {fileID: 0}
-    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1.1039
-      objectReference: {fileID: 0}
-    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 2.1013
-      objectReference: {fileID: 0}
-    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.005
-      objectReference: {fileID: 0}
-    - target: {fileID: 2641001609901226376, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1.2198
-      objectReference: {fileID: 0}
     - target: {fileID: 6032731445324378932, guid: efdc8878a61d20a4598445fa1d85eb50, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -440,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Murder
-  actionDescription: Delivers a lethal melee strike, dealing increased damage to
+  actionDescription: Delivers a lethal melee strike,  dealing increased damage to
     targets with less than 50% health
   actionCost: 1
   cooldownAfterUse: 3
@@ -480,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Blinding Bolt
-  actionDescription: Fires a special bolt from range with a chance to inflict Blindness
+  actionDescription: Fires a special bolt from range  with a chance to inflict Blindness
     (30%) on the target
   actionCost: 1
   cooldownAfterUse: 2
@@ -524,8 +508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Puncture
-  actionDescription: Piercing stab attack which bypasses armor with a chance to inflict
-    Armor Break (30%).
+  actionDescription: Piercing stab attack which bypasses armor  with a chance to
+    inflict Armor Break (30%)
   actionCost: 0
   cooldownAfterUse: 3
   favorCost: 0
@@ -596,7 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Stun Bolt
-  actionDescription: Fires a crossbow bolt with a chance to Stun (30%) the target
+  actionDescription: Fires a crossbow bolt  with a chance to Stun (30%) the target
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 25

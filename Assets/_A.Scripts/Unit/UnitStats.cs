@@ -111,6 +111,9 @@ public class UnitStats : MonoBehaviour
 
         float damageToRecieve = rawDamage;
 
+        if (damageToRecieve < 0)
+            damageToRecieve = 0;
+
         #region Handling Ability properties from Action
         if (AP.Contains(AbilityProperties.Heal))
         {
@@ -134,12 +137,6 @@ public class UnitStats : MonoBehaviour
             hitChance *= 2;
         }
         #endregion
-
-        if (damageToRecieve <= 0)
-        {
-            SendConsoleMessage?.Invoke(this, $"{name} recieved less then 0 damage - bug?");
-            damageToRecieve = 0;
-        }
 
         #region Normal Calculation
         print(_unit.name + " hit chance: " + hitChance);

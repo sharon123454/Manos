@@ -367,14 +367,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Mend
-  actionDescription: Cast a soothing beam, restoring health to a distant ally
+  actionDescription: Cast a soothing beam,  restoring health to a distant ally
   actionCost: 1
   cooldownAfterUse: 2
   favorCost: 50
   abilityImage: {fileID: 21300000, guid: 18ba8ef048002874cb9b1a691177edaa, type: 3}
   abilityGrayImage: {fileID: -2135444560, guid: bddbfb2919c324b47a18b09aaaf9d236, type: 3}
   _AbilityProperties: 02000000
-  range: 4
+  range: 3
   AOEPrefab: {fileID: 0}
   AOEActiveTurns: 1
   isFollowingMouse: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Ensnarement
-  actionDescription: Conjure a circle of torment, inflicts root and corruption on
+  actionDescription: Conjure a circle of torment,  inflicts root and corruption on
     foes caught within
   actionCost: 2
   cooldownAfterUse: 3
@@ -451,8 +451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacrificial Purification
-  actionDescription: Heal all allies regardless of their location, inflict yourself
-    with Corruption in return
+  actionDescription: Heal all allies regardless of their location,  inflict the caster
+    with 4 Corruption in return
   actionCost: 0
   cooldownAfterUse: 5
   favorCost: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Holy Hush
-  actionDescription: Envelop an enemy in a spectral shroud, inflicting Silence (30%)
+  actionDescription: Envelop an enemy in a spectral shroud,  inflicting Silence (30%)
     on them
   actionCost: 1
   cooldownAfterUse: 3
@@ -579,8 +579,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionName: Sacred Radiance
-  actionDescription: ' Conjure a blessed area,  inflicting Blind (30%) on enemies
-    caught within '
+  actionDescription: ' Conjure a blessed area,  applying Haste to all allies  and
+    inflicting Blind (30%)  on enemies caught within'
   actionCost: 0
   cooldownAfterUse: 4
   favorCost: 75
