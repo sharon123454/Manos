@@ -25,13 +25,23 @@ public class UnitManagerUI : MonoBehaviour
             SetNewMainUnit(selectedUnit.GetUnitUI());
     }
 
-    /// <summary>
-    /// Pressed through buttons (OnYesButtonClick Temporary)
-    /// </summary>
-    /// <returns></returns>
-    public void OnYesButtonClick()
+    //Pressed through buttons
+    public void PlayAgainButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void RestartGameButton()
     {
         SceneManager.LoadScene(0);
+    }
+    public void CloseGameButton()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
     public void OnBrotherUIPressed(string brotherName)
     {
@@ -55,10 +65,12 @@ public class UnitManagerUI : MonoBehaviour
     private void UnitManager_GameLost(object sender, EventArgs e)
     {
         _LosePanel.SetActive(true);
+        Time.timeScale = 0;
     }
     private void UnitManager_GameWon(object sender, EventArgs e)
     {
         _WinPanel.SetActive(true);
+        Time.timeScale = 0;
     }
 
 }

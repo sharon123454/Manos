@@ -11,6 +11,7 @@ public class ConsoleApp : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private Transform consoleLinePrefab;
     [SerializeField] private Transform textContainer;
+    [SerializeField] private int maxLinesInConsole = 8;
 
     private void Start()
     {
@@ -19,26 +20,17 @@ public class ConsoleApp : MonoBehaviour
         UnitStatusEffects.SendConsoleMessage += EventPrint;
         ManosInputController.Instance.OpenSettings.performed += InputController_Pause;
     }
-
     private void Update()
     {
-        if (textContainer.childCount > 6)
+        if (textContainer.childCount > maxLinesInConsole)
             Destroy(textContainer.GetChild(0).gameObject);
     }
-
     private void OnDisable()
     {
+        Unit.SendConsoleMessage -= EventPrint;
+        UnitStats.SendConsoleMessage -= EventPrint;
+        UnitStatusEffects.SendConsoleMessage -= EventPrint;
         ManosInputController.Instance.OpenSettings.performed -= InputController_Pause;
-    }
-
-    public void CloseGame()
-    {
-#if UNITY_STANDALONE
-        Application.Quit();
-#endif
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
     }
 
     private void EventPrint(object sender, string name)
@@ -59,7 +51,6 @@ public class ConsoleApp : MonoBehaviour
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
-
     }
 
 }
