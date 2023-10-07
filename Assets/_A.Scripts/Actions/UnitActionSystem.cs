@@ -11,7 +11,6 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler OnSelectedActionChanged;
     public event EventHandler<Unit> OnSelectedUnitChanged;
     public event EventHandler<bool> OnBusyChanged;
-    public event EventHandler OnActionStarted;
 
     [SerializeField] private LayerMask unitsLayerMask;
 
@@ -53,6 +52,10 @@ public class UnitActionSystem : MonoBehaviour
         if (TryHandleUnitSelection()) { return; }
 
         HandleSelectedAction();
+    }
+    private void OnDestroy()
+    {
+        BaseAction.OnAnyActionCompleted -= BaseAction_OnAnyActionCompleted;
     }
 
     public void SetSelectedUnit(Unit unit)
@@ -194,8 +197,6 @@ public class UnitActionSystem : MonoBehaviour
 
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-
-            OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -227,7 +228,7 @@ public class UnitActionSystem : MonoBehaviour
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
     }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionCompleted(object sender, BaseAction actionStarted)
     {
         CheckActionUse();
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);

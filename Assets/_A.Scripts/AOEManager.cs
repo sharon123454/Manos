@@ -42,7 +42,6 @@ public class AOEManager : MonoBehaviour
         _meshVisual = GetComponent<MeshFilter>();
         BaseAction.OnAnyActionCompleted += BaseAction_OnAnyActionCompleted;
     }
-
     private void Update()
     {
         if (_isAOEActive)
@@ -68,7 +67,6 @@ public class AOEManager : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (_isAOEActive)
@@ -96,6 +94,10 @@ public class AOEManager : MonoBehaviour
                 }
         }
         else { if (_inRangeUnits.Count > 0) { _inRangeUnits.Clear(); } }
+    }
+    private void OnDisable()
+    {
+        BaseAction.OnAnyActionCompleted -= BaseAction_OnAnyActionCompleted;
     }
 
     public List<Unit> GetUnitsInRange() { return _inRangeUnits; }
@@ -166,7 +168,7 @@ public class AOEManager : MonoBehaviour
         }
     }
 
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionCompleted(object sender, BaseAction actionStarted)
     {
         DisableAOE();
     }

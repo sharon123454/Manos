@@ -101,7 +101,7 @@ public class UnitStats : MonoBehaviour
     {
         currentPosture -= postureDamage;
     }
-    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float abilityCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int chanceToTakeStatusEffect, int effectDuration, Effectiveness effectiveness)
+    public void TryTakeDamage(float rawDamage, float postureDamage, float hitChance, float actionCritChance, List<StatusEffect> currentEffects, List<AbilityProperties> AP, int StatusEffectChance, int effectDuration, Effectiveness effectiveness)
     {
         #region Dice Rolls
         int DiceRoll = UnityEngine.Random.Range(0, 101);
@@ -109,53 +109,46 @@ public class UnitStats : MonoBehaviour
         int statusDiceRoll = UnityEngine.Random.Range(0, 101);
         #endregion
 
-        #region Damage To Recieve Types
-        float damageToRecieve;
+        float damageToRecieve = rawDamage;
 
+        #region Handling Ability properties from Action
         if (AP.Contains(AbilityProperties.Heal))
         {
-            Heal(rawDamage, currentEffects, effectDuration);
+            Heal(damageToRecieve, currentEffects, effectDuration);
             return;
         }
-        if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
+        if (AP.Contains(AbilityProperties.Finisher))
         {
-            hitChance /= 2;
+            if (health <= maxHealth / 2)
+                damageToRecieve *= 2;
         }
         if (AP.Contains(AbilityProperties.IgnoreArmor))
         {
-            damageToRecieve = rawDamage;
-            if (AP.Contains(AbilityProperties.Finisher))
-                if (health <= maxHealth / 2) damageToRecieve *= 2;
-        }
-
-        if (_unitStatusEffect.ContainsEffect(StatusEffect.ArmorBreak))
-        {
-            damageToRecieve = rawDamage;
-            if (AP.Contains(AbilityProperties.Finisher))
-                if (health <= maxHealth / 2) damageToRecieve *= 2;
-        }
-        else
-        {
-            damageToRecieve = rawDamage - (Armor * armorMultiplayer);
-            if (AP.Contains(AbilityProperties.Finisher))
-                if (health <= maxHealth / 2) damageToRecieve *= 2;
-        }
-
-        if (damageToRecieve <= 0)
-        {
-            SendConsoleMessage?.Invoke(this, $"{name} mitigated the damage");
-            damageToRecieve = 0;
+            damageToRecieve += Armor * armorMultiplayer;
         }
         #endregion
 
+        #region Handling Unit Active Status effects
+        if (_unitStatusEffect.ContainsEffect(StatusEffect.Blind))
+        {
+            hitChance *= 2;
+        }
+        #endregion
+
+        if (damageToRecieve <= 0)
+        {
+            SendConsoleMessage?.Invoke(this, $"{name} recieved less then 0 damage - bug?");
+            damageToRecieve = 0;
+        }
+
         #region Normal Calculation
-        print(_unit.name + " " + hitChance);
-        print(hitChance - CurrentEffectiveness(effectiveness) - (evasion * evasionMultiplayer));
+        print(_unit.name + " hit chance: " + hitChance);
+        print($"hitchance - effectiveness - evasion: {hitChance - CurrentEffectiveness(effectiveness) - (evasion * evasionMultiplayer)}");
         if (currentPosture > 0)
         {
-            if (((hitChance - CurrentEffectiveness(effectiveness)) - (evasion * evasionMultiplayer)) >= DiceRoll)
+            if (DiceRoll <= ((hitChance - CurrentEffectiveness(effectiveness)) - (evasion * evasionMultiplayer)))
             {
-                if (critDiceRoll + MagicSystem.Instance.AddCritChanceFromFavor(_unit.IsEnemy()) <= abilityCritChance)
+                if (critDiceRoll <= actionCritChance + MagicSystem.Instance.AddCritChanceFromFavor(_unit.IsEnemy()))
                 {
                     TakeDamage(damageToRecieve * 2, postureDamage * 2);
                     SendConsoleMessage?.Invoke(this, "Ability CRIT!");
@@ -166,24 +159,15 @@ public class UnitStats : MonoBehaviour
                     TakeDamage(damageToRecieve, postureDamage);
                 }
 
-                if (currentEffects.Count > 0 && statusDiceRoll <= chanceToTakeStatusEffect)
-                {
+                if (currentEffects.Count > 0 && statusDiceRoll <= StatusEffectChance)
                     foreach (StatusEffect effect in currentEffects)
-                    {
                         _unitStatusEffect.AddStatusEffectToUnit(effect, effectDuration);
-                    }
-                }
-                if (AP.Contains(AbilityProperties.Finisher))
-                    SendConsoleMessage?.Invoke(this, $"{name} Armor Ignored damage!");
             }
             else
             {
                 OnDodge?.Invoke(this, EventArgs.Empty);
                 SendConsoleMessage?.Invoke(this, $"Attack Missed {name}");
             }
-            return;
-
-
         }
         #endregion
 
@@ -208,7 +192,7 @@ public class UnitStats : MonoBehaviour
         {
             health = maxHealth;
         }
-        
+
         OnHeal?.Invoke(this, EventArgs.Empty);
         SendConsoleMessage?.Invoke(this, $"{name} was healed for {healValue}");
 
@@ -223,11 +207,12 @@ public class UnitStats : MonoBehaviour
 
     private void TakeDamage(float damageToRecieve, float postureDamage)
     {
-        health -= damageToRecieve;
+        if (damageToRecieve - Armor * armorMultiplayer > 0)//Make sure armor is lower than damage
+            health -= (damageToRecieve - Armor * armorMultiplayer);
         currentPosture -= postureDamage;
         //currentPosture -= (BaseAbility)UnitActionSystem.Instance.GetSelectedAction().get
         OnDamaged?.Invoke(this, EventArgs.Empty);
-        SendConsoleMessage?.Invoke(this, $"{name} was damaged for {damageToRecieve} HP, {postureDamage} Posture.");
+        SendConsoleMessage?.Invoke(this, $"{name} was damaged for {Math.Clamp(damageToRecieve - Armor * armorMultiplayer, 0, int.MaxValue)} HP, {postureDamage} Posture.");
 
         if (_unitStatusEffect.ContainsEffect(StatusEffect.Undying)) { return; }
 

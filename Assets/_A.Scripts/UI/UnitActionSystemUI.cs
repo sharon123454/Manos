@@ -33,6 +33,7 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         TurnSystem.Instance.OnTurnChange -= TurnSystem_OnTurnChange;
         BaseAction.OnAnyActionStarted -= BaseAction_OnAnyActionStarted;
+        BaseAction.OnAnyActionCompleted -= BaseAction_OnAnyActionCompleted;
         ActionButtonUI.OnAnyActionButtonPressed -= ActionButtonUI_OnAnyActionButtonPressed;
         UnitActionSystem.Instance.OnSelectedUnitChanged -= UnitActionSystem_OnSelectedUnitChanged;
         ManosInputController.Instance.SelectActionWithNumbers.performed -= ManosInputController_SetSelectedAction;
@@ -150,7 +151,7 @@ public class UnitActionSystemUI : MonoBehaviour
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
-    private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionStarted(object sender, BaseAction actionStarted)
     {
         if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
 
@@ -161,7 +162,7 @@ public class UnitActionSystemUI : MonoBehaviour
             _actionsButtonContainer.gameObject.SetActive(false);
         }
     }
-    private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
+    private void BaseAction_OnAnyActionCompleted(object sender, BaseAction actionStarted)
     {
         UpdateActionSystemButtons();
         _basicActionButtonUIList[1].PressButton();//move button clicked

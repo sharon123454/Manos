@@ -31,9 +31,8 @@ public enum AbilityProperties
 }
 public abstract class BaseAction : MonoBehaviour
 {
-    public static event EventHandler<int> OnAnySpellCast;
-    public static event EventHandler OnAnyActionStarted;
-    public static event EventHandler OnAnyActionCompleted;
+    public static event EventHandler<BaseAction> OnAnyActionStarted;
+    public static event EventHandler<BaseAction> OnAnyActionCompleted;
 
     [Header("Base Action")]
     [SerializeField] private string _actionName = "Empty";
@@ -139,18 +138,14 @@ public abstract class BaseAction : MonoBehaviour
         GetUnit().GetUnitAnimator().OnActionStarted(GetActionName());//activates action animation
         this.onActionComplete = onActionComple;//setting the end of action Action
         cooldown += cooldownAfterUse;
-
-        if (GetFavorCost() > 0)//if spell, updates MagicSystem
-            OnAnySpellCast?.Invoke(this, GetFavorCost());
-
         _isActive = true;//allowing action update to run (check specific actions/BaseAbility for implementation)
-        OnAnyActionStarted?.Invoke(this, EventArgs.Empty);//updates ActionUI
+        OnAnyActionStarted?.Invoke(this, this);//updates ActionUI
     }
     protected void ActionComplete()
     {
         _isActive = false;//closing update proccess
         onActionComplete();
-        OnAnyActionCompleted?.Invoke(this, EventArgs.Empty);//updates AOE and UnitActionSystem
+        OnAnyActionCompleted?.Invoke(this, this);//updates AOE and UnitActionSystem
     }
 
     public abstract void TakeAction(GridPosition gridPosition, Action actionComplete);

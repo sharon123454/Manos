@@ -19,7 +19,6 @@ public class MagicSystemUI : MonoBehaviour
     {
         MagicSystem.OnFavorChanged += MagicSystem_OnFavorChanged;
     }
-
     private void Update()
     {
         BaseAction selectedAbility = UnitActionSystem.Instance.GetSelectedAction();
@@ -35,6 +34,10 @@ public class MagicSystemUI : MonoBehaviour
             enemyBar.fillAmount = Mathf.Lerp(enemyBar.fillAmount, 1 - favorValue, Time.deltaTime * favorChangeSpeed);
         }
         LitStone();
+    }
+    private void OnDisable()
+    {
+        MagicSystem.OnFavorChanged -= MagicSystem_OnFavorChanged;
     }
 
     public void LitStone()

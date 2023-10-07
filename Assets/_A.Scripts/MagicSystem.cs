@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
 
 public class MagicSystem : MonoBehaviour
 {
@@ -13,10 +13,11 @@ public class MagicSystem : MonoBehaviour
     [SerializeField] private float divideFavorBy = 6;
     [SerializeField] private float startFavor = 300;
     [SerializeField] private float maxFavor = 600;
-
-    private float critModifier = 0;
-    [SerializeField] private float currentFavor = 0;
     [SerializeField] private Image playerBar;
+
+    private float currentFavor = 0;
+    private float critModifier = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,40 +25,43 @@ public class MagicSystem : MonoBehaviour
 
         Instance = this;
     }
-
     private void Start()
     {
-        playerBar = GameObject.Find("PlayerBar").GetComponent<Image>();
         currentFavor = startFavor;
         OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
-        BaseAction.OnAnySpellCast += BaseAbility_OnAnySpellCast;
+        BaseAction.OnAnyActionStarted += BaseAction_OnAnyActionStarted;
+    }
+    private void OnDisable()
+    {
+        BaseAction.OnAnyActionStarted -= BaseAction_OnAnyActionStarted;
     }
 
-    public int AddCritChanceFromFavor(bool freindlyUnit)
+    public int AddCritChanceFromFavor(bool isEnemyUnit)
     {
         int value = (int)Math.Round(playerBar.fillAmount / 0.168f);
-        print(value);
+        Debug.Log($"value added to crit chance from facor: {value}");
         switch (value)
         {
             case 1:
-                if (freindlyUnit)
+                if (isEnemyUnit)
                     return 30;
                 break;
             case 2:
-                if (freindlyUnit)
+                if (isEnemyUnit)
                     return 15;
                 break;
             case 3:
-                break;
+                return 0;
             case 4:
-                if (!freindlyUnit)
+                if (!isEnemyUnit)
                     return 15;
                 break;
             case 5:
-                if (!freindlyUnit)
+                if (!isEnemyUnit)
                     return 30;
                 break;
         }
+        Debug.Log("Oh oh, not supposed to be here");
         return 0;
     }
     public float GetMaxFavor() { return maxFavor; }
@@ -103,23 +107,26 @@ public class MagicSystem : MonoBehaviour
         return critModifier;
     }
 
-    private void BaseAbility_OnAnySpellCast(object sender, int usedFavor)
+    private void BaseAction_OnAnyActionStarted(object sender, BaseAction actionStarted)
     {
-        float newFavor;
-
-        if (TurnSystem.Instance.IsPlayerTurn())
-            newFavor = currentFavor - usedFavor;
-        else
-            newFavor = currentFavor + usedFavor;
-
-        newFavor = Mathf.Clamp(newFavor, 0, maxFavor);
-
-        if (newFavor != currentFavor)
+        int actionFavorCost = actionStarted.GetFavorCost();
+        if (actionFavorCost > 0)
         {
-            currentFavor = newFavor;
-            OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
-        }
+            float newFavor;
 
+            if (TurnSystem.Instance.IsPlayerTurn())
+                newFavor = currentFavor - actionFavorCost;
+            else
+                newFavor = currentFavor + actionFavorCost;
+
+            newFavor = Mathf.Clamp(newFavor, 0, maxFavor);
+
+            if (newFavor != currentFavor)
+            {
+                currentFavor = newFavor;
+                OnFavorChanged?.Invoke(this, currentFavor / maxFavor);
+            }
+        }
     }
 
 }
