@@ -7,6 +7,7 @@ using UnityEngine;
 public class OnVideoEnd : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenue;
+    [SerializeField] private GameObject mainWindow;
     [SerializeField] private GameObject creditsWindow;
     [SerializeField] private Button startButton;
     [SerializeField] private Button creditButton;
@@ -52,6 +53,8 @@ public class OnVideoEnd : MonoBehaviour
     }
     private void OnCreditButtonClicked()
     {
+        if (mainWindow)
+            mainWindow.SetActive(false);
         if (creditsWindow)
             creditsWindow.SetActive(true);
     }
